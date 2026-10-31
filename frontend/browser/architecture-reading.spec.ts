@@ -185,6 +185,18 @@ for (const width of [1920, 1366, 820, 390]) {
         const inner = page
           .frames()
           .find((item) => item.url() === "about:srcdoc")!;
+        if (diagram.id === "event-processing" && width === 1920) {
+          await inner.evaluate(() => {
+            document.documentElement.setAttribute("data-theme", "light");
+          });
+          await expect(
+            frame
+              .locator(
+                '.relationship-lens-row[data-direction="out"] .relationship-lens-direction',
+              )
+              .first(),
+          ).toHaveCSS("color", "rgb(14, 116, 144)");
+        }
         await inner.addScriptTag({
           content: await readFile("node_modules/axe-core/axe.min.js", "utf8"),
         });

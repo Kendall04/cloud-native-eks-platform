@@ -132,6 +132,10 @@ html[data-present="true"]:not([data-embed="true"]) .diagram-container > svg {
 }
 .diagram-nav [data-view="reset"]::before { content: "Fit all"; font-size: 11px; margin-right: 5px; }
 .fit-width { font: inherit; white-space: nowrap; }
+/* Small relationship labels require text contrast, not the lighter node accent. */
+html[data-theme="light"] .relationship-lens-row[data-direction="out"] .relationship-lens-direction {
+  color: #0e7490;
+}
 .diagram-container.is-pannable { touch-action: none; }
 /* Keep the native passport available in a predictable dock during a tour.
    Its automatic placement otherwise follows the node and can cover it. */
