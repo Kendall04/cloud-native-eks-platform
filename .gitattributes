@@ -1,0 +1,17 @@
+
+# Public RDS CA has a reviewed byte-level SHA256; do not convert line endings.
+k8s/charts/platform-bootstrap/files/rds-global-bundle.pem -text
+
+# EC2 cloud-init needs a Unix shebang; Python executor bytes are platform assets.
+infra/modules/management-host/user_data.sh.tftpl text eol=lf
+infra/modules/management-host/deployer/* text eol=lf
+# This policy is copied byte-for-byte into the management-host artifact.
+infra/trials/synthetic-data/protected-resources.json text eol=lf
+
+# Preserve Archify artifact/source hashes across Windows and Linux checkouts.
+docs/interactive/** text eol=lf
+# Archify's generated template has indented blank lines; retain checked bytes.
+docs/interactive/*.html whitespace=-blank-at-eol
+
+# Linux CI entrypoints.
+scripts/ci/*.sh text eol=lf

@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "kind": "LOCAL_CAPTURED_ACCEPTANCE_REVIEW",
+  "date": "2026-10-23",
+  "applicationSourceCommit": "2a66c88b8634a35587529cc722f8c745d6258b87",
+  "network": {
+    "status": "CAPTURED_NETWORK_BINDINGS_ACCEPTED",
+    "historicalRunId": "009df0ba85984b65a9762f5b",
+    "renderedPolicyOwner": "platform-bootstrap",
+    "policyUidBindings": 3,
+    "serviceUidBindings": 3,
+    "readyEndpointPodReferences": 7,
+    "tcpFlowSamples": 18,
+    "probeJobsNormallyRemoved": 3,
+    "policySpecsMatchSource": true,
+    "vpcCniVersion": "v1.23.2-eksbuild.1",
+    "newLiveCertification": false,
+    "limits": [
+      "Compiled PolicyEndpoint and ready EndpointSlice snapshots joined by exact owners and target name/IP.",
+      "Separate pod snapshots taken during rollout are not treated as a simultaneous pod inventory.",
+      "New cloud generation and full C2 authority/TTL acceptance are not certified by this local review."
+    ]
+  },
+  "artifacts": {
+    "status": "LOCAL_SAME_RUNTIME_COMPATIBILITY_VERIFIED",
+    "baselineSha256": "a61becc70c208744861705a56bc6d5c1b6b51e9911c5ca28dfa9fcd0a284c948",
+    "baselineBytes": 9875,
+    "candidateSha256": "0abf21cabe85790c5602e04ad82c0b6e0479ee68b085ce15409ccbea44369def",
+    "candidateBytes": 9872,
+    "baselineReproducesHistoricalBundle": true,
+    "sameRuntimeImagesChartEnvironmentAndSchema": true,
+    "valuesDifferOnlyReleaseMetadata": true,
+    "candidatePublished": false,
+    "liveRollbackProven": false,
+    "historicalRevision1ImmutableRollbackArtifactAvailable": false,
+    "retiredEnvironmentMustNotBeReused": true,
+    "newGenerationRepackagingRequired": true,
+    "currentHeadImageProvenanceStillRequired": true
+  },
+  "regressions": {
+    "focusedTestsPassed": 22,
+    "failed": 0,
+    "existing78PreservationStorageTestsReusedNotDuplicated": true,
+    "newRetiredDependencyEnvironmentCase": true,
+    "existingTransitionReplayCases": [
+      "owned SSM transport renewal",
+      "completed RDS log parent observation",
+      "external terminal command after Management removal",
+      "completed NAT state/version proof",
+      "storage comparison after proven RDS retirement",
+      "lineage/hash drift rejection"
+    ]
+  },
+  "cloudRequests": 0,
+  "cloudMutations": 0,
+  "remoteCiOrPublication": false,
+  "closedCycleBudgetNotReset": true,
+  "closureAndJournalUnchanged": true,
+  "nextLiveOnly": [
+    "C3 event/duplicate/stale/failure-recovery effects",
+    "C4 compatible failed deployment rollback and bounded scaling",
+    "Remaining real AWS web/unavailable/DEMO checks",
+    "Fresh C0/C1 and complete C5 retirement for a separately admitted cycle"
+  ]
+}

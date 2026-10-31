@@ -1,0 +1,13 @@
+platform-services has been rendered for namespace {{ .Values.namespace.name }}.
+
+Ingress model:
+  API Gateway -> VPC Link -> ALB -> EKS
+
+Remember to provide:
+  - image repositories and digests
+  - release.version, release.gitTag, and release.commitSha metadata
+  - runtime secrets
+  - IRSA role annotations for shipment-service and tracking-service
+  - auth-service token mounting stays disabled unless you intentionally need pod AWS access
+  - optional KEDA operator before enabling queue-based scaling
+  - /internal/* routes are cluster-only and intentionally excluded from ingress

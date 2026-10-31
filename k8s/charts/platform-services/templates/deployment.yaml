@@ -1,0 +1,170 @@
+{{- $root := . -}}
+{{- range $serviceKey, $service := .Values.services }}
+{{- if $service.enabled }}
+{{- range $key, $_ := $service.podLabels }}
+{{- if or (hasPrefix "app.kubernetes.io/" $key) (eq $key "platform.cloud-native.io/workload") }}
+{{- fail "podLabels cannot override reserved workload labels" }}
+{{- end }}
+{{- end }}
+{{- if hasKey $service.podAnnotations "checksum/config" }}
+{{- fail "podAnnotations cannot override checksum/config" }}
+{{- end }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ $service.name }}
+  namespace: {{ $root.Values.namespace.name }}
+  labels:
+{{ include "platform-services.labels" (dict "root" $root "service" $service) | indent 4 }}
+  annotations:
+{{ include "platform-services.releaseAnnotations" (dict "root" $root "service" $service) | indent 4 }}
+spec:
+{{- if not (or (dig "hpa" "enabled" false $service) (dig "keda" "enabled" false $service)) }}
+  replicas: {{ $service.replicaCount }}
+{{- end }}
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+{{ include "platform-services.selectorLabels" (dict "root" $root "service" $service) | indent 6 }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        platform.cloud-native.io/workload: runtime
+{{ include "platform-services.labels" (dict "root" $root "service" $service) | indent 8 }}
+{{- if gt (len $service.podLabels) 0 }}
+{{ toYaml $service.podLabels | indent 8 }}
+{{- end }}
+      annotations:
+        checksum/config: {{ include "platform-services.configData" (dict "root" $root "service" $service) | sha256sum }}
+        platform.cloud-native.io/secret-revision: {{ $root.Values.global.secretRevision | quote }}
+{{ include "platform-services.releaseAnnotations" (dict "root" $root "service" $service) | indent 8 }}
+{{- if gt (len $service.podAnnotations) 0 }}
+{{ toYaml $service.podAnnotations | indent 8 }}
+{{- end }}
+    spec:
+      topologySpreadConstraints:
+        - maxSkew: 1
+          topologyKey: kubernetes.io/hostname
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+{{ include "platform-services.selectorLabels" (dict "root" $root "service" $service) | indent 14 }}
+              platform.cloud-native.io/workload: runtime
+        - maxSkew: 1
+          topologyKey: topology.kubernetes.io/zone
+          whenUnsatisfiable: ScheduleAnyway
+          labelSelector:
+            matchLabels:
+{{ include "platform-services.selectorLabels" (dict "root" $root "service" $service) | indent 14 }}
+              platform.cloud-native.io/workload: runtime
+      serviceAccountName: {{ $service.serviceAccount.name }}
+{{- $automountServiceAccountToken := false }}
+{{- if hasKey $service.serviceAccount "automountServiceAccountToken" }}
+{{- $automountServiceAccountToken = $service.serviceAccount.automountServiceAccountToken }}
+{{- end }}
+      automountServiceAccountToken: {{ $automountServiceAccountToken }}
+      terminationGracePeriodSeconds: {{ $service.terminationGracePeriodSeconds | default 30 }}
+{{- if gt (len $root.Values.global.imagePullSecrets) 0 }}
+      imagePullSecrets:
+{{ toYaml $root.Values.global.imagePullSecrets | indent 8 }}
+{{- end }}
+{{- with $root.Values.global.podSecurityContext }}
+      securityContext:
+{{ toYaml . | indent 8 }}
+{{- end }}
+      volumes:
+        - name: runtime-tmp
+          emptyDir:
+            medium: Memory
+            sizeLimit: 64Mi
+        - name: database-ca
+          configMap:
+            name: platform-db-ca
+      containers:
+        - name: {{ $service.name }}
+          image: "{{ include "platform-services.imageRef" $service.image }}"
+          imagePullPolicy: {{ $service.image.pullPolicy | default $root.Values.global.imagePullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ $service.port | default $root.Values.global.service.port }}
+              protocol: TCP
+{{- if gt (len $service.env) 0 }}
+          envFrom:
+            - configMapRef:
+                name: {{ include "platform-services.configMapName" (dict "service" $service) }}
+{{- end }}
+{{- if gt (len $service.secretEnv) 0 }}
+          env:
+{{- range $item := $service.secretEnv }}
+            - name: {{ $item.name }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $item.secretName }}
+                  key: {{ $item.secretKey }}
+{{- end }}
+{{- end }}
+          readinessProbe:
+            httpGet:
+              path: {{ $service.readinessProbe.path }}
+              port: http
+            initialDelaySeconds: {{ $service.readinessProbe.initialDelaySeconds }}
+            periodSeconds: {{ $service.readinessProbe.periodSeconds }}
+            timeoutSeconds: {{ $service.readinessProbe.timeoutSeconds }}
+            failureThreshold: {{ $service.readinessProbe.failureThreshold }}
+          livenessProbe:
+            httpGet:
+              path: {{ $service.livenessProbe.path }}
+              port: http
+            initialDelaySeconds: {{ $service.livenessProbe.initialDelaySeconds }}
+            periodSeconds: {{ $service.livenessProbe.periodSeconds }}
+            timeoutSeconds: {{ $service.livenessProbe.timeoutSeconds }}
+            failureThreshold: {{ $service.livenessProbe.failureThreshold }}
+{{- if and $service.startupProbe $service.startupProbe.enabled }}
+          startupProbe:
+            httpGet:
+              path: {{ $service.startupProbe.path }}
+              port: http
+            periodSeconds: {{ $service.startupProbe.periodSeconds }}
+            timeoutSeconds: {{ $service.startupProbe.timeoutSeconds }}
+            failureThreshold: {{ $service.startupProbe.failureThreshold }}
+{{- end }}
+          volumeMounts:
+            - name: runtime-tmp
+              mountPath: /tmp
+            - name: database-ca
+              mountPath: /etc/platform-ca
+              readOnly: true
+          resources:
+{{ toYaml $service.resources | indent 12 }}
+          securityContext:
+{{ toYaml $root.Values.global.containerSecurityContext | indent 12 }}
+{{- with $service.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+{{- end }}
+{{- with $service.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+{{- else }}
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 50
+              preference:
+                matchExpressions:
+                  - key: eks.amazonaws.com/capacityType
+                    operator: In
+                    values: [ON_DEMAND]
+{{- end }}
+{{- with $service.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+{{- end }}
+{{- end }}
+{{- end }}

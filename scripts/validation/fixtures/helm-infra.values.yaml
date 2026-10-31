@@ -1,0 +1,22 @@
+# TEST FIXTURE ONLY: never use for a runtime environment.
+global:
+  ingress:
+    frontendSecurityGroupId: sg-123456789abcdef12
+    discoveryTags:
+      Project: r2-fixture
+      Environment: test
+    annotations:
+      alb.ingress.kubernetes.io/group.name: r2-fixture
+services:
+  auth:
+    image:
+      repository: local/auth
+      tag: r2-test
+  shipment:
+    image:
+      repository: local/shipment
+      tag: r2-test
+  tracking:
+    image:
+      repository: local/tracking
+      tag: r2-test

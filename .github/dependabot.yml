@@ -1,0 +1,226 @@
+version: 2
+updates:
+  # Proposed: pause routine VERSION PRs; keep security configuration and alerts.
+  - package-ecosystem: "github-actions"
+    directories:
+      - "/"
+    target-branch: develop
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+    commit-message:
+      prefix: chore(deps)
+    groups:
+      compatible-updates:
+        update-types: [minor, patch]
+  - package-ecosystem: "terraform"
+    directories:
+      - "/infra/modules/apigateway-core"
+      - "/infra/modules/apigateway-integration"
+      - "/infra/modules/authorizer-secrets"
+      - "/infra/modules/ecr"
+      - "/infra/modules/eks"
+      - "/infra/modules/event-encryption"
+      - "/infra/modules/eventbridge"
+      - "/infra/modules/iam"
+      - "/infra/modules/lambda"
+      - "/infra/modules/management-host"
+      - "/infra/modules/nat"
+      - "/infra/modules/nat-egress"
+      - "/infra/modules/observability"
+      - "/infra/modules/private-cd"
+      - "/infra/modules/rds"
+      - "/infra/modules/runtime-secrets"
+      - "/infra/modules/s3"
+      - "/infra/modules/sqs"
+      - "/infra/modules/vpc"
+      - "/infra/live/dev/api-gateway-authorizer"
+      - "/infra/live/dev/api-gateway-authorizer-secrets"
+      - "/infra/live/dev/apigateway-core"
+      - "/infra/live/dev/apigateway-integration"
+      - "/infra/live/dev/ecr"
+      - "/infra/live/dev/eks"
+      - "/infra/live/dev/event-encryption"
+      - "/infra/live/dev/eventbridge"
+      - "/infra/live/dev/iam"
+      - "/infra/live/dev/management"
+      - "/infra/live/dev/nat"
+      - "/infra/live/dev/observability"
+      - "/infra/live/dev/private-cd"
+      - "/infra/live/dev/rds"
+      - "/infra/live/dev/runtime-secrets"
+      - "/infra/live/dev/s3"
+      - "/infra/live/dev/sqs"
+      - "/infra/live/dev/vpc"
+    target-branch: develop
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+    commit-message:
+      prefix: chore(deps)
+    groups:
+      provider-updates:
+        # One dependency PR across module/live directories, including majors.
+        # R7 still requires byte-identical paired locks before integration.
+        patterns: ["*"]
+        group-by: dependency-name
+  - package-ecosystem: "nuget"
+    directories:
+      - "/microservices/auth-service"
+      - "/microservices/shipment-service"
+      - "/microservices/tracking-service"
+      - "/tests/EventReliability.Tests"
+    target-branch: develop
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+    commit-message:
+      prefix: chore(deps)
+    groups:
+      compatible-updates:
+        update-types: [minor, patch]
+  - package-ecosystem: "docker"
+    directories:
+      - "/microservices/auth-service"
+      - "/microservices/shipment-service"
+      - "/microservices/tracking-service"
+    target-branch: develop
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+    commit-message:
+      prefix: chore(deps)
+    groups:
+      compatible-updates:
+        update-types: [minor, patch]
+  - package-ecosystem: "pip"
+    directories:
+      - "/scripts/bootstrap"
+      - "/scripts/ci"
+    target-branch: develop
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+    commit-message:
+      prefix: chore(deps)
+    groups:
+      compatible-updates:
+        update-types: [minor, patch]
+
+  - package-ecosystem: "npm"
+    directories:
+      - "/frontend"
+    target-branch: develop
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+    commit-message:
+      prefix: chore(deps)
+    groups:
+      compatible-updates:
+        update-types: [minor, patch]
+
+# Security updates use the default branch. Disable only VERSION updates there.
+# A maintainer retargets genuine security PRs to develop before integration.
+  - package-ecosystem: "github-actions"
+    directories:
+      - "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+    commit-message:
+      prefix: chore(deps)
+  - package-ecosystem: "terraform"
+    directories:
+      - "/infra/modules/apigateway-core"
+      - "/infra/modules/apigateway-integration"
+      - "/infra/modules/authorizer-secrets"
+      - "/infra/modules/ecr"
+      - "/infra/modules/eks"
+      - "/infra/modules/event-encryption"
+      - "/infra/modules/eventbridge"
+      - "/infra/modules/iam"
+      - "/infra/modules/lambda"
+      - "/infra/modules/management-host"
+      - "/infra/modules/nat"
+      - "/infra/modules/nat-egress"
+      - "/infra/modules/observability"
+      - "/infra/modules/private-cd"
+      - "/infra/modules/rds"
+      - "/infra/modules/runtime-secrets"
+      - "/infra/modules/s3"
+      - "/infra/modules/sqs"
+      - "/infra/modules/vpc"
+      - "/infra/live/dev/api-gateway-authorizer"
+      - "/infra/live/dev/api-gateway-authorizer-secrets"
+      - "/infra/live/dev/apigateway-core"
+      - "/infra/live/dev/apigateway-integration"
+      - "/infra/live/dev/ecr"
+      - "/infra/live/dev/eks"
+      - "/infra/live/dev/event-encryption"
+      - "/infra/live/dev/eventbridge"
+      - "/infra/live/dev/iam"
+      - "/infra/live/dev/management"
+      - "/infra/live/dev/nat"
+      - "/infra/live/dev/observability"
+      - "/infra/live/dev/private-cd"
+      - "/infra/live/dev/rds"
+      - "/infra/live/dev/runtime-secrets"
+      - "/infra/live/dev/s3"
+      - "/infra/live/dev/sqs"
+      - "/infra/live/dev/vpc"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+    commit-message:
+      prefix: chore(deps)
+  - package-ecosystem: "nuget"
+    directories:
+      - "/microservices/auth-service"
+      - "/microservices/shipment-service"
+      - "/microservices/tracking-service"
+      - "/tests/EventReliability.Tests"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+    commit-message:
+      prefix: chore(deps)
+    groups:
+      security-fixes:
+        applies-to: security-updates
+        patterns: ["*"]
+  - package-ecosystem: "docker"
+    directories:
+      - "/microservices/auth-service"
+      - "/microservices/shipment-service"
+      - "/microservices/tracking-service"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+    commit-message:
+      prefix: chore(deps)
+  - package-ecosystem: "pip"
+    directories:
+      - "/scripts/bootstrap"
+      - "/scripts/ci"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+    commit-message:
+      prefix: chore(deps)
+    groups:
+      security-fixes:
+        applies-to: security-updates
+        patterns: ["*"]
+  - package-ecosystem: "npm"
+    directories:
+      - "/frontend"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 0
+    commit-message:
+      prefix: chore(deps)
+    groups:
+      security-fixes:
+        applies-to: security-updates
+        patterns: ["*"]

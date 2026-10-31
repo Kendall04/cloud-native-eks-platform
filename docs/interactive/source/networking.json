@@ -1,0 +1,720 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Private Networking",
+    "locale": "en",
+    "output": "docs/interactive/networking.html",
+    "quality_profile": "showcase",
+    "animation": "none",
+    "repository": {
+      "url": "https://github.com/Kendall04/cloud-native-platform-eks.git",
+      "revision": "63ef56f6fe60c3f14ba26200b18fcd85d1b63bae",
+      "link_mode": "local-only"
+    },
+    "views": [
+      {
+        "id": "view-1",
+        "label": "01 / Three subnet pairs",
+        "focus": [
+          "internet",
+          "nat_a",
+          "nat_b",
+          "nat_c",
+          "route_a",
+          "route_b",
+          "route_c",
+          "private_a",
+          "private_b",
+          "private_c"
+        ],
+        "note": "Each private default route targets its own AZ NAT ENI. No cross-AZ failover."
+      },
+      {
+        "id": "view-2",
+        "label": "02 / Private ingress",
+        "focus": [
+          "api",
+          "link",
+          "alb",
+          "pods"
+        ],
+        "note": "VPC Link and the internal ALB reach pod IPs, not the NAT path."
+      },
+      {
+        "id": "view-3",
+        "label": "03 / Operator access",
+        "focus": [
+          "management",
+          "ssm",
+          "endpoint",
+          "rds"
+        ],
+        "note": "SSM Agent opens outbound HTTPS; remote-host forwarding uses private targets."
+      },
+      {
+        "id": "view-4",
+        "label": "04 / Replacement control",
+        "focus": [
+          "asg",
+          "events",
+          "controller",
+          "journal",
+          "handoff"
+        ],
+        "note": "178 seconds restored one EIP/route. Private egress continuity is UNVERIFIED."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "internet",
+      "type": "external",
+      "label": "Internet / AWS APIs",
+      "sublabel": "Through the Internet Gateway",
+      "pos": [
+        400,
+        40
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/vpc/main.tf"
+        }
+      ]
+    },
+    {
+      "id": "nat_a",
+      "type": "cloud",
+      "label": "NAT Instance A",
+      "sublabel": "Public subnet / ASG + EIP",
+      "pos": [
+        40,
+        220
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/nat/autoscaling_group.tf"
+        }
+      ]
+    },
+    {
+      "id": "route_a",
+      "type": "cloud",
+      "label": "Private route A",
+      "sublabel": "0.0.0.0/0 → current NAT ENI",
+      "pos": [
+        40,
+        400
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/nat-egress/lambda/recovery.py"
+        }
+      ]
+    },
+    {
+      "id": "private_a",
+      "type": "backend",
+      "label": "Private subnet A",
+      "sublabel": "Observed: nodes + management",
+      "pos": [
+        40,
+        580
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/vpc/main.tf"
+        }
+      ]
+    },
+    {
+      "id": "nat_b",
+      "type": "cloud",
+      "label": "NAT Instance B",
+      "sublabel": "Public subnet / ASG + EIP",
+      "pos": [
+        400,
+        220
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/nat/autoscaling_group.tf"
+        }
+      ]
+    },
+    {
+      "id": "route_b",
+      "type": "cloud",
+      "label": "Private route B",
+      "sublabel": "0.0.0.0/0 → current NAT ENI",
+      "pos": [
+        400,
+        400
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/nat-egress/lambda/recovery.py"
+        }
+      ]
+    },
+    {
+      "id": "private_b",
+      "type": "backend",
+      "label": "Private subnet B",
+      "sublabel": "Observed: RDS Single-AZ",
+      "pos": [
+        400,
+        580
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/vpc/main.tf"
+        }
+      ]
+    },
+    {
+      "id": "nat_c",
+      "type": "cloud",
+      "label": "NAT Instance C",
+      "sublabel": "Public subnet / ASG + EIP",
+      "pos": [
+        760,
+        220
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/nat/autoscaling_group.tf"
+        }
+      ]
+    },
+    {
+      "id": "route_c",
+      "type": "cloud",
+      "label": "Private route C",
+      "sublabel": "0.0.0.0/0 → current NAT ENI",
+      "pos": [
+        760,
+        400
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/nat-egress/lambda/recovery.py"
+        }
+      ]
+    },
+    {
+      "id": "private_c",
+      "type": "backend",
+      "label": "Private subnet C",
+      "sublabel": "Observed: one EKS node",
+      "pos": [
+        760,
+        580
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/vpc/main.tf"
+        }
+      ]
+    },
+    {
+      "id": "api",
+      "type": "cloud",
+      "label": "API Gateway",
+      "sublabel": "Regional public HTTPS",
+      "pos": [
+        1120,
+        40
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/apigateway-core/main.tf"
+        }
+      ]
+    },
+    {
+      "id": "link",
+      "type": "cloud",
+      "label": "VPC Link",
+      "sublabel": "Private subnet ENIs",
+      "pos": [
+        1480,
+        40
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/apigateway-core/main.tf"
+        }
+      ]
+    },
+    {
+      "id": "alb",
+      "type": "cloud",
+      "label": "Internal ALB",
+      "sublabel": "Listener HTTP 80",
+      "pos": [
+        1480,
+        220
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "k8s/charts/platform-services/templates/ingress.yaml"
+        }
+      ]
+    },
+    {
+      "id": "pods",
+      "type": "backend",
+      "label": "EKS pod IPs",
+      "sublabel": "2 On-Demand + 1 Spot nodes",
+      "pos": [
+        1480,
+        400
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/eks/main.tf"
+        }
+      ]
+    },
+    {
+      "id": "management",
+      "type": "backend",
+      "label": "Management",
+      "sublabel": "Private A / no inbound SSH",
+      "pos": [
+        1120,
+        400
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/management-host/main.tf"
+        }
+      ]
+    },
+    {
+      "id": "ssm",
+      "type": "security",
+      "label": "Systems Manager",
+      "sublabel": "Agent-initiated channel",
+      "pos": [
+        1120,
+        220
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/management-host/main.tf"
+        }
+      ]
+    },
+    {
+      "id": "endpoint",
+      "type": "security",
+      "label": "EKS API",
+      "sublabel": "Private HTTPS 443",
+      "pos": [
+        1120,
+        580
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/eks/main.tf"
+        }
+      ]
+    },
+    {
+      "id": "rds",
+      "type": "database",
+      "label": "RDS PostgreSQL",
+      "sublabel": "Single-AZ B / TLS 5432",
+      "pos": [
+        1480,
+        580
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/rds/main.tf"
+        }
+      ]
+    },
+    {
+      "id": "asg",
+      "type": "cloud",
+      "label": "NAT ASG",
+      "sublabel": "One replacement / same AZ",
+      "pos": [
+        40,
+        820
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/nat/autoscaling_group.tf"
+        }
+      ]
+    },
+    {
+      "id": "events",
+      "type": "messagebus",
+      "label": "EventBridge",
+      "sublabel": "Real launch event",
+      "pos": [
+        400,
+        820
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/nat-egress/main.tf"
+        }
+      ]
+    },
+    {
+      "id": "controller",
+      "type": "backend",
+      "label": "Recovery Lambda",
+      "sublabel": "Generation + ownership guards",
+      "pos": [
+        760,
+        820
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/nat-egress/lambda/recovery.py"
+        }
+      ]
+    },
+    {
+      "id": "journal",
+      "type": "database",
+      "label": "DynamoDB",
+      "sublabel": "CONTROL + slot journal",
+      "pos": [
+        1120,
+        820
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/nat-egress/lambda/recovery.py"
+        }
+      ]
+    },
+    {
+      "id": "handoff",
+      "type": "cloud",
+      "label": "EIP / route handoff",
+      "sublabel": "New ENI / SourceDestCheck off",
+      "pos": [
+        760,
+        940
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/nat-egress/lambda/recovery.py"
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "private_a-route_a",
+      "from": "private_a",
+      "to": "route_a",
+      "label": "Outbound",
+      "variant": "default"
+    },
+    {
+      "id": "route_a-nat_a",
+      "from": "route_a",
+      "to": "nat_a",
+      "label": "ENI / same AZ",
+      "variant": "default"
+    },
+    {
+      "id": "nat_a-internet",
+      "from": "nat_a",
+      "to": "internet",
+      "label": "EIP / IGW",
+      "variant": "default"
+    },
+    {
+      "id": "private_b-route_b",
+      "from": "private_b",
+      "to": "route_b",
+      "label": "Outbound",
+      "variant": "default"
+    },
+    {
+      "id": "route_b-nat_b",
+      "from": "route_b",
+      "to": "nat_b",
+      "label": "ENI / same AZ",
+      "variant": "default"
+    },
+    {
+      "id": "nat_b-internet",
+      "from": "nat_b",
+      "to": "internet",
+      "label": "EIP / IGW",
+      "variant": "default"
+    },
+    {
+      "id": "private_c-route_c",
+      "from": "private_c",
+      "to": "route_c",
+      "label": "Outbound",
+      "variant": "default"
+    },
+    {
+      "id": "route_c-nat_c",
+      "from": "route_c",
+      "to": "nat_c",
+      "label": "ENI / same AZ",
+      "variant": "default"
+    },
+    {
+      "id": "nat_c-internet",
+      "from": "nat_c",
+      "to": "internet",
+      "label": "EIP / IGW",
+      "variant": "default"
+    },
+    {
+      "id": "api-link",
+      "from": "api",
+      "to": "link",
+      "label": "VPC integration",
+      "variant": "emphasis"
+    },
+    {
+      "id": "link-alb",
+      "from": "link",
+      "to": "alb",
+      "label": "HTTP 80",
+      "variant": "emphasis"
+    },
+    {
+      "id": "alb-pods",
+      "from": "alb",
+      "to": "pods",
+      "label": "HTTP 8080",
+      "variant": "emphasis"
+    },
+    {
+      "id": "management-ssm",
+      "from": "management",
+      "to": "ssm",
+      "label": "Outbound HTTPS",
+      "variant": "security"
+    },
+    {
+      "id": "management-endpoint",
+      "from": "management",
+      "to": "endpoint",
+      "label": "Forward to 443",
+      "variant": "security"
+    },
+    {
+      "id": "management-rds",
+      "from": "management",
+      "to": "rds",
+      "label": "Forward to 5432",
+      "variant": "security"
+    },
+    {
+      "id": "pods-rds",
+      "from": "pods",
+      "to": "rds",
+      "label": "TLS 5432",
+      "variant": "default"
+    },
+    {
+      "id": "asg-events",
+      "from": "asg",
+      "to": "events",
+      "label": "Launch success",
+      "variant": "dashed"
+    },
+    {
+      "id": "events-controller",
+      "from": "events",
+      "to": "controller",
+      "label": "Invoke",
+      "variant": "dashed"
+    },
+    {
+      "id": "controller-journal",
+      "from": "controller",
+      "to": "journal",
+      "label": "Guard / commit",
+      "variant": "security"
+    },
+    {
+      "id": "controller-handoff",
+      "from": "controller",
+      "to": "handoff",
+      "label": "Reconcile",
+      "variant": "dashed"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Placement is a dated observation",
+      "items": [
+        "DECLARED: three AZs, six subnets; both node groups may use private A/B/C.",
+        "OBSERVED on 29 October: three nodes A/A/C, two On-Demand and one Spot; RDS Single-AZ B. Subnet coverage is not workload HA.",
+        "Private subnet boxes summarize placements, not fixed scheduling. Ingress and operator lanes below are logical paths within that topology."
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "NAT data plane and recovery",
+      "items": [
+        "A NAT EC2 instance in each public subnet has an ENI, a stable EIP and SourceDestCheck disabled. Each private route table points to that ENI.",
+        "ASG replaces an unhealthy member. EventBridge invokes Lambda; CONTROL/generation, ownership and per-slot journals guard EIP/route handoff.",
+        "PROVEN: one replacement restored EIP and route in 178 seconds. UNVERIFIED: private egress after replacement, uninterrupted service and cross-AZ failover."
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Access boundaries",
+      "items": [
+        "Management has no public IP or inbound SSH; its SSM Agent opens an outbound channel through NAT.",
+        "An authorized Windows operator forwards loopback to the real private EKS or RDS hostname with full TLS verification.",
+        "VPC Link → ALB port 80 → pod port 8080 is ingress. It does not traverse a NAT instance. EKS/management PostgreSQL SG access was removed during cost-down."
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Evidence and current state",
+      "items": [
+        "DECLARED: arrows describe source-backed design; the reading guide gives the source for each relationship.",
+        "OBSERVED: topology captured on 28–29 October 2026. Runtime retired on 29 October; RDS retained stopped.",
+        "PROVEN applies only to named experiments. These diagrams are not live telemetry or a production certification."
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "VPC / us-east-1a · public + private",
+      "wraps": [
+        "nat_a",
+        "route_a",
+        "private_a"
+      ],
+      "pad": 18
+    },
+    {
+      "kind": "region",
+      "label": "VPC / us-east-1b · public + private",
+      "wraps": [
+        "nat_b",
+        "route_b",
+        "private_b"
+      ],
+      "pad": 18
+    },
+    {
+      "kind": "region",
+      "label": "VPC / us-east-1c · public + private",
+      "wraps": [
+        "nat_c",
+        "route_c",
+        "private_c"
+      ],
+      "pad": 18
+    }
+  ]
+}

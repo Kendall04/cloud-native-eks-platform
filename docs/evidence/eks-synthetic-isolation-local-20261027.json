@@ -1,0 +1,93 @@
+{
+  "schemaVersion": 1,
+  "recordedAtUtc": "2026-10-27T06:56:28.165694+00:00",
+  "status": "LOCAL_DATA_CONFIGURATION_IMPLEMENTED_NOT_EXECUTION_ADMITTED",
+  "baseLocalCommit": "99b6a92c8fae2727666f2723294156bb3d4f8e52",
+  "sourceMain": "09a1dc08140b1a14f7b2a662609b7ed96fff538b",
+  "changes": [
+    {
+      "path": "scripts/bootstrap/synthetic_trial.py",
+      "sha256": "366efa5832c1ad4f391b42421c16fca40af632cb70fdec00bb62fede26a275a0"
+    },
+    {
+      "path": "scripts/validation/test_synthetic_trial.py",
+      "sha256": "da397b6b2a8d7a14391ea0e41783240cb16a6ad3c9de0813c3b22ea0394730bd"
+    },
+    {
+      "path": "infra/trials/synthetic-data/protected-resources.json",
+      "sha256": "25b03bb7827521081eeb99d13ad1307eacb4974db8fd439e22c86198ad7e8c26"
+    },
+    {
+      "path": "infra/trials/synthetic-data/README.md",
+      "sha256": "2e2014dead36c67b109a036d2b1bd799afbaf20ac3ff44dde8076d90bc90fe11"
+    }
+  ],
+  "protection": {
+    "exactSelectors": 194,
+    "originalSecretArns": 11,
+    "allDevStateKeysRejectedByPrefix": true,
+    "originalDbEndpointAndGenerationIncluded": true,
+    "protectedNetworkAndKeyReferencesAlsoRejected": true,
+    "sourceContractSha256": "5a36df1003559541bd501154eea6c06c31e39564156a8f41072dcc4e2dad3513"
+  },
+  "implementation": {
+    "perTrialFullUuidNamespace": true,
+    "newDataModuleGraph": [
+      "rds",
+      "authorizer-secrets",
+      "sqs",
+      "eventbridge"
+    ],
+    "secretContainers": 10,
+    "secretValuesManaged": false,
+    "futureAwsIdsSuppliedOrFabricated": false,
+    "bindingsHaveNoDefaults": true,
+    "newIntendedBackendCreated": false,
+    "historicalRemoteStateRead": false,
+    "existingIamOrCdOrRetirementChanged": false,
+    "noOverwriteArtifactChecks": true
+  },
+  "validation": {
+    "focusedTests": {
+      "passed": 21,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "command": "python -B -m unittest discover -s scripts/validation -p test_synthetic_trial.py -v",
+      "runtime": "3.12.14",
+      "pinnedPython313Qualification": false
+    },
+    "realLocalCliRenderAndArtifactCheck": "PASS_WITHOUT_BINDINGS",
+    "renderedConfigurationSha256": "48e0845ebb225f80a1377ea0113c3c59bdcec297d113a05b1a93ac7e9016c2b5",
+    "documentation": "PASS_53_MARKDOWN_401_LOCAL_LINKS_5_UNCHANGED_MERMAID_FENCES",
+    "currentTreeSecrets": "PASS_795_TEXT_FILES_BOUNDED_SCAN",
+    "gitDiffCheck": "PASS",
+    "terraform1134Validation": "NOT_RUN_PINNED_BINARY_NOT_AVAILABLE",
+    "installedTerraform1152NotUsedForQualification": true,
+    "appBuildsOrCiRepeated": false
+  },
+  "initialAttempts": [
+    {
+      "tests": 18,
+      "failures": 1,
+      "errors": 6,
+      "reason": "Invalid UUID test fixture accidentally valid; default sandbox temp path unusable. Both corrected."
+    },
+    {
+      "tests": 18,
+      "failures": 0,
+      "errors": 3,
+      "reason": "Long fixture paths hit Windows path limit; shortened ignored fixture directory without OS settings changes."
+    }
+  ],
+  "limits": [
+    "No AWS reads or mutations in this local continuation.",
+    "No new clone, Actions run, credential/IAM change or data access.",
+    "No retirement runner, baseline pin or alternate deletion path changed.",
+    "Preserved VPC/key cannot bind under strict no-reuse policy; shared exceptions require concrete review.",
+    "No network/key replacement or backend bootstrap implemented or authorized.",
+    "Existing bootstrap/CD schema does not consume this partial data root.",
+    "Restore proofs, snapshots, retention enforcement, runtime integration and retirement admission remain unresolved.",
+    "Passing Python 3.12.14 tests do not replace pinned Python 3.13/Terraform 1.13.4 qualification."
+  ]
+}

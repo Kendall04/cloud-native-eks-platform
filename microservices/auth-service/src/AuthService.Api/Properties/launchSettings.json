@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "AuthService.Api": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "applicationUrl": "http://localhost:8080",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "http://+:8080",
+        "ConnectionStrings__Postgres": "Host=localhost;Database=platform;Username=postgres;Password=postgres",
+        "Database__Schema": "auth",
+        "Jwt__Issuer": "logistics-platform",
+        "Jwt__Audience": "logistics-platform-clients",
+        "Jwt__Secret": "replace-with-a-32-byte-or-longer-secret",
+        "Jwt__ExpirationMinutes": "60"
+      }
+    }
+  }
+}

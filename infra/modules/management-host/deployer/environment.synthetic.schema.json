@@ -1,0 +1,410 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "environment",
+    "project",
+    "accountId",
+    "region",
+    "vpcId",
+    "privateSubnetIds",
+    "clusterName",
+    "namespace",
+    "eventBus",
+    "eventEncryption",
+    "shipmentQueue",
+    "alb",
+    "apiGateway",
+    "workloadRoles",
+    "repositories",
+    "addons",
+    "database",
+    "secrets",
+    "esoRoleArn",
+    "dataScope"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "const": 3
+    },
+    "environment": {
+      "type": "string",
+      "pattern": "trial-[0-9a-f]{32}"
+    },
+    "project": {
+      "type": "string",
+      "pattern": "[a-z][a-z0-9-]*",
+      "const": "cnp"
+    },
+    "accountId": {
+      "type": "string",
+      "pattern": "[0-9]{12}"
+    },
+    "region": {
+      "type": "string",
+      "pattern": "[a-z]{2}-[a-z]+-[0-9]"
+    },
+    "vpcId": {
+      "type": "string",
+      "pattern": "vpc-[0-9a-f]{17}"
+    },
+    "privateSubnetIds": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "string",
+        "pattern": "subnet-[0-9a-f]{17}"
+      }
+    },
+    "clusterName": {
+      "type": "string",
+      "pattern": "[A-Za-z0-9][A-Za-z0-9_-]*"
+    },
+    "namespace": {
+      "type": "string",
+      "const": "apps"
+    },
+    "eventBus": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "arn"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "arn": {
+          "type": "string",
+          "pattern": "arn:aws:[a-z0-9-]+:[a-z0-9-]*:[0-9]{12}:.+"
+        }
+      }
+    },
+    "eventEncryption": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "keyArn",
+        "keyId",
+        "alias",
+        "rotation",
+        "deletionWindowDays"
+      ],
+      "properties": {
+        "keyArn": {
+          "type": "string",
+          "pattern": "arn:aws:[a-z0-9-]+:[a-z0-9-]*:[0-9]{12}:.+"
+        },
+        "keyId": {
+          "type": "string",
+          "pattern": "[0-9a-f-]{36}"
+        },
+        "alias": {
+          "type": "string"
+        },
+        "rotation": {
+          "type": "boolean",
+          "const": true
+        },
+        "deletionWindowDays": {
+          "type": "integer",
+          "const": 30
+        }
+      }
+    },
+    "shipmentQueue": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "arn",
+        "url",
+        "consumerDlqArn",
+        "consumerDlqUrl",
+        "deliveryDlqArn",
+        "deliveryDlqUrl"
+      ],
+      "properties": {
+        "arn": {
+          "type": "string",
+          "pattern": "arn:aws:[a-z0-9-]+:[a-z0-9-]*:[0-9]{12}:.+"
+        },
+        "url": {
+          "type": "string"
+        },
+        "consumerDlqArn": {
+          "type": "string",
+          "pattern": "arn:aws:[a-z0-9-]+:[a-z0-9-]*:[0-9]{12}:.+"
+        },
+        "consumerDlqUrl": {
+          "type": "string"
+        },
+        "deliveryDlqArn": {
+          "type": "string",
+          "pattern": "arn:aws:[a-z0-9-]+:[a-z0-9-]*:[0-9]{12}:.+"
+        },
+        "deliveryDlqUrl": {
+          "type": "string"
+        }
+      }
+    },
+    "alb": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "arn",
+        "listenerArn",
+        "frontendSecurityGroupId",
+        "discoveryTags"
+      ],
+      "properties": {
+        "arn": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "arn:aws:elasticloadbalancing:[a-z0-9-]+:[0-9]{12}:.+"
+        },
+        "listenerArn": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "arn:aws:elasticloadbalancing:[a-z0-9-]+:[0-9]{12}:.+"
+        },
+        "frontendSecurityGroupId": {
+          "type": "string",
+          "pattern": "sg-[0-9a-f]{17}"
+        },
+        "discoveryTags": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "elbv2.k8s.aws/cluster",
+            "ingress.k8s.aws/stack",
+            "Project",
+            "Environment"
+          ],
+          "properties": {
+            "elbv2.k8s.aws/cluster": {
+              "type": "string"
+            },
+            "ingress.k8s.aws/stack": {
+              "type": "string"
+            },
+            "Project": {
+              "type": "string"
+            },
+            "Environment": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "apiGateway": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "apiId",
+        "vpcLinkId",
+        "vpcLinkSecurityGroupId",
+        "endpoint"
+      ],
+      "properties": {
+        "apiId": {
+          "type": "string",
+          "pattern": "[a-z0-9]+"
+        },
+        "vpcLinkId": {
+          "type": "string",
+          "pattern": "[a-z0-9]+"
+        },
+        "vpcLinkSecurityGroupId": {
+          "type": "string",
+          "pattern": "sg-[0-9a-f]{17}"
+        },
+        "endpoint": {
+          "type": "string"
+        }
+      }
+    },
+    "workloadRoles": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "shipment",
+        "tracking"
+      ],
+      "properties": {
+        "shipment": {
+          "type": "string",
+          "pattern": "arn:aws:[a-z0-9-]+:[a-z0-9-]*:[0-9]{12}:.+"
+        },
+        "tracking": {
+          "type": "string",
+          "pattern": "arn:aws:[a-z0-9-]+:[a-z0-9-]*:[0-9]{12}:.+"
+        }
+      }
+    },
+    "repositories": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "auth",
+        "shipment",
+        "tracking"
+      ],
+      "properties": {
+        "auth": {
+          "type": "string"
+        },
+        "shipment": {
+          "type": "string"
+        },
+        "tracking": {
+          "type": "string"
+        }
+      }
+    },
+    "addons": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "loadBalancerControllerRoleArn",
+        "clusterAutoscalerRoleArn"
+      ],
+      "properties": {
+        "loadBalancerControllerRoleArn": {
+          "type": "string",
+          "pattern": "arn:aws:[a-z0-9-]+:[a-z0-9-]*:[0-9]{12}:.+"
+        },
+        "clusterAutoscalerRoleArn": {
+          "type": "string",
+          "pattern": "arn:aws:[a-z0-9-]+:[a-z0-9-]*:[0-9]{12}:.+"
+        }
+      }
+    },
+    "database": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "host": {
+          "type": "string",
+          "pattern": "[a-zA-Z0-9.-]+"
+        },
+        "name": {
+          "type": "string",
+          "const": "platform"
+        },
+        "masterSecretArn": {
+          "type": "string",
+          "pattern": "arn:aws:secretsmanager:[a-z0-9-]+:[0-9]{12}:secret:.+"
+        }
+      },
+      "required": [
+        "host",
+        "name",
+        "masterSecretArn"
+      ]
+    },
+    "secrets": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "auth-runtime-db": {
+          "type": "string",
+          "pattern": "arn:aws:secretsmanager:[a-z0-9-]+:[0-9]{12}:secret:.+"
+        },
+        "auth-migration-db": {
+          "type": "string",
+          "pattern": "arn:aws:secretsmanager:[a-z0-9-]+:[0-9]{12}:secret:.+"
+        },
+        "shipment-runtime-db": {
+          "type": "string",
+          "pattern": "arn:aws:secretsmanager:[a-z0-9-]+:[0-9]{12}:secret:.+"
+        },
+        "shipment-migration-db": {
+          "type": "string",
+          "pattern": "arn:aws:secretsmanager:[a-z0-9-]+:[0-9]{12}:secret:.+"
+        },
+        "tracking-runtime-db": {
+          "type": "string",
+          "pattern": "arn:aws:secretsmanager:[a-z0-9-]+:[0-9]{12}:secret:.+"
+        },
+        "tracking-migration-db": {
+          "type": "string",
+          "pattern": "arn:aws:secretsmanager:[a-z0-9-]+:[0-9]{12}:secret:.+"
+        },
+        "internal-trust": {
+          "type": "string",
+          "pattern": "arn:aws:secretsmanager:[a-z0-9-]+:[0-9]{12}:secret:.+"
+        },
+        "bootstrap-admin": {
+          "type": "string",
+          "pattern": "arn:aws:secretsmanager:[a-z0-9-]+:[0-9]{12}:secret:.+"
+        },
+        "auth-jwt": {
+          "type": "string",
+          "pattern": "arn:aws:secretsmanager:[a-z0-9-]+:[0-9]{12}:secret:.+"
+        },
+        "gateway-trust": {
+          "type": "string",
+          "pattern": "arn:aws:secretsmanager:[a-z0-9-]+:[0-9]{12}:secret:.+"
+        }
+      },
+      "required": [
+        "auth-runtime-db",
+        "auth-migration-db",
+        "shipment-runtime-db",
+        "shipment-migration-db",
+        "tracking-runtime-db",
+        "tracking-migration-db",
+        "internal-trust",
+        "bootstrap-admin",
+        "auth-jwt",
+        "gateway-trust"
+      ]
+    },
+    "esoRoleArn": {
+      "type": "string",
+      "pattern": "arn:aws:iam::[0-9]{12}:role/.+"
+    },
+    "dataScope": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "type": "string",
+          "const": "SYNTHETIC_ONLY"
+        },
+        "trialId": {
+          "type": "string",
+          "pattern": "[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}"
+        },
+        "environment": {
+          "type": "string",
+          "pattern": "trial-[0-9a-f]{32}"
+        },
+        "namespace": {
+          "type": "string",
+          "pattern": "cnp-trial-[0-9a-f]{32}"
+        },
+        "bindingSha256": {
+          "type": "string",
+          "pattern": "[0-9a-f]{64}"
+        }
+      },
+      "required": [
+        "mode",
+        "trialId",
+        "environment",
+        "namespace",
+        "bindingSha256"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

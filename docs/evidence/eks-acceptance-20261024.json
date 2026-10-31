@@ -1,0 +1,509 @@
+{
+  "schemaVersion": 1,
+  "kind": "CURATED_CLOSED_EKS_ACCEPTANCE",
+  "applicationSourceCommit": "5b66456db40bbaa52c4884da231b44d90e6dc6e1",
+  "retirementSourceCommit": "98c0cbe34d8b3a951f8e79a2544012996d2cfd31",
+  "closedUtc": "2026-10-24T07:33:53.884233+00:00",
+  "closureReceiptSha256": "0c1e6ad73e4f6f070b8e0579bc8b16a59124dbb692baba58c71510e11fad12ef",
+  "scope": "Selected authorized private receipts projected offline; hashes support authorized comparison, not signatures or public independent verification.",
+  "runtime": ".NET10 / SDK10.0.402 / ASP.NET10.0.13 / PostgreSQL15.18",
+  "checks": {
+    "C2DirectChecks": 29,
+    "C2GatewayChecks": 42,
+    "CniChecks": 18,
+    "C3Checks": 53,
+    "C4Checks": 23,
+    "liveWebChecks": 13
+  },
+  "retirement": {
+    "completedStages": 39,
+    "totalStages": 39,
+    "terraformObjectsRetired": 178,
+    "externalIamObjectsAbsent": 3,
+    "statesReadable": 18,
+    "emptyStates": 16,
+    "retainedStates": 2,
+    "originalSecretsPreserved": 10,
+    "originalHostingObjectsPreserved": 12,
+    "newKeyPendingDeletion": true,
+    "scheduledDeletionUtc": "2026-11-23T05:16:07.129000+00:00",
+    "historicalKeySchedulesUnchanged": 4,
+    "globalInventoryComplete": false
+  },
+  "security": {
+    "runtimeImageHighCritical": 0,
+    "perImageMedium": 2,
+    "perImageLow": 1,
+    "fixedVersionReported": false,
+    "sourceScopedExceptions": 9,
+    "sourceHighCriticalOccurrences": 10,
+    "exceptionExpiryUtc": "2027-01-12",
+    "separateSdkHighOccurrences": 4,
+    "claim": "Dated scan observations; no absolute safety claim, expiry extension or new exception."
+  },
+  "budget": {
+    "t0Utc": "2026-10-23T22:11:22+00:00",
+    "newCycleLimitUsd": 25,
+    "modelWithAllowancesUsd": 11.829358,
+    "invoiceKnown": false,
+    "notActualInvoiceOrMeasuredVariableSpend": true,
+    "unspentVariableAllowanceUsd": 3,
+    "contingencyAllowanceUsd": 2
+  },
+  "limitations": [
+    "No database rollback",
+    "Out-of-order stale event rejection proved; not arbitrary gap liveness",
+    "Continuous authenticated browser tab across DEMO transition not observed",
+    "Hosting A to B configuration release to original A observed; not two distinct authenticated application-source releases",
+    "Remote CI/Dependabot/npm reproducibility remain separate repository tasks",
+    "Corrected images still had two MEDIUM and one LOW each without FixedVersion; no absolute security claim",
+    "Foreign SQS attributes and sealed ECS resource attributes remain DENIED/NOT_VERIFIED, preserved and never deletion targets. No denied read was retried. Closure is this EKS owner scope, not an account-wide purge.",
+    "No future create/deploy/publication or credential access is authorized by this summary."
+  ],
+  "matrix": [
+    {
+      "id": "T01",
+      "gate": "C0",
+      "task": "Identity/source/consent",
+      "result": "VERIFIED_CURRENT_OPERATOR_AND_CORRECTED_SOURCE",
+      "evidence": [
+        {
+          "receipt": "runtime-base-remediation/future-operator-source-qualification.json",
+          "sha256": "2d5ab0e78d3c5562caaa7a95f94c13922c101db9b745c61a69859fd9717812eb"
+        }
+      ],
+      "limit": "Scoped observed scenario; no general reliability or security guarantee."
+    },
+    {
+      "id": "T02",
+      "gate": "C0",
+      "task": "Budget and lifetime",
+      "result": "CLOSED_WITHIN_NEW_25USD_AND_24H",
+      "evidence": [
+        {
+          "receipt": "retirement/final-cycle-closure.json",
+          "sha256": "0c1e6ad73e4f6f070b8e0579bc8b16a59124dbb692baba58c71510e11fad12ef"
+        }
+      ],
+      "limit": "USD11.83 model includes unspent allowances; invoice unknown. No budget reset."
+    },
+    {
+      "id": "T03",
+      "gate": "C1",
+      "task": "VPC and retirement path",
+      "result": "CREATED_VERIFIED_RETIREMENT_OWNER_PLAN_CAPTURED",
+      "evidence": [
+        {
+          "receipt": "vpc-execution/vpc-execution-receipt.json",
+          "sha256": "943e06792a265b05b1bfaf23456e7c2fe7b61f8a02a1fd5e63b0b283f9f57530"
+        }
+      ],
+      "limit": "Scoped observed scenario; no general reliability or security guarantee."
+    },
+    {
+      "id": "T04",
+      "gate": "C1",
+      "task": "Private compute and pinned dependencies",
+      "result": "THREE_NODE_BASELINE_PRIVATE_RUNTIME_VERIFIED",
+      "evidence": [
+        {
+          "receipt": "eks-execution/eks-cluster-execution-receipt.json",
+          "sha256": "f97c5ae38c1de0d39fc03f58421daeec5acef2b5ea47623ab5a4fc185fb2fdee"
+        }
+      ],
+      "limit": "Scoped observed scenario; no general reliability or security guarantee."
+    },
+    {
+      "id": "T05",
+      "gate": "C1",
+      "task": "DB TLS/roles/migrations",
+      "result": "BOOTSTRAP_VERIFY_FULL_AND_ROLE_GATES_PASSED",
+      "evidence": [
+        {
+          "receipt": "bootstrap/phase2-receipt.json",
+          "sha256": "a28eeef74476f25a310edd07313397c6e84aee83c2bae272a3b574c8f9fcd52f"
+        }
+      ],
+      "limit": "Scoped observed scenario; no general reliability or security guarantee."
+    },
+    {
+      "id": "T06",
+      "gate": "C1",
+      "task": "OCI provenance and registry scan",
+      "result": "THREE_CORRECTED_IMAGES_IMPORTED_ECR_ZERO_FINDINGS_TRIVY_REMAINDERS_EXPLICIT",
+      "evidence": [
+        {
+          "receipt": "runtime-base-remediation/ecr-import-verification-5b66456.json",
+          "sha256": "1e814b773c828026ed3dd1ea77d7ef5fb8247cc21d829189b7c03c36d6e8d371"
+        }
+      ],
+      "limit": "Scoped observed scenario; no general reliability or security guarantee."
+    },
+    {
+      "id": "T07",
+      "gate": "C2",
+      "task": "Authorizer TTL",
+      "result": "ACTUAL_AUTHORIZER_TTL_ZERO",
+      "evidence": [
+        {
+          "receipt": "live-authorization-attempt2/receipt.json",
+          "sha256": "58a4f866345fc5c2806a8acecd7280fc185ff7d5efc780625e67222579d0ab30"
+        }
+      ],
+      "limit": "Scoped observed scenario; no general reliability or security guarantee."
+    },
+    {
+      "id": "T08",
+      "gate": "C2",
+      "task": "Current account authorization",
+      "result": "SOURCE29_GATEWAY42_LIVE_ACCEPTED",
+      "evidence": [
+        {
+          "receipt": "live-authorization-attempt2/receipt.json",
+          "sha256": "58a4f866345fc5c2806a8acecd7280fc185ff7d5efc780625e67222579d0ab30"
+        }
+      ],
+      "limit": "Scoped observed scenario; no general reliability or security guarantee."
+    },
+    {
+      "id": "T09",
+      "gate": "C2",
+      "task": "CNI enforcement",
+      "result": "LIVE18_FLOWS_AND_POSITIVE_IDENTITY_BINDINGS_ACCEPTED",
+      "evidence": [
+        {
+          "receipt": "live-network/positive-bindings.json",
+          "sha256": "b3b527c919d12673e43611fe7eee9d94d1483e2bb9a23e924349cfa6fc92b055"
+        }
+      ],
+      "limit": "Scoped observed scenario; no general reliability or security guarantee."
+    },
+    {
+      "id": "T10",
+      "gate": "C2",
+      "task": "ESO and10originalsecretpreservation",
+      "result": "FINAL_NATIVE_PRESERVATION_VERIFIED",
+      "evidence": [
+        {
+          "receipt": "retirement/final-preservation-native-readback-v2.json",
+          "sha256": "77a02b451683fe800307863dc5abfc066b6eafa2663462e8f0c6bcaae54380e1"
+        }
+      ],
+      "limit": "Exact original ESO/trust/boundaries and ten secret identity/version-stage maps; no payload export."
+    },
+    {
+      "id": "T11",
+      "gate": "C3",
+      "task": "Full event route",
+      "result": "LIVE_ACCEPTED_WITH_SCENARIO_LIMITS",
+      "evidence": [
+        {
+          "receipt": "c3-events-attempt2/receipt.json",
+          "sha256": "e993e19976a871d79d4662da238a9a36c62822e3dd8b9fb4d1cdd10306162c83"
+        }
+      ],
+      "limit": "Scoped observed scenario; no general reliability or security guarantee."
+    },
+    {
+      "id": "T12",
+      "gate": "C3",
+      "task": "Duplicate and stale event",
+      "result": "LIVE_ACCEPTED_WITH_SCENARIO_LIMITS",
+      "evidence": [
+        {
+          "receipt": "c3-events-attempt2/receipt.json",
+          "sha256": "e993e19976a871d79d4662da238a9a36c62822e3dd8b9fb4d1cdd10306162c83"
+        }
+      ],
+      "limit": "Scoped observed scenario; no general reliability or security guarantee."
+    },
+    {
+      "id": "T13",
+      "gate": "C3",
+      "task": "Consumer failure and recovery",
+      "result": "LIVE_ACCEPTED_WITH_SCENARIO_LIMITS",
+      "evidence": [
+        {
+          "receipt": "c3-events-attempt2/receipt.json",
+          "sha256": "e993e19976a871d79d4662da238a9a36c62822e3dd8b9fb4d1cdd10306162c83"
+        }
+      ],
+      "limit": "Scoped observed scenario; no general reliability or security guarantee."
+    },
+    {
+      "id": "T14",
+      "gate": "C4",
+      "task": "Private CD admission and delivery",
+      "result": "EXACT8_INSTALLED_REAL_IMMUTABLE_DELIVERY_SUCCESS_REVISION2",
+      "evidence": [
+        {
+          "receipt": "private-cd-delivery/deployment-receipt.json",
+          "sha256": "a7ed0fbb91c8e5625fe4e3ec26305d8779e63b134308fd7767ce29097cd48670"
+        }
+      ],
+      "limit": "Scoped observed scenario; no general reliability or security guarantee."
+    },
+    {
+      "id": "T15",
+      "gate": "C4",
+      "task": "Compatible failed backend rollout",
+      "result": "LIVE_CONTROLLED_FAILURE_AND_COMPATIBLE_BACKEND_ROLLBACK_ACCEPTED",
+      "evidence": [
+        {
+          "receipt": "c4-rollback/receipt.json",
+          "sha256": "32088b69d3472ba7c896069f8c1f34b413fd9d45e79a1b203ceb496891c91269"
+        }
+      ],
+      "limit": "Scoped observed scenario; no general reliability or security guarantee."
+    },
+    {
+      "id": "T16",
+      "gate": "C4",
+      "task": "KEDA/CPU HPA/nodecapacity",
+      "result": "LIVE_KEDA_CPU_HPA_WORKER_ONE_TWO_ONE_ACCEPTED_TIMEOUT_DISCLOSED",
+      "evidence": [
+        {
+          "receipt": "c3-events-attempt2/receipt.json",
+          "sha256": "e993e19976a871d79d4662da238a9a36c62822e3dd8b9fb4d1cdd10306162c83"
+        },
+        {
+          "receipt": "c4-scale/receipt.json",
+          "sha256": "f7bb18ab2f0bacc501f2d8c27cabd124b6271c5043650362ff25f640614e699f"
+        },
+        {
+          "receipt": "c4-cpu-hpa/receipt.json",
+          "sha256": "6f1bf6ade5227333e070cecb2eeb3ccf57f1bc8dd1e0b0e4b2a247733540007f"
+        },
+        {
+          "receipt": "c4-cpu-hpa/automatic-cooldown-followup.json",
+          "sha256": "1bbde2b7487f43f21175d8d19bc05a69bf1f3b007fc0cf97a747e87a91f28845"
+        }
+      ],
+      "limit": "Scoped observed scenario; no general reliability or security guarantee."
+    },
+    {
+      "id": "T17",
+      "gate": "WEB",
+      "task": "Two different static releases",
+      "result": "DISTINCT_IMMUTABLE_CONFIGURATION_RELEASES_VERIFIED",
+      "evidence": [
+        {
+          "receipt": "web-demo-restoration/hosting-rollback-evidence.json",
+          "sha256": "ba3f641c8ab8348a87e84155c58813fbdeb8741decd0da298c9a5a3db85634ea"
+        }
+      ],
+      "limit": "DEMO A to AWS configuration B to original A; not two different authenticated application-source versions."
+    },
+    {
+      "id": "T18",
+      "gate": "WEB",
+      "task": "Real browser and API",
+      "result": "THIRTEEN_LIVE_CHECKS_PASSED_WITH_TRANSITION_LIMIT",
+      "evidence": [
+        {
+          "receipt": "web-live-attempt3/receipt.json",
+          "sha256": "11f5d8e0cf778d750b88382fdc894cab4f6547ac409b703f89e3a4df9aa52b76"
+        }
+      ],
+      "limit": "Original browser run STOPPED waiting for DEMO; later fresh DEMO verified. Continuous old authenticated tab unobserved. Injected503 is a browser fixture."
+    },
+    {
+      "id": "T19",
+      "gate": "WEB",
+      "task": "Hosting rollback distinct from backend rollback",
+      "result": "CONFIGURATION_RELEASE_RETURN_VERIFIED_WITH_LIMIT",
+      "evidence": [
+        {
+          "receipt": "web-demo-restoration/hosting-rollback-evidence.json",
+          "sha256": "ba3f641c8ab8348a87e84155c58813fbdeb8741decd0da298c9a5a3db85634ea"
+        }
+      ],
+      "limit": "Separate immutable hosting A/B/A selection, not Helm or database rollback."
+    },
+    {
+      "id": "T20",
+      "gate": "C5",
+      "task": "Retirement intake and quiescence",
+      "result": "RUN_BOUND_FREEZE_AND_EXPORT_SUCCEEDED",
+      "evidence": [
+        {
+          "receipt": "retirement/final-cycle-closure.json",
+          "sha256": "0c1e6ad73e4f6f070b8e0579bc8b16a59124dbb692baba58c71510e11fad12ef"
+        }
+      ],
+      "limit": "Journal records actual freeze/export barriers before removal; original approvals and failed attempts preserved."
+    },
+    {
+      "id": "T21",
+      "gate": "C5",
+      "task": "Irreversible new DB/storage disposition",
+      "result": "OWN_NEW_DATA_NATIVE_ABSENT",
+      "evidence": [
+        {
+          "receipt": "retirement/final-cycle-closure.json",
+          "sha256": "0c1e6ad73e4f6f070b8e0579bc8b16a59124dbb692baba58c71510e11fad12ef"
+        }
+      ],
+      "limit": "No final DB snapshot or automated backup; evidence is not a full database recovery copy."
+    },
+    {
+      "id": "T22",
+      "gate": "C5",
+      "task": "Key and external IAM last",
+      "result": "NEW_KEY_PENDING_AND_THREE_IAM_NATIVE_ABSENT",
+      "evidence": [
+        {
+          "receipt": "retirement/final-cycle-closure.json",
+          "sha256": "0c1e6ad73e4f6f070b8e0579bc8b16a59124dbb692baba58c71510e11fad12ef"
+        }
+      ],
+      "limit": "Only the new key scheduled30days; four historical schedules unchanged. PendingDeletion is not physical absence."
+    },
+    {
+      "id": "T23",
+      "gate": "C5",
+      "task": "Native absence/states/residue/hostingKEEP",
+      "result": "ALL39_STAGES_AND_SCOPED_NATIVE_CLOSURE_VERIFIED",
+      "evidence": [
+        {
+          "receipt": "retirement/final-cycle-closure.json",
+          "sha256": "0c1e6ad73e4f6f070b8e0579bc8b16a59124dbb692baba58c71510e11fad12ef"
+        }
+      ],
+      "limit": "16 empty+2 retained states; no own locks. Foreign denied attributes remain NOT_VERIFIED, never deletion targets; no global closure claim."
+    },
+    {
+      "id": "T24",
+      "gate": "INDEPENDENT",
+      "task": "Authentic Dependabot operation",
+      "result": "PENDING_REMOTE_OWNER_DECISION",
+      "evidence": [],
+      "limit": "Actual security-update PR/authorship and current hosted behavior were not exercised by this local cycle."
+    },
+    {
+      "id": "T25",
+      "gate": "INDEPENDENT",
+      "task": "Remote CI execution",
+      "result": "PENDING_REMOTE_OWNER_DECISION",
+      "evidence": [],
+      "limit": "Historical runs do not qualify this later local HEAD. No push, dispatch or merge."
+    },
+    {
+      "id": "T26",
+      "gate": "INDEPENDENT",
+      "task": "npm reproducibility",
+      "result": "LOCAL_LOCKED_INSTALL_RECORDED_REPEAT_BUILD_CHECK_SEPARATE",
+      "evidence": [],
+      "limit": "Existing laptop npm-ci log and offline lock rejection; repeated same-toolchain builds recorded separately, not cross-platform/fresh-registry proof."
+    },
+    {
+      "id": "T27",
+      "gate": "INDEPENDENT",
+      "task": "Docs/Page reconciliation",
+      "result": "REPOSITORY_RECONCILED_PAGE_SEPARATE_OWNER",
+      "evidence": [],
+      "limit": "Repository matrix/docs/presentation updated locally; parent owns Page reconciliation. No hosted publication."
+    }
+  ],
+  "failedOrIncompleteAttemptsPreserved": [
+    {
+      "receipt": "c3-events/receipt.json",
+      "sha256": "0bda9b3039a22152fad3ccf80ca39a7676d9fa25528d81c46dca93acbbf2d7ce",
+      "status": "STOPPED"
+    },
+    {
+      "receipt": "c4-cpu-hpa/receipt.json",
+      "sha256": "6f1bf6ade5227333e070cecb2eeb3ccf57f1bc8dd1e0b0e4b2a247733540007f",
+      "status": "STOPPED"
+    },
+    {
+      "receipt": "web-live-attempt3/receipt.json",
+      "sha256": "11f5d8e0cf778d750b88382fdc894cab4f6547ac409b703f89e3a4df9aa52b76",
+      "status": "STOPPED"
+    },
+    {
+      "receipt": "retirement/final-preservation-native-readback.json",
+      "sha256": "0f39bc136e9360e1abc57670386ec0196f5e5477fe27b0af1692eac02f1cb1c2",
+      "status": "STOPPED_PRESERVATION_READBACK"
+    }
+  ],
+  "timeline": {
+    "t0Utc": "2026-10-23T22:11:22+00:00",
+    "closedUtc": "2026-10-24T07:33:53.884233+00:00",
+    "totalCycleHours": 9.375523398055554,
+    "demoReturnUtc": "2026-10-24T02:03:07.389777Z",
+    "engineCreatedUtc": "2026-10-24T02:36:06.985214+00:00",
+    "journalStages": [
+      {
+        "stage": "guard",
+        "startedUtc": "2026-10-24T02:40:00.511314+00:00",
+        "completedUtc": "2026-10-24T02:40:00.530451+00:00",
+        "state": "SUCCEEDED"
+      },
+      {
+        "stage": "freeze",
+        "startedUtc": "2026-10-24T02:41:17.841340+00:00",
+        "completedUtc": "2026-10-24T02:41:18.012254+00:00",
+        "state": "SUCCEEDED"
+      },
+      {
+        "stage": "export",
+        "startedUtc": "2026-10-24T02:42:40.052990+00:00",
+        "completedUtc": "2026-10-24T02:42:41.661197+00:00",
+        "state": "SUCCEEDED"
+      },
+      {
+        "stage": "apigateway-integration",
+        "startedUtc": "2026-10-24T02:43:59.027703+00:00",
+        "completedUtc": "2026-10-24T02:47:08.596846+00:00",
+        "state": "SUCCEEDED"
+      },
+      {
+        "stage": "applications",
+        "startedUtc": "2026-10-24T03:10:11.435517+00:00",
+        "completedUtc": "2026-10-24T03:15:41.213459+00:00",
+        "state": "SUCCEEDED"
+      },
+      {
+        "stage": "observability",
+        "startedUtc": "2026-10-24T03:30:22.558589+00:00",
+        "completedUtc": "2026-10-24T03:33:58.618571+00:00",
+        "state": "SUCCEEDED"
+      },
+      {
+        "stage": "rds",
+        "startedUtc": "2026-10-24T03:57:37.128931+00:00",
+        "completedUtc": "2026-10-24T04:13:21.312472+00:00",
+        "state": "SUCCEEDED"
+      },
+      {
+        "stage": "management",
+        "startedUtc": "2026-10-24T04:35:54.407347+00:00",
+        "completedUtc": "2026-10-24T04:50:31.121242+00:00",
+        "state": "SUCCEEDED"
+      },
+      {
+        "stage": "eks",
+        "startedUtc": "2026-10-24T04:52:13.256536+00:00",
+        "completedUtc": "2026-10-24T05:02:15.216183+00:00",
+        "state": "SUCCEEDED"
+      },
+      {
+        "stage": "nat",
+        "startedUtc": "2026-10-24T05:18:46.007798+00:00",
+        "completedUtc": "2026-10-24T05:21:26.073738+00:00",
+        "state": "SUCCEEDED"
+      },
+      {
+        "stage": "vpc",
+        "startedUtc": "2026-10-24T05:23:15.269370+00:00",
+        "completedUtc": "2026-10-24T05:24:48.093860+00:00",
+        "state": "SUCCEEDED"
+      }
+    ],
+    "lastCostlyNativeAbsenceUtc": "2026-10-24T05:22:34+00:00",
+    "reviewAndUserWaitsSeparatelyMeasured": false,
+    "awsLatencySeparatelyMeasured": false,
+    "warning": "Stage intervals include reads, validation, waits and corrections and may overlap. Total cycle is not teardown/API latency; do not sum samples into attribution."
+  }
+}

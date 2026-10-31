@@ -1,0 +1,36 @@
+{
+  "classification": "AUTHORIZED_ESO_GETROLE_PRIVATE_TRUST_BINDING_NOT_MUTATION_APPROVAL",
+  "sourceProposalCommit": "2695c1c20afe961d5932c75af6cb87395f09aef4",
+  "startedUtc": "2026-10-22T02:14:32.080658+00:00",
+  "finishedUtc": "2026-10-22T02:14:33.777955+00:00",
+  "principal": {
+    "Account": "341936017254",
+    "Arn": "arn:aws:iam::341936017254:user/cnp-cert-admin",
+    "UserId": "AIDAU7HHZR5TGLGKSTEKJ"
+  },
+  "calls": [
+    "sts:GetCallerIdentity",
+    "iam:GetRole:cloud-native-platform-dev-external-secrets"
+  ],
+  "mutations": 0,
+  "secretReads": 0,
+  "role": {
+    "Arn": "arn:aws:iam::341936017254:role/cloud-native-platform-dev-external-secrets",
+    "RoleId": "AROAU7HHZR5TB553LJERK",
+    "RoleName": "cloud-native-platform-dev-external-secrets",
+    "CreateDate": "2026-10-16 23:56:34+00:00",
+    "PermissionsBoundary": {
+      "PermissionsBoundaryType": "Policy",
+      "PermissionsBoundaryArn": "arn:aws:iam::341936017254:policy/cnp-cert-app-workload-boundary"
+    }
+  },
+  "trustCanonicalJsonLfSha256": "41334598ffd164b4136d33cfc39e99900a5e2b7fe3d9b949d52fc26380d2b781",
+  "privateTrustFile": "Outside checkout: task-2/eks-eso-trust-binding-20261022/original-assume-role-policy.private.json",
+  "privateReceiptSha256": "26a66b9ed23d6d4d29bf3facceaa5dacc970173428d902d7d81f8e802eb3d137",
+  "fullTrustNotInGitOrTransmittedToVm": true,
+  "limits": [
+    "GetRole captures current document and generation; it does not prove future UpdateAssumeRolePolicy acceptance or authorization",
+    "Original trust references an EKS federated issuer. Verify that exact original provider is a valid existing reference before changing trust; if absent/invalid stop before rebind. No recreation, cancellation, new grant, substituted trust or weaker recovery is authorized",
+    "Future restore must compare exact observed new-cycle trust and original RoleId/boundary, reject concurrent drift, restore captured document through normal owner and verify canonical equality with original. Any failure leaves C5 incomplete"
+  ]
+}

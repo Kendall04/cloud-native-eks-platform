@@ -1,0 +1,92 @@
+{
+  "classification": "PASS_LOCAL_STATIC_ONLY_NOT_CLOUD_CERTIFICATION",
+  "execution": "SSH codex-vm, small ignored projection under existing native Linux checkout; no WSL",
+  "sourceSha256LfNormalized": {
+    "frontend/scripts/hosting_plan.py": "9975db3b372e3a12b107f841277c7068bec865e296a1a3499a9949b20c85c35c",
+    "frontend/scripts/package_static.py": "cb184aa4e2f5ca2a0e509ac2c70ebd8eb02517b8f583f2ea69f3657ff3d81aad",
+    "infra/portfolio/frontend-static/main.tf": "20d450921c78aa8cee1d7a10096a079d4a5b029f682db9be51c267c2d7ed9b28",
+    "infra/portfolio/frontend-static/routes.js.tftpl": "4bcb331f42fbe897077b8b0821d75a9f2a3b0a7bd860d105112c07c73b45eda3",
+    "infra/portfolio/frontend-static/.terraform.lock.hcl": "1deb0c8ea09180c98ae04381dbaeaa2f5607ce67812977a81b0170e763aeda13",
+    "infra/portfolio/frontend-static/tests/static.tftest.hcl": "505a6dbd6371ca0b21eaf688deaa031fdf20b63d02d89b8995fee35b2f6a977f",
+    "scripts/validation/test_frontend_hosting.py": "e1c9d6e7c828de4a99f68e715651f07fe3842c35b631f07f59dd72265ed2139c",
+    "scripts/validation/test_frontend_hosting_routes.mjs": "fc150dd492614f11c8c521c56593fd11b693475edd0e0fc0e3878bf57c22bf25",
+    "scripts/validation/test_frontend_hosting_browser.mjs": "696c3800f86255b065b63c27820f3f1338d7f015415ec7b13e041b61d6715d37"
+  },
+  "rawLogsSha256": {
+    "python.log": "1065d6c1869979319fcc8f1366d377adb3e675432bb1e0cbb9d93c228860aa45",
+    "routes.log": "5c1051dfc0a1349c67384201960b4aeaa699f78f8d0f1969153a7ce6fbbecdd0",
+    "terraform-init.log": "c8204fd98891413f1a552810d2284f0e07e31402f5832894ab9351690cc81266",
+    "terraform-validate.log": "2ff6f7b7b494d0f8d596def971d585d29ee3e06359aa4662e84c1988f7b74cbb",
+    "terraform-test.log": "61e41aaa05405be739736ba5a322facc82385baa00c105d2b54f28c3b05fb7f9",
+    "browser.log": "0f0d22de7aefd6fa122760b0a27e874d12bd39afa38b8eed49a93d86b8aeb103",
+    "python-projection-missing-helper.log": "f6310a41557e0d3a24ef97d5061f5a818e13118f75202de7dcf92cf37e1f90e6",
+    "terraform-init-global-version-mismatch.log": "c563c37e2875add7da854a1750c2175225a5ba2cd913eb43f13a25cd7fbdb918"
+  },
+  "artifact": {
+    "sha256": "af77d432370bc6edd5ca1206016bf207724c7ef33e39cb2047d18392c1d3ba5e",
+    "bytes": 1185602,
+    "sourceBaseCommit": "a3e9a324e9cc06ffdcfea9849f16021dfa968a15",
+    "reusedWithoutBuild": true
+  },
+  "checks": {
+    "python": {
+      "passed": 8,
+      "failed": 0,
+      "negativeCases": [
+        "AWS and mixed modes",
+        "missing index/build receipt/JS",
+        "tamper/hash mismatch",
+        "path traversal",
+        "missing/malformed/same local selection binding",
+        "initial adoption"
+      ]
+    },
+    "exactViewerFunction": {
+      "passed": 40
+    },
+    "terraform": {
+      "version": "1.13.4",
+      "provider": "5.100.0",
+      "fmtCheck": "PASS",
+      "validate": "PASS",
+      "mockPlansPassed": 4,
+      "negativeCases": [
+        "invalid SHA",
+        "different required caller ARN"
+      ],
+      "providerBinaryReusedBySymlink": true,
+      "realPlanOrApply": false
+    },
+    "chrome": {
+      "status": "PASS",
+      "scope": "LOCAL_CHROME_CACHED_ARTIFACT_NO_CLOUD",
+      "syntheticDemoFlow": true,
+      "interactiveDiagrams": 5,
+      "apiRequests": 0,
+      "externalRequests": 0,
+      "pageErrors": 0,
+      "missingAsset404": true,
+      "apiUnavailable503": true,
+      "headersFromTerraform": true
+    }
+  },
+  "environment": {
+    "awsCredentials": "unset; profile unset; AWS config/shared credentials /dev/null; EC2 metadata disabled",
+    "node": "24.18.0",
+    "python": "3.13.5 existing venv interpreter only",
+    "playwright": "existing frontend cache, Chrome channel",
+    "newInstallationOrCloneOrProviderCopy": false
+  },
+  "correctionsNotCountedAsPass": [
+    "Initial global Terraform 1.15.7 rejected pinned constraint; reused existing 1.13.4 instead",
+    "Initial small projection omitted shared CD contract; included unchanged helper and reran"
+  ],
+  "limits": [
+    "No AWS API, IAM install, resource creation, upload, publication, spending, push or merge",
+    "Chrome uses loopback HTTP and local exact route/header fixture; no real HTTPS, S3 denial, edge propagation, permission or ETag proof",
+    "No distinct prior published artifact or remote rollback test",
+    "No new frontend build, .NET or lifecycle suite; previous checks remain historical",
+    "Default CloudFront certificate TLSv1 policy and inline/same-origin CSP requirements remain explicit publication review inputs",
+    "Mode B selected; USD1/30d and USD25/8h remain unapproved; runtime IAM and static owner remain separate"
+  ]
+}

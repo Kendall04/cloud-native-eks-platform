@@ -1,0 +1,83 @@
+name: Deploy Platform
+on:
+  workflow_dispatch:
+    inputs:
+      artifact_key:
+        description: Exact key from reviewed publication receipt
+        type: string
+        required: true
+      artifact_version_id:
+        description: Exact S3 VersionId from publication receipt
+        type: string
+        required: true
+      artifact_sha256:
+        description: Outer SHA256 from publication receipt
+        type: string
+        required: true
+      deployment_id:
+        description: Unique operation identity; reuse only to retrieve same completed result
+        type: string
+        required: true
+      expected_previous_revision:
+        description: Current Helm revision (0 for first install)
+        type: string
+        required: true
+permissions:
+  contents: read
+concurrency:
+  group: deploy-dev
+  cancel-in-progress: false
+jobs:
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    environment: dev
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      # Fixed orchestration code at this workflow commit; never checkout an input ref.
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.13'
+      - run: python -m pip install -r scripts/bootstrap/requirements.txt
+      - uses: aws-actions/configure-aws-credentials@7474bc4690e29a8392af63c5b98e7449536d5c3a # v4
+        with:
+          aws-region: ${{ vars.AWS_REGION }}
+          role-to-assume: ${{ vars.DEPLOYMENT_ORCHESTRATOR_ROLE_ARN }}
+          role-duration-seconds: 4500
+      - name: Verify AWS account
+        env:
+          EXPECTED_AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
+        run: |
+          identity="$(aws sts get-caller-identity --output json)"
+          jq -e --arg expected "$EXPECTED_AWS_ACCOUNT_ID" '.Account == $expected' <<< "$identity" >/dev/null
+          jq '{Account, Arn}' <<< "$identity"
+      - name: Request and observe the fixed private deployment
+        env:
+          ArtifactKey: ${{ inputs.artifact_key }}
+          ArtifactVersionId: ${{ inputs.artifact_version_id }}
+          ArtifactSha256: ${{ inputs.artifact_sha256 }}
+          DeploymentId: ${{ inputs.deployment_id }}
+          ExpectedPreviousRevision: ${{ inputs.expected_previous_revision }}
+          ARTIFACT_BUCKET: ${{ vars.ARTIFACT_BUCKET }}
+          AWS_ACCOUNT_ID: ${{ vars.AWS_ACCOUNT_ID }}
+          EKS_CLUSTER_NAME: ${{ vars.EKS_CLUSTER_NAME }}
+          PLATFORM_ALB_GROUP_NAME: ${{ vars.PLATFORM_ALB_GROUP_NAME }}
+          ALB_FRONTEND_SECURITY_GROUP_ID: ${{ vars.ALB_FRONTEND_SECURITY_GROUP_ID }}
+          SHIPMENT_QUEUE_URL: ${{ vars.SHIPMENT_QUEUE_URL }}
+          MANAGEMENT_INSTANCE_ID: ${{ vars.MANAGEMENT_INSTANCE_ID }}
+          SSM_DOCUMENT_NAME: ${{ vars.SSM_DOCUMENT_NAME }}
+          SSM_DOCUMENT_VERSION: ${{ vars.SSM_DOCUMENT_VERSION }}
+          SSM_DOCUMENT_SHA256: ${{ vars.SSM_DOCUMENT_SHA256 }}
+        run: python scripts/cd/orchestrate.py
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: deployment-${{ github.run_id }}
+          path: |
+            ssm-command.json
+            deployment-receipt.json
+          if-no-files-found: warn

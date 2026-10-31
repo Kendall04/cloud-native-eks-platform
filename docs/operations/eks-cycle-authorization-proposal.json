@@ -1,0 +1,656 @@
+{
+  "classification": "UNAPPROVED_LOCAL_AUTHORIZATION_PROPOSAL_NOT_AN_EXECUTABLE_PLAN",
+  "owner": "Kendall",
+  "accountId": "341936017254",
+  "region": "us-east-1",
+  "cluster": "logistics-platform-dev",
+  "proposedCreatorAndRetirer": {
+    "arn": "arn:aws:iam::341936017254:user/cnp-cert-admin",
+    "profile": "cnp-cert-dev",
+    "effectivePrivilege": "Observed AdministratorAccess, broad; source/task constraints are contractual, not an enforced least-privilege identity boundary",
+    "noNewUserOrAccessKey": true
+  },
+  "sourceCount": {
+    "method": "Parse every *.tf managed resource declaration, expand current live count/for_each inputs/defaults, including three NAT child modules; data sources and implicit service/controller objects excluded",
+    "sourceFiles": 104,
+    "sourceAggregateSha256Lf": "103b76e8d9da71d6e3a76185b243027dc66341024d04cf55131ac39a70573896",
+    "default18StacksTotal": 189,
+    "retainedExisting": 12,
+    "candidateNewManagedInstances": 177,
+    "whenReferencingExistingGithubOidc": {
+      "total": 188,
+      "candidateNew": 176
+    },
+    "externalIamObjectsNotIn18Stacks": 3,
+    "totalNewIncludingExternalIamAndTemporaryWebApiControls": {
+      "newGithubProvider": 182,
+      "referenceExistingGithubProvider": 181
+    },
+    "notAnObservedLiveCountOrSavedPlan": true,
+    "selectedBinding18StacksTotal": 188,
+    "selectedNewManagedInstancesIncludingExternalIamAndTemporaryWebApiControls": 181,
+    "selectedBindingReason": "Existing shared GitHub OIDC observed; select existing-provider input, never the189/create-provider branch"
+  },
+  "stacks": [
+    {
+      "stack": "api-gateway-authorizer",
+      "declaredManagedInstances": 5,
+      "types": {
+        "aws_cloudwatch_log_group": 1,
+        "aws_iam_role": 1,
+        "aws_iam_role_policy": 1,
+        "aws_iam_role_policy_attachment": 1,
+        "aws_lambda_function": 1
+      },
+      "preservedExistingInstances": 0,
+      "owner": "Terraform api-gateway-authorizer",
+      "source": "infra/live/dev/api-gateway-authorizer/terragrunt.hcl"
+    },
+    {
+      "stack": "api-gateway-authorizer-secrets",
+      "declaredManagedInstances": 2,
+      "types": {
+        "aws_secretsmanager_secret": 2
+      },
+      "preservedExistingInstances": 2,
+      "owner": "Terraform api-gateway-authorizer-secrets",
+      "source": "infra/live/dev/api-gateway-authorizer-secrets/terragrunt.hcl"
+    },
+    {
+      "stack": "apigateway-core",
+      "declaredManagedInstances": 10,
+      "types": {
+        "aws_apigatewayv2_api": 1,
+        "aws_apigatewayv2_authorizer": 1,
+        "aws_apigatewayv2_stage": 1,
+        "aws_apigatewayv2_vpc_link": 1,
+        "aws_cloudwatch_log_group": 1,
+        "aws_lambda_permission": 1,
+        "aws_security_group": 2,
+        "aws_vpc_security_group_egress_rule": 1,
+        "aws_vpc_security_group_ingress_rule": 1
+      },
+      "preservedExistingInstances": 0,
+      "owner": "Terraform apigateway-core",
+      "source": "infra/live/dev/apigateway-core/terragrunt.hcl"
+    },
+    {
+      "stack": "apigateway-integration",
+      "declaredManagedInstances": 14,
+      "types": {
+        "aws_apigatewayv2_integration": 2,
+        "aws_apigatewayv2_route": 12
+      },
+      "preservedExistingInstances": 0,
+      "owner": "Terraform apigateway-integration",
+      "source": "infra/live/dev/apigateway-integration/terragrunt.hcl"
+    },
+    {
+      "stack": "ecr",
+      "declaredManagedInstances": 6,
+      "types": {
+        "aws_ecr_lifecycle_policy": 3,
+        "aws_ecr_repository": 3
+      },
+      "preservedExistingInstances": 0,
+      "owner": "Terraform ecr",
+      "source": "infra/live/dev/ecr/terragrunt.hcl"
+    },
+    {
+      "stack": "eks",
+      "declaredManagedInstances": 29,
+      "types": {
+        "aws_cloudwatch_log_group": 1,
+        "aws_eks_addon": 4,
+        "aws_eks_cluster": 1,
+        "aws_eks_node_group": 2,
+        "aws_iam_openid_connect_provider": 1,
+        "aws_iam_policy": 2,
+        "aws_iam_role": 7,
+        "aws_iam_role_policy_attachment": 9,
+        "aws_launch_template": 2
+      },
+      "preservedExistingInstances": 0,
+      "owner": "Terraform eks",
+      "source": "infra/live/dev/eks/terragrunt.hcl"
+    },
+    {
+      "stack": "event-encryption",
+      "declaredManagedInstances": 2,
+      "types": {
+        "aws_kms_alias": 1,
+        "aws_kms_key": 1
+      },
+      "preservedExistingInstances": 0,
+      "owner": "Terraform event-encryption",
+      "source": "infra/live/dev/event-encryption/terragrunt.hcl"
+    },
+    {
+      "stack": "eventbridge",
+      "declaredManagedInstances": 5,
+      "types": {
+        "aws_cloudwatch_event_bus": 1,
+        "aws_cloudwatch_event_rule": 1,
+        "aws_cloudwatch_event_target": 1,
+        "aws_sqs_queue_policy": 2
+      },
+      "preservedExistingInstances": 0,
+      "owner": "Terraform eventbridge",
+      "source": "infra/live/dev/eventbridge/terragrunt.hcl"
+    },
+    {
+      "stack": "iam",
+      "declaredManagedInstances": 6,
+      "types": {
+        "aws_iam_role": 3,
+        "aws_iam_role_policy": 3
+      },
+      "preservedExistingInstances": 0,
+      "owner": "Terraform iam",
+      "source": "infra/live/dev/iam/terragrunt.hcl"
+    },
+    {
+      "stack": "management",
+      "declaredManagedInstances": 15,
+      "types": {
+        "aws_eks_access_entry": 1,
+        "aws_iam_instance_profile": 1,
+        "aws_iam_role": 1,
+        "aws_iam_role_policy": 2,
+        "aws_iam_role_policy_attachment": 1,
+        "aws_instance": 1,
+        "aws_security_group": 1,
+        "aws_vpc_security_group_egress_rule": 6,
+        "aws_vpc_security_group_ingress_rule": 1
+      },
+      "preservedExistingInstances": 0,
+      "owner": "Terraform management",
+      "source": "infra/live/dev/management/terragrunt.hcl"
+    },
+    {
+      "stack": "nat",
+      "declaredManagedInstances": 24,
+      "types": {
+        "aws_eip": 3,
+        "aws_eip_association": 3,
+        "aws_iam_instance_profile": 3,
+        "aws_iam_role": 3,
+        "aws_iam_role_policy_attachment": 3,
+        "aws_instance": 3,
+        "aws_route": 3,
+        "aws_security_group": 3
+      },
+      "preservedExistingInstances": 0,
+      "owner": "Terraform nat",
+      "source": "infra/live/dev/nat/terragrunt.hcl"
+    },
+    {
+      "stack": "observability",
+      "declaredManagedInstances": 15,
+      "types": {
+        "aws_cloudwatch_dashboard": 1,
+        "aws_cloudwatch_log_group": 4,
+        "aws_cloudwatch_metric_alarm": 7,
+        "aws_eks_addon": 1,
+        "aws_iam_role": 1,
+        "aws_iam_role_policy": 1
+      },
+      "preservedExistingInstances": 0,
+      "owner": "Terraform observability",
+      "source": "infra/live/dev/observability/terragrunt.hcl"
+    },
+    {
+      "stack": "private-cd",
+      "declaredManagedInstances": 7,
+      "types": {
+        "aws_iam_openid_connect_provider": 1,
+        "aws_iam_role": 2,
+        "aws_iam_role_policy": 3,
+        "aws_ssm_document": 1
+      },
+      "preservedExistingInstances": 0,
+      "owner": "Terraform private-cd",
+      "source": "infra/live/dev/private-cd/terragrunt.hcl",
+      "selectedBindingManagedInstances": 6,
+      "selectedBindingTypes": {
+        "aws_iam_role": 2,
+        "aws_iam_role_policy": 3,
+        "aws_ssm_document": 1
+      }
+    },
+    {
+      "stack": "rds",
+      "declaredManagedInstances": 6,
+      "types": {
+        "aws_db_instance": 1,
+        "aws_db_parameter_group": 1,
+        "aws_db_subnet_group": 1,
+        "aws_security_group": 1,
+        "aws_vpc_security_group_ingress_rule": 2
+      },
+      "preservedExistingInstances": 0,
+      "owner": "Terraform rds",
+      "source": "infra/live/dev/rds/terragrunt.hcl"
+    },
+    {
+      "stack": "runtime-secrets",
+      "declaredManagedInstances": 10,
+      "types": {
+        "aws_iam_role": 1,
+        "aws_iam_role_policy": 1,
+        "aws_secretsmanager_secret": 8
+      },
+      "preservedExistingInstances": 10,
+      "owner": "Terraform runtime-secrets",
+      "source": "infra/live/dev/runtime-secrets/terragrunt.hcl"
+    },
+    {
+      "stack": "s3",
+      "declaredManagedInstances": 10,
+      "types": {
+        "aws_s3_bucket": 2,
+        "aws_s3_bucket_ownership_controls": 2,
+        "aws_s3_bucket_public_access_block": 2,
+        "aws_s3_bucket_server_side_encryption_configuration": 2,
+        "aws_s3_bucket_versioning": 2
+      },
+      "preservedExistingInstances": 0,
+      "owner": "Terraform s3",
+      "source": "infra/live/dev/s3/terragrunt.hcl"
+    },
+    {
+      "stack": "sqs",
+      "declaredManagedInstances": 4,
+      "types": {
+        "aws_sqs_queue": 3,
+        "aws_sqs_queue_redrive_allow_policy": 1
+      },
+      "preservedExistingInstances": 0,
+      "owner": "Terraform sqs",
+      "source": "infra/live/dev/sqs/terragrunt.hcl"
+    },
+    {
+      "stack": "vpc",
+      "declaredManagedInstances": 19,
+      "types": {
+        "aws_internet_gateway": 1,
+        "aws_route": 1,
+        "aws_route_table": 4,
+        "aws_route_table_association": 6,
+        "aws_subnet": 6,
+        "aws_vpc": 1
+      },
+      "preservedExistingInstances": 0,
+      "owner": "Terraform vpc",
+      "source": "infra/live/dev/vpc/terragrunt.hcl"
+    }
+  ],
+  "iam": {
+    "newRoleCountIncludingExternalOperator": 19,
+    "newRolesByOwner": {
+      "eks": [
+        "logistics-platform-dev-cluster-role",
+        "logistics-platform-dev-api-node-group-role",
+        "logistics-platform-dev-worker-node-group-role",
+        "logistics-platform-dev-vpc-cni-irsa-role",
+        "logistics-platform-dev-aws-ebs-csi-driver-irsa-role",
+        "logistics-platform-dev-aws-load-balancer-controller-role",
+        "logistics-platform-dev-cluster-autoscaler-role"
+      ],
+      "nat": [
+        "cloud-native-platform-dev-us-east-1a-nat-ssm-role",
+        "cloud-native-platform-dev-us-east-1b-nat-ssm-role",
+        "cloud-native-platform-dev-us-east-1c-nat-ssm-role"
+      ],
+      "management": [
+        "cloud-native-platform-dev-management-role"
+      ],
+      "iam": [
+        "cloud-native-platform-dev-keda-irsa",
+        "cloud-native-platform-dev-shipment-service-irsa",
+        "cloud-native-platform-dev-tracking-service-irsa"
+      ],
+      "observability": [
+        "cloud-native-platform-dev-cloudwatch-irsa"
+      ],
+      "authorizer": [
+        "cloud-native-platform-dev-api-jwt-authorizer-role"
+      ],
+      "private-cd": [
+        "cloud-native-platform-dev-artifact-publisher",
+        "cloud-native-platform-dev-deployment-orchestrator-dev"
+      ],
+      "externalOwner": [
+        "cnp-cert-private-cd-executor"
+      ]
+    },
+    "existingEso": {
+      "arn": "arn:aws:iam::341936017254:role/cloud-native-platform-dev-external-secrets",
+      "observedRoleId": "AROAU7HHZR5TB553LJERK",
+      "effect": "Normal owner rebind trust to fresh EKS OIDC; exact sub system:serviceaccount:kube-system:external-secrets and aud sts.amazonaws.com. Preserve role/inline read grant on ten retained secrets. Do not replace/adopt/delete or retain a new live issuer silently for convenience",
+      "afterRetirement": "Superseded by exactTrustRestoration: restore captured pre-cycle trust before removal of fresh EKS provider; do not settle for a dangling fresh-issuer reference"
+    },
+    "preservedBoundaries": [
+      "cnp-cert-eks-workload-boundary",
+      "cnp-cert-app-workload-boundary",
+      "cnp-cert-management-workload-boundary"
+    ],
+    "newManagedPolicies": [
+      "logistics-platform-dev-aws-load-balancer-controller",
+      "logistics-platform-dev-cluster-autoscaler",
+      "cnp-cert-private-cd-workload-boundary"
+    ],
+    "externalIamObjectDetails": [
+      "New cnp-cert-private-cd-workload-boundary v1 only",
+      "New cnp-cert-private-cd-executor role/trust/max3600s",
+      "New inline cnp-private-cd-operator-delivery on that role"
+    ],
+    "managedPolicyAttachments": 14,
+    "privateCdDeliveryOnly": "Fixed ECR/S3/SSM delivery per private-cd-iam-proposal.json. No infrastructure, state, IAM, PassRole, Secrets Manager, KMS, arbitrary session/shell or teardown permission",
+    "oidc": {
+      "eks": "One new cluster issuer/provider; actual issuer ID observed after create",
+      "githubArn": "arn:aws:iam::341936017254:oidc-provider/token.actions.githubusercontent.com",
+      "githubDecision": "Resolved by authorized metadata: shared existing provider with two existing consumers. Use exact existing github_oidc_provider_arn module input; no creation/import/tag/thumbprint/trust update or removal of this provider or other consumers. The current live Terragrunt default remains unset; effective reviewed plan MUST show zero GitHub provider creation/deletion",
+      "selectedGithubProviderInput": {
+        "github_oidc_provider_arn": "arn:aws:iam::341936017254:oidc-provider/token.actions.githubusercontent.com"
+      }
+    },
+    "explicitSecurityDefaults": [
+      "Three NAT SSM roles have no configured workload boundary; AmazonSSMManagedInstanceCore attached",
+      "bootstrap_cluster_creator_admin_permissions=true gives initial EKS admin to creator; management/deployer is not elevated to platform admin",
+      "NAT forwards corresponding private subnet traffic with source/destination check disabled; SSH rule source remains127.0.0.1/32; management has no inbound SSH",
+      "EKS private endpoint, internal ALB; existing public HTTP API remains independently authenticated and can be called directly without CloudFront",
+      "New event-key policy delegates account IAM administration and permits events.amazonaws.com GenerateDataKey/Decrypt on that key; no queue SourceArn restriction is invented in the KMS request. Shipment gets only exact fresh key ARN; KEDA gets queue attributes only"
+    ],
+    "persistentGrants": "EKS/addon/node/LBC/autoscaler managed attachments; application/KEDA/telemetry/Lambda exact source grants; two GitHub subject trusts for Kendall04/cloud-native-platform-eks main/develop publisher and environment:dev orchestrator; new fixed SSM document and management artifact inline grant. Workflows remain disabled. Three original boundaries unchanged",
+    "boundaryBindings": {
+      "cnp-cert-eks-workload-boundary": "Seven EKS/node/addon/controller roles",
+      "cnp-cert-app-workload-boundary": "Three application/KEDA roles, telemetry role and retained ESO role",
+      "cnp-cert-management-workload-boundary": "Management and JWT authorizer roles",
+      "cnp-cert-private-cd-workload-boundary": "Two federated delivery roles and external cnp-cert-private-cd-executor",
+      "none": "Three NAT SSM roles; explicit existing default, not silently represented as bounded"
+    },
+    "externalCreationTagBinding": {
+      "Owner": "Kendall",
+      "effect": "Concrete installation proposal overrides generic platform-team Owner in the older Private CD proposal; actual bound trust/policy/tag bytes require normal review. No IAM change performed"
+    },
+    "exactTrustRestoration": {
+      "evidence": "../evidence/eks-eso-trust-binding-20261022.json",
+      "roleArn": "arn:aws:iam::341936017254:role/cloud-native-platform-dev-external-secrets",
+      "roleId": "AROAU7HHZR5TB553LJERK",
+      "originalTrustCanonicalJsonLfSha256": "41334598ffd164b4136d33cfc39e99900a5e2b7fe3d9b949d52fc26380d2b781",
+      "originalTrustPrivateFile": "Outside checkout: task-2/eks-eso-trust-binding-20261022/original-assume-role-policy.private.json",
+      "owner": "Infrastructure operator cnp-cert-admin through retained runtime-secrets IAM owner; Private CD operator has no IAM authority",
+      "preRebind": [
+        "Fresh same RoleId/ARN/boundary and current trust equal captured original; otherwise stop for drift",
+        "Verify original exact federated provider reference remains valid before rebind; missing/invalid is NO_GO before IAM mutation. Never recreate a historical provider or substitute policy",
+        "Bind exact original/new trust and runtime-secrets owner plan; snapshot non-trust role/read-policy/tags/boundary evidence for comparison; no secret-value read for this check"
+      ],
+      "retire": [
+        "Stop ESO and application consumers through existing Helm owners; management still available and complete live observation",
+        "Compare current trust to the exact approved new-cycle trust and same RoleId; concurrent drift stops",
+        "Normal owner proposes UpdateAssumeRolePolicy with only the privately captured original document; no read-policy, boundary, tags, role identity or other trust changes",
+        "GetRole verifies sameRoleId/boundary and original canonical trust hash; separately compare captured read-policy/tags unchanged. Restore failure/unknown blocks C5; reconcile before replay",
+        "Then remove only fresh EKS OIDC provider; preserve original/shared providers and other principals. Retained Terraform owner state must be refreshed through its normal reviewed workflow; no raw state editing or blanket runtime-secrets apply against a deleted cluster"
+      ],
+      "noTransmissionToVm": true,
+      "executed": false,
+      "notImplementedAsNewEngine": true
+    }
+  },
+  "implicitAndNonTerraformEffects": {
+    "baselineCapacity": "Two On-Demand plus one Spot t3.large EKS nodes, three t3.micro NATs and one t3.micro management; encrypted node roots50GiB, NAT/management roots8GiB, RDS20GiB gp3 maximum100",
+    "declaredNodeGroupMaximums": "Source defaultsAPI6/worker10 are explicitly superseded for this proposed cycle by effectiveAPImax2/workermax2. Four concurrent nodes maximum; initial2+1 and worker1->2->1 only",
+    "expectedServices": [
+      "One RDS-managed master secret",
+      "Two RDS log destinations /aws/rds/instance/cloud-native-platform-dev-postgres/postgresql and /upgrade, not Terraform-owned log groups",
+      "One internal LBC ALB, three target groups and listener/rules from the existing Ingress",
+      "Service-created EC2/ASG/ENI/EBS, log streams and key grants have observed quantities/generations, never invented fixed totals",
+      "Account service-linked role dependencies must be inventoried before create. Existing shared roles are references/preserved; missing/new role outside this exact proposal blocks for review",
+      "Four Helm owners: cluster-addons/kube-system; platform-bootstrap, platform-secret-sync, platform-services/apps; declared controllers/CRDs/RBAC/secrets/jobs and test fixtures need owner cleanup"
+    ],
+    "sharedServiceLinkedRoles": [
+      {
+        "name": "AWSServiceRoleForAmazonEKS",
+        "arn": "arn:aws:iam::341936017254:role/aws-service-role/eks.amazonaws.com/AWSServiceRoleForAmazonEKS",
+        "roleId": "AROAU7HHZR5TDHIMFEOB6",
+        "disposition": "REFERENCE_PRESERVE_NO_IAM_WRITE"
+      },
+      {
+        "name": "AWSServiceRoleForAmazonEKSNodegroup",
+        "arn": "arn:aws:iam::341936017254:role/aws-service-role/eks-nodegroup.amazonaws.com/AWSServiceRoleForAmazonEKSNodegroup",
+        "roleId": "AROAU7HHZR5TLADO54T7V",
+        "disposition": "REFERENCE_PRESERVE_NO_IAM_WRITE"
+      },
+      {
+        "name": "AWSServiceRoleForAutoScaling",
+        "arn": "arn:aws:iam::341936017254:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling",
+        "roleId": "AROAU7HHZR5TEED3DP7JB",
+        "disposition": "REFERENCE_PRESERVE_NO_IAM_WRITE"
+      },
+      {
+        "name": "AWSServiceRoleForElasticLoadBalancing",
+        "arn": "arn:aws:iam::341936017254:role/aws-service-role/elasticloadbalancing.amazonaws.com/AWSServiceRoleForElasticLoadBalancing",
+        "roleId": "AROAU7HHZR5TJF7QY24QO",
+        "disposition": "REFERENCE_PRESERVE_NO_IAM_WRITE"
+      },
+      {
+        "name": "AWSServiceRoleForRDS",
+        "arn": "arn:aws:iam::341936017254:role/aws-service-role/rds.amazonaws.com/AWSServiceRoleForRDS",
+        "roleId": "AROAU7HHZR5TLKELNMSXB",
+        "disposition": "REFERENCE_PRESERVE_NO_IAM_WRITE"
+      },
+      {
+        "name": "AWSServiceRoleForEC2Spot",
+        "arn": "arn:aws:iam::341936017254:role/aws-service-role/spot.amazonaws.com/AWSServiceRoleForEC2Spot",
+        "roleId": "AROAU7HHZR5TB3OBBNLID",
+        "disposition": "REFERENCE_PRESERVE_NO_IAM_WRITE"
+      }
+    ]
+  },
+  "privateTransit": {
+    "actor": "Same approved infrastructure/bootstrap principal; credentials remain local Windows process",
+    "eks": "Existing SSM remote-host tunnel to exact management instance, loopback18443; private kubeconfig with actual EKS CA and tls-server-name. Bootstrap and teardown already validate this; no hosts/PC security edit or credential broker required",
+    "database": "SSM loopback15432; RDS_LOCAL_FORWARD_PORT15432, real RDS FQDN/VerifyFull CA; master only in operator memory",
+    "privateCdRoleDoesNotBootstrap": true
+  },
+  "secretAndDataEffects": {
+    "existingTen": "Read/validate retained AWSCURRENT in memory only; reuse valid values. initialize only truly empty slots; invalid/current-version recovery requires separate exact review, never silent rotation",
+    "newMaster": "RDS-managed master secret for fresh DB, no new permanent AWS credential",
+    "database": "Create/reconcile six separate runtime/migrator PostgreSQL roles and three schemas, initialize migrations/admin seed and disposable synthetic accounts/data; DB roles are not IAM roles",
+    "kubernetes": "ESO writes Kubernetes Secrets; refresh/version marker binds DB bootstrap; pods never receive master credential",
+    "retirementProposal": "eks-synthetic-retirement-proposal.json and eks-synthetic-retirement.tfvars.json; runtime protection/backups remain defaults until separately confirmed same-generation preparation"
+  },
+  "webExpansionNotCoveredByCurrentHostingApproval": {
+    "currentlyApprovedB": "Ten retained static resources and12 objects; original activation2026-10-22T01:04:48.982Z/expiry2026-11-21T01:04:48.982Z never reset",
+    "futureProposal": "Two temporary API controls, existing gateway origin/behaviors, explicit AWS package; restore DEMO and remove API controls before backend withdrawal",
+    "awsPackageSha256": "57a045256e27fd1c6231431a31e2eec36745731f7f0558d289fc5cbadb3ddfd4",
+    "twelveEntries": "Four new object keys plus eight byte/MIME/cache-identical existing keys; verify/reuse existing, no overwrite/extra version",
+    "newKeys": [
+      "assets/index-C-5FypwK.js",
+      "releases/57a045256e27fd1c6231431a31e2eec36745731f7f0558d289fc5cbadb3ddfd4/frontend-build.json",
+      "releases/57a045256e27fd1c6231431a31e2eec36745731f7f0558d289fc5cbadb3ddfd4/index.html",
+      "releases/57a045256e27fd1c6231431a31e2eec36745731f7f0558d289fc5cbadb3ddfd4/manifest.json"
+    ],
+    "additionalConsent": "Authenticated synthetic test traffic under default viewer policy accepting old+modern TLS and inline/same-origin CSP; DEMO-only consent is not extended silently. No real customer data, domain or certificate purchase",
+    "afterCycle": "Static B remains10 resources and16 retained unique object keys if AWS publication is approved; original expiry/allowance unchanged",
+    "securityConsent": "Explicit authenticated-test consent required for viewer policy acceptingTLSv1/TLSv1.1 as well asTLS1.2/TLS1.3, plus inline/same-originCSP. Permitting oldTLS increases legacy-client transport exposure; it does not force modern clients to downgrade and is not JWT/ownership authorization. CSPinline separately weakens injection defense. Do not extend DEMO-only consent; no certificate/domain change is proposed"
+  },
+  "ownerRetirement": {
+    "network": "vpc/nat owners remove their declared network, three NAT instances/EIPs/profiles/roles only after consumers/ENIs are gone",
+    "eks": "EKS owns cluster/nodegroups/addons/OIDC/IRSA/LBC/CA policies; active aws-node stays owned by exact EKS addon until owner removal, never declared passive",
+    "management": "Keep through RDS and final live Kubernetes closure; then remove instance/profile/access entry/SG/rules/role normally",
+    "dataEvents": "Existing guarded RDS same-DbiResourceId preparation/destroy, then exact generated secret/backup/log disposition; event/SQS owners remove queues/policies/bus; new CMK schedules30days, alias removed. Pending is not physical absence Explicit new-group log cleanup is infra operator-owned and is not implemented by the RDS adapter; C5 cannot pass while an unapproved group remains",
+    "apiObservability": "Integration routes first; API core/authorizer/permission/log owners and telemetry addon/7alarms/dashboard/4groups normally; separately account RDS-created groups",
+    "deliveryStorage": "Stop/observe delivery; private-cd removes fixed SSM doc/two roles/three inline grants; external IAM owner removes operator/inline/fourth boundary after all consumers quiescent. ECR/S3 owners purge only approved generation-owned content and versions after evidence export/normal confirmations; force_destroy remains false",
+    "retained": "Keep backend bucket/table/state versions, ten pre-existing secret containers/versions, ESO role/read grant, three original boundary IDs/versions, all historical pending CMKs, shared AWS-managed keys and unrelated/ECS/RDS-pilot resources. No artificial expiry or silent restore/adoption Existing shared GitHub OIDC and six service-linked roles are references preserved as observed",
+    "evidence": "Private state/journals/receipts outside disappearing infrastructure and Git; owner Kendall. Existing retained-secret cost aboutUSD4/month plus requests/backend history stays separate",
+    "rdsLogOwner": "RDS creates the two non-Terraform groups; current adapter only reports them. Proposed infra operator cleanup may delete only exact new groups proven absent before this generation, after DB/export/writer closure and evidence preservation. Existing groups/data stop admission until exact owner/retention is resolved; never delete by name/prefix alone"
+  },
+  "historicalPendingKeysPreserved": {
+    "0fdce1f0-418b-4463-b751-44e818ef475e": "2026-11-13T00:35:34.974Z",
+    "e354ff52-7648-469e-8238-48fece53eb4a": "2026-11-13T16:52:54.734Z",
+    "08bded46-3283-4561-a518-5afa836f1437": "2026-11-19T17:47:21.003Z"
+  },
+  "window": {
+    "allowanceUsd": 25,
+    "hours": 8,
+    "stopTestsFreezeWritersStartRetirementByHour": 4,
+    "approved": false,
+    "hardBillingCap": false,
+    "currentHostingUsd1ApprovalDoesNotAuthorizeThis": true,
+    "budgetProposal": {
+      "maximumIncrementalUsd": 25,
+      "approved": false,
+      "covers": "All charges attributable to this new EKS cycle, including runtime, bounded scaling, new storage/backups, CPU surplus, requests, transfer, logs, API/ALB/LCU, ECR/S3, KMS/Secrets/SSM, applicable tax and recovery/new residual exposure. No exclusion of a new-cycle charge because it appears after hour8",
+      "separateExistingAllowances": [
+        "Published static B original USD1/30days; never reset",
+        "Ten pre-existing secrets aboutUSD4/month plus requests; existing retained backend/history; no cleanup/reclassification of historical resources"
+      ],
+      "allocationUsd": {
+        "fixedPlanningAllowance": 7,
+        "variableAllowance": 3,
+        "protectedCleanupAndResidualReserve": 15
+      },
+      "fixedModelUsd": 6.016625,
+      "modelBasis": "21Oct observed rates from eks-readonly-preflight-20261021.json; conservatively price all4 t3.large at On-Demand for8h,4 t3.micro, EKS,RDS,232GiB EBS,100GiB RDS,1ALB/1LCU,3publicIPv4, plus fullUSD1 new-key month andUSD0.40 new-master-secret month. Not a quote that these month charges will actually accrue",
+      "unquantified": "CPU surplus/LCUs/API/event/storage/insights/backup/transfer/request volumes, applicable tax and recovery duration are variable, not zero. USD7/3/15 are proposed allocations, not measured bills or hard caps",
+      "admissionRule": "Before first paid effect, operator must support current incremental committed plus forecast runtime/tax/new residual exposure and protected cleanup withinUSD25. If unavailable/uncertain beyond reserve, NO_GO. At every stage stop new work when that bound cannot be sustained; do not spend the cleanup reserve on tests or quietly exceed budget",
+      "window": "First cost-bearing new-cycle effect starts8h window; stop tests/freeze writers/start retirement byhour4; exact UTC deadlines recorded then. Not an AWS billing cap or timing guarantee; unresolved cleanup requires explicit report and normal owner confirmations"
+    }
+  },
+  "admissionNotYetCleared": {
+    "status": "NAMED_METADATA_BLOCKER_RESOLVED_CYCLE_UNAPPROVED",
+    "previousIssue": "The RDS adapter reports CloudWatch residuals without deleting them; this remains a limit, not a reason to suppress residuals",
+    "resolution": "Both exact groups absent at02:05-02:06UTC22Oct. No historical log group/data to mix observed. Before DB creation repeat exact absent baseline; if any group appears stop before writing. Explicit proposal includes normal operator deletion only for observed new groups with generation/ownership proof and separate exact confirmation",
+    "sharedBindings": "Backend retained; artifact/log buckets not account-owned at observation (global availability unproven); shared GitHub provider must use existing reference input; all six needed service-linked roles exist/preserved",
+    "stillMandatory": "Fresh STS/absence/capacity/artifact/source/state/saved-plan and protected effect confirmations at their proper stages; no generated ID or permission outcome is pre-attested. USD25/8h, IAM, secret-value use, data loss and authenticated web extension remain unapproved",
+    "generatedIdsAreNotUserChoices": "Fresh Management/SSM ID, new cluster/OIDC/UIDs, new DBI/master-secret ARN, saved plan/source/state hashes observed by operator at proper stages, never pre-attested",
+    "esoBinding": "Captured exact trust/RoleId privately with2 authorized reads; hash linked. Original provider validity and unchanged policy/read-policy/tags are normal pre-rebind/restore gates; no successful future restore is pre-attested"
+  },
+  "stopCriteria": [
+    "Wrong identity/account/region or unbound/unsupported owner plan",
+    "Unexpected existing/shared resource, permission denial, unknown write outcome; reconcile before any replay, never switch principal to evade",
+    "Missing pre-create ownership/consumer/retention coverage including RDS logs and service-linked roles",
+    "Invalid/absent retained secret version or incomplete private TLS connection; do not rotate/weaken guards automatically",
+    "Pin/capacity/quota/artifact mismatch, API/auth/CNI/TTL gate failure, foreign data or unapproved leftover",
+    "Forecast threatensUSD25 reserve, test-stop hour4 or window exhausted; stop new admissions and continue only already-authorized normal owner cleanup",
+    "Effective nodegroup max notAPI2/worker2, runtime more than4nodes or unapproved replacement/surge",
+    "Original ESO trust cannot be restored exactly or its original provider is absent/invalid; stop before rebind, never install a substitute",
+    "USD25 incremental bound including applicable tax/new-residual exposure cannot be supported while preserving cleanup reserve"
+  ],
+  "references": [
+    "certification-baseline-2026-10-21.md",
+    "private-cd-iam-proposal.json",
+    "eks-local-cycle-closure-2026-10-22.md",
+    "eks-synthetic-retirement-proposal.json",
+    "frontend-static-live-2026-10-22.md"
+  ],
+  "effectsExecutedInThisIncrement": false,
+  "metadataClosureEvidence": "../evidence/eks-remaining-metadata-20261022.json",
+  "authorizedMetadataReadsPerformed": true,
+  "requestedEffectiveInputs": {
+    "classification": "REVIEW_ONLY_NOT_AUTOLOADED_APPLY_OR_CHANGED_DEFAULTS",
+    "eks": {
+      "api_node_group": {
+        "instance_types": [
+          "t3.large"
+        ],
+        "capacity_type": "ON_DEMAND",
+        "min_size": 2,
+        "max_size": 2,
+        "desired_size": 2,
+        "disk_size": 50,
+        "ami_type": "AL2023_x86_64_STANDARD",
+        "labels": {
+          "workload": "api"
+        },
+        "tags": {
+          "workload": "api"
+        }
+      },
+      "worker_node_group": {
+        "instance_types": [
+          "t3.large"
+        ],
+        "capacity_type": "SPOT",
+        "min_size": 1,
+        "max_size": 2,
+        "desired_size": 1,
+        "disk_size": 50,
+        "ami_type": "AL2023_x86_64_STANDARD",
+        "labels": {
+          "workload": "worker"
+        },
+        "tags": {
+          "workload": "worker"
+        }
+      }
+    },
+    "private-cd": {
+      "github_oidc_provider_arn": "arn:aws:iam::341936017254:oidc-provider/token.actions.githubusercontent.com"
+    },
+    "planAssertions": [
+      "Exactly API2OnDemand +worker1Spot initially; maxAPI2/maxWorker2, total4, preserve50GiB encrypted roots and source type/AMI/labels/taints",
+      "One bounded worker1->2->1 C4 capacity exercise; no simultaneous nodegroup update/surge exceeding4, no forced replacement; no16-node run or Spot substitution",
+      "Existing GitHub provider reference only, zero provider create/import/update/delete. Shared consumers untouched",
+      "Capture/review effective saved plans before every effect. Current module defaults6/10 remain in source but are NOT authorized effective maxima"
+    ]
+  },
+  "databaseConfiguration": {
+    "engine": "postgres",
+    "version": "15.18",
+    "instanceClass": "db.t4g.micro",
+    "multiAz": false,
+    "publiclyAccessible": false,
+    "allocatedStorageGiB": 20,
+    "maximumAutoscaledStorageGiB": 100,
+    "storageType": "gp3",
+    "storageEncrypted": true,
+    "runtimeBackupDays": 7,
+    "runtimeDeletionProtection": true,
+    "runtimeFinalSnapshotRequired": true,
+    "noInducedStorageGrowthTest": true,
+    "retirementOnly": "Same DB guarded PURGE settings in existing synthetic proposal, not runtime default mutation"
+  },
+  "newEventKey": {
+    "owner": "event-encryption",
+    "address": "aws_kms_key.events",
+    "keySpec": "SYMMETRIC_DEFAULT",
+    "usage": "ENCRYPT_DECRYPT",
+    "rotationEnabled": true,
+    "alias": "alias/cloud-native-platform-dev-events",
+    "deletionWindowDays": 30,
+    "disposition": "After exact event/queue/key-consumer closure remove owned alias and schedule only this fresh observed key for30days. Record actual deletion date and pending status; never claim physical absence. Preserve all historical keys",
+    "newArnOrId": "Observed after create, never prefilled"
+  },
+  "storageDisposition": {
+    "artifactsBucket": {
+      "name": "cloud-native-platform-341936017254-dev-us-east-1-artifacts",
+      "duringRuntime": "Versioned AES256/PAB, immutable artifact/receipt objects for this cycle",
+      "afterExport": "PURGE exact generation-owned current/noncurrent versions, delete markers and incomplete uploads, then normal Terraform bucket removal; irreversible; no paid retention after cycle"
+    },
+    "logsBucket": {
+      "name": "cloud-native-platform-341936017254-dev-us-east-1-logs",
+      "duringRuntime": "Versioned AES256/PAB",
+      "afterExport": "PURGE exact generation-owned current/noncurrent versions, delete markers and incomplete uploads, then normal Terraform bucket removal; irreversible; no paid retention after cycle"
+    },
+    "ecr": {
+      "repositories": [
+        "auth-service",
+        "shipment-service",
+        "tracking-service"
+      ],
+      "afterExport": "PURGE all this-cycle image digests/tags and normal repository owner removal; irreversible; do not wait14day untagged lifecycle, tagged images do not expire under that rule"
+    },
+    "cloudwatch": "Export required selected log evidence, stop/verify all producers, then existing storage/normal Terraform cleanup of exact new groups including RDS. No post-cycle cloud retention. RDS barrier alone is not deletion/C5",
+    "externalEvidence": {
+      "owner": "Kendall",
+      "destination": "C:/Users/PC/Documents/Codex/2026-10-21/task-2/eks-cycle-<runId>/evidence-export (private local, outside checkout and disappearing resources)",
+      "retain": "Until separate explicit owner review; no automatic expiry or paid cloud evidence store",
+      "contents": "Sanitized selected logs, certification/owner/immutable digest/receipt evidence; private states/trust/receipts remain private outsideGit, never public objects or VM policy transfer"
+    },
+    "preserve": "Historical backend/versions, ten original secrets, ESO, original boundaries, shared references and static B unchanged. Its12+4 authorized-if-approved keys retain original hosting expiry. No force_destroy or force_delete default relaxation"
+  },
+  "esoTrustBindingEvidence": "../evidence/eks-eso-trust-binding-20261022.json"
+}

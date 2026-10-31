@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "scope": "LOCAL_ADMISSION_CONTRACTS_NOT_CLOUD_ADMISSION",
+  "codeCommit": "07d9096ed81306a11e846ab21b85b4bcd0be6c07",
+  "parentCommit": "cf1e4f060b0d5e0bc93eaaefda32d8deb3331b15",
+  "branch": "feat/local-eks-certification-baseline-20261021",
+  "linux": {
+    "observedUtc": "2026-10-21T19:26:06.344130+00:00",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "python": "3.13.5",
+    "boto3": "1.40.0",
+    "hcl2": "7.3.1",
+    "snapshotGitHead": "0b9370faaebaf7cbe8514ee12c1e024915579bff",
+    "testedSourceSha256Raw": {
+      "scripts/operations/teardown_execution/transit.py": "bc32b05ae089dd591ce0d80b90286f387837909f7da0a19b5f6bcba658160224",
+      "scripts/operations/teardown_execution/platform.py": "3c04d79ef77878263a210284eabfea653e111aed47cc68e567bf1bd159374a7b",
+      "scripts/operations/teardown_readonly/discovery.py": "0cea0729864671d0b9ec4e5e01f38f3230c1ba86f92b59171ad5f423254e199b",
+      "scripts/operations/teardown_readonly/kubernetes.py": "3c72937dba8b4e216ce6046fd784424d6f36675d217521d89425b22e0e0b627c",
+      "scripts/operations/teardown_readonly/planner.py": "1a6d67882c1992650a616aedd4c2b00efe779db02ec5b09a52d54e9921f6df27",
+      "scripts/validation/test_rc3_private_operator.py": "b85dcb99208a629969a8cce972e21efcb9c19d4bce50dc914cc2b850c1729b73",
+      "scripts/validation/test_teardown_normal_path.py": "e5c28880d42c6504e3b47b12f68c0c64f6ea0470da3e8b094bcba74a1b20d1e4",
+      "scripts/validation/test_teardown_cni_helm_admission.py": "5802cb85add58191278ba5f155c7f087cf92adcb377b0446ed536c4df3b93f75"
+    },
+    "testedSourceSha256Lf": {
+      "scripts/operations/teardown_execution/transit.py": "bc32b05ae089dd591ce0d80b90286f387837909f7da0a19b5f6bcba658160224",
+      "scripts/operations/teardown_execution/platform.py": "3c04d79ef77878263a210284eabfea653e111aed47cc68e567bf1bd159374a7b",
+      "scripts/operations/teardown_readonly/discovery.py": "0cea0729864671d0b9ec4e5e01f38f3230c1ba86f92b59171ad5f423254e199b",
+      "scripts/operations/teardown_readonly/kubernetes.py": "3c72937dba8b4e216ce6046fd784424d6f36675d217521d89425b22e0e0b627c",
+      "scripts/operations/teardown_readonly/planner.py": "1a6d67882c1992650a616aedd4c2b00efe779db02ec5b09a52d54e9921f6df27",
+      "scripts/validation/test_rc3_private_operator.py": "b85dcb99208a629969a8cce972e21efcb9c19d4bce50dc914cc2b850c1729b73",
+      "scripts/validation/test_teardown_normal_path.py": "e5c28880d42c6504e3b47b12f68c0c64f6ea0470da3e8b094bcba74a1b20d1e4",
+      "scripts/validation/test_teardown_cni_helm_admission.py": "5802cb85add58191278ba5f155c7f087cf92adcb377b0446ed536c4df3b93f75"
+    },
+    "tests": {
+      "focused": {
+        "tests": 14,
+        "elapsedSeconds": 0.322,
+        "sha256": "7068bf959f0b116806ceba348ace4aebe551d25bf41f3615d35872e3c602183c",
+        "bytes": 2415,
+        "result": "PASS"
+      },
+      "lifecycle": {
+        "tests": 646,
+        "elapsedSeconds": 251.213,
+        "sha256": "929fa89e021d08c72b758ce17d0cbecb6d067d4f7505729502f5d32f65c9db1d",
+        "bytes": 788,
+        "result": "PASS",
+        "skipped": 0
+      }
+    }
+  },
+  "committedSourceMatchesTestedLf": true,
+  "commands": [
+    "python -m unittest discover -s scripts/validation -p test_teardown_cni_helm_admission.py -v",
+    "python scripts/ci/regressions.py lifecycle"
+  ],
+  "executionIsolation": {
+    "host": "codex-vm",
+    "transport": "SSH; no WSL",
+    "snapshot": "temporary isolated source snapshot with existing ancestor Git metadata",
+    "interpreter": "existing Python 3.13.5 venv; no installations or credential broker",
+    "environment": "AWS_PROFILE/AWS_DEFAULT_PROFILE/AWS_ACCESS_KEY_ID/AWS_SECRET_ACCESS_KEY/AWS_SESSION_TOKEN unset; AWS_CONFIG_FILE and AWS_SHARED_CREDENTIALS_FILE=/dev/null; AWS_EC2_METADATA_DISABLED=true",
+    "externalCalls": "No real AWS/Kubernetes/Helm calls; SDK/transport behavior tested with fake or stubbed responses"
+  },
+  "contractBoundaries": {
+    "cni": "Active reconciler, exact captured owned EKS addon/cluster identity, owner generation/version/configuration/health and full DaemonSet spec identity; never passive; no Kubernetes-delete grant",
+    "transit": "Existing live final full-coverage scan and barriers; policy freshness and evidence same plan/run; internal observation is not authorization or serialized COMPLETE Kubernetes coverage",
+    "helm": "Only pinned known ingress-class List pair; complete GVK/scope/namespace/name/captured and live UID; manifest/revision transport checks retained; exact unused configuration full-body observation; no arbitrary CR exemption; consumer guard repeated on final refreshed preflight",
+    "opaqueDigests": "SHA256 canonical JSON with object keys sorted and array order preserved; full configurations/specs not serialized into inventories"
+  },
+  "finiteReview": {
+    "type": "One bounded local self-review and final regression; no claim of independent review",
+    "corrections": "Added order-sensitive opaque spec hashes, final refreshed consumer check and captured-CNI presence check before closing transit",
+    "developmentNotes": "An early synthetic normal-path fixture lacked cluster ARN and failed; the fixture now supplies positive exact owner evidence. A pre-final-review full run passed 644 tests; only final 646-test source/log hashes above certify this local revision."
+  },
+  "preservation": {
+    "originalHead": "f87b844a681007801cc399460096a1317760cf95",
+    "originalDirtyFilesCompared": 77,
+    "originalDirtyFileBytesUnchanged": true,
+    "frontendHead": "0b9370faaebaf7cbe8514ee12c1e024915579bff",
+    "frontendClean": true,
+    "rdsEcsFrameworkChanges": false,
+    "preservedAncestorCommits": [
+      "a3e9a324e9cc06ffdcfea9849f16021dfa968a15",
+      "0b9370faaebaf7cbe8514ee12c1e024915579bff",
+      "7dcb703d49ad266c5493f59c4851462c6f21db53",
+      "cf1e4f060b0d5e0bc93eaaefda32d8deb3331b15"
+    ]
+  },
+  "logLocation": ".validation-results/admission/ (ignored local evidence; log hashes recorded above)",
+  "remainingLiveGates": [
+    "C0 fresh account/run/source scope, independent authorization, explicit exact retentions, current quote/spending ceiling/stop deadline; none inherited from history",
+    "Fresh exact EKS managed addon/DaemonSet version/config/spec/field-ownership and Helm CRD/manifest/revision/UID/full-coverage/no-consumer evidence for this run",
+    "C1 .NET 10 actual immutable runtime and private dependencies",
+    "C2 fresh-profile auth negative matrix, actual authorizer TTL=0 and CNI allow/deny traffic enforcement",
+    "C3 EventId-linked outbox/EventBridge/SQS/inbox effects and failure/recovery with no unexplained residual",
+    "C4 Private CD 1.4.0 immutable rollout/failure restoration and bounded declared scaling",
+    "C5 full current owner retirement/residual verification and all exact state/retention dispositions; pending KMS deletion is not physical absence"
+  ],
+  "cloudCertification": "NOT_PERFORMED; C0-C5 remain PENDING",
+  "nonActions": [
+    "No AWS or real Kubernetes execution",
+    "No new permissions, credentials, security/network configuration, spending or infrastructure",
+    "No remote workflows, hosting, push or merge",
+    "No original/RDS/ECS checkout writes; no common teardown framework implementation"
+  ],
+  "documentationChecks": {
+    "environment": "codex-vm SSH offline snapshot",
+    "linksAnchorsFences": "PASS: 42 Markdown files, 283 local links/anchors",
+    "currentTreeSecretScan": "PASS: 704 text files; development placeholders accepted by existing baseline; history not scanned",
+    "whitespace": "git diff --check PASS",
+    "markdownLint": "NOT_RUN: no installed markdownlint/markdownlint-cli2 found; no installation attempted",
+    "mermaid": "5 existing blocks counted by validator; no diagram changes; no rendering claimed",
+    "snapshotNote": "Initial docs-only check failed because the temporary snapshot lacked the unchanged historical certification-baseline receipt. Copied the exact existing record and reran successfully.",
+    "finalWindowsWorktree": "PASS: final existing KDD links/anchors/fences (42 Markdown files, 286 links, 5 existing Mermaid blocks), current-tree scan (701 text files), git diff --check. Different counts reflect the temporary Linux snapshot; code/log hashes bind the Linux execution separately."
+  }
+}

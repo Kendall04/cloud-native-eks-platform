@@ -1,0 +1,27 @@
+apiVersion: v2
+name: cluster-addons
+description: Shared Helm chart for cluster-wide addons required by the EKS platform.
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+dependencies:
+  - name: metrics-server
+    version: 3.13.1
+    repository: https://kubernetes-sigs.github.io/metrics-server/
+    condition: metrics-server.enabled
+  - name: keda
+    version: 2.20.2
+    repository: https://kedacore.github.io/charts
+    condition: keda.enabled
+  - name: aws-load-balancer-controller
+    version: 1.14.0
+    repository: https://aws.github.io/eks-charts
+    condition: aws-load-balancer-controller.enabled
+  - name: cluster-autoscaler
+    version: 9.56.0
+    repository: https://kubernetes.github.io/autoscaler
+    condition: cluster-autoscaler.enabled
+  - name: external-secrets
+    version: 2.10.0
+    repository: https://charts.external-secrets.io
+    condition: external-secrets.enabled

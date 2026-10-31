@@ -1,0 +1,55 @@
+#!/bin/bash
+set -euo pipefail
+# No shell tracing: the IMDSv2 token below must never reach console logs.
+trap 'echo CNP_NAT_BOOTSTRAP_FAILED >/dev/console' ERR
+timeout 180 dnf install -y --setopt=install_weak_deps=False iptables-services
+systemctl disable --now firewalld 2>/dev/null || true
+
+cat >/etc/sysctl.d/99-nat.conf <<'EOF'
+net.ipv4.ip_forward=1
+net.ipv4.conf.all.rp_filter=2
+net.ipv4.conf.default.rp_filter=2
+EOF
+sysctl --system
+
+DEFAULT_IFACE="$(ip route show default | awk '/default/ { print $5; exit }')"
+test -n "$DEFAULT_IFACE"
+
+cat >/etc/sysconfig/iptables <<EOF
+*filter
+:INPUT ACCEPT [0:0]
+:FORWARD DROP [0:0]
+:OUTPUT ACCEPT [0:0]
+%{ for cidr in private_subnet_cidrs ~}
+-A FORWARD -s ${cidr} -o $DEFAULT_IFACE -m conntrack --ctstate NEW,ESTABLISHED,RELATED -j ACCEPT
+-A FORWARD -d ${cidr} -i $DEFAULT_IFACE -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+%{ endfor ~}
+COMMIT
+*nat
+:PREROUTING ACCEPT [0:0]
+:INPUT ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+:POSTROUTING ACCEPT [0:0]
+%{ for cidr in private_subnet_cidrs ~}
+-A POSTROUTING -s ${cidr} -o $DEFAULT_IFACE -j MASQUERADE
+%{ endfor ~}
+COMMIT
+EOF
+
+iptables-restore < /etc/sysconfig/iptables
+systemctl enable --now iptables
+
+test "$(sysctl -n net.ipv4.ip_forward)" = 1
+test "$(sysctl -n net.ipv4.conf.all.rp_filter)" = 2
+test "$(sysctl -n net.ipv4.conf.default.rp_filter)" = 2
+systemctl is-active --quiet iptables
+%{ for cidr in private_subnet_cidrs ~}
+iptables -t nat -C POSTROUTING -s ${cidr} -o "$DEFAULT_IFACE" -j MASQUERADE
+iptables -C FORWARD -s ${cidr} -o "$DEFAULT_IFACE" -m conntrack --ctstate NEW,ESTABLISHED,RELATED -j ACCEPT
+iptables -C FORWARD -d ${cidr} -i "$DEFAULT_IFACE" -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+%{ endfor ~}
+TOKEN="$(curl -fsS --connect-timeout 2 --max-time 5 -X PUT -H 'X-aws-ec2-metadata-token-ttl-seconds: 60' http://169.254.169.254/latest/api/token)"
+INSTANCE="$(curl -fsS --connect-timeout 2 --max-time 5 -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/instance-id)"
+unset TOKEN
+[[ "$INSTANCE" =~ ^i-([0-9a-f]{8}|[0-9a-f]{17})$ ]]
+printf 'CNP_NAT_BOOTSTRAP_V1 %s %s CONFIGURED\n' "$INSTANCE" "$(date -u +%s)" >/dev/console

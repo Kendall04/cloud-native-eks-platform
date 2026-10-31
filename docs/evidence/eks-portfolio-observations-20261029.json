@@ -1,0 +1,30 @@
+{
+  "classification": "DATED_SCOPED_OBSERVATIONS_NOT_LIVE_TELEMETRY",
+  "observedOn": "2026-10-29",
+  "applicationSourceCommit": "5d17133aca78bd6296c834154e03fce10a3794bf",
+  "runtime": ".NET 10",
+  "eksVersion": "1.35",
+  "applicationReadyReplicas": { "auth": 2, "shipment": 2, "tracking": 2 },
+  "privateDelivery": {
+    "trigger": "MANUAL",
+    "release": "v2.0.8",
+    "helmRevision": 4,
+    "executorVersion": "1.4.0",
+    "automaticRollback": "VERIFIED_AFTER_FAILED_SMOKE",
+    "albPodReadinessGates": "VERIFIED"
+  },
+  "events": {
+    "persistedSequences": [1, 2],
+    "outboxInboxIdentityMatched": true
+  },
+  "networkLimits": {
+    "rdsMultiAz": false,
+    "observedNodeZones": ["A", "A", "C"],
+    "authReplicasSharedOneNode": true,
+    "natSingleInstanceRecoverySeconds": 178,
+    "natReplacementPrivateEgress": "UNVERIFIED",
+    "continuousEgressProven": false,
+    "azFailoverProven": false
+  },
+  "scope": "Sanitized summary reconciled against private receipts and read-only AWS/Kubernetes observations on October 29. No availability guarantee; no claim that the current cycle is retired or that the public frontend is connected."
+}

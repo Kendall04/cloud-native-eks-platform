@@ -1,0 +1,52 @@
+{
+  "classification": "PASS_LOCAL_ERROR_CONTRACT_CORRECTION_NOT_CLOUD_CERTIFICATION",
+  "previousCommit": "80a07103b76aa6b43193ef99821e9ec194d2283e",
+  "contractSource": "https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_CustomErrorResponse.html",
+  "correction": "Remove ResponseCode rather than add a custom page. Preserve origin errors, never index/SPA fallback; 403 error_cache minimum configured zero.",
+  "regression": {
+    "name": "Hosting.test_origin_error_passthrough_has_no_status_or_spa_replacement",
+    "before": "FAILED as expected on previous response_code=404 configuration, Windows and Linux",
+    "after": "PASS within nine-test Linux suite",
+    "redLogScope": "Linux regression failure; Windows failure retained in tool transcript"
+  },
+  "sourceSha256LfNormalized": {
+    "infra/portfolio/frontend-static/main.tf": "d952ab66a77bd84a270369e87841b3d19f9b5b37b5664344ec3fd497b3595a41",
+    "frontend/scripts/hosting_plan.py": "8513d217243a92711d58dd0fd3a70d6bd225c9fbb9b7e3e87a4a9d8404448419",
+    "scripts/validation/test_frontend_hosting.py": "91345bd6ea86c11ae4af3c386a44052266d05b8c16187340a5e89c9d650e26fe",
+    "scripts/validation/test_frontend_hosting_browser.mjs": "3b17cd8aec0677f4ddc28af2808da5cd74be69e4d0365d81d88ed7fad154da01"
+  },
+  "rawLogsSha256": {
+    "p2-error-contract-red.log": "e25093cca3c12a710a221599f9b928f3099b29717da03a673e1d058023c30c18",
+    "p2-error-contract-green.log": "6fa940a1b51680fb26bfb594873773c77ba010a2536e9fd3bd93a55ed78bbe2d",
+    "p2-terraform-validate.log": "2ff6f7b7b494d0f8d596def971d585d29ee3e06359aa4662e84c1988f7b74cbb",
+    "p2-terraform-test.log": "61e41aaa05405be739736ba5a322facc82385baa00c105d2b54f28c3b05fb7f9",
+    "p2-browser.log": "1ce77fff88b2d02dbada6543002d6ee00bb61b593018ff6fa63e11e2607b041d"
+  },
+  "checks": {
+    "pythonPassed": 9,
+    "terraformFmtCheck": "PASS",
+    "terraformValidate": "PASS",
+    "mockedPlansPassed": 4,
+    "terraform": "1.13.4",
+    "cachedProvider": "5.100.0",
+    "chrome": {
+      "status": "PASS",
+      "scope": "LOCAL_CHROME_CACHED_ARTIFACT_NO_CLOUD",
+      "syntheticDemoFlow": true,
+      "interactiveDiagrams": 5,
+      "apiRequests": 0,
+      "externalRequests": 0,
+      "pageErrors": 0,
+      "originMissingAsset403Preserved": true,
+      "apiUnavailable503": true,
+      "headersFromTerraform": true
+    }
+  },
+  "execution": "Native Linux via existing SSH codex-vm; same ignored projection, cached provider symlink, Python/Node/Chrome; AWS profile/credentials unset, files /dev/null, EC2 metadata disabled",
+  "limits": [
+    "No AWS account API or apply, new resource/page, IAM install/transmission, frontend build, provider installation/copy, push/merge or ECS/RDS change",
+    "Chrome models a private S3 missing-key 403/AccessDenied; no real S3, CloudFront HTTPS/error/cache/permission proof",
+    "Existing forty route checks were not repeated because routing source is unchanged; earlier results remain historical",
+    "TLSv1/default certificate and inline/same-origin CSP limits, approvals, retention and budget proposals remain unchanged"
+  ]
+}

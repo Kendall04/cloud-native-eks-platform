@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 1,
+  "recordedUtc": "2026-10-21T07:28:45.381908+00:00",
+  "mission": "Explicit same-origin static AWS API client mode; hosting stage 2 partial delivery",
+  "baseline": "ded38b7494f14d968406c074a2a33bded92a7efe",
+  "applicationBaseline": "f87b844a681007801cc399460096a1317760cf95",
+  "branch": "feat/local-aws-api-mode-20261021",
+  "environment": {
+    "observedUtc": "2026-10-21T07:26:44.199281+00:00",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "node": "v24.18.0",
+    "npm": "11.18.0",
+    "chrome": "Google Chrome 151.0.7922.173",
+    "existingVmCheckoutHead": "8b4429e41f5c5877735832f1b3607c5638896bc1",
+    "existingVmCheckoutStatus": ""
+  },
+  "sourceSha256": {
+    "frontend/.env.example": "27088deca21df1ea0f45975473acc2e2702373e4a64082977ef019f3c6af84de",
+    "frontend/README.md": "73175f14a591c6d86eab466d31f735e8a6d580f18784932773f807efb2579b8d",
+    "frontend/browser/aws.spec.ts": "aa8e65aa6489e8546ac025061e6ed8ed05cadd3ae60490571d02cd0dd63684bf",
+    "frontend/package.json": "49da529e865d9b3bf83fd3bc714fd1d703ed2305c0c32ba084e78e12c72c613a",
+    "frontend/playwright.config.ts": "40309f9d17bd0159cb0ae66ed598c0d44eb9f99847e6fc38cd87022db6c0a8e1",
+    "frontend/server/build-config.test.ts": "4918d6ca1d8d5fc26469f2f2fa12df7196d3411dc8a8a5150b977e63dd8271aa",
+    "frontend/src/App.tsx": "0fb15bffcfac18188a20d750267e795a250fbef336fdaaa729e6a15b1ee9f52f",
+    "frontend/src/api.test.ts": "096b7e4546a6a1d31abf91b40c97c03f07e06765074534b7e3887fbed36d55bc",
+    "frontend/src/api.ts": "f603089bb41b71fc4fd16e657867002897ec43d47546d2eb3bb2e8e7cee877dc",
+    "frontend/src/config.ts": "2656c35a06ca416bc5a8e0eed34fe67e9da299268a177c46fdfaf8ad3671d554",
+    "frontend/vite.config.ts": "7353f422180d5e04df2aa59363a0490c9e716600252aaa8cbf2e45734f43f013"
+  },
+  "lockSha256": "a8bfe25bd60205ffcd4659e16ddf1951fc7dc9c6360a2db276b4d351fb258a86",
+  "npmVersionLimit": "Declared npm 11.16.0; existing npm 11.18.0 exercised; no dependency install/update",
+  "checks": {
+    "unitComponentProxyAndBuildConfig": {
+      "status": "PASS",
+      "log": "unit-final.log",
+      "passed": 106,
+      "skipped": 0
+    },
+    "awsBrowserSynthetic": {
+      "status": "PASS",
+      "log": "browser-aws-final.log",
+      "passed": 5,
+      "skipped": 0
+    },
+    "demoExplorerBrowser": {
+      "status": "PASS",
+      "log": "browser-demo.log",
+      "passed": 21,
+      "skipped": 0
+    },
+    "format": {
+      "status": "PASS",
+      "log": "format-final.log"
+    },
+    "architectureAndBuiltArtifact": {
+      "status": "PASS",
+      "log": "architecture-aws-final.log"
+    },
+    "offlineLockRejection": {
+      "status": "PASS",
+      "log": "lock.log"
+    },
+    "awsBuild": {
+      "status": "PASS",
+      "log": "build-aws-final.log"
+    },
+    "demoBuild": {
+      "status": "PASS",
+      "log": "build-demo.log"
+    },
+    "typescript": {
+      "status": "PASS",
+      "log": "typecheck.log"
+    },
+    "eslint": {
+      "status": "PASS",
+      "log": "lint.log"
+    },
+    "documentation": {
+      "status": "PASS",
+      "log": "docs.log"
+    },
+    "currentTreeSecretScan": {
+      "status": "PASS",
+      "log": "secrets.log"
+    },
+    "mermaid": {
+      "status": "UNCHANGED",
+      "blocks": 5,
+      "renderingPerformed": false
+    }
+  },
+  "rawLogSha256": {
+    "architecture-aws-final.log": "4aa6b9293764d31a1fefd04b375aaa447097956ea58cf0a8572afd0d0c80cb3d",
+    "architecture.log": "4aa6b9293764d31a1fefd04b375aaa447097956ea58cf0a8572afd0d0c80cb3d",
+    "browser-aws-final.log": "5079df153abc8ea70f15d34659b5bd772dafc8433c63c06b55e5c427a1dc134a",
+    "browser-aws.log": "328e917355e59d5250916067152d9db25b054aa55093aba5ab93a906e677dfa4",
+    "browser-demo.log": "dd2f32d2988b5adc778d28d5ab7354eb3d3034a63249ae3958f4d34d306ff7f6",
+    "build-aws-final.log": "c9212559c087e19e3b93bf48e53ee7c490f63b556ecdcf2623a9aecd5714d3f8",
+    "build-aws.log": "7848cba0d8beccd63c73d9c39efd68a8a34965eee863ccdbdf6be11503314c4e",
+    "build-demo.log": "ace77682080592c889746170780fc7c6dcfd587eb812d24f74495d11d7b5816f",
+    "format-final.log": "3ae88b2036826cb123bf81d13b265388f9ab5b0b24292af31e8dd8f960fd4633",
+    "format.log": "3ae88b2036826cb123bf81d13b265388f9ab5b0b24292af31e8dd8f960fd4633",
+    "lint.log": "e8e6e953304f599414d917b46dbb7407dcedc5dc2de218bf6309992bded70876",
+    "lock.log": "712d8c9fa5fd0c999a6a19bcce1c5a52a03c2a75a50dcb4af2e8341bcb6f93f0",
+    "typecheck.log": "b04ddae4002f0ce47daca3fada20fb4cabbaba42f100f658d44052007068551b",
+    "unit-final.log": "bfa5caf96b641f6f67e754e43232ae4a72ac92ad0d97931b5dbb1b6b1a56dc79",
+    "docs.log": "078f200bbf6a32a5f4088397d5c089dc1c9f10fd6a0cbdae67aeedecf62bd0cf",
+    "secrets.log": "ddb8363b82520067a97cb5ed7c3c408f72261985aa0b80b490142bfd95f06da7"
+  },
+  "initialFailure": {
+    "suite": "AWS synthetic Chrome",
+    "passed": 2,
+    "failed": 3,
+    "reason": "Fixture lacked required Auth userName/createdAt; corrected typed fixture passed",
+    "log": "browser-aws.log"
+  },
+  "preservation": {
+    "originalWindowsHead": "f87b844a681007801cc399460096a1317760cf95",
+    "originalDirtyPathsAtInspectionAndClosure": 77,
+    "documentaryBranchStillClean": true,
+    "rdsBranchInspectedReadOnly": "feat/local-rds-pilot-20261021",
+    "rdsCheckoutWritten": false,
+    "existingVmCheckoutStatus": ""
+  },
+  "notRun": [
+    ".NET/PostgreSQL suites: no backend change",
+    "AWS/gateway/CDN/EKS/Private CD live validation",
+    "fresh remote CI",
+    "exact declared npm 11.16.0",
+    "perceptual screenshot review; Chrome checks are automated"
+  ],
+  "cloudCalls": false,
+  "deployment": false,
+  "pushOrMerge": false,
+  "workflowChanges": false
+}

@@ -1,0 +1,25 @@
+// A single immutable DEMO selection; no credentials, API origin or fallback.
+var RELEASE = "${release_sha256}";
+function reply(code, message, method) {
+  var response = {statusCode: code, headers: {
+    "cache-control": {value: "no-store"},
+    "content-type": {value: "application/json; charset=utf-8"},
+    "x-content-type-options": {value: "nosniff"}
+  }};
+  if (method !== "HEAD") response.body = JSON.stringify({error: message});
+  return response;
+}
+function handler(event) {
+  var request = event.request;
+  var uri = request.uri;
+  if (!/^\//.test(uri) || /[%\\]/.test(uri) || /\/\//.test(uri) || /(^|\/)\.{1,2}(\/|$)/.test(uri)) return reply(400, "Invalid static path", request.method);
+  if (uri === "/api" || uri.indexOf("/api/") === 0) return reply(503, "API unavailable: backend routing is disabled", request.method);
+  if (request.method !== "GET" && request.method !== "HEAD") return reply(405, "Static read only", request.method);
+  if (uri.length > 1 && uri.slice(-1) === "/") uri = uri.slice(0, -1);
+  var spa = /^(\/|\/demo|\/demo\/shipments|\/demo\/shipments\/[A-Za-z0-9_-]{1,100}|\/demo\/tracking|\/shipments|\/shipments\/[A-Za-z0-9_-]{1,100}|\/tracking|\/architecture|\/architecture\/(platform|networking|event-processing|private-cd|lifecycle|scaling|security|evidence))$/;
+  if (spa.test(uri) || uri === "/index.html") request.uri = "/releases/" + RELEASE + "/index.html";
+  else if (/^\/(assets|architecture-assets)\/[A-Za-z0-9_./-]+$/.test(uri)) request.uri = uri;
+  else if (uri === "/frontend-build.json") request.uri = "/releases/" + RELEASE + uri;
+  else return reply(404, "Static route not found", request.method);
+  return request;
+}

@@ -1,0 +1,480 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Infrastructure Lifecycle",
+    "locale": "en",
+    "output": "docs/interactive/lifecycle.html",
+    "quality_profile": "showcase",
+    "repository": {
+      "url": "https://github.com/Kendall04/cloud-native-platform-eks.git",
+      "revision": "9d9957c9dbd2b5d35ecafc73090649d2a2f16d38",
+      "link_mode": "local-only"
+    },
+    "views": [
+      {
+        "id": "bootstrap",
+        "label": "01 / Bootstrap",
+        "focus": [
+          "prereqs",
+          "backend",
+          "network",
+          "eks",
+          "data",
+          "platform",
+          "apps",
+          "edge"
+        ],
+        "note": "Reviewed operator identities and backend precede phased bootstrap; controller-owned ALB gates API integration."
+      },
+      {
+        "id": "proof",
+        "label": "02 / Demonstrated cycle",
+        "focus": [
+          "test",
+          "teardown",
+          "redeploy",
+          "verify"
+        ],
+        "note": "Historical reconstruction: 18 Terragrunt stacks and 190 Terraform resources, followed by integration checks."
+      },
+      {
+        "id": "offline",
+        "label": "03 / Deliberate offline state",
+        "focus": [
+          "final",
+          "offline"
+        ],
+        "note": "Final teardown removed runtime; retained state backend and two pending-deletion KMS keys were recorded."
+      }
+    ],
+    "legend": {
+      "entries": {
+        "backend": {
+          "label": "Execution"
+        },
+        "security": {
+          "label": "Trust / control"
+        },
+        "database": {
+          "label": "Artifact / state"
+        },
+        "cloud": {
+          "label": "AWS resource"
+        },
+        "external": {
+          "label": "Trigger / status"
+        }
+      }
+    }
+  },
+  "lanes": [
+    {
+      "id": "infra",
+      "label": "Account + core infrastructure"
+    },
+    {
+      "id": "runtime",
+      "label": "Private platform + applications"
+    },
+    {
+      "id": "proof",
+      "label": "Historical demonstration"
+    },
+    {
+      "id": "closure",
+      "label": "Final closure"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "prereqs",
+      "type": "security",
+      "label": "Prerequisites",
+      "sublabel": "Authorized roles / pins",
+      "sources": [
+        {
+          "path": "docs/architecture/infrastructure.md",
+          "line": 1
+        },
+        {
+          "path": "scripts/bootstrap/bootstrap.py",
+          "line": 21,
+          "end_line": 30
+        }
+      ],
+      "lane": "infra",
+      "col": 0
+    },
+    {
+      "id": "backend",
+      "type": "database",
+      "label": "State backend",
+      "sublabel": "S3 + DynamoDB lock",
+      "sources": [
+        {
+          "path": "scripts/bootstrap-terraform-backend.sh",
+          "line": 1
+        },
+        {
+          "path": "scripts/bootstrap/bootstrap.py",
+          "line": 229,
+          "end_line": 245
+        }
+      ],
+      "lane": "infra",
+      "col": 1
+    },
+    {
+      "id": "network",
+      "type": "cloud",
+      "label": "VPC + NAT",
+      "sublabel": "Per-AZ private egress",
+      "sources": [
+        {
+          "path": "infra/live/dev/nat/terragrunt.hcl",
+          "line": 20,
+          "end_line": 47
+        },
+        {
+          "path": "infra/live/dev/vpc/terragrunt.hcl",
+          "line": 1
+        }
+      ],
+      "lane": "infra",
+      "col": 2
+    },
+    {
+      "id": "eks",
+      "type": "cloud",
+      "label": "Private EKS",
+      "sublabel": "Managed node groups",
+      "sources": [
+        {
+          "path": "infra/modules/eks/main.tf",
+          "line": 115,
+          "end_line": 140
+        },
+        {
+          "path": "infra/modules/eks/main.tf",
+          "line": 382,
+          "end_line": 443
+        }
+      ],
+      "lane": "infra",
+      "col": 3
+    },
+    {
+      "id": "data",
+      "type": "database",
+      "label": "Data + AWS services",
+      "sublabel": "RDS / events / IAM / S3",
+      "sources": [
+        {
+          "path": "scripts/bootstrap/bootstrap.py",
+          "line": 21,
+          "end_line": 22
+        },
+        {
+          "path": "docs/architecture/infrastructure.md",
+          "line": 1
+        }
+      ],
+      "lane": "infra",
+      "col": 4
+    },
+    {
+      "id": "platform",
+      "type": "security",
+      "label": "Platform bootstrap",
+      "sublabel": "Controllers / secrets / DB",
+      "sources": [
+        {
+          "path": "scripts/bootstrap/bootstrap.py",
+          "line": 247,
+          "end_line": 285
+        }
+      ],
+      "lane": "runtime",
+      "col": 1
+    },
+    {
+      "id": "apps",
+      "type": "backend",
+      "label": "Deploy apps",
+      "sublabel": "Digests / migration Jobs",
+      "sources": [
+        {
+          "path": "scripts/bootstrap/bootstrap.py",
+          "line": 286,
+          "end_line": 298
+        }
+      ],
+      "lane": "runtime",
+      "col": 2
+    },
+    {
+      "id": "edge",
+      "type": "cloud",
+      "label": "ALB then API link",
+      "sublabel": "Readiness + integration",
+      "sources": [
+        {
+          "path": "scripts/bootstrap/bootstrap.py",
+          "line": 300,
+          "end_line": 311
+        }
+      ],
+      "lane": "runtime",
+      "col": 3
+    },
+    {
+      "id": "test",
+      "type": "backend",
+      "label": "Functional tests",
+      "sublabel": "Auth / data / events",
+      "sources": [
+        {
+          "path": "docs/evidence/lifecycle-summary.json",
+          "line": 1
+        },
+        {
+          "path": "docs/results.md",
+          "line": 1
+        }
+      ],
+      "lane": "runtime",
+      "col": 4
+    },
+    {
+      "id": "teardown",
+      "type": "security",
+      "label": "First teardown",
+      "sublabel": "Reviewed plan + guards",
+      "sources": [
+        {
+          "path": "scripts/operations/teardown.py",
+          "line": 1
+        },
+        {
+          "path": "docs/operations/teardown.md",
+          "line": 1
+        },
+        {
+          "path": "docs/evidence/lifecycle-summary.json",
+          "line": 1
+        }
+      ],
+      "lane": "proof",
+      "col": 0
+    },
+    {
+      "id": "redeploy",
+      "type": "cloud",
+      "label": "Rebuild 18 stacks",
+      "sublabel": "190 resources recreated",
+      "sources": [
+        {
+          "path": "docs/evidence/lifecycle-summary.json",
+          "line": 1
+        },
+        {
+          "path": "docs/architecture/infrastructure.md",
+          "line": 1
+        }
+      ],
+      "lane": "proof",
+      "col": 2
+    },
+    {
+      "id": "verify",
+      "type": "backend",
+      "label": "Re-verify + CD",
+      "sublabel": "3 Ready / v2.0.7",
+      "sources": [
+        {
+          "path": "docs/evidence/lifecycle-summary.json",
+          "line": 1
+        }
+      ],
+      "lane": "proof",
+      "col": 4
+    },
+    {
+      "id": "final",
+      "type": "security",
+      "label": "Final teardown",
+      "sublabel": "Dependency-aware closure",
+      "sources": [
+        {
+          "path": "docs/operations/teardown.md",
+          "line": 1
+        },
+        {
+          "path": "scripts/operations/teardown_execution/engine.py",
+          "line": 1
+        },
+        {
+          "path": "docs/evidence/lifecycle-summary.json",
+          "line": 1
+        }
+      ],
+      "lane": "closure",
+      "col": 2
+    },
+    {
+      "id": "offline",
+      "type": "external",
+      "label": "Offline lab",
+      "sublabel": "Runtime removed",
+      "sources": [
+        {
+          "path": "docs/evidence/lifecycle-summary.json",
+          "line": 1
+        }
+      ],
+      "lane": "closure",
+      "col": 4
+    }
+  ],
+  "edges": [
+    {
+      "id": "prereqs-backend",
+      "from": "prereqs",
+      "to": "backend",
+      "label": "",
+      "variant": "default"
+    },
+    {
+      "id": "backend-network",
+      "from": "backend",
+      "to": "network",
+      "label": "",
+      "variant": "default"
+    },
+    {
+      "id": "network-eks",
+      "from": "network",
+      "to": "eks",
+      "label": "",
+      "variant": "default"
+    },
+    {
+      "id": "eks-data",
+      "from": "eks",
+      "to": "data",
+      "label": "",
+      "variant": "default"
+    },
+    {
+      "id": "data-platform",
+      "from": "data",
+      "to": "platform",
+      "label": "Operator phases",
+      "variant": "default"
+    },
+    {
+      "id": "platform-apps",
+      "from": "platform",
+      "to": "apps",
+      "label": "",
+      "variant": "default"
+    },
+    {
+      "id": "apps-edge",
+      "from": "apps",
+      "to": "edge",
+      "label": "Healthy ALB",
+      "variant": "default"
+    },
+    {
+      "id": "edge-test",
+      "from": "edge",
+      "to": "test",
+      "label": "Integration ready",
+      "variant": "default"
+    },
+    {
+      "id": "test-teardown",
+      "from": "test",
+      "to": "teardown",
+      "label": "After evidence",
+      "variant": "default"
+    },
+    {
+      "id": "teardown-redeploy",
+      "from": "teardown",
+      "to": "redeploy",
+      "label": "Guarded completion",
+      "variant": "default"
+    },
+    {
+      "id": "redeploy-verify",
+      "from": "redeploy",
+      "to": "verify",
+      "label": "18 stacks",
+      "variant": "default"
+    },
+    {
+      "id": "verify-final",
+      "from": "verify",
+      "to": "final",
+      "label": "Reviewed plan",
+      "variant": "default"
+    },
+    {
+      "id": "final-offline",
+      "from": "final",
+      "to": "offline",
+      "label": "Verify absence",
+      "variant": "default"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Stack dependency groups",
+      "items": [
+        "Network: vpc -> nat -> eks. Core also includes s3, ecr, event-encryption -> sqs -> eventbridge.",
+        "Secrets/auth: api-gateway-authorizer-secrets -> authorizer; runtime-secrets also depends on eks. iam depends on eks and messaging.",
+        "apigateway-core -> management -> rds; private-cd depends on management/s3/ecr; observability depends on eks/API/RDS.",
+        "apigateway-integration waits for a healthy LBC-created ALB. See the full 18-stack DAG in the IaC guide."
+      ]
+    },
+    {
+      "dot": "rose",
+      "title": "Reconstruction is phased",
+      "items": [
+        "Bootstrap applies 15 core stacks. Platform phases install controllers/ESO, initialize secrets and bootstrap DB roles.",
+        "Observability is applied when its addon is absent; private-cd is a separate operator apply. API integration follows ALB readiness.",
+        "This is not an unattended fresh-account installer. New resource IDs require reviewed identity/boundary bindings."
+      ]
+    },
+    {
+      "dot": "emerald",
+      "title": "Safe removal, not simple reverse apply",
+      "items": [
+        "Freeze delivery/writers and export evidence before mutating teardown. Exact inventory, plan hash, approvals and journal guards remain required.",
+        "Remove Ingress/ALB while LBC exists, prepare RDS deliberately, then retire private access/EKS/network. Backend is last and optional.",
+        "Two teardowns were observed. Final completion: 14 October 2026, 11:28 Costa Rica (UTC-06:00)."
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Historical evidence boundary",
+      "items": [
+        "190 counts Terraform-managed resources, not all controller-created objects. Three Ready nodes had encrypted root volumes.",
+        "Pod egress passed in B/C only; bounded tests establish no SLA. No AWS calls are needed to explore these diagrams.",
+        "Final report retained S3/DynamoDB state backend and recorded two KMS keys pending deletion. AWS delivery workflows remain disabled."
+      ]
+    }
+  ],
+  "semanticChecks": {
+    "requiredPaths": [
+      {
+        "from": "prereqs",
+        "to": "offline"
+      }
+    ]
+  }
+}

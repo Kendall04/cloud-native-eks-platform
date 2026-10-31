@@ -1,0 +1,550 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Platform Architecture",
+    "locale": "en",
+    "output": "docs/interactive/platform.html",
+    "quality_profile": "showcase",
+    "animation": "none",
+    "repository": {
+      "url": "https://github.com/Kendall04/cloud-native-platform-eks.git",
+      "revision": "63ef56f6fe60c3f14ba26200b18fcd85d1b63bae",
+      "link_mode": "local-only"
+    },
+    "views": [
+      {
+        "id": "view-1",
+        "label": "01 / Independent web hosting",
+        "focus": [
+          "browser",
+          "cdn",
+          "static"
+        ],
+        "note": "DEMO is static. Only an explicitly selected AWS edition forwards /api."
+      },
+      {
+        "id": "view-2",
+        "label": "02 / Private request path",
+        "focus": [
+          "api",
+          "authorizer",
+          "link",
+          "alb",
+          "auth",
+          "shipment",
+          "tracking"
+        ],
+        "note": "HTTPS at the public edge; HTTP 80/8080 inside the VPC."
+      },
+      {
+        "id": "view-3",
+        "label": "03 / Identity and persistence",
+        "focus": [
+          "auth",
+          "shipment",
+          "tracking",
+          "db"
+        ],
+        "note": "Services revalidate the current Auth profile; each owns a PostgreSQL schema."
+      },
+      {
+        "id": "view-4",
+        "label": "04 / Platform controls",
+        "focus": [
+          "lbc",
+          "alb",
+          "secrets",
+          "eso",
+          "kube_secrets"
+        ],
+        "note": "Readiness gates coordinate target health. ESO writes workload Secrets."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "browser",
+      "type": "external",
+      "label": "Browser",
+      "sublabel": "Explicit AWS / DEMO edition",
+      "pos": [
+        40,
+        40
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "frontend/src/config.ts"
+        }
+      ]
+    },
+    {
+      "id": "cdn",
+      "type": "cloud",
+      "label": "CloudFront",
+      "sublabel": "Independent static hosting",
+      "pos": [
+        390,
+        40
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/portfolio/frontend-static/main.tf"
+        }
+      ]
+    },
+    {
+      "id": "static",
+      "type": "database",
+      "label": "Private S3",
+      "sublabel": "Immutable frontend releases",
+      "pos": [
+        740,
+        40
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/portfolio/frontend-static/main.tf"
+        }
+      ]
+    },
+    {
+      "id": "authorizer",
+      "type": "security",
+      "label": "JWT authorizer",
+      "sublabel": "Lambda REQUEST / HS256",
+      "pos": [
+        40,
+        180
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/apigateway-core/main.tf"
+        }
+      ]
+    },
+    {
+      "id": "api",
+      "type": "cloud",
+      "label": "API Gateway",
+      "sublabel": "3 public / 9 protected routes",
+      "pos": [
+        390,
+        180
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/apigateway-integration/main.tf"
+        }
+      ]
+    },
+    {
+      "id": "link",
+      "type": "cloud",
+      "label": "VPC Link",
+      "sublabel": "Private ENI attachment",
+      "pos": [
+        740,
+        180
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/apigateway-core/main.tf"
+        }
+      ]
+    },
+    {
+      "id": "lbc",
+      "type": "cloud",
+      "label": "AWS LBC",
+      "sublabel": "IP targets + readiness gates",
+      "pos": [
+        40,
+        320
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "k8s/charts/platform-services/templates/ingress.yaml"
+        }
+      ]
+    },
+    {
+      "id": "alb",
+      "type": "cloud",
+      "label": "Internal ALB",
+      "sublabel": "HTTP 80 / target groups IP",
+      "pos": [
+        740,
+        320
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "k8s/charts/platform-services/templates/ingress.yaml"
+        }
+      ]
+    },
+    {
+      "id": "auth",
+      "type": "backend",
+      "label": "Auth",
+      "sublabel": ".NET 10 / current profile",
+      "pos": [
+        390,
+        474
+      ],
+      "size": [
+        210,
+        80
+      ],
+      "sources": [
+        {
+          "path": "microservices/auth-service/src/AuthService.Infrastructure/Services/AuthenticationService.cs"
+        }
+      ]
+    },
+    {
+      "id": "shipment",
+      "type": "backend",
+      "label": "Shipment",
+      "sublabel": ".NET 10 / ownership + inbox",
+      "pos": [
+        40,
+        474
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "microservices/shipment-service/src/ShipmentService.Api/Infrastructure/CurrentProfileClient.cs"
+        }
+      ]
+    },
+    {
+      "id": "tracking",
+      "type": "backend",
+      "label": "Tracking",
+      "sublabel": ".NET 10 / timeline + outbox",
+      "pos": [
+        740,
+        628
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "microservices/tracking-service/src/TrackingService.Api/Infrastructure/CurrentProfileClient.cs"
+        }
+      ]
+    },
+    {
+      "id": "db",
+      "type": "database",
+      "label": "PostgreSQL 15.18",
+      "sublabel": "Single-AZ / three schemas",
+      "pos": [
+        390,
+        754
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/rds/main.tf"
+        }
+      ]
+    },
+    {
+      "id": "secrets",
+      "type": "security",
+      "label": "Secrets Manager",
+      "sublabel": "Values retained outside Git",
+      "pos": [
+        40,
+        908
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/runtime-secrets/main.tf"
+        }
+      ]
+    },
+    {
+      "id": "eso",
+      "type": "security",
+      "label": "External Secrets",
+      "sublabel": "IRSA / namespaced SecretStore",
+      "pos": [
+        390,
+        908
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "k8s/charts/platform-bootstrap/templates/platform.yaml"
+        }
+      ]
+    },
+    {
+      "id": "kube_secrets",
+      "type": "security",
+      "label": "Kubernetes Secrets",
+      "sublabel": "secretKeyRef → pod environment",
+      "pos": [
+        740,
+        908
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "k8s/charts/platform-secret-sync/templates/secrets.yaml"
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "browser-cdn",
+      "from": "browser",
+      "to": "cdn",
+      "label": "HTTPS",
+      "variant": "emphasis"
+    },
+    {
+      "id": "cdn-static",
+      "from": "cdn",
+      "to": "static",
+      "label": "OAC / read assets",
+      "variant": "default"
+    },
+    {
+      "id": "cdn-api",
+      "from": "cdn",
+      "to": "api",
+      "label": "AWS edition only",
+      "variant": "emphasis"
+    },
+    {
+      "id": "api-authorizer",
+      "from": "api",
+      "to": "authorizer",
+      "label": "Protected only",
+      "variant": "security"
+    },
+    {
+      "id": "api-link",
+      "from": "api",
+      "to": "link",
+      "label": "VPC integration",
+      "variant": "emphasis"
+    },
+    {
+      "id": "link-alb",
+      "from": "link",
+      "to": "alb",
+      "label": "HTTP 80",
+      "variant": "emphasis"
+    },
+    {
+      "id": "alb-auth",
+      "from": "alb",
+      "to": "auth",
+      "label": "HTTP 8080",
+      "variant": "default"
+    },
+    {
+      "id": "alb-shipment",
+      "from": "alb",
+      "to": "shipment",
+      "label": "HTTP 8080",
+      "variant": "default"
+    },
+    {
+      "id": "alb-tracking",
+      "from": "alb",
+      "to": "tracking",
+      "label": "HTTP 8080",
+      "variant": "default"
+    },
+    {
+      "id": "shipment-auth",
+      "from": "shipment",
+      "to": "auth",
+      "label": "Current profile",
+      "variant": "security"
+    },
+    {
+      "id": "tracking-auth",
+      "from": "tracking",
+      "to": "auth",
+      "label": "Current profile",
+      "variant": "security"
+    },
+    {
+      "id": "tracking-shipment",
+      "from": "tracking",
+      "to": "shipment",
+      "label": "Owner lookup",
+      "variant": "security"
+    },
+    {
+      "id": "auth-db",
+      "from": "auth",
+      "to": "db",
+      "label": "TLS / auth",
+      "variant": "default"
+    },
+    {
+      "id": "shipment-db",
+      "from": "shipment",
+      "to": "db",
+      "label": "TLS / shipment",
+      "variant": "default"
+    },
+    {
+      "id": "tracking-db",
+      "from": "tracking",
+      "to": "db",
+      "label": "TLS / tracking",
+      "variant": "default"
+    },
+    {
+      "id": "lbc-alb",
+      "from": "lbc",
+      "to": "alb",
+      "label": "Reconcile / health",
+      "variant": "dashed"
+    },
+    {
+      "id": "eso-secrets",
+      "from": "eso",
+      "to": "secrets",
+      "label": "Read via IRSA",
+      "variant": "security"
+    },
+    {
+      "id": "eso-kube_secrets",
+      "from": "eso",
+      "to": "kube_secrets",
+      "label": "Reconcile values",
+      "variant": "security"
+    },
+    {
+      "id": "kube_secrets-auth",
+      "from": "kube_secrets",
+      "to": "auth",
+      "label": "Env config",
+      "variant": "security"
+    },
+    {
+      "id": "kube_secrets-shipment",
+      "from": "kube_secrets",
+      "to": "shipment",
+      "label": "Env config",
+      "variant": "security"
+    },
+    {
+      "id": "kube_secrets-tracking",
+      "from": "kube_secrets",
+      "to": "tracking",
+      "label": "Env config",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "A durable public portfolio",
+      "items": [
+        "CloudFront and S3 remain independent of EKS. DEMO has synthetic data and no API origin.",
+        "AWS forwarding was proven, then removed. A failed AWS request never falls back to synthetic data."
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Authorization is not just a JWT",
+      "items": [
+        "The REQUEST authorizer authenticates protected routes. The integration overwrites trusted identity headers.",
+        "Shipment and Tracking validate proxy trust and call Auth with the original bearer token. Subject binding, current roles and ownership fail closed.",
+        "Tracking uses a separate internal credential for Shipment ownership lookup. Internal HTTP is not mTLS."
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Control is separate from request traffic",
+      "items": [
+        "LBC owns the ALB, target registration and target-health readiness conditions. These are control actions, not a request proxy.",
+        "ESO reads Secrets Manager and writes Kubernetes Secrets. Each Deployment consumes secretKeyRef environment values; migration Jobs use separate credentials.",
+        "The asynchronous Tracking → EventBridge → SQS → Shipment path has its own diagram."
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Evidence and current state",
+      "items": [
+        "DECLARED: arrows describe source-backed design; the reading guide gives the source for each relationship.",
+        "OBSERVED: topology captured on 28–29 October 2026. Runtime retired on 29 October; RDS retained stopped.",
+        "PROVEN applies only to named experiments. These diagrams are not live telemetry or a production certification."
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "security-group",
+      "label": "Private EKS application workloads",
+      "wraps": [
+        "auth",
+        "shipment",
+        "tracking"
+      ],
+      "pad": 22
+    }
+  ]
+}

@@ -1,0 +1,614 @@
+{
+  "schemaVersion": 1,
+  "scope": "OWNER_AUTHORIZED_READONLY_PREFLIGHT_NOT_NEW_CYCLE_APPROVAL",
+  "preparedFromCommit": "7ca4f367edba8638b0b9334f984d7dbfb770d1a5",
+  "observedUtc": "2026-10-21T22:55:02.952018+00:00",
+  "lastPricingObservationUtc": "2026-10-21T23:03:48.236570+00:00",
+  "principal": {
+    "UserId": "AIDAU7HHZR5TGLGKSTEKJ",
+    "Account": "341936017254",
+    "Arn": "arn:aws:iam::341936017254:user/cnp-cert-admin"
+  },
+  "principalPermissions": {
+    "attachedPolicy": "arn:aws:iam::aws:policy/AdministratorAccess",
+    "documentSha256": "113496d8f8dd96a266c613bbe29e56385781f6c9323dab4dc33b9b64e27750e8",
+    "userBoundaryPresent": false,
+    "inlinePolicies": [],
+    "groups": [],
+    "organizationResponse": "AWSOrganizationsNotInUseException",
+    "interpretation": "Broad identity grants observed; not least privilege, authenticated human consent, future platform approval or proof every resource policy permits an effect. No simulation or mutation permission probe performed."
+  },
+  "workloadBoundaries": {
+    "eks": {
+      "Arn": "arn:aws:iam::341936017254:policy/cnp-cert-eks-workload-boundary",
+      "PolicyId": "ANPAU7HHZR5TAIGTV3YG5",
+      "DefaultVersionId": "v1",
+      "AttachmentCount": 0,
+      "PermissionsBoundaryUsageCount": 0,
+      "documentSha256": "b14ae8965f8135e9dede182bcd15c2c9edeeafc36181481c8a153a443f4827e6",
+      "matchesRecoveredProposal": true
+    },
+    "app": {
+      "Arn": "arn:aws:iam::341936017254:policy/cnp-cert-app-workload-boundary",
+      "PolicyId": "ANPAU7HHZR5TPNYDBVW6G",
+      "DefaultVersionId": "v1",
+      "AttachmentCount": 0,
+      "PermissionsBoundaryUsageCount": 1,
+      "documentSha256": "259a9b6f8ce827dbb93f5ae928d88644c34aaf1d3c335e40171d6c0167d0a78e",
+      "matchesRecoveredProposal": true
+    },
+    "management": {
+      "Arn": "arn:aws:iam::341936017254:policy/cnp-cert-management-workload-boundary",
+      "PolicyId": "ANPAU7HHZR5TNC2NIUVZL",
+      "DefaultVersionId": "v1",
+      "AttachmentCount": 0,
+      "PermissionsBoundaryUsageCount": 0,
+      "documentSha256": "cafbce3a581554a6e6f12423e3b4156fe13bb2b07fafb7faf33d67d9fd528336",
+      "matchesRecoveredProposal": true
+    }
+  },
+  "missingPrivateCdPrerequisites": {
+    "boundaryArn": "arn:aws:iam::341936017254:policy/cnp-cert-private-cd-workload-boundary",
+    "operatorRoleArn": "arn:aws:iam::341936017254:role/cnp-cert-private-cd-executor",
+    "observation": "NoSuchEntity for both; no creation/AssumeRole attempted"
+  },
+  "runtimeObservations": {
+    "cluster": "ResourceNotFoundException",
+    "db": "DBInstanceNotFound",
+    "ecrThree": "RepositoryNotFoundException",
+    "projectVpcs": 0,
+    "projectNonterminatedInstances": 0,
+    "matchingHttpApis": 0,
+    "newGenerationIdentities": "UNAVAILABLE_BEFORE_CREATION"
+  },
+  "backend": {
+    "bucket": "cloud-native-platform-341936017254-dev-us-east-1-tfstate",
+    "ownerChecked": true,
+    "versioning": "Enabled",
+    "encryption": "AES256",
+    "publicAccessBlockAllTrue": true,
+    "bucketPolicy": "NoSuchBucketPolicy",
+    "lockTable": {
+      "name": "cloud-native-platform-341936017254-dev-terraform-locks",
+      "arn": "arn:aws:dynamodb:us-east-1:341936017254:table/cloud-native-platform-341936017254-dev-terraform-locks",
+      "id": "3d386d6b-f36a-47d0-915a-20b8facbcc91",
+      "status": "ACTIVE",
+      "bytes": 2473,
+      "items": 18,
+      "billing": "PAY_PER_REQUEST"
+    },
+    "lockObservation": "18 checksum-only -md5 keys; no live lock key observed in complete consistent scan at that instant",
+    "states": {
+      "api-gateway-authorizer": {
+        "serial": 9,
+        "lineage": "cc40f56d-01cf-21a5-1474-a3c9924d7956",
+        "rawSha256": "5b006d6a7fe039e085ebb30017c9fee4dbe20aae27ac5f3ad4c759e20549dad9",
+        "bytesReadInMemory": 181,
+        "managedCount": 0
+      },
+      "api-gateway-authorizer-secrets": {
+        "serial": 5,
+        "lineage": "4ba01396-a982-8328-d5ff-aa8909bec9c2",
+        "rawSha256": "b783082dafbe266d613a36de4551b9d814b0da6ec0618bdc802a10f27d37b54d",
+        "bytesReadInMemory": 4883,
+        "managedCount": 2
+      },
+      "apigateway-core": {
+        "serial": 14,
+        "lineage": "f73ed051-76dc-16d0-87f8-e1628c5594a2",
+        "rawSha256": "56688d232db0237ade735ebb4001fc1f179a57fc1f0ddfa45dd8d358326053dc",
+        "bytesReadInMemory": 452,
+        "managedCount": 0
+      },
+      "apigateway-integration": {
+        "serial": 4,
+        "lineage": "0f95a419-4f64-6a5d-105d-c235bfbabebd",
+        "rawSha256": "e83f5250866bb4aef76c8bdeabfed37de896463ea04b345fc41959f98ad8e8d9",
+        "bytesReadInMemory": 613,
+        "managedCount": 0
+      },
+      "ecr": {
+        "serial": 6,
+        "lineage": "e957225d-1e03-36af-1ee6-460254df23e7",
+        "rawSha256": "38682091c9e329ed97ba076319f2cbf044443d8f268c8dfe5ec5646763d2c8f4",
+        "bytesReadInMemory": 495,
+        "managedCount": 0
+      },
+      "eks": {
+        "serial": 33,
+        "lineage": "992a3d10-1376-35b4-7344-fa5a0fcae6c5",
+        "rawSha256": "ce5136366d773db69912bd1a103ef2d04279d5e7c7a02a1a1377517aae6493db",
+        "bytesReadInMemory": 859,
+        "managedCount": 0
+      },
+      "event-encryption": {
+        "serial": 6,
+        "lineage": "0655516f-80e2-fb9a-7fb1-cbf0095d9aa4",
+        "rawSha256": "2bbc9158d74ba4104e386eb05f34430f912b446ce7d8ef2d36994180df9ca908",
+        "bytesReadInMemory": 181,
+        "managedCount": 0
+      },
+      "eventbridge": {
+        "serial": 12,
+        "lineage": "0c302f56-37a3-5202-3b84-b0b74e2a716e",
+        "rawSha256": "5e9291bf77d73135e9db3b6c6691adf0bd597346accf71e55261ea8863c615a9",
+        "bytesReadInMemory": 306,
+        "managedCount": 0
+      },
+      "iam": {
+        "serial": 6,
+        "lineage": "7794610e-d9f9-2cd4-2733-b11ceeb24fdb",
+        "rawSha256": "66d0c66c4710e8a28719bc13ce6dd4bde83054353ea2e8a976df3a97600def5a",
+        "bytesReadInMemory": 181,
+        "managedCount": 0
+      },
+      "management": {
+        "serial": 15,
+        "lineage": "d3a390e2-5b36-b3e6-baca-d0c2ba32b886",
+        "rawSha256": "2581ee49829e3f144403147492d69d2897256e0a825847b1f15bcc31397cadef",
+        "bytesReadInMemory": 731,
+        "managedCount": 0
+      },
+      "nat": {
+        "serial": 20,
+        "lineage": "773b020e-e8bc-a404-93b8-4784057eb4a3",
+        "rawSha256": "9820f7b9e7bdb37f00a60cf5157f0100cc5533c28bd082ec026dbd4ce6020751",
+        "bytesReadInMemory": 1126,
+        "managedCount": 0
+      },
+      "observability": {
+        "serial": 17,
+        "lineage": "7e96f9e6-c07d-308f-0ff5-3e2dc10ddd7d",
+        "rawSha256": "d3b71726132a00b7d8b36e237ab35d24dfc8b47edb8a934d2f4d5e57a1c39e75",
+        "bytesReadInMemory": 314,
+        "managedCount": 0
+      },
+      "private-cd": {
+        "serial": 6,
+        "lineage": "6d81bca5-3811-3da4-38d0-0d3df0f97a7d",
+        "rawSha256": "d022ae054d96366717ad361e818f5e6e920ed8e7ce23dfc58472dfaba5dca7b5",
+        "bytesReadInMemory": 317,
+        "managedCount": 0
+      },
+      "rds": {
+        "serial": 18,
+        "lineage": "90530afa-f71e-2f10-7f95-dac23d433b39",
+        "rawSha256": "85854818497140a08bb566fc95ef215e3d254e1458131acb0147137dbf408df9",
+        "bytesReadInMemory": 436,
+        "managedCount": 0
+      },
+      "runtime-secrets": {
+        "serial": 5,
+        "lineage": "9637092e-900f-5cbc-1624-6e7ac3097a10",
+        "rawSha256": "fb71bb881208a63f1ae54af326acc2638efd97f9e4d6441cbd10d7ee57dfdc3f",
+        "bytesReadInMemory": 17596,
+        "managedCount": 10
+      },
+      "s3": {
+        "serial": 10,
+        "lineage": "9f2716e9-7459-81a5-ee28-3309b5d3020c",
+        "rawSha256": "0d9933785518638223ff394d0007409ab86703ee3fb3501214a97926db544174",
+        "bytesReadInMemory": 491,
+        "managedCount": 0
+      },
+      "sqs": {
+        "serial": 13,
+        "lineage": "88ab83a2-7ef4-ffe5-4968-a9b3e247286d",
+        "rawSha256": "3826bd0495c132c9803e12f4cc91f2424cab83dd5d1c138645d4241d4fe1a053",
+        "bytesReadInMemory": 318,
+        "managedCount": 0
+      },
+      "vpc": {
+        "serial": 7,
+        "lineage": "9b4e247c-dc4e-b98f-a8de-b67a5aeec1d4",
+        "rawSha256": "d547fe047462deae13b516c8ca6e087d1ea1b6f0924723210951a838cfd6f8c2",
+        "bytesReadInMemory": 595,
+        "managedCount": 0
+      }
+    },
+    "stateBodyHandling": "18 exact current state objects received and parsed in memory; only curated lineage/count/retention metadata persisted. No raw state files, backups, output or credential values printed/saved."
+  },
+  "retentions": {
+    "existingSecretCount": 10,
+    "active": 10,
+    "versionMetadataCount": 10,
+    "eachHasOneCurrentVersion": true,
+    "existingManagedObjects": [
+      {
+        "type": "aws_iam_role",
+        "name": "eso",
+        "deposed": false,
+        "arn": "arn:aws:iam::341936017254:role/cloud-native-platform-dev-external-secrets",
+        "nameMetadata": "cloud-native-platform-dev-external-secrets",
+        "boundaryArn": "arn:aws:iam::341936017254:policy/cnp-cert-app-workload-boundary",
+        "generation": "AROAU7HHZR5TB553LJERK"
+      },
+      {
+        "type": "aws_iam_role_policy",
+        "name": "eso_read",
+        "deposed": false
+      },
+      {
+        "type": "aws_secretsmanager_secret",
+        "name": "runtime",
+        "deposed": false,
+        "arn": "arn:aws:secretsmanager:us-east-1:341936017254:secret:cloud-native-platform/dev/runtime/auth-migration-db-iQ5wOj",
+        "nameMetadata": "cloud-native-platform/dev/runtime/auth-migration-db",
+        "recoveryWindowDays": 30
+      },
+      {
+        "type": "aws_secretsmanager_secret",
+        "name": "runtime",
+        "deposed": false,
+        "arn": "arn:aws:secretsmanager:us-east-1:341936017254:secret:cloud-native-platform/dev/runtime/auth-runtime-db-aUr9wm",
+        "nameMetadata": "cloud-native-platform/dev/runtime/auth-runtime-db",
+        "recoveryWindowDays": 30
+      },
+      {
+        "type": "aws_secretsmanager_secret",
+        "name": "runtime",
+        "deposed": false,
+        "arn": "arn:aws:secretsmanager:us-east-1:341936017254:secret:cloud-native-platform/dev/runtime/bootstrap-admin-XCAgwd",
+        "nameMetadata": "cloud-native-platform/dev/runtime/bootstrap-admin",
+        "recoveryWindowDays": 30
+      },
+      {
+        "type": "aws_secretsmanager_secret",
+        "name": "runtime",
+        "deposed": false,
+        "arn": "arn:aws:secretsmanager:us-east-1:341936017254:secret:cloud-native-platform/dev/runtime/internal-trust-oEMARd",
+        "nameMetadata": "cloud-native-platform/dev/runtime/internal-trust",
+        "recoveryWindowDays": 30
+      },
+      {
+        "type": "aws_secretsmanager_secret",
+        "name": "runtime",
+        "deposed": false,
+        "arn": "arn:aws:secretsmanager:us-east-1:341936017254:secret:cloud-native-platform/dev/runtime/shipment-migration-db-zEHOqe",
+        "nameMetadata": "cloud-native-platform/dev/runtime/shipment-migration-db",
+        "recoveryWindowDays": 30
+      },
+      {
+        "type": "aws_secretsmanager_secret",
+        "name": "runtime",
+        "deposed": false,
+        "arn": "arn:aws:secretsmanager:us-east-1:341936017254:secret:cloud-native-platform/dev/runtime/shipment-runtime-db-EG0FHf",
+        "nameMetadata": "cloud-native-platform/dev/runtime/shipment-runtime-db",
+        "recoveryWindowDays": 30
+      },
+      {
+        "type": "aws_secretsmanager_secret",
+        "name": "runtime",
+        "deposed": false,
+        "arn": "arn:aws:secretsmanager:us-east-1:341936017254:secret:cloud-native-platform/dev/runtime/tracking-migration-db-aUr9wm",
+        "nameMetadata": "cloud-native-platform/dev/runtime/tracking-migration-db",
+        "recoveryWindowDays": 30
+      },
+      {
+        "type": "aws_secretsmanager_secret",
+        "name": "runtime",
+        "deposed": false,
+        "arn": "arn:aws:secretsmanager:us-east-1:341936017254:secret:cloud-native-platform/dev/runtime/tracking-runtime-db-IKjwVh",
+        "nameMetadata": "cloud-native-platform/dev/runtime/tracking-runtime-db",
+        "recoveryWindowDays": 30
+      },
+      {
+        "type": "aws_secretsmanager_secret",
+        "name": "this",
+        "deposed": false,
+        "arn": "arn:aws:secretsmanager:us-east-1:341936017254:secret:cloud-native-platform/dev/api-gateway-authorizer/auth-service-jwt-secret-JtcGe1",
+        "nameMetadata": "cloud-native-platform/dev/api-gateway-authorizer/auth-service-jwt-secret",
+        "recoveryWindowDays": 7
+      },
+      {
+        "type": "aws_secretsmanager_secret",
+        "name": "this",
+        "deposed": false,
+        "arn": "arn:aws:secretsmanager:us-east-1:341936017254:secret:cloud-native-platform/dev/api-gateway-authorizer/platform-trusted-proxy-secret-Vt7TN0",
+        "nameMetadata": "cloud-native-platform/dev/api-gateway-authorizer/platform-trusted-proxy-secret",
+        "recoveryWindowDays": 7
+      }
+    ],
+    "esoRole": {
+      "RoleName": "cloud-native-platform-dev-external-secrets",
+      "Arn": "arn:aws:iam::341936017254:role/cloud-native-platform-dev-external-secrets",
+      "RoleId": "AROAU7HHZR5TB553LJERK",
+      "CreateDate": "2026-10-16T23:56:34+00:00",
+      "PermissionsBoundary": {
+        "PermissionsBoundaryType": "Policy",
+        "PermissionsBoundaryArn": "arn:aws:iam::341936017254:policy/cnp-cert-app-workload-boundary"
+      }
+    },
+    "pendingKeys": [
+      {
+        "arn": "arn:aws:kms:us-east-1:341936017254:key/08bded46-3283-4561-a518-5afa836f1437",
+        "generationCreatedAt": "2026-10-16T17:35:50.594000-06:00",
+        "state": "PendingDeletion",
+        "deletionAtUtc": "2026-11-19T17:47:21.003000+00:00",
+        "disposition": "PRE_EXISTING_PENDING_DO_NOT_REACTIVATE_OR_DELETE"
+      },
+      {
+        "arn": "arn:aws:kms:us-east-1:341936017254:key/0fdce1f0-418b-4463-b751-44e818ef475e",
+        "generationCreatedAt": "2026-10-13T09:57:27.934000-06:00",
+        "state": "PendingDeletion",
+        "deletionAtUtc": "2026-11-13T00:35:34.974000+00:00",
+        "disposition": "PRE_EXISTING_PENDING_DO_NOT_REACTIVATE_OR_DELETE"
+      },
+      {
+        "arn": "arn:aws:kms:us-east-1:341936017254:key/e354ff52-7648-469e-8238-48fece53eb4a",
+        "generationCreatedAt": "2026-10-13T18:54:59.341000-06:00",
+        "state": "PendingDeletion",
+        "deletionAtUtc": "2026-11-13T16:52:54.734000+00:00",
+        "disposition": "PRE_EXISTING_PENDING_DO_NOT_REACTIVATE_OR_DELETE"
+      }
+    ],
+    "sharedAwsManagedAliases": {
+      "alias/aws/rds": {
+        "AliasArn": "arn:aws:kms:us-east-1:341936017254:alias/aws/rds",
+        "TargetKeyId": "27ca0837-6487-4bff-8da6-01356199a1d4",
+        "CreationDate": "2026-10-13T10:01:42.550000-06:00"
+      },
+      "alias/aws/secretsmanager": {
+        "AliasArn": "arn:aws:kms:us-east-1:341936017254:alias/aws/secretsmanager",
+        "TargetKeyId": "47f36880-42e8-4209-b3d0-9605267de136",
+        "CreationDate": "2026-10-13T10:01:43.056000-06:00"
+      }
+    },
+    "preserve": "Existing ten secrets/ESO/backend/three boundaries/three pending CMKs until an exact separately approved disposition; shared AWS-managed keys are references, not targets. Retained ESO trust must bind the future new cluster generation through reviewed normal owner plan."
+  },
+  "capacity": {
+    "standardVcpuQuota": 50,
+    "spotVcpuQuota": 384,
+    "elasticIpQuota": 5,
+    "allocatedElasticIpsObserved": 0,
+    "accountNonterminatedEc2Observed": 0,
+    "baselineStandardVcpuDemand": 12,
+    "maxDeclaredStandardVcpuDemand": 20,
+    "baselineSpotVcpuDemand": 2,
+    "maxDeclaredSpotVcpuDemand": 20,
+    "pinResults": {
+      "natAmi": "ami-03c3da4cfa8e8943a available",
+      "nodeAmi": "ami-06ee11fb2e882f9d5 available; 1.35.8-20261003",
+      "addons": "All five exact declared versions present in EKS 1.35 compatibility response",
+      "postgres": "15.18 available, db.t4g.micro gp3 orderable in all three source AZs"
+    },
+    "spotUsdPerHourABC": {
+      "us-east-1a": "0.032900",
+      "us-east-1b": "0.029800",
+      "us-east-1c": "0.029100"
+    },
+    "limitations": "Numeric quota and advertised orderability are observations, not reserved capacity or proof future allocation/access. No EC2 reservation or quota increase."
+  },
+  "officialPriceListRates": [
+    {
+      "label": "eks-control-plane",
+      "sku": "ZYWMR684YSMFHWEU",
+      "usd": "0.1000000000",
+      "unit": "Hours",
+      "description": "Amazon EKS cluster usage in US East (N. Virginia)",
+      "effectiveDate": "2026-09-01T00:00:00Z",
+      "begin": "0",
+      "end": "Inf"
+    },
+    {
+      "label": "ec2-t3.large",
+      "sku": "HBVJM3Q9S8K6MNPJ",
+      "usd": "0.0832000000",
+      "unit": "Hrs",
+      "description": "$0.0832 per On Demand Linux t3.large Instance Hour",
+      "effectiveDate": "2026-10-01T00:00:00Z",
+      "begin": "0",
+      "end": "Inf"
+    },
+    {
+      "label": "ec2-t3.micro",
+      "sku": "CRAJUW7BTXFMT2UJ",
+      "usd": "0.0104000000",
+      "unit": "Hrs",
+      "description": "$0.0104 per On Demand Linux t3.micro Instance Hour",
+      "effectiveDate": "2026-10-01T00:00:00Z",
+      "begin": "0",
+      "end": "Inf"
+    },
+    {
+      "label": "ebs-gp3",
+      "sku": "JG3KUJMBRGHV3N8G",
+      "usd": "0.0800000000",
+      "unit": "GB-Mo",
+      "description": "$0.08 per GB-month of General Purpose (gp3) provisioned storage - US East (N. Virginia)",
+      "effectiveDate": "2026-10-01T00:00:00Z",
+      "begin": "0",
+      "end": "Inf"
+    },
+    {
+      "label": "rds-micro",
+      "sku": "9HPEGXQTDDGH53C9",
+      "usd": "0.0160000000",
+      "unit": "Hrs",
+      "description": "$ 0.016 per RDS db.t4g.micro Single-AZ instance hour (or partial hour) running PostgreSQL",
+      "effectiveDate": "2026-10-01T00:00:00Z",
+      "begin": "0",
+      "end": "Inf"
+    },
+    {
+      "label": "rds-gp3",
+      "sku": "KYVYY29G957PKY3B",
+      "usd": "0.1150000000",
+      "unit": "GB-Mo",
+      "description": "$0.115 per GB-month of provisioned GP3 storage running PostgreSQL",
+      "effectiveDate": "2026-10-01T00:00:00Z",
+      "begin": "0",
+      "end": "Inf"
+    },
+    {
+      "label": "alb-hour",
+      "sku": "37CUWUT8GSNQEPUV",
+      "usd": "0.0225000000",
+      "unit": "Hrs",
+      "description": "$0.0225 per Application LoadBalancer-hour (or partial hour)",
+      "effectiveDate": "2026-08-01T00:00:00Z",
+      "begin": "0",
+      "end": "Inf"
+    },
+    {
+      "label": "alb-lcu",
+      "sku": "P2XGEJ8N3KU52WA8",
+      "usd": "0.0080000000",
+      "unit": "LCU-Hrs",
+      "description": "$0.008 per used Application load balancer capacity unit-hour (or partial hour)",
+      "effectiveDate": "2026-08-01T00:00:00Z",
+      "begin": "0",
+      "end": "Inf"
+    },
+    {
+      "label": "ipv4",
+      "sku": "4GQUNXTFWVSGPUZK",
+      "usd": "0.0050000000",
+      "unit": "Hrs",
+      "description": "$0.005 per In-use public IPv4 address per hour",
+      "effectiveDate": "2026-10-01T00:00:00Z",
+      "begin": "0",
+      "end": "Inf"
+    },
+    {
+      "label": "secret-month",
+      "sku": "BJ3PQ9BYGU6P632F",
+      "usd": "0.4000000000",
+      "unit": "Secrets",
+      "description": "$0.40 per Secret",
+      "effectiveDate": "2025-07-01T00:00:00Z",
+      "begin": "0",
+      "end": "Inf"
+    },
+    {
+      "label": "kms-key-month",
+      "sku": "U553K98XGDXCYHWS",
+      "usd": "1.0000000000",
+      "unit": "Keys",
+      "description": "$1 per customer managed KMS key version in US East (N. Virginia)",
+      "effectiveDate": "2025-07-01T00:00:00Z",
+      "begin": "0",
+      "end": "Inf"
+    },
+    {
+      "label": "s3-first-tier",
+      "sku": "WP9ANXZGBYYSGJEA",
+      "usd": "0.0230000000",
+      "unit": "GB-Mo",
+      "description": "$0.023 per GB - first 50 TB / month of storage used",
+      "effectiveDate": "2026-10-01T00:00:00Z",
+      "begin": "0",
+      "end": "51200"
+    },
+    {
+      "label": "logs-ingestion",
+      "sku": "96K55R2PV3ZZZ3AM",
+      "usd": "0.5000000000",
+      "unit": "GB",
+      "description": "$0.50 per GB custom log data ingested in Standard log class - US East (Northern Virginia)",
+      "effectiveDate": "2026-10-01T00:00:00Z",
+      "begin": "0",
+      "end": "Inf"
+    },
+    {
+      "label": "cloudfront-https",
+      "sku": "NPFD6SEH9MXS8M4J",
+      "usd": "0.0000010000",
+      "unit": "Requests",
+      "description": "$0.0100 per 10,000 HTTPS Requests",
+      "effectiveDate": "2026-10-01T00:00:00Z",
+      "begin": "0",
+      "end": "Inf"
+    },
+    {
+      "label": "cloudfront-us-data",
+      "sku": "GV2WFGX37Q9PDSHF",
+      "usd": "0.0850000000",
+      "unit": "GB",
+      "description": "$0.085 per GB - first 10 TB / month data transfer out",
+      "effectiveDate": "2026-10-01T00:00:00Z",
+      "begin": "0",
+      "end": "10240"
+    }
+  ],
+  "costProposal": {
+    "currency": "USD",
+    "newCycleApproval": "NOT_GRANTED",
+    "windowHours": 8,
+    "testStopHour": 4,
+    "retirementAndRecoveryHours": 4,
+    "ceilingProposed": 25,
+    "modelMonthHours": 730,
+    "baselineFixed8hUsd": 3.463145205479452,
+    "baselineAssumptions": "Two API On-Demand t3.large + one Spot at observed max ABC, four t3.micro, three public IPv4, standard EKS, RDS 20GiB gp3, 182GiB EC2 gp3, one ALB/LCU, one fresh event key and managed master secret; includes time share of ten retained secrets. For already retired/created phases this full eight-hour costing is conservative, not measured billing.",
+    "all16NodesOnDemandPriceComparisonFixed8hUsd": 13.088208219178082,
+    "variableAllowanceUsd": 3,
+    "recoveryAndVariableReserveUsd": 8.9,
+    "variableRisks": "CPU surplus credits, additional LCUs/logs, API/event/SSM/S3/ECR/KMS requests, data transfer, RDS storage growth/backups, regional edge rates and prolonged recovery; not priced as zero. 16-node comparison is not an all-in upper bound or an approval to drive maximum capacity for eight hours.",
+    "continuingExistingSecretsUsdPerMonth": 4,
+    "continuingBackendCost": "Existing versioned bytes and requests remain; historical version storage not fully quantified; no zero-bill assertion",
+    "safety": "A fresh planning envelope, not historical USD8/6h or another project budget; not an enforced spend cap or an AWS cleanup-time guarantee. No new resources or chargeable runtime provisioned."
+  },
+  "webModes": {
+    "A": "Deploy/test existing static AWS bundle with backend then remove all new runtime and static hosting; pre-existing explicit retentions remain. Complete host removal needs observed owner postconditions.",
+    "B": "Retire backend, retain separately owned private-S3/CloudFront static hosting per existing design, with explicit retention owner/date/budget. Product DEMO and five-diagram Explorer remain interactive without backend. Retain AWS bundle only with truthful API-unavailable behavior; optionally promote separately verified visibly DEMO artifact through explicit reviewed action, never fallback/mix modes.",
+    "hostingImplemented": false,
+    "hostingApproved": false,
+    "staticCostProposal": {
+      "periodDays": 30,
+      "reviewAllowanceUsd": 1,
+      "assumptions": "At most100MiB stored, 1GB delivered to US edges, 10000 HTTPS requests; S3 standard about0.0023 + CloudFront0.085+0.01 = about0.10 before origin requests/other viewer regions/tax. No Free Tier/credits/domain/WAF/extra compute assumed. Public traffic is variable; USD1 is a review allowance, not an enforced cap. Existing secret/backend retention is separate."
+    }
+  },
+  "readLimitations": [
+    "No live EKS/Kubernetes/RBAC/CNI/TTL/auth/events/PrivateCD/browser certification because runtime is absent",
+    "No future saved create/destroy plans, generated UIDs, new EKS OIDC issuer/management instance/SSM document binding before creation",
+    "No PrincipalPolicy simulation, AssumeRole, secret value API, KMS Decrypt, remote plan/lock write, apply/deploy or policy/backup mutation",
+    "An initial Price List parser encountered optional productFamily; corrected locally and reran successful reads, no access denial. EKS initial broad first page was incomplete; selected standard rate obtained by exact usage type instead.",
+    "All scopes/retentions/IAM/hosting effects still need fresh concrete owner/platform approvals; broad IAM user privileges are not those approvals"
+  ],
+  "localReceipts": [
+    {
+      "filename": "eks-preflight-20261021.json",
+      "sha256": "3f9ac6a0718899f3184ac31e0041b75609e6789f65ce7bf2b81adce2e7cfccdd",
+      "bytes": 41719
+    },
+    {
+      "filename": "eks-capacity-prices-20261021.json",
+      "sha256": "5aa50125fcde157bd197336bfc2f6d66e29a086b1be9e52487eef27c971a1df9",
+      "bytes": 233833
+    },
+    {
+      "filename": "eks-retentions-20261021.json",
+      "sha256": "95976060512c409a2c31eef1c3a6dc3a3e1738c459acac3dcdbc516513d6631a",
+      "bytes": 23847
+    },
+    {
+      "filename": "eks-price-completion-20261021.json",
+      "sha256": "4063852cc10ebc2870f27bf51895ed61906c87d5162543317956e660b402da82",
+      "bytes": 2917
+    },
+    {
+      "filename": "eks-final-price-rates-20261021.json",
+      "sha256": "77d9df9913ccaf8b1b218928096215e87007143bc460ded78659812d8c3348da",
+      "bytes": 3695
+    },
+    {
+      "filename": "eks-cdn-rates-20261021.json",
+      "sha256": "eafc3c7e51281bfa430ce22a95c5b754047c112468e44d74ea2761c7e88a287b",
+      "bytes": 4781
+    },
+    {
+      "filename": "eks-cdn-transfer-20261021.json",
+      "sha256": "85ef44687436efc74656012e178eee8f9c49580c2a75215f6bf952159eac5c17",
+      "bytes": 7722
+    }
+  ],
+  "validation": {
+    "documentation": "PASS:42 Markdown files,298 local links/anchors;5 unchanged Mermaid blocks counted,not rendered",
+    "currentTreeSecretScan": "PASS:702 text files;history not scanned",
+    "whitespace": "git diff --check PASS",
+    "guardRegressions": "Not rerun;no application/guard code changed",
+    "preservation": "All77 original dirty-file byte hashes unchanged;no other project write"
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "schemaVersion": 1,
+  "recordedAtUtc": "2026-10-27T01:21:03.617126-06:00",
+  "status": "EXACT_VERSION_LOCAL_QUALIFICATION_PASS_NOT_ADMISSION",
+  "qualifiedCommit": "343ea27cba702d6b922c50d9b088998179116801",
+  "productionRendererPolicyAndPythonTestsUnchanged": true,
+  "python": {
+    "version": "3.13.17",
+    "platform": "WSL_Ubuntu_24.04_linux_x86_64",
+    "existingInstallation": "/opt/codex-tools/python/3.13.17/bin/python3.13",
+    "binarySha256": "053276e75a82edf405aab5f91bbae4badbf21fbd55c0c545599fa4cba6422cb6",
+    "cachedSourceTarSha256": "6020bd10aff3bf4821be16f088ebb1591beb7b811dcd8fab1da8f7c22a7b27e7",
+    "newInstallation": false,
+    "testsPassed": 21,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "cliArtifactCheck": "PASS"
+  },
+  "terraform": {
+    "version": "1.13.4",
+    "platform": "windows_amd64",
+    "portableWorkspaceOnly": true,
+    "officialArchiveUrl": "https://releases.hashicorp.com/terraform/1.13.4/terraform_1.13.4_windows_amd64.zip",
+    "checksumUrl": "https://releases.hashicorp.com/terraform/1.13.4/terraform_1.13.4_SHA256SUMS",
+    "archiveBytes": 30962506,
+    "archiveSha256": "c73b27ead20013ba24d4cb5eeced2d77fa6fd13f0e3c0bce3e128b2f6e41a8c9",
+    "binarySha256": "297a4c4f1a7485212ed3a6a6f2f750d53e9a963924e21d2cbe14a29bdcece188",
+    "spaceBeforeBytes": 79148240896,
+    "globalInstallPathRegistryOrRestart": false,
+    "providerVersion": "5.100.0",
+    "providerFromExistingCache": true,
+    "providerBinarySha256": "12b413fada9bad9125f344749181020bb373f45726c7879790a95999eff19e7d",
+    "providerBinaryHashMethod": "PowerShell Get-FileHash handles long Windows fixture paths",
+    "lockSha256": "1780c45c9e64a4fd0c76e902b688de8bf3720b6eb143e618bdd12afdfe82f7c1",
+    "lockUnchanged": true,
+    "initFlags": [
+      "-backend=false",
+      "-lockfile=readonly",
+      "-input=false",
+      "-plugin-dir=existing-filesystem-mirror"
+    ],
+    "providerAndSchemaValidate": "PASS",
+    "mockedPlanTestsPassed": 5,
+    "mockedPlanTestsFailed": 0,
+    "uniqueMockedPlanCases": [
+      "isolated_data_graph",
+      "reject_protected_vpc",
+      "reject_protected_subnet",
+      "reject_protected_db_security_group",
+      "reject_protected_event_key"
+    ],
+    "allTestRunsCommand": "plan",
+    "mockProvider": true,
+    "awsIamPolicyDocumentMocked": true,
+    "remoteBackendInitialized": false,
+    "refreshRun": false,
+    "realPlanOrApplyRun": false,
+    "localFixtureStateFilesObserved": 0,
+    "hclFmt": "PASS"
+  },
+  "nonProofAttempts": [
+    {
+      "result": "SCHEMA_PLUGIN_DID_NOT_RESPOND_IN_SANDBOX",
+      "resolution": "Pinned validate passed outside sandbox with empty credential/config files and no host security/network changes."
+    },
+    {
+      "result": "FILTER_RETURNED_ZERO_CASES",
+      "resolution": "Explicit test directory discovered all five cases; zero-case exit was not counted as success."
+    },
+    {
+      "result": "INITIAL_RECEIPT_WRITER_HIT_WINDOWS_LONG_PATH",
+      "resolution": "Provider hash obtained with PowerShell. Documentation check initially failed on the not-yet-created receipt; final checks run after this correction."
+    }
+  ],
+  "networkAndEffects": {
+    "newClone": false,
+    "awsCalls": 0,
+    "actionsRuns": 0,
+    "push": false,
+    "iamOrCredentialsChanged": false,
+    "hostSecurityOrNetworkChanged": false,
+    "retirementRunnerOrBaselinePinChanged": false,
+    "newVPCKeyOrBackendCreated": false
+  },
+  "integration": {
+    "proposal": "infra/trials/synthetic-data/INTEGRATION.md",
+    "minimumProducer": [
+      "scripts/bootstrap/environment.py:generate",
+      "scripts/bootstrap/environment.py:build_contract"
+    ],
+    "beforeOriginalDataReads": true,
+    "cdCurrentlyRequiresDevAndSchema2": true,
+    "automaticAdapterOrExceptionsImplemented": false,
+    "protectedDecisionFields": [
+      "bindings.vpc_id",
+      "bindings.private_subnet_ids",
+      "bindings.event_kms_key_arn"
+    ],
+    "newWorkloadSecurityGroups": "UNBOUND",
+    "backendDisposition": "UNRESOLVED_NO_AUTOMATIC_SHARED_FALLBACK"
+  },
+  "validation": {
+    "documentation": "PASS_54_MARKDOWN_405_LOCAL_LINKS_5_UNCHANGED_MERMAID_FENCES",
+    "currentTreeSecrets": "PASS_799_TEXT_FILES_BOUNDED_CURRENT_TREE_ONLY",
+    "gitDiffCheck": "PASS"
+  },
+  "limits": [
+    "Local qualification does not qualify live IAM, AWS behavior, recovery or retirement.",
+    "Preserved network/key and backend disposition still need concrete review.",
+    "The partial data output is not a complete schema2 environment contract.",
+    "No new exception or contract/runner pin has been installed.",
+    "The earlier destructive-action refusal and NAT/retirement blockers persist."
+  ]
+}

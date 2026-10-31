@@ -1,0 +1,247 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "CreateBoundedDeliveryRoles",
+      "Effect": "Allow",
+      "Action": "iam:CreateRole",
+      "Resource": [
+        "arn:aws:iam::341936017254:role/cloud-native-platform-dev-artifact-publisher",
+        "arn:aws:iam::341936017254:role/cloud-native-platform-dev-deployment-orchestrator-dev"
+      ],
+      "Condition": {
+        "StringEquals": {
+          "iam:PermissionsBoundary": "arn:aws:iam::341936017254:policy/cnp-cert-private-cd-workload-boundary",
+          "aws:RequestTag/Project": "cloud-native-platform",
+          "aws:RequestTag/Environment": "dev"
+        }
+      }
+    },
+    {
+      "Sid": "DeliveryRoleLifecycle",
+      "Effect": "Allow",
+      "Action": [
+        "iam:GetRole",
+        "iam:TagRole",
+        "iam:ListRolePolicies",
+        "iam:ListAttachedRolePolicies",
+        "iam:GetRolePolicy",
+        "iam:PutRolePolicy"
+      ],
+      "Resource": [
+        "arn:aws:iam::341936017254:role/cloud-native-platform-dev-artifact-publisher",
+        "arn:aws:iam::341936017254:role/cloud-native-platform-dev-deployment-orchestrator-dev"
+      ]
+    },
+    {
+      "Sid": "ManagementArtifactPolicy",
+      "Effect": "Allow",
+      "Action": [
+        "iam:GetRole",
+        "iam:ListRolePolicies",
+        "iam:GetRolePolicy",
+        "iam:PutRolePolicy"
+      ],
+      "Resource": "arn:aws:iam::341936017254:role/cloud-native-platform-dev-management-role"
+    },
+    {
+      "Sid": "ReadFrozenBoundaries",
+      "Effect": "Allow",
+      "Action": [
+        "iam:GetPolicy",
+        "iam:GetPolicyVersion"
+      ],
+      "Resource": [
+        "arn:aws:iam::341936017254:policy/cnp-cert-private-cd-workload-boundary",
+        "arn:aws:iam::341936017254:policy/cnp-cert-management-workload-boundary"
+      ]
+    },
+    {
+      "Sid": "GithubOIDC",
+      "Effect": "Allow",
+      "Action": [
+        "iam:CreateOpenIDConnectProvider",
+        "iam:GetOpenIDConnectProvider",
+        "iam:TagOpenIDConnectProvider"
+      ],
+      "Resource": "arn:aws:iam::341936017254:oidc-provider/token.actions.githubusercontent.com"
+    },
+    {
+      "Sid": "ListOIDC",
+      "Effect": "Allow",
+      "Action": "iam:ListOpenIDConnectProviders",
+      "Resource": "*"
+    },
+    {
+      "Sid": "FixedDocumentLifecycle",
+      "Effect": "Allow",
+      "Action": [
+        "ssm:CreateDocument",
+        "ssm:GetDocument",
+        "ssm:DescribeDocument",
+        "ssm:AddTagsToResource",
+        "ssm:ListTagsForResource",
+        "ssm:DescribeDocumentPermission",
+        "ssm:DeleteDocument"
+      ],
+      "Resource": "arn:aws:ssm:us-east-1:341936017254:document/cloud-native-platform-dev-deploy-apps"
+    },
+    {
+      "Sid": "StateRead",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:GetObjectVersion"
+      ],
+      "Resource": [
+        "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-tfstate/dev/private-cd/terraform.tfstate",
+        "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-tfstate/dev/management/terraform.tfstate",
+        "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-tfstate/dev/s3/terraform.tfstate",
+        "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-tfstate/dev/ecr/terraform.tfstate"
+      ]
+    },
+    {
+      "Sid": "PrivateCdStateWrite",
+      "Effect": "Allow",
+      "Action": [
+        "s3:PutObject",
+        "s3:DeleteObject"
+      ],
+      "Resource": "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-tfstate/dev/private-cd/terraform.tfstate"
+    },
+    {
+      "Sid": "BackendBucketRead",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetBucketLocation",
+        "s3:GetBucketVersioning",
+        "s3:GetEncryptionConfiguration",
+        "s3:GetBucketPublicAccessBlock",
+        "s3:GetBucketAcl",
+        "s3:GetBucketLogging",
+        "s3:GetBucketPolicy",
+        "s3:GetBucketTagging",
+        "s3:GetLifecycleConfiguration"
+      ],
+      "Resource": "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-tfstate"
+    },
+    {
+      "Sid": "BackendList",
+      "Effect": "Allow",
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-tfstate",
+      "Condition": {
+        "StringLike": {
+          "s3:prefix": [
+            "dev/private-cd/*",
+            "dev/management/*",
+            "dev/s3/*",
+            "dev/ecr/*",
+            "env:",
+            "env:/*"
+          ]
+        }
+      }
+    },
+    {
+      "Sid": "LockMetadata",
+      "Effect": "Allow",
+      "Action": "dynamodb:DescribeTable",
+      "Resource": "arn:aws:dynamodb:us-east-1:341936017254:table/cloud-native-platform-341936017254-dev-terraform-locks"
+    },
+    {
+      "Sid": "PrivateCdLock",
+      "Effect": "Allow",
+      "Action": [
+        "dynamodb:GetItem",
+        "dynamodb:PutItem",
+        "dynamodb:DeleteItem"
+      ],
+      "Resource": "arn:aws:dynamodb:us-east-1:341936017254:table/cloud-native-platform-341936017254-dev-terraform-locks",
+      "Condition": {
+        "ForAllValues:StringEquals": {
+          "dynamodb:LeadingKeys": [
+            "cloud-native-platform-341936017254-dev-us-east-1-tfstate/dev/private-cd/terraform.tfstate",
+            "cloud-native-platform-341936017254-dev-us-east-1-tfstate/dev/private-cd/terraform.tfstate-md5"
+          ]
+        }
+      }
+    },
+    {
+      "Sid": "OperatorImageReadWrite",
+      "Effect": "Allow",
+      "Action": [
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:InitiateLayerUpload",
+        "ecr:UploadLayerPart",
+        "ecr:CompleteLayerUpload",
+        "ecr:PutImage",
+        "ecr:BatchGetImage",
+        "ecr:GetDownloadUrlForLayer",
+        "ecr:DescribeImages",
+        "ecr:DescribeImageScanFindings"
+      ],
+      "Resource": [
+        "arn:aws:ecr:us-east-1:341936017254:repository/auth-service",
+        "arn:aws:ecr:us-east-1:341936017254:repository/shipment-service",
+        "arn:aws:ecr:us-east-1:341936017254:repository/tracking-service"
+      ]
+    },
+    {
+      "Sid": "OperatorEcrAuth",
+      "Effect": "Allow",
+      "Action": "ecr:GetAuthorizationToken",
+      "Resource": "*"
+    },
+    {
+      "Sid": "OperatorImmutableObjects",
+      "Effect": "Allow",
+      "Action": "s3:PutObject",
+      "Resource": [
+        "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-artifacts/deploy-artifacts/dev/*",
+        "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-artifacts/operator-image-records/dev/*",
+        "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-artifacts/environment-contracts/dev/*"
+      ],
+      "Condition": {
+        "StringEquals": {
+          "s3:if-none-match": "*"
+        }
+      }
+    },
+    {
+      "Sid": "OperatorReadArtifacts",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:GetObjectVersion"
+      ],
+      "Resource": [
+        "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-artifacts/deploy-artifacts/dev/*",
+        "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-artifacts/operator-image-records/dev/*",
+        "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-artifacts/environment-contracts/dev/*",
+        "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-artifacts/deployment-receipts/dev/*"
+      ]
+    },
+    {
+      "Sid": "OperatorObserve",
+      "Effect": "Allow",
+      "Action": "ssm:GetCommandInvocation",
+      "Resource": "*"
+    },
+    {
+      "Sid": "OperatorFixedDeploy",
+      "Effect": "Allow",
+      "Action": "ssm:SendCommand",
+      "Resource": [
+        "arn:aws:ssm:us-east-1:341936017254:document/cloud-native-platform-dev-deploy-apps",
+        "arn:aws:ec2:us-east-1:341936017254:instance/i-031d7ef07d85316af"
+      ]
+    },
+    {
+      "Sid": "VerifyIdentity",
+      "Effect": "Allow",
+      "Action": "sts:GetCallerIdentity",
+      "Resource": "*"
+    }
+  ]
+}

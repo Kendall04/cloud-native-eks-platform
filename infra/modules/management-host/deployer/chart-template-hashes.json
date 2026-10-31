@@ -1,0 +1,12 @@
+{
+  "platform-services/templates/configmap.yaml": "c6935b1dce79c5f75c92909f6ec6c7c837dd77949850cbab7cff81bf84e625ed",
+  "platform-services/templates/deployment.yaml": "2ea87abbae062674d234ea354bb0e467a0d1d258cb30a9135eccce8d087e535a",
+  "platform-services/templates/hpa.yaml": "a8fa172bffef4eafad1fb7640279c7ec65a58c18a71496fcf7a0b8a2150035e1",
+  "platform-services/templates/ingress.yaml": "2c1734d36ebe1072e6511448a6de8518d181c2aec254877cdf16399bd4d05be0",
+  "platform-services/templates/keda.yaml": "42e8ef6fb65a9221fa8a8beb7cfa23ff0a4d5aeb8adf1c8039bb4589145128d8",
+  "platform-services/templates/migration-job.yaml": "9fd7392b6b2f46aa3bdfbad43c7bdb4548123ad1e12a25fe34a2fe75d13d5f24",
+  "platform-services/templates/NOTES.txt": "1d90b654f5abb2c0cf7d8a87b3562f9253fe6c7aeb643ee2eef524c0c7a15ce6",
+  "platform-services/templates/pdb.yaml": "5545ff98b483f6b4e518c6972c44a2450a7e69cd6136d7172eeee7a19d122b9c",
+  "platform-services/templates/service.yaml": "ed2affaae2eac7d576551854fc9aef5ff54e5533eb96c86d30abdc11b8a65074",
+  "platform-services/templates/_helpers.tpl": "5661d5348655fdde33969b8b675dbcad7536851377986c98bcce92619649cdbf"
+}

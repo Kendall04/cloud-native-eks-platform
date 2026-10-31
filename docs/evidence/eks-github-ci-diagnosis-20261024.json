@@ -1,0 +1,112 @@
+{
+  "schemaVersion": 1,
+  "status": "READ_ONLY_REMOTE_SAMPLE_AND_LOCAL_CORRECTION",
+  "observedOn": "2026-10-24",
+  "repository": "Kendall04/cloud-native-platform-eks",
+  "visibilityObserved": "private",
+  "access": "Existing authenticated owner Chrome session; no new login or grant",
+  "remoteMainObserved": "dfb972838bd3e7837271f391e5f860a075a3db0f",
+  "localBaseline": "db5b7696059d9a59954f002b3e689322af684695",
+  "localOrigin": "Preserved migration history bundle, not GitHub",
+  "observations": {
+    "actionsRunsListed": 242,
+    "mainProtection": "Repository banner explicitly reported main unprotected",
+    "developProtection": "NOT_VERIFIED",
+    "deliveryWorkflowStates": {
+      "build-sha-images.yml": "disabled",
+      "create-release.yml": "disabled",
+      "deploy-platform.yml": "disabled"
+    },
+    "settingsChanged": false
+  },
+  "sample": [
+    {
+      "workflow": "validate.yml",
+      "runNumber": 179,
+      "runId": "39681379428",
+      "pullRequest": 89,
+      "event": "pull_request",
+      "actor": "dependabot[bot]",
+      "baseRef": "develop",
+      "headRef": "dependabot/terraform/infra/modules/vpc/develop/hashicorp/aws-6.69.1",
+      "prCommitObserved": "af72246f0f652c403685c1c15a232b917f6a6881",
+      "testedCheckoutSha": "751e1bd454abcb88780063435b416d68dc6e20f1",
+      "conclusion": "failure",
+      "causalStep": "Validate R7 closure and current-tree secret scan",
+      "error": "ValueError: Stack/module provider locks drift",
+      "jobUrl": "https://github.com/Kendall04/cloud-native-platform-eks/actions/runs/39681379428/job/119504411698",
+      "interpretation": "One module provider update breaks the required byte-identical stack/module lock pair. Guard is correct and remains unchanged. Tested checkout is not labelled as PR head."
+    },
+    {
+      "workflow": "validate.yml",
+      "runNumber": 160,
+      "runId": "39678655169",
+      "pullRequest": 70,
+      "event": "pull_request",
+      "actor": "dependabot[bot]",
+      "baseRef": "develop",
+      "headRef": "dependabot/github_actions/develop/actions/checkout-7.0.1",
+      "prCommitObserved": "082f63d6bd4652dc5b436fcab644dd1972c2f997",
+      "testedCheckoutSha": null,
+      "conclusion": "failure",
+      "causalStep": "regression-tests (platform): test_r4.StaticTests.test_static_regressions",
+      "error": "AssertionError: ValueError not raised for hardcoded old checkout pin mutation",
+      "jobUrl": "https://github.com/Kendall04/cloud-native-platform-eks/actions/runs/39678655169/job/119495053383#step:7:40",
+      "interpretation": "Replacing an old SHA became a no-op after the action pin changed. Local correction derives the actual pinned action, proves mutation, then rejects an unpinned ref. Production pin and validator are unchanged."
+    },
+    {
+      "workflow": "validate.yml",
+      "runNumber": 159,
+      "runId": "39678653457",
+      "pullRequest": 69,
+      "event": "pull_request",
+      "actor": "dependabot[bot]",
+      "baseRef": "develop",
+      "headRef": "dependabot/pip/scripts/bootstrap/develop/python-hcl2-8.1.4",
+      "prCommitObserved": "4c1b94e8180cd09829a067edf0ee2ae7c24128c9",
+      "testedCheckoutSha": null,
+      "conclusion": "failure",
+      "causalStep": "validate_r1.py validate_edge in helm-and-release-metadata",
+      "error": "ValueError: Unexpected public routes",
+      "additionalObservedError": "Lifecycle regression annotation: BASELINE_CONSTRUCTION_CHANGED",
+      "jobUrl": "https://github.com/Kendall04/cloud-native-platform-eks/actions/runs/39678653457/job/119495046681#step:11:37",
+      "interpretation": "Major parser update does not pass existing contracts. This sample identifies the first observed failure, not every parser incompatibility. No new dependency was installed, version accepted, routes broadened or baseline rewritten."
+    },
+    {
+      "workflow": "validate.yml",
+      "runNumber": 162,
+      "runId": "39678759703",
+      "pullRequest": 72,
+      "event": "pull_request",
+      "actor": "dependabot[bot]",
+      "headRef": "dependabot/docker/microservices/tracking-service/develop/dotnet/sdk-747cbad",
+      "conclusion": "success",
+      "runUrl": "https://github.com/Kendall04/cloud-native-platform-eks/actions/runs/39678759703",
+      "interpretation": "Positive control: Dependabot PR validation can succeed; not all existing runs fail."
+    }
+  ],
+  "sampleLimits": [
+    "These are Validate jobs on bot PRs, not proof of a Dependabot updater outage.",
+    "No exhaustive review of 242 runs; no run was rerun, deleted or edited.",
+    "PR commit links and tested checkout SHA are distinct evidence. Null means not captured.",
+    "Node deprecation and runner migration warnings are not the demonstrated causal failures.",
+    "No fresh hosted run of the local .NET 10 HEAD or full GitHub OIDC delivery chain is claimed."
+  ],
+  "localResults": {
+    "test_r4_windows": {"run": 47, "passed": 47, "skipped": 0},
+    "test_r7_windows": {"run": 15, "passed": 15, "skipped": 0},
+    "test_ci_v2_windows": {"run": 27, "passed": 24, "skipped": 3},
+    "test_ci_v2_wsl": {"run": 27, "passed": 27, "skipped": 0},
+    "uniqueSelectedTestIdentitiesPassedAcrossPlatforms": 89,
+    "documentation": {"markdownFiles": 49, "localLinksAndAnchors": 386, "mermaidBlocks": 5, "status": "PASS; rendering separate"},
+    "currentTreeSecretBaseline": {"textFiles": 776, "status": "PASS; history not rescanned"},
+    "gitDiffCheck": "PASS",
+    "note": "Do not add the Windows and WSL repeats as different test identities. WSL sandbox launch denied; same operation succeeded through supported escalation."
+  },
+  "remaining": [
+    "Authentic Dependabot cross-directory PR verifies whether every tracked lock is updated; incompatible constraints may still split proposals.",
+    "Any missing paired lock must be regenerated/reviewed together; R7 continues to reject drift. No auto-copy or auto-merge.",
+    "python-hcl2 major upgrade needs its own compatibility correction and focused qualification before acceptance.",
+    "Remote push/PR, branch protections, delivery activation and cloud work await a concrete authorized package."
+  ]
+}

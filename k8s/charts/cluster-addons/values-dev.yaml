@@ -1,0 +1,5 @@
+aws-load-balancer-controller:
+  enabled: true
+
+cluster-autoscaler:
+  enabled: true

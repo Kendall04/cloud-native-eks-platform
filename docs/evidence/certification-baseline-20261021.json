@@ -1,0 +1,175 @@
+{
+  "schemaVersion": 1,
+  "recordedUtc": "2026-10-21T18:35:44.380371+00:00",
+  "scope": "LOCAL_PREPARATION_NOT_CLOUD_ADMISSION",
+  "repairCommit": "7dcb703d49ad266c5493f59c4851462c6f21db53",
+  "parentCommit": "0b9370faaebaf7cbe8514ee12c1e024915579bff",
+  "branch": "feat/local-eks-certification-baseline-20261021",
+  "committedSourceSha256Lf": {
+    "scripts/operations/teardown_execution/observe.py": "4bdcec2c55b88ac740746120fc6c6fc8866368f2583009c49bb2bdaf2b25c6ba",
+    "scripts/operations/teardown_execution/service_convergence.py": "63457be332592ba796dc69dfaa3f46287559e4623cac8b127ae9fce594575b72",
+    "scripts/validation/test_teardown_ec2_tombstones.py": "90f15fcc5e0224efe018a057875a89909a27b6124b66e73a27bf41d41d5e25ad"
+  },
+  "testedSourceSha256Raw": {
+    "scripts/operations/teardown_execution/observe.py": "993e224e6e2cdee972c254161cf4b4839702b079d26583c5496480acc3f02b95",
+    "scripts/operations/teardown_execution/service_convergence.py": "e1d8c10edf4279e1bb4342f5c1896df286178a729de90dc021fe971409976cf6",
+    "scripts/validation/test_teardown_ec2_tombstones.py": "90f15fcc5e0224efe018a057875a89909a27b6124b66e73a27bf41d41d5e25ad"
+  },
+  "linux": {
+    "observedUtc": "2026-10-21T18:33:45.317658+00:00",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "python": "3.13.5",
+    "boto3": "1.40.0",
+    "hcl2": "7.3.1",
+    "snapshotGitHead": "0b9370faaebaf7cbe8514ee12c1e024915579bff"
+  },
+  "sources": [
+    {
+      "filename": "teardown-closure-20261020.md",
+      "bytes": 6876,
+      "sha256": "8df9a81326cea5c9dacac608e547f2c5e6fe4dd745c13dd43b82f8f8a1c1069e",
+      "scope": "Private historical report inspected; no state/journal/approval contents imported"
+    },
+    {
+      "filename": "teardown-management-same-run-repair-review.md",
+      "bytes": 4661,
+      "sha256": "04849412d84bba26d725ddb3ace1272eaf50279893b4e3fb696359f202f156cc",
+      "scope": "Private historical report inspected; no state/journal/approval contents imported"
+    },
+    {
+      "filename": "teardown-eks-recovery-b99c9a4f-review.md",
+      "bytes": 5472,
+      "sha256": "87cf7c42666a2e174ac7aa5a80084df11d4c43ffe0d8c0cafb74976f85848606",
+      "scope": "Private historical report inspected; no state/journal/approval contents imported"
+    },
+    {
+      "filename": "auditoria-teardown-dev-dot-20261020.md",
+      "bytes": 140128,
+      "sha256": "27c1c7b685a897462c045e1f20ec0d7cdbe4603a69e45b188c44ed417e3a8c54",
+      "sections": [
+        "4.5",
+        "14.1"
+      ],
+      "scope": "Historical audited evidence; not new AWS observations"
+    }
+  ],
+  "reviewedFunctionSources": [
+    {
+      "source": "scripts/operations/teardown_execution/observe.py",
+      "function": "terminated_instance_progress",
+      "sourceSha256Lf": "a441392f10e5691c15385ade68a66a2fed2947eea6d9ac8e8ffb172b5f2fb403",
+      "disposition": "Narrowly rewritten; surrounding dirty code excluded"
+    },
+    {
+      "source": "scripts/operations/teardown_execution/service_convergence.py",
+      "function": "same_terminated_instance",
+      "sourceSha256Lf": "a5692726b8452b1030ccbdc72474282c6c15f1b9066ff3381815ac9b986304d8",
+      "disposition": "Narrowly rewritten; surrounding dirty code excluded"
+    },
+    {
+      "source": "scripts/operations/teardown_execution/service_convergence.py",
+      "function": "terminated_node_progress",
+      "sourceSha256Lf": "362cd8441bd1e74d66bf00a5f7f430b1f3a22ed616c447bfd916aab484e89ede",
+      "disposition": "Narrowly rewritten; surrounding dirty code excluded"
+    }
+  ],
+  "preservation": {
+    "originalHead": "f87b844a681007801cc399460096a1317760cf95",
+    "originalDirtyPaths": 77,
+    "allOriginalDirtyFileBytesUnchanged": true,
+    "dirtyInventoryFingerprint": "fefff4b5669564559e67733be418e9a3110f4480164213596218693cdc08eea3",
+    "frontendHead": "0b9370faaebaf7cbe8514ee12c1e024915579bff",
+    "rdsCheckoutWritten": false
+  },
+  "checks": {
+    "baselineReproduction": {
+      "status": "EXPECTED_FAILURE",
+      "tests": 9,
+      "expectedErrors": 3,
+      "log": "before.log"
+    },
+    "focusedFinal": {
+      "status": "PASS",
+      "tests": 10,
+      "skipped": 0,
+      "log": "focused-final.log"
+    },
+    "lifecycleFinal": {
+      "status": "PASS",
+      "tests": 630,
+      "skipped": 0,
+      "log": "lifecycle-final.log"
+    },
+    "committedConstructionGuard": {
+      "status": "PASS",
+      "log": "construction-guard.log"
+    },
+    "documentation": {
+      "status": "PASS",
+      "log": "docs.log"
+    },
+    "currentTreeSecretScan": {
+      "status": "PASS",
+      "log": "secrets.log"
+    },
+    "mermaid": {
+      "status": "UNCHANGED",
+      "blocks": 5,
+      "renderingPerformed": false
+    }
+  },
+  "retainedFailedAttempts": {
+    "initialLifecycle": {
+      "tests": 628,
+      "failures": 6,
+      "errors": 22,
+      "cause": "System Python lacks boto3/hcl2; source-only snapshot lacks Git ancestry",
+      "log": "lifecycle.log"
+    },
+    "intermediateFocused": {
+      "tests": 9,
+      "failures": 1,
+      "cause": "Test wrongly expected the parent row removed; fixed assertion preserves that row",
+      "log": "after.log"
+    }
+  },
+  "rawLogSha256": {
+    "after.log": "0b76dbdb680f378efb002fea2b3ad98cb816820ff0970a2f88c904e4aea08542",
+    "before.log": "6d50cc5be243db9407bdc20988593701daba7daa5c1356584087b54166c18689",
+    "construction-guard.log": "3e3a75c120ea2b3b003c800bd5ec2265ec72b7800c637dd07156bcac60ed7196",
+    "focused-final.log": "dda437003318208d4ffa72d79772ddaf3f4606406ce7cd28f57bce8ef3395dc5",
+    "focused.log": "9789624e9852fd76767955424128b01c1d66876d5de5aa840773ede847853bc9",
+    "lifecycle-final.log": "9512c2593afb40e679644dfe425c4d3a83c947ffc241ad26f06a5ef4d89db18d",
+    "lifecycle.log": "e316bce1bbd381848f49ca20a3eeb28cb5f666a02892c17f5997a5ee61a1dcd9",
+    "docs.log": "769dcfb5b81a0c5758d383e24799866d66d855591e18f299e878cf1c0f52b97f",
+    "secrets.log": "de28d3eea11999fe9309bc748acfd39c762c07c6013c85e38dd870cef2d6b568"
+  },
+  "futureAcceptance": {
+    "C0": "PENDING_NOT_EXECUTED",
+    "C1": "PENDING_NOT_EXECUTED",
+    "C2": "PENDING_NOT_EXECUTED",
+    "C3": "PENDING_NOT_EXECUTED",
+    "C4": "PENDING_NOT_EXECUTED",
+    "C5": "PENDING_NOT_EXECUTED"
+  },
+  "deferredBeforeCloudCycle": [
+    "native-CNI/transit guard review",
+    "Helm List/IngressClass admission scope review",
+    "fresh producer exclusions/retention and KMS dispositions",
+    "independent bounded operator execution authority; historical broker excluded"
+  ],
+  "notClaimed": [
+    "full historical dirty-run reproduction",
+    "AWS/.NET10/Auth/events/CNI/TTL/PrivateCD live certification",
+    "fresh remote CI",
+    "generic teardown framework",
+    "time/cost SLA or fresh quote"
+  ],
+  "awsCalls": false,
+  "awsCredentialMaterialReadOrCopied": false,
+  "historicalBrokerInvoked": false,
+  "dependencyInstallation": false,
+  "securityNetworkPermissionsChanged": false,
+  "approvalCheckpointOrJournalRewritten": false,
+  "pushOrMerge": false
+}

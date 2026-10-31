@@ -1,0 +1,171 @@
+{
+  "classification": "UNAPPROVED_LOCAL_ESO_DISPOSITION_ADDENDUM_NO_AWS_EFFECTS",
+  "owner": "Kendall",
+  "accountId": "341936017254",
+  "region": "us-east-1",
+  "baseApprovedCommit": "066048916e4672c0a8a0ec7296d757177870fd3f",
+  "baseApprovedProposalSha256Lf": "71918531a73bf9d7a44bf599832b99e62bdd94d0b41376d0f8ec6b843d744caf",
+  "stoppedAttemptEvidence": "../evidence/eks-cycle-c0-stop-20261022.json",
+  "recommendation": "Keep retained ESO role unchanged. Propose one temporary ESO IRSA role owned by existing iam stack, bound only to the fresh cluster and removed at cycle closure. This requires explicit additional approval; failed original-provider gate is not waived by old approval",
+  "comparison": {
+    "rebindOriginalAndLiteralRestore": {
+      "disposition": "REJECT_FOR_THIS_CYCLE",
+      "reason": "Original provider returned NoSuchEntity; valid restoration cannot be established under approved gate. Recreating old provider, substituting old trust or changing original permissions is outside scope"
+    },
+    "keepOriginalPlusTemporary": {
+      "disposition": "RECOMMENDED_PENDING_APPROVAL",
+      "reason": "Adds one short-lived reader identity but zero writes to the retained role, boundary or ten secret containers; no historical provider dependency. Existing iam module and destroy owner can own role/inline policy; no new stack or framework"
+    }
+  },
+  "retainedOriginal": {
+    "arn": "arn:aws:iam::341936017254:role/cloud-native-platform-dev-external-secrets",
+    "roleId": "AROAU7HHZR5TB553LJERK",
+    "trustCanonicalJsonLfSha256": "41334598ffd164b4136d33cfc39e99900a5e2b7fe3d9b949d52fc26380d2b781",
+    "disposition": "Do not rebind, restore, recreate, tag, attach/detach boundary/policies or delete. Preserve the known dangling historical trust as pre-existing state; do not call it repaired or newly valid",
+    "nonInterference": "Fresh pre/post GetRole identity/trust/boundary/tags and exact inline-read-policy metadata/hash comparison; preserve original Terraform state owner and ten versions. Any drift stops; never overwrite concurrent changes"
+  },
+  "temporaryRole": {
+    "name": "cloud-native-platform-dev-external-secrets-cert-irsa",
+    "arn": "arn:aws:iam::341936017254:role/cloud-native-platform-dev-external-secrets-cert-irsa",
+    "path": "/",
+    "ownerStack": "iam",
+    "terraformRoleAddress": "aws_iam_role.this[\"cloud-native-platform-dev-external-secrets-cert-irsa\"]",
+    "inlinePolicyName": "eso-retained-ten-read",
+    "terraformInlineAddress": "aws_iam_role_policy.this[\"cloud-native-platform-dev-external-secrets-cert-irsa-eso-retained-ten-read\"]",
+    "permissionsBoundaryArn": "arn:aws:iam::341936017254:policy/cnp-cert-app-workload-boundary",
+    "maxSessionDurationSeconds": 3600,
+    "managedPolicyAttachments": [],
+    "tags": {
+      "Project": "cloud-native-platform",
+      "Environment": "dev",
+      "Owner": "Kendall",
+      "Purpose": "eks-certification-temporary-eso"
+    },
+    "freshBinding": "Exactly one observed fresh EKS cluster ARN/create generation and its exact OIDC provider ARN/URL from normal eks owner outputs; ${FRESH_EKS_OIDC_PROVIDER_ARN} and ${FRESH_EKS_ISSUER_HOSTPATH} below are unresolved review bindings, not usable IAM values",
+    "trustTemplate": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": "sts:AssumeRoleWithWebIdentity",
+          "Principal": {
+            "Federated": "${FRESH_EKS_OIDC_PROVIDER_ARN}"
+          },
+          "Condition": {
+            "StringEquals": {
+              "${FRESH_EKS_ISSUER_HOSTPATH}:aud": "sts.amazonaws.com",
+              "${FRESH_EKS_ISSUER_HOSTPATH}:sub": "system:serviceaccount:kube-system:external-secrets"
+            }
+          }
+        }
+      ]
+    },
+    "inlinePolicyTemplate": {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "secretsmanager:GetSecretValue",
+            "secretsmanager:DescribeSecret"
+          ],
+          "Resource": [
+            "arn:aws:secretsmanager:us-east-1:341936017254:secret:cloud-native-platform/dev/api-gateway-authorizer/auth-service-jwt-secret-JtcGe1",
+            "arn:aws:secretsmanager:us-east-1:341936017254:secret:cloud-native-platform/dev/api-gateway-authorizer/platform-trusted-proxy-secret-Vt7TN0",
+            "arn:aws:secretsmanager:us-east-1:341936017254:secret:cloud-native-platform/dev/runtime/auth-migration-db-iQ5wOj",
+            "arn:aws:secretsmanager:us-east-1:341936017254:secret:cloud-native-platform/dev/runtime/auth-runtime-db-aUr9wm",
+            "arn:aws:secretsmanager:us-east-1:341936017254:secret:cloud-native-platform/dev/runtime/bootstrap-admin-XCAgwd",
+            "arn:aws:secretsmanager:us-east-1:341936017254:secret:cloud-native-platform/dev/runtime/internal-trust-oEMARd",
+            "arn:aws:secretsmanager:us-east-1:341936017254:secret:cloud-native-platform/dev/runtime/shipment-migration-db-zEHOqe",
+            "arn:aws:secretsmanager:us-east-1:341936017254:secret:cloud-native-platform/dev/runtime/shipment-runtime-db-EG0FHf",
+            "arn:aws:secretsmanager:us-east-1:341936017254:secret:cloud-native-platform/dev/runtime/tracking-migration-db-aUr9wm",
+            "arn:aws:secretsmanager:us-east-1:341936017254:secret:cloud-native-platform/dev/runtime/tracking-runtime-db-IKjwVh"
+          ]
+        }
+      ]
+    },
+    "noOtherGrants": [
+      "No Secrets Manager write/delete/rotation/ListSecrets",
+      "No access to RDS master secret or any new secret",
+      "No KMS/IAM/PassRole/SSM/STS-AssumeRole action in permission policy",
+      "No AWS user/key, new boundary, managed policy or old-provider recreation"
+    ],
+    "scopeCaveat": "This is one additional principal allowed to read versions of the same ten existing secret resources; it is not zero additional privilege. ESO consumes existing current values; no new secret values or read are performed for this addendum"
+  },
+  "authorizationDelta": {
+    "newRoles": {
+      "previous": 19,
+      "proposed": 20,
+      "delta": 1
+    },
+    "newInlinePolicies": {
+      "delta": 1,
+      "name": "eso-retained-ten-read"
+    },
+    "newManagedPoliciesOrBoundariesDelta": 0,
+    "stacks": 18,
+    "iamStackManagedInstances": {
+      "previous": 6,
+      "proposed": 8
+    },
+    "declaredManagedInstancesSelectedExistingGithub": {
+      "previous": 188,
+      "proposed": 190
+    },
+    "retainedInstances": 12,
+    "newManagedInstancesPlusExternalIamAndWebControls": {
+      "previous": 181,
+      "proposed": 183
+    },
+    "originalEsoIamWrites": {
+      "previous": "rebind then restore",
+      "proposed": 0
+    },
+    "gateReplacementRequiresApproval": "Replace original-provider-valid-restoration requirement only with explicit original-ESO invariance plus temporary-role freshness/least-scope/normal-owner removal; original gate remains failed for old plan"
+  },
+  "minimalLocalImplementationAfterApproval": {
+    "status": "DESIGN_ONLY_NOT_IMPLEMENTED_NOT_EXECUTABLE",
+    "filesAndChanges": [
+      "infra/live/dev/iam/terragrunt.hcl: add this one role/inline entry using existing generic iam module, fresh EKS output and verified exact retained ten ARNs; preserve three existing application roles",
+      "scripts/bootstrap/bootstrap.py: in this explicitly selected certification disposition, verify retained runtime-secrets output/state and skip its apply; no default path may rebind the old role",
+      "scripts/bootstrap/environment.py: derive esoRoleArn exclusively from the temporary key in normal iam role_arns output for this disposition; no old-role fallback, fabricated output or manual generated-contract editing",
+      "Preserve runtime-secrets outputs as read-only source of secret_arns; do not alter/import/remove its retained managed resources. Four existing Helm releases use generated ESO annotation; no chart redesign",
+      "Existing teardown iam owner removes inline/temporary role after cluster-addons/ESO no-consumer closure and before new EKS OIDC retirement; retain runtime-secrets original state/resources"
+    ],
+    "requiredFocusedChecks": [
+      "Offline map/policy exact ten ARNs, two actions, existing boundary and fresh issuer/aud/sub; reject wildcard/extra/master-secret/other issuer/SA/missing binding",
+      "Mock bootstrap: retained runtime-secrets never gets apply or destroy in selected disposition; missing/mismatched retained state blocks",
+      "Contract uses only temporary normal-owner output; absent/wrong role/account/output rejects with no fallback",
+      "Retirement plan includes exact fresh temporary role generation and inline deletion, no original-role/secret/boundary/shared-provider mutation; pre/post invariance and absence required"
+    ],
+    "noPolicyTransferToVm": true,
+    "noBuildOrNewProviderRequired": true
+  },
+  "retirement": {
+    "sequence": [
+      "Freeze/resolve application secret consumers and jobs; export selected evidence",
+      "Remove secret-sync/bootstrap/app owners and uninstall cluster-addons through existing Helm ownership; complete live identity/coverage/no-consumer checks",
+      "Observe temporary role last sessions/consumers as applicable and review iam owner delete plan for exact RoleId, inline document and fresh cluster binding",
+      "Normal iam owner removes its inline policy and temporary role; observe NoSuchEntity and state absence; do not delete historical ESO",
+      "Verify original RoleId/trust/boundary/read policy/tags unchanged and ten secret identities/versions preserved; verify fresh EKS OIDC has no consumers before normal EKS owner removal"
+    ],
+    "closureCriterion": "C5 requires temporary role/inline absent and original invariance. Failed/denied/UNKNOWN outcome stops; reconcile before replay. No permanent extra secret reader is accepted",
+    "sessionDisposition": "Do not equate role absence with proof that all earlier STS credentials have expired. MaxSessionDuration3600 bounds the proposed sessions; record confirmed role removal/no-new-assumption time and latest possible session-expiry bound without token values. Any unexpired session exposure remains explicit pending, within the same8h/USD25 envelope; no new revocation grant or immediate-revocation promise"
+  },
+  "unchangedApprovedLimits": {
+    "nodeMaximum": 4,
+    "initialApiOnDemand": 2,
+    "workerSpotExercise": "1->2->1",
+    "maximumIncrementalUsd": 25,
+    "protectedCleanupReserveUsd": 15,
+    "hoursFromFirstCostBearingNewResource": 8,
+    "startRetirementByHour": 4,
+    "firstCostBearingResourceUtc": null,
+    "hostingOriginalExpiry": "2026-11-21T01:04:48.982Z",
+    "tlsCspConsent": "Existing explicit authenticated-test consent unchanged",
+    "historicalPreservations": "Original ten secrets/ESO/boundaries/backend/CMKs, shared GitHub provider and service-linked roles, ECS/RDS pilot untouched"
+  },
+  "effectsExecuted": false,
+  "newApprovalGranted": false,
+  "awsCallsInThisIncrement": 0
+}

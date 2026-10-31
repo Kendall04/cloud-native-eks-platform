@@ -1,0 +1,80 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "RegistryAuth",
+      "Effect": "Allow",
+      "Action": "ecr:GetAuthorizationToken",
+      "Resource": "*"
+    },
+    {
+      "Sid": "ProjectImages",
+      "Effect": "Allow",
+      "Action": [
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:InitiateLayerUpload",
+        "ecr:UploadLayerPart",
+        "ecr:CompleteLayerUpload",
+        "ecr:PutImage",
+        "ecr:BatchGetImage",
+        "ecr:GetDownloadUrlForLayer",
+        "ecr:DescribeImages",
+        "ecr:DescribeImageScanFindings"
+      ],
+      "Resource": [
+        "arn:aws:ecr:us-east-1:341936017254:repository/auth-service",
+        "arn:aws:ecr:us-east-1:341936017254:repository/shipment-service",
+        "arn:aws:ecr:us-east-1:341936017254:repository/tracking-service"
+      ]
+    },
+    {
+      "Sid": "ImmutablePublication",
+      "Effect": "Allow",
+      "Action": "s3:PutObject",
+      "Resource": [
+        "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-artifacts/deploy-artifacts/dev/*",
+        "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-artifacts/image-records/dev/*"
+      ],
+      "Condition": {
+        "StringEquals": {
+          "s3:if-none-match": "*"
+        }
+      }
+    },
+    {
+      "Sid": "ArtifactRead",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:GetObjectVersion"
+      ],
+      "Resource": [
+        "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-artifacts/deploy-artifacts/dev/*",
+        "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-artifacts/image-records/dev/*",
+        "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-artifacts/environment-contracts/dev/*",
+        "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-artifacts/deployment-receipts/dev/*"
+      ]
+    },
+    {
+      "Sid": "FixedDeployment",
+      "Effect": "Allow",
+      "Action": "ssm:SendCommand",
+      "Resource": [
+        "arn:aws:ssm:us-east-1:341936017254:document/cloud-native-platform-dev-deploy-apps",
+        "arn:aws:ec2:us-east-1:341936017254:instance/i-01b740869f2c9104c"
+      ]
+    },
+    {
+      "Sid": "ObserveDeployment",
+      "Effect": "Allow",
+      "Action": "ssm:GetCommandInvocation",
+      "Resource": "*"
+    },
+    {
+      "Sid": "Identity",
+      "Effect": "Allow",
+      "Action": "sts:GetCallerIdentity",
+      "Resource": "*"
+    }
+  ]
+}

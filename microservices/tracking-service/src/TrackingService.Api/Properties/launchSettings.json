@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "TrackingService.Api": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "applicationUrl": "http://localhost:8080",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "http://+:8080",
+        "ConnectionStrings__Postgres": "Host=localhost;Database=platform;Username=postgres;Password=postgres",
+        "Database__Schema": "tracking",
+        "AWS__Region": "us-east-1",
+        "AWS__EventBusName": "cloud-native-platform-dev-bus",
+        "ShipmentService__BaseUrl": "http://localhost:8081",
+        "PlatformAuth__AllowDevelopmentJwtPassthrough": "true"
+      }
+    }
+  }
+}

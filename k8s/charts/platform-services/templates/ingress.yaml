@@ -1,0 +1,44 @@
+{{- if .Values.global.ingress.enabled }}
+{{- $root := . -}}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: platform-services
+  namespace: {{ .Values.namespace.name }}
+  labels:
+    app.kubernetes.io/part-of: logistics-platform
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    helm.sh/chart: {{ include "platform-services.chart" . }}
+  annotations:
+{{- $annotations := deepCopy .Values.global.ingress.annotations }}
+{{- $sg := required "Generate environment values: global.ingress.frontendSecurityGroupId is required" .Values.global.ingress.frontendSecurityGroupId }}
+{{- $_ := set $annotations "alb.ingress.kubernetes.io/security-groups" $sg }}
+{{- $_ := set $annotations "alb.ingress.kubernetes.io/manage-backend-security-group-rules" "true" }}
+{{- if .Values.global.ingress.discoveryTags }}
+{{- $tags := list }}
+{{- range $key, $value := .Values.global.ingress.discoveryTags }}
+{{- $tags = append $tags (printf "%s=%s" $key $value) }}
+{{- end }}
+{{- $_ := set $annotations "alb.ingress.kubernetes.io/tags" (join "," $tags) }}
+{{- end }}
+{{ toYaml $annotations | indent 4 }}
+spec:
+  ingressClassName: {{ .Values.global.ingress.className }}
+  rules:
+    - {{- if .Values.global.ingress.host }}host: {{ .Values.global.ingress.host | quote }}{{- end }}
+      http:
+        paths:
+{{- range $serviceKey, $service := .Values.services }}
+{{- if $service.enabled }}
+{{- range $path := $service.ingressPaths }}
+          - path: {{ $path }}
+            pathType: {{ $root.Values.global.ingress.pathType }}
+            backend:
+              service:
+                name: {{ $service.name }}
+                port:
+                  number: {{ $service.port | default $root.Values.global.service.port }}
+{{- end }}
+{{- end }}
+{{- end }}
+{{- end }}

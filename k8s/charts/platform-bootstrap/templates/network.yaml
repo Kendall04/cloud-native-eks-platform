@@ -1,0 +1,86 @@
+{{- if not .Values.network.privateSubnetCidrs }}{{ fail "VPC private subnet CIDRs required for platform network policies" }}{{ end }}
+{{- range $service := list "auth" "tracking" "shipment" }}
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ $service }}-runtime-boundary
+  namespace: apps
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: {{ $service }}-service
+      platform.cloud-native.io/workload: runtime
+  policyTypes: [Ingress, Egress]
+  ingress:
+    # ALB IP targets retain ALB private source addresses. App egress below
+    # closes the shared-subnet loophole for lateral traffic between runtimes.
+    - from:
+{{- range $.Values.network.privateSubnetCidrs }}
+        - ipBlock: {cidr: {{ . | quote }}}
+{{- end }}
+      ports: [{protocol: TCP, port: 8080}]
+{{- if eq $service "shipment" }}
+    - from:
+        - namespaceSelector:
+            matchLabels: {kubernetes.io/metadata.name: apps}
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: tracking-service
+              platform.cloud-native.io/workload: runtime
+      ports: [{protocol: TCP, port: 8080}]
+{{- end }}
+{{- if eq $service "auth" }}
+{{- range $caller := list "shipment" "tracking" }}
+    - from:
+        - namespaceSelector:
+            matchLabels: {kubernetes.io/metadata.name: apps}
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: {{ $caller }}-service
+              platform.cloud-native.io/workload: runtime
+      ports: [{protocol: TCP, port: 8080}]
+{{- end }}
+{{- end }}
+  egress:
+    - to:
+        - namespaceSelector:
+            matchLabels: {kubernetes.io/metadata.name: kube-system}
+          podSelector:
+            matchLabels: {k8s-app: kube-dns}
+      ports: [{protocol: UDP, port: 53}, {protocol: TCP, port: 53}]
+    - to:
+{{- range $.Values.network.privateSubnetCidrs }}
+        - ipBlock: {cidr: {{ . | quote }}}
+{{- end }}
+      ports: [{protocol: TCP, port: 5432}]
+    # AWS public APIs via NAT: no unstable public AWS CIDR allowlist.
+    - to:
+        - ipBlock:
+            cidr: 0.0.0.0/0
+            except:
+{{- range $.Values.network.privateSubnetCidrs }}
+              - {{ . | quote }}
+{{- end }}
+      ports: [{protocol: TCP, port: 443}]
+{{- if or (eq $service "shipment") (eq $service "tracking") }}
+    - to:
+        - namespaceSelector:
+            matchLabels: {kubernetes.io/metadata.name: apps}
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: auth-service
+              platform.cloud-native.io/workload: runtime
+      ports: [{protocol: TCP, port: 8080}]
+{{- end }}
+{{- if eq $service "tracking" }}
+    - to:
+        - namespaceSelector:
+            matchLabels: {kubernetes.io/metadata.name: apps}
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: shipment-service
+              platform.cloud-native.io/workload: runtime
+      ports: [{protocol: TCP, port: 8080}]
+{{- end }}
+{{- end }}

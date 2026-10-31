@@ -1,0 +1,18 @@
+{{- $root := . -}}
+{{- range $serviceKey, $service := .Values.services }}
+{{- if and $service.enabled $service.podDisruptionBudget.enabled }}
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: {{ printf "%s-pdb" $service.name }}
+  namespace: {{ $root.Values.namespace.name }}
+  labels:
+{{ include "platform-services.labels" (dict "root" $root "service" $service) | indent 4 }}
+spec:
+  maxUnavailable: {{ $service.podDisruptionBudget.maxUnavailable }}
+  selector:
+    matchLabels:
+{{ include "platform-services.runtimeSelectorLabels" (dict "root" $root "service" $service) | indent 6 }}
+{{- end }}
+{{- end }}

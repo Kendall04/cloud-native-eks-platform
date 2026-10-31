@@ -1,0 +1,203 @@
+{
+  "schemaVersion": 1,
+  "recordedAtUtc": "2026-10-27T07:58:02.688585+00:00",
+  "classification": "LOCAL_SIMULATED_DELIVERY_NOT_AWS",
+  "status": "LOCAL_EXISTING_FLOW_INTEGRATED_PASS_NOT_ADMISSION",
+  "baseCommit": "927ecdd963bd4007108c3713e187ad4fc759f563",
+  "implementation": {
+    "producer": "scripts/bootstrap/environment.py:generate/build_contract",
+    "historicalReadsInSyntheticMode": false,
+    "phase1": "LOCAL_CONTRACT_GENERATION_ONLY_NO_OWNER_APPLY",
+    "otherSyntheticBootstrapPhases": "REJECTED_NOT_ADMITTED",
+    "explicitBindings": [
+      "esoRoleArn",
+      "workloadRoles",
+      "addons",
+      "eventEncryption",
+      "infrastructure outputs",
+      "integration metadata"
+    ],
+    "syntheticEnvironmentSchema": 3,
+    "syntheticArtifactSchema": 2,
+    "syntheticHostCapability": "1.5.0_SOURCE_NOT_INSTALLED",
+    "environment": "trial-<full UUID hex>",
+    "dataNamespace": "cnp-trial-<full UUID hex>",
+    "scopeBinding": "canonical SHA256 of closed supplied environment metadata; not native ownership proof",
+    "legacyDevEnvironmentSchema": 2,
+    "legacyDevArtifactSchema": 1,
+    "legacyDevHostCapability": "1.4.0",
+    "existingSchemasUnchanged": true,
+    "entrypointsConsumed": [
+      "environment.generate",
+      "bootstrap.phase",
+      "package.package",
+      "export_environment.main/export_key",
+      "publish.main",
+      "orchestrate.deployment_target/main",
+      "contract.validate_bundle",
+      "executor.Host.preflight"
+    ],
+    "imageRecordNamespace": "Existing immutable image-records/dev provenance unchanged; not a data namespace fallback",
+    "protectedPolicyCopiesMatch": true
+  },
+  "tests": {
+    "python": "3.13.17_WSL_EXISTING",
+    "helm": "v4.2.2_EXISTING_REAL_LOCAL_RENDER",
+    "sdk": "boto3 1.40.0_REPOSITORY_PIN_RESTORED_TO_IGNORED_LOCAL_TARGET",
+    "sdkTransitives": [
+      "botocore 1.40.76",
+      "jmespath 1.1.0",
+      "s3transfer 0.13.1",
+      "python-dateutil 2.9.0.post0",
+      "urllib3 2.8.0",
+      "six 1.17.0"
+    ],
+    "firstFocusedBatch": {
+      "passed": 84,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "syntheticCases": 14,
+      "legacyAndPreservationCases": 70
+    },
+    "afterFinalSyntheticOnlyHardening": {
+      "passed": 15,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "suite": "test_synthetic_delivery"
+    },
+    "uniquePassingTestIdentities": 85,
+    "notASingle85CaseExecution": true,
+    "realLocalOperations": [
+      "Helm version/package/template",
+      "Python producer generation in temp fixture",
+      "artifact archive/hashes",
+      "same host contract and preflight code"
+    ],
+    "simulatedOperations": [
+      "S3/ECR publication clients",
+      "GitHub build-run verification",
+      "ECR scan result",
+      "host S3/EKS/kube adapters"
+    ],
+    "negativeCases": [
+      "missing data/identity bindings",
+      "dev or missing scope fallback",
+      "historical owner inputs",
+      "protected VPC/key/secret/DB/queue/state",
+      "protected API short-ID alias",
+      "scope mismatch",
+      "recomputed artifact checksums with changed DB host",
+      "legacy schema downgrade",
+      "outer corruption",
+      "receipt adoption after binding change",
+      "public/non-private CIDRs",
+      "extra repository bindings"
+    ]
+  },
+  "checks": {
+    "documentation": "PASS_54_MARKDOWN_407_LOCAL_LINKS_5_UNCHANGED_MERMAID_FENCES",
+    "currentTreeSecrets": "PASS_805_TEXT_FILES_BOUNDED_CURRENT_TREE_ONLY",
+    "diffWhitespace": "PASS"
+  },
+  "changedFiles": [
+    {
+      "path": "docs/operations/eks-cycle-admission-2026-10-27.md",
+      "sha256": "70e90aabff2497f54e10bf95ed83795f0dbcbacc6e1573e3274e865fb8f61dab"
+    },
+    {
+      "path": "infra/modules/management-host/deployer/contract.py",
+      "sha256": "6e8861c4d7516dc1488980c51b68eb8b41657b57fe14fdd94278dd52c0d9439d"
+    },
+    {
+      "path": "infra/modules/management-host/deployer/environment.synthetic.schema.json",
+      "sha256": "aabb47d02d2aa3671c1115786545795283d94436f35e6c8312038bcbde30f2e7"
+    },
+    {
+      "path": "infra/modules/management-host/deployer/executor.py",
+      "sha256": "ae93d9527d4d1ac07ecaed7f3ac065de22a431efbd8bd46d1aac908e45d86af6"
+    },
+    {
+      "path": "infra/modules/management-host/deployer/manifest.synthetic.schema.json",
+      "sha256": "64d452119823e1e7c2b03dc445753938508f82ac753a73bab5b33657042506da"
+    },
+    {
+      "path": "infra/modules/management-host/deployer/synthetic-protected-resources.json",
+      "sha256": "1ba86202e12bd48d5543336fd850b82344d7904b7355eda14327f38e58602bb7"
+    },
+    {
+      "path": "infra/modules/management-host/deployer/synthetic_contract.py",
+      "sha256": "06ae130068676df47247d03f0a57d7842e127bbea9d2e8d725aaddbbdc21101c"
+    },
+    {
+      "path": "infra/trials/synthetic-data/INTEGRATION.md",
+      "sha256": "5142ba4e8c0c7af7d61f73b3974418a1a025dacb620da9f39b7617846beb8611"
+    },
+    {
+      "path": "infra/trials/synthetic-data/README.md",
+      "sha256": "5dcd8e399eb16a4f8ebfc661b6dba0a4c113bd544ef325ac9469ca5e08e06c12"
+    },
+    {
+      "path": "scripts/bootstrap/bootstrap.py",
+      "sha256": "190b152ae37628b2e810b38fd257197bd10a0f4f5b13130d5664b76434ace2b7"
+    },
+    {
+      "path": "scripts/bootstrap/environment.py",
+      "sha256": "7b048be09247ccedf1de5684d0f59b455dd9661445805edc919fc93b6d005776"
+    },
+    {
+      "path": "scripts/cd/export_environment.py",
+      "sha256": "3d4145f4ca4381b5f7efa40a0f598c3ba402ee074ed3b207f5d95c229fa524d7"
+    },
+    {
+      "path": "scripts/cd/orchestrate.py",
+      "sha256": "741f1b0089c30599d8047325fc23fd92a73ccb53573a770a4b2962ddfddff372"
+    },
+    {
+      "path": "scripts/cd/package.py",
+      "sha256": "57b6fdc901f4b2f6bcd28e4f7ea4a0aab71564667e00e55a7c35afe15e5f317e"
+    },
+    {
+      "path": "scripts/cd/publish.py",
+      "sha256": "95b756df1f75f3a821c6bcb73671f098b4c5bca6d9eaaf57645c5c30e1fb5d61"
+    },
+    {
+      "path": "scripts/validation/test_synthetic_delivery.py",
+      "sha256": "449c770c669c600d83a8cba66ac5bc885df9b90babf957f3e0235e98e88a328d"
+    }
+  ],
+  "unchangedProtectedSourcePaths": [
+    "scripts/operations",
+    ".github",
+    "infra/live",
+    "infra/operator-policies",
+    "infra/modules/private-cd",
+    "infra/modules/management-host/deployer/chart-template-hashes.json",
+    "infra/modules/management-host/deployer/engine.py",
+    "scripts/bootstrap/environment.schema.json",
+    "infra/modules/management-host/deployer/manifest.schema.json"
+  ],
+  "effects": {
+    "newClone": false,
+    "awsCalls": 0,
+    "actionsRuns": 0,
+    "push": false,
+    "iamOrTrustChange": false,
+    "credentialsCreatedOrRead": false,
+    "hostSecurityOrNetworkConfigurationChange": false,
+    "newBackupsOrRuntimeResources": false,
+    "retirementRunnerChangedOrRepinned": false,
+    "deployerInstalled": false,
+    "workflowEnablement": false
+  },
+  "remainingBlocks": [
+    "Protected VPC/subnet/KMS exceptions remain unimplemented.",
+    "Fresh role/SG/native ownership/generation bindings are not observed or assumed.",
+    "New intended backend disposition is unresolved.",
+    "Existing IAM prefixes and SSM dev-only input pattern remain unchanged and cannot admit trial delivery.",
+    "Host capability 1.5.0 is source-only; no install/hash pin changed.",
+    "Recovery/retention proofs, NAT retirement compatibility and prior refusal remain unresolved."
+  ],
+  "changedFileHashNormalization": "LF_TEXT"
+}

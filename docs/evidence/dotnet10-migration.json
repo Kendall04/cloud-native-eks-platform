@@ -1,0 +1,851 @@
+{
+  "schemaVersion": 1,
+  "verifiedOn": "2026-10-15",
+  "scope": "Local .NET 8 to .NET 10 migration and separately identified GitHub PR validation; no live AWS verification",
+  "baseCommit": "fce5a19c478e422661339fc4a3628f0108becbee",
+  "versions": {
+    "sdk": "10.0.402",
+    "runtime": "10.0.13",
+    "aspNetCore": "10.0.13",
+    "efCore": "10.0.13",
+    "npgsqlProvider": "10.0.3",
+    "npgsqlDriver": "10.0.3",
+    "postgresql": "15.18",
+    "trivy": "0.71.2"
+  },
+  "images": {
+    "auth": {
+      "architecture": "linux/amd64",
+      "localImageId": "sha256:d2acc660abbcbf9464a38351715ee14e30e850f7239c61f039aa3ba07b0e4e25",
+      "registryDigest": null,
+      "workingTreeDirtyAtScan": false,
+      "beforeOccurrences": {
+        "LOW": 4,
+        "MEDIUM": 3
+      },
+      "afterOccurrences": {
+        "MEDIUM": 2,
+        "LOW": 1
+      },
+      "sbom": {
+        "components": 37,
+        "format": "CycloneDX",
+        "sha256": "117996a84a3ef890b54c5f43b8bf3f71b5558b434a701b524cce9a6b19ee6ee7",
+        "version": "1.7"
+      },
+      "reports": {
+        "vulnerabilitiesSha256": "9ba04448b1d5371bd435c3d4e16f96604ba53017ccc3894b831f5281925a8ce0"
+      },
+      "buildSourceCommit": "d6261c73eb4b902e1042c097d55eb92d66ee0620"
+    },
+    "shipment": {
+      "architecture": "linux/amd64",
+      "localImageId": "sha256:bfb0d8fbc3ca5a0fcc514b7dfcb968f25a2087bc6c10166f72cbcc4cce966277",
+      "registryDigest": null,
+      "workingTreeDirtyAtScan": false,
+      "beforeOccurrences": {
+        "LOW": 4,
+        "MEDIUM": 3
+      },
+      "afterOccurrences": {
+        "MEDIUM": 2,
+        "LOW": 1
+      },
+      "sbom": {
+        "components": 39,
+        "format": "CycloneDX",
+        "sha256": "eeabb5f7b1f74977c6c1108a394c135025070274d0fca50e344ab7abeddd5844",
+        "version": "1.7"
+      },
+      "reports": {
+        "vulnerabilitiesSha256": "1146660e7600d075edbf7b8ddc5be7ffd3ef469dda6d61d10368405040afffd9"
+      },
+      "buildSourceCommit": "d6261c73eb4b902e1042c097d55eb92d66ee0620"
+    },
+    "tracking": {
+      "architecture": "linux/amd64",
+      "localImageId": "sha256:b98949686b5f94410b6fd984afab1094b73fc8b2375184a2d63bec6ba624ff62",
+      "registryDigest": null,
+      "workingTreeDirtyAtScan": false,
+      "beforeOccurrences": {
+        "LOW": 4,
+        "MEDIUM": 3
+      },
+      "afterOccurrences": {
+        "MEDIUM": 2,
+        "LOW": 1
+      },
+      "sbom": {
+        "components": 39,
+        "format": "CycloneDX",
+        "sha256": "fece7757983baaa2970a532ba0e7baac1128996e627b5a893ea448235fa81340",
+        "version": "1.7"
+      },
+      "reports": {
+        "vulnerabilitiesSha256": "ccee597f0d485c387015553fc7e36dd4f5c8d66e52cdbfbf781ea3384b700e45"
+      },
+      "buildSourceCommit": "d6261c73eb4b902e1042c097d55eb92d66ee0620"
+    }
+  },
+  "sdkComparison": {
+    "8": {
+      "occurrences": {
+        "LOW": 52,
+        "MEDIUM": 21,
+        "HIGH": 16
+      },
+      "reportSha256": "87bdc0b61afdedd65c3e7b729acf93e7d0f1aa9a25dcc0e2f76cbb969306aa8a",
+      "highCritical": [
+        {
+          "target": "usr/share/dotnet/sdk/8.0.426/DotnetTools/dotnet-format/dotnet-format.deps.json",
+          "id": "CVE-2025-26646",
+          "package": "Microsoft.Build.Tasks.Core",
+          "installed": "17.11.48",
+          "fixed": "15.9.30, 16.11.6, 17.8.29, 17.10.29, 17.12.36, 17.13.26, 17.14.8"
+        },
+        {
+          "target": "usr/share/dotnet/sdk/8.0.426/DotnetTools/dotnet-format/dotnet-format.deps.json",
+          "id": "CVE-2026-84008",
+          "package": "System.Security.Cryptography.Pkcs",
+          "installed": "8.0.1",
+          "fixed": "10.0.13, 11.0.0-rc.2, 8.0.2, 9.0.21"
+        },
+        {
+          "target": "usr/share/dotnet/sdk/8.0.426/DotnetTools/dotnet-format/dotnet-format.deps.json",
+          "id": "CVE-2026-47302",
+          "package": "System.Security.Cryptography.Xml",
+          "installed": "8.0.3",
+          "fixed": "10.0.10, 9.0.18, 8.0.4"
+        },
+        {
+          "target": "usr/share/dotnet/sdk/8.0.426/DotnetTools/dotnet-format/dotnet-format.deps.json",
+          "id": "CVE-2026-47304",
+          "package": "System.Security.Cryptography.Xml",
+          "installed": "8.0.3",
+          "fixed": "10.0.10, 9.0.18, 8.0.4"
+        },
+        {
+          "target": "usr/share/dotnet/sdk/8.0.426/DotnetTools/dotnet-format/dotnet-format.deps.json",
+          "id": "CVE-2026-50525",
+          "package": "System.Security.Cryptography.Xml",
+          "installed": "8.0.3",
+          "fixed": "10.0.10, 9.0.18, 8.0.4"
+        },
+        {
+          "target": "usr/share/dotnet/sdk/8.0.426/DotnetTools/dotnet-format/dotnet-format.deps.json",
+          "id": "CVE-2026-50527",
+          "package": "System.Security.Cryptography.Xml",
+          "installed": "8.0.3",
+          "fixed": "10.0.10, 9.0.18, 8.0.4"
+        },
+        {
+          "target": "usr/share/dotnet/sdk/8.0.426/DotnetTools/dotnet-format/dotnet-format.deps.json",
+          "id": "CVE-2026-50648",
+          "package": "System.Security.Cryptography.Xml",
+          "installed": "8.0.3",
+          "fixed": "10.0.10, 9.0.18, 8.0.4"
+        },
+        {
+          "target": "usr/share/dotnet/sdk/8.0.426/DotnetTools/dotnet-format/dotnet-format.deps.json",
+          "id": "CVE-2026-96222",
+          "package": "System.Security.Cryptography.Xml",
+          "installed": "8.0.3",
+          "fixed": "8.0.5"
+        },
+        {
+          "target": "usr/share/dotnet/sdk/8.0.426/DotnetTools/dotnet-format/dotnet-format.deps.json",
+          "id": "CVE-2026-96958",
+          "package": "System.Security.Cryptography.Xml",
+          "installed": "8.0.3",
+          "fixed": "10.0.13, 11.0.0-rc.2, 8.0.5, 9.0.21"
+        },
+        {
+          "target": "usr/share/dotnet/sdk/8.0.426/DotnetTools/dotnet-format/dotnet-format.deps.json",
+          "id": "CVE-2026-96959",
+          "package": "System.Security.Cryptography.Xml",
+          "installed": "8.0.3",
+          "fixed": "10.0.13, 11.0.0-rc.2, 8.0.5, 9.0.21"
+        },
+        {
+          "target": "usr/share/dotnet/sdk/8.0.426/DotnetTools/dotnet-format/dotnet-format.deps.json",
+          "id": "CVE-2026-96960",
+          "package": "System.Security.Cryptography.Xml",
+          "installed": "8.0.3",
+          "fixed": "10.0.13, 11.0.0-rc.2, 8.0.5, 9.0.21"
+        },
+        {
+          "target": "usr/share/dotnet/sdk/8.0.426/FSharp/fsc.deps.json",
+          "id": "CVE-2025-26646",
+          "package": "Microsoft.Build.Tasks.Core",
+          "installed": "17.11.69",
+          "fixed": "15.9.30, 16.11.6, 17.8.29, 17.10.29, 17.12.36, 17.13.26, 17.14.8"
+        },
+        {
+          "target": "usr/share/dotnet/sdk/8.0.426/FSharp/fsi.deps.json",
+          "id": "CVE-2025-26646",
+          "package": "Microsoft.Build.Tasks.Core",
+          "installed": "17.11.69",
+          "fixed": "15.9.30, 16.11.6, 17.8.29, 17.10.29, 17.12.36, 17.13.26, 17.14.8"
+        },
+        {
+          "target": "usr/share/dotnet/sdk/8.0.426/MSBuild.deps.json",
+          "id": "CVE-2025-26646",
+          "package": "Microsoft.Build.Tasks.Core",
+          "installed": "17.11.69",
+          "fixed": "15.9.30, 16.11.6, 17.8.29, 17.10.29, 17.12.36, 17.13.26, 17.14.8"
+        },
+        {
+          "target": "usr/share/dotnet/sdk/8.0.426/NuGet.CommandLine.XPlat.deps.json",
+          "id": "CVE-2025-26646",
+          "package": "Microsoft.Build.Tasks.Core",
+          "installed": "17.11.69",
+          "fixed": "15.9.30, 16.11.6, 17.8.29, 17.10.29, 17.12.36, 17.13.26, 17.14.8"
+        },
+        {
+          "target": "usr/share/dotnet/sdk/8.0.426/dotnet.deps.json",
+          "id": "CVE-2025-26646",
+          "package": "Microsoft.Build.Tasks.Core",
+          "installed": "17.11.69",
+          "fixed": "15.9.30, 16.11.6, 17.8.29, 17.10.29, 17.12.36, 17.13.26, 17.14.8"
+        }
+      ]
+    },
+    "10": {
+      "occurrences": {
+        "LOW": 32,
+        "MEDIUM": 21,
+        "HIGH": 4
+      },
+      "reportSha256": "44e93796fc87a02e5bcec857ea64e47829da69843f4da761b343f743793d9076",
+      "highCritical": [
+        {
+          "target": "usr/share/powershell/.store/powershell.linux.x64/7.6.7/powershell.linux.x64/7.6.7/tools/net10.0/any/pwsh.deps.json",
+          "id": "CVE-2026-84008",
+          "package": "System.Security.Cryptography.Pkcs",
+          "installed": "10.0.10",
+          "fixed": "10.0.13, 11.0.0-rc.2, 8.0.2, 9.0.21"
+        },
+        {
+          "target": "usr/share/powershell/.store/powershell.linux.x64/7.6.7/powershell.linux.x64/7.6.7/tools/net10.0/any/pwsh.deps.json",
+          "id": "CVE-2026-96958",
+          "package": "System.Security.Cryptography.Xml",
+          "installed": "10.0.10",
+          "fixed": "10.0.13, 11.0.0-rc.2, 8.0.5, 9.0.21"
+        },
+        {
+          "target": "usr/share/powershell/.store/powershell.linux.x64/7.6.7/powershell.linux.x64/7.6.7/tools/net10.0/any/pwsh.deps.json",
+          "id": "CVE-2026-96959",
+          "package": "System.Security.Cryptography.Xml",
+          "installed": "10.0.10",
+          "fixed": "10.0.13, 11.0.0-rc.2, 8.0.5, 9.0.21"
+        },
+        {
+          "target": "usr/share/powershell/.store/powershell.linux.x64/7.6.7/powershell.linux.x64/7.6.7/tools/net10.0/any/pwsh.deps.json",
+          "id": "CVE-2026-96960",
+          "package": "System.Security.Cryptography.Xml",
+          "installed": "10.0.10",
+          "fixed": "10.0.13, 11.0.0-rc.2, 8.0.5, 9.0.21"
+        }
+      ]
+    }
+  },
+  "database": {
+    "CheckBundle": {
+      "Digest": "sha256:b591e9190cff4aa4e385b1a25bccfd9ecf178d3c77fd194e1410b7ce7e1df058",
+      "DownloadedAt": "2026-10-15T04:27:22.412465889Z"
+    },
+    "Version": "0.71.2",
+    "VulnerabilityDB": {
+      "DownloadedAt": "2026-10-15T04:27:20.085986952Z",
+      "NextUpdate": "2026-10-16T01:13:01.189994923Z",
+      "UpdatedAt": "2026-10-15T01:13:01.189995254Z",
+      "Version": 2
+    }
+  },
+  "sourceOccurrences": {
+    "LOW": 74,
+    "HIGH": 7,
+    "CRITICAL": 3,
+    "MEDIUM": 51
+  },
+  "exceptions": {
+    "unique": 9,
+    "severity": {
+      "HIGH": 6,
+      "CRITICAL": 3
+    },
+    "expiry": [
+      "2027-01-12"
+    ],
+    "baselineSha256": "e0d4ec6a274b7d1117644308c86aa33d4bf850c097a1ee0c5cbed38ab25da2d7",
+    "newExceptions": 0,
+    "newBlocking": 0,
+    "expiredBlocking": 0
+  },
+  "tests": {
+    "dotnet": {
+      "TrackingService.sln.trx": {
+        "total": "43",
+        "executed": "43",
+        "passed": "43",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "AuthService.sln.trx": {
+        "total": "35",
+        "executed": "35",
+        "passed": "35",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "ShipmentService.sln.trx": {
+        "total": "35",
+        "executed": "35",
+        "passed": "35",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      },
+      "EventReliability.Tests.csproj.trx": {
+        "total": "49",
+        "executed": "49",
+        "passed": "49",
+        "failed": "0",
+        "error": "0",
+        "timeout": "0",
+        "aborted": "0",
+        "inconclusive": "0",
+        "passedButRunAborted": "0",
+        "notRunnable": "0",
+        "notExecuted": "0",
+        "disconnected": "0",
+        "warning": "0",
+        "completed": "0",
+        "inProgress": "0",
+        "pending": "0"
+      }
+    },
+    "python": {
+      "total": 801,
+      "passed": 800,
+      "skipped": 1,
+      "reason": "R3 local PostgreSQL prerequisite; exercised separately by required PostgreSQL gate",
+      "secondRunSeconds": 273.8
+    },
+    "authorizer": {
+      "passed": 10,
+      "skipped": 0
+    },
+    "static": {
+      "checks": 57,
+      "failed": 0,
+      "terraformModules": 19,
+      "terraformMockCases": 8
+    },
+    "runtime": [
+      {
+        "test": "NET8-created PostgreSQL schemas upgraded by NET10; columns, indexes, constraints and histories unchanged",
+        "result": "PASS"
+      },
+      {
+        "service": "auth",
+        "test": "production runtime readiness; VerifyFull PostgreSQL TLS; readonly root; UID1654; bounded tmp",
+        "result": "PASS"
+      },
+      {
+        "service": "shipment",
+        "test": "production runtime readiness; VerifyFull PostgreSQL TLS; readonly root; UID1654; bounded tmp",
+        "result": "PASS"
+      },
+      {
+        "service": "tracking",
+        "test": "production runtime readiness; VerifyFull PostgreSQL TLS; readonly root; UID1654; bounded tmp",
+        "result": "PASS"
+      },
+      {
+        "test": "Existing NET8 PostgreSQL user/password/access token/refresh token accepted by NET10 runtime",
+        "result": "PASS"
+      },
+      {
+        "service": "auth",
+        "test": "register/login/me/refresh against PostgreSQL with readonly root",
+        "result": "PASS"
+      },
+      {
+        "test": "JWT invalid/expired/wrong issuer/audience/signature rejected; malformed JSON and forged gateway identity rejected",
+        "result": "PASS"
+      },
+      {
+        "test": "Shipment create/read; Tracking create/timeline/internal HTTP lookup; PostgreSQL transactional outbox; JSON enums and UTC timestamps",
+        "result": "PASS"
+      },
+      {
+        "service": "auth",
+        "test": "negative write to /app rejected by read-only filesystem",
+        "result": "PASS"
+      },
+      {
+        "service": "shipment",
+        "test": "negative write to /app rejected by read-only filesystem",
+        "result": "PASS"
+      },
+      {
+        "service": "tracking",
+        "test": "negative write to /app rejected by read-only filesystem",
+        "result": "PASS"
+      }
+    ],
+    "negativeLockedRestore": "NU1004",
+    "r4Dedicated": {
+      "passed": 46,
+      "skipped": 0
+    },
+    "ciV2": {
+      "passed": 25,
+      "skipped": 0
+    },
+    "postgresqlServerVersion": "PostgreSQL 15.18 (Debian 15.18-1.pgdg13+1)",
+    "sourceScanCoverage": {
+      "nugetResultTargets": 12,
+      "pipResultTargets": 2,
+      "emptyPackageGraphs": 4
+    },
+    "helmChartsLintedAndRendered": 4
+  },
+  "protectedContracts": {
+    "executor": "1.4.0",
+    "chartPinsChanged": false,
+    "teardownPinsChanged": false,
+    "migrationsChanged": false,
+    "snapshotsChanged": false,
+    "terraformHelmChanged": false
+  },
+  "pending": [
+    "Live EKS/RDS/SSM rollout and rollback; no AWS runtime claims",
+    "Vendor SDK PowerShell dependency servicing: four HIGH tooling occurrences remain outside the existing application/configuration gate"
+  ],
+  "projects": [
+    {
+      "path": "microservices/auth-service/src/AuthService.Api/AuthService.Api.csproj",
+      "role": "production",
+      "targetFramework": "net10.0",
+      "resolvedPackages": 26
+    },
+    {
+      "path": "microservices/auth-service/src/AuthService.Application/AuthService.Application.csproj",
+      "role": "production",
+      "targetFramework": "net10.0",
+      "resolvedPackages": 18
+    },
+    {
+      "path": "microservices/auth-service/src/AuthService.Domain/AuthService.Domain.csproj",
+      "role": "production",
+      "targetFramework": "net10.0",
+      "resolvedPackages": 17
+    },
+    {
+      "path": "microservices/auth-service/src/AuthService.Infrastructure/AuthService.Infrastructure.csproj",
+      "role": "production",
+      "targetFramework": "net10.0",
+      "resolvedPackages": 67
+    },
+    {
+      "path": "microservices/auth-service/tests/AuthService.Tests/AuthService.Tests.csproj",
+      "role": "test",
+      "targetFramework": "net10.0",
+      "resolvedPackages": 81
+    },
+    {
+      "path": "microservices/shipment-service/src/ShipmentService.Api/ShipmentService.Api.csproj",
+      "role": "production",
+      "targetFramework": "net10.0",
+      "resolvedPackages": 28
+    },
+    {
+      "path": "microservices/shipment-service/src/ShipmentService.Application/ShipmentService.Application.csproj",
+      "role": "production",
+      "targetFramework": "net10.0",
+      "resolvedPackages": 1
+    },
+    {
+      "path": "microservices/shipment-service/src/ShipmentService.Domain/ShipmentService.Domain.csproj",
+      "role": "production",
+      "targetFramework": "net10.0",
+      "resolvedPackages": 0
+    },
+    {
+      "path": "microservices/shipment-service/src/ShipmentService.Infrastructure/ShipmentService.Infrastructure.csproj",
+      "role": "production",
+      "targetFramework": "net10.0",
+      "resolvedPackages": 55
+    },
+    {
+      "path": "microservices/shipment-service/tests/ShipmentService.Tests/ShipmentService.Tests.csproj",
+      "role": "test",
+      "targetFramework": "net10.0",
+      "resolvedPackages": 87
+    },
+    {
+      "path": "microservices/tracking-service/src/TrackingService.Api/TrackingService.Api.csproj",
+      "role": "production",
+      "targetFramework": "net10.0",
+      "resolvedPackages": 28
+    },
+    {
+      "path": "microservices/tracking-service/src/TrackingService.Application/TrackingService.Application.csproj",
+      "role": "production",
+      "targetFramework": "net10.0",
+      "resolvedPackages": 1
+    },
+    {
+      "path": "microservices/tracking-service/src/TrackingService.Domain/TrackingService.Domain.csproj",
+      "role": "production",
+      "targetFramework": "net10.0",
+      "resolvedPackages": 0
+    },
+    {
+      "path": "microservices/tracking-service/src/TrackingService.Infrastructure/TrackingService.Infrastructure.csproj",
+      "role": "production",
+      "targetFramework": "net10.0",
+      "resolvedPackages": 57
+    },
+    {
+      "path": "microservices/tracking-service/tests/TrackingService.Tests/TrackingService.Tests.csproj",
+      "role": "test",
+      "targetFramework": "net10.0",
+      "resolvedPackages": 88
+    },
+    {
+      "path": "tests/EventReliability.Tests/EventReliability.Tests.csproj",
+      "role": "test",
+      "targetFramework": "net10.0",
+      "resolvedPackages": 72
+    }
+  ],
+  "sources": [
+    "https://builds.dotnet.microsoft.com/dotnet/release-metadata/10.0/releases.json",
+    "https://learn.microsoft.com/en-us/dotnet/core/compatibility/10",
+    "https://learn.microsoft.com/en-us/aspnet/core/breaking-changes/10/overview",
+    "https://learn.microsoft.com/en-us/ef/core/what-is-new/ef-core-9.0/breaking-changes",
+    "https://learn.microsoft.com/en-us/ef/core/what-is-new/ef-core-10.0/breaking-changes",
+    "https://www.npgsql.org/efcore/release-notes/10.0.html"
+  ],
+  "baseImages": {
+    "sdk": {
+      "tag": "10.0.402-noble",
+      "amd64ManifestDigest": "sha256:3a48280a9a7c6276c3eeaba1efa6a08820f18c84fb9e6274c187719ecfaf9fbc"
+    },
+    "aspnet": {
+      "tag": "10.0.13-noble-chiseled-extra",
+      "amd64ManifestDigest": "sha256:c805797ee22b3a9d4e38e16cd25caac1580610a36e4f1ce19a94eb8a3633410d"
+    }
+  },
+  "artifactScope": "Local test images built from the clean migration implementation commit; not published releases. The subsequent evidence commit only updates documentation/results and normalizes a Python EOF newline.",
+  "implementationCommit": "d6261c73eb4b902e1042c097d55eb92d66ee0620",
+  "githubValidation": {
+    "pullRequest": 58,
+    "pullRequestUrl": "https://github.com/Kendall04/cloud-native-platform-eks/pull/58",
+    "runId": 38709946875,
+    "runUrl": "https://github.com/Kendall04/cloud-native-platform-eks/actions/runs/38709946875",
+    "headCommit": "cd42a51779b8f1b9da913b23c34dd88d93df67ef",
+    "jobsPassed": 34,
+    "jobsFailed": 0,
+    "security": [
+      {
+        "scope": "auth",
+        "commit": "fc20546c75d85b5d046f2a8404b27695675cc513",
+        "tool": {
+          "Version": "0.71.2",
+          "VulnerabilityDB": {
+            "DownloadedAt": "2026-10-15T09:03:07.165432863Z",
+            "NextUpdate": "2026-10-16T07:10:08.755380121Z",
+            "UpdatedAt": "2026-10-15T07:10:08.755380281Z",
+            "Version": 2
+          }
+        },
+        "counts": {
+          "MEDIUM": 2,
+          "LOW": 1
+        },
+        "policy": {
+          "acceptedExisting": 0,
+          "advisory": 3,
+          "expiredBlocking": 0,
+          "newBlocking": 0
+        },
+        "sbom": {
+          "format": "CycloneDX",
+          "version": "1.7",
+          "components": 37
+        }
+      },
+      {
+        "scope": "shipment",
+        "commit": "fc20546c75d85b5d046f2a8404b27695675cc513",
+        "tool": {
+          "Version": "0.71.2",
+          "VulnerabilityDB": {
+            "DownloadedAt": "2026-10-15T09:02:57.292172606Z",
+            "NextUpdate": "2026-10-16T07:10:08.755380121Z",
+            "UpdatedAt": "2026-10-15T07:10:08.755380281Z",
+            "Version": 2
+          }
+        },
+        "counts": {
+          "MEDIUM": 2,
+          "LOW": 1
+        },
+        "policy": {
+          "acceptedExisting": 0,
+          "advisory": 3,
+          "expiredBlocking": 0,
+          "newBlocking": 0
+        },
+        "sbom": {
+          "format": "CycloneDX",
+          "version": "1.7",
+          "components": 39
+        }
+      },
+      {
+        "scope": "tracking",
+        "commit": "fc20546c75d85b5d046f2a8404b27695675cc513",
+        "tool": {
+          "Version": "0.71.2",
+          "VulnerabilityDB": {
+            "DownloadedAt": "2026-10-15T09:03:09.482131218Z",
+            "NextUpdate": "2026-10-16T07:10:08.755380121Z",
+            "UpdatedAt": "2026-10-15T07:10:08.755380281Z",
+            "Version": 2
+          }
+        },
+        "counts": {
+          "MEDIUM": 2,
+          "LOW": 1
+        },
+        "policy": {
+          "acceptedExisting": 0,
+          "advisory": 3,
+          "expiredBlocking": 0,
+          "newBlocking": 0
+        },
+        "sbom": {
+          "format": "CycloneDX",
+          "version": "1.7",
+          "components": 39
+        }
+      },
+      {
+        "scope": "source",
+        "commit": "fc20546c75d85b5d046f2a8404b27695675cc513",
+        "tool": {
+          "CheckBundle": {
+            "Digest": "sha256:b591e9190cff4aa4e385b1a25bccfd9ecf178d3c77fd194e1410b7ce7e1df058",
+            "DownloadedAt": "2026-10-15T09:02:27.733095919Z"
+          },
+          "Version": "0.71.2",
+          "VulnerabilityDB": {
+            "DownloadedAt": "2026-10-15T09:02:24.529022508Z",
+            "NextUpdate": "2026-10-16T07:10:08.755380121Z",
+            "UpdatedAt": "2026-10-15T07:10:08.755380281Z",
+            "Version": 2
+          }
+        },
+        "counts": {
+          "LOW": 74,
+          "HIGH": 7,
+          "CRITICAL": 3,
+          "MEDIUM": 51
+        },
+        "policy": {
+          "acceptedExisting": 10,
+          "advisory": 125,
+          "expiredBlocking": 0,
+          "newBlocking": 0
+        }
+      }
+    ],
+    "tests": [
+      {
+        "artifact": "tests-0/_runnervm8k3b6_2026-10-15_09_02_36_net10.0.trx",
+        "counters": {
+          "total": "35",
+          "executed": "35",
+          "passed": "35",
+          "failed": "0",
+          "error": "0",
+          "timeout": "0",
+          "aborted": "0",
+          "inconclusive": "0",
+          "passedButRunAborted": "0",
+          "notRunnable": "0",
+          "notExecuted": "0",
+          "disconnected": "0",
+          "warning": "0",
+          "completed": "0",
+          "inProgress": "0",
+          "pending": "0"
+        }
+      },
+      {
+        "artifact": "tests-1/_runnervmmprz5_2026-10-15_09_02_45_net10.0.trx",
+        "counters": {
+          "total": "35",
+          "executed": "35",
+          "passed": "35",
+          "failed": "0",
+          "error": "0",
+          "timeout": "0",
+          "aborted": "0",
+          "inconclusive": "0",
+          "passedButRunAborted": "0",
+          "notRunnable": "0",
+          "notExecuted": "0",
+          "disconnected": "0",
+          "warning": "0",
+          "completed": "0",
+          "inProgress": "0",
+          "pending": "0"
+        }
+      },
+      {
+        "artifact": "tests-2/_runnervm8k3b6_2026-10-15_09_02_49_net10.0.trx",
+        "counters": {
+          "total": "43",
+          "executed": "43",
+          "passed": "43",
+          "failed": "0",
+          "error": "0",
+          "timeout": "0",
+          "aborted": "0",
+          "inconclusive": "0",
+          "passedButRunAborted": "0",
+          "notRunnable": "0",
+          "notExecuted": "0",
+          "disconnected": "0",
+          "warning": "0",
+          "completed": "0",
+          "inProgress": "0",
+          "pending": "0"
+        }
+      },
+      {
+        "artifact": "tests-3/_runnervmmprz5_2026-10-15_09_02_40_net10.0.trx",
+        "counters": {
+          "total": "49",
+          "executed": "28",
+          "passed": "28",
+          "failed": "0",
+          "error": "0",
+          "timeout": "0",
+          "aborted": "0",
+          "inconclusive": "0",
+          "passedButRunAborted": "0",
+          "notRunnable": "0",
+          "notExecuted": "0",
+          "disconnected": "0",
+          "warning": "0",
+          "completed": "0",
+          "inProgress": "0",
+          "pending": "0"
+        }
+      },
+      {
+        "artifact": "tests-postgres-reliability/r5.trx",
+        "counters": {
+          "total": "49",
+          "executed": "49",
+          "passed": "49",
+          "failed": "0",
+          "error": "0",
+          "timeout": "0",
+          "aborted": "0",
+          "inconclusive": "0",
+          "passedButRunAborted": "0",
+          "notRunnable": "0",
+          "notExecuted": "0",
+          "disconnected": "0",
+          "warning": "0",
+          "completed": "0",
+          "inProgress": "0",
+          "pending": "0"
+        }
+      }
+    ],
+    "python": {
+      "platformCases": 181,
+      "platformSkipped": 1,
+      "lifecycleCases": 620,
+      "lifecycleSkipped": 0,
+      "postgresqlPrerequisiteCoveredByDedicatedJob": true
+    },
+    "reliabilityMatrixSkippedCases": 21,
+    "dedicatedPostgresCasesPassed": 49,
+    "artifactCount": 9,
+    "notes": [
+      "PR artifacts identify the GitHub synthetic merge commit; this differs legitimately from the feature head.",
+      "Subsequent evidence-only revisions and branch integrations require their own successful Validate runs."
+    ]
+  },
+  "vmCleanup": {
+    "freeBeforeBytes": 859975680,
+    "freeAfterBytes": 4901175296,
+    "recoveredBytes": 4041199616,
+    "persistentDataRemoved": false,
+    "privateFeedPackagesPreserved": true,
+    "migrationBaselineAndCandidateImagesPreserved": true,
+    "removedPublicNugetDirectories": 771,
+    "removedObsoleteCnpImages": 6,
+    "containersAndVolumesUnchanged": true,
+    "capacityRationale": "4.56 GiB free exceeds the approximately 2.8 GiB peak observed for the three local image builds; preserve uncertain resources."
+  },
+  "sdkCurrentDatabaseRecheck": {
+    "counts": {
+      "LOW": 32,
+      "MEDIUM": 21,
+      "HIGH": 4
+    },
+    "reportSha256": "b8fd7609932dd9b770d9079dc242dac11d08b5b0d795a2d7d521865b51715c9a",
+    "tool": {
+      "Version": "0.71.2",
+      "VulnerabilityDB": {
+        "Version": 2,
+        "NextUpdate": "2026-10-16T07:10:08.755380121Z",
+        "UpdatedAt": "2026-10-15T07:10:08.755380281Z",
+        "DownloadedAt": "2026-10-15T09:08:51.531635199Z"
+      }
+    }
+  }
+}

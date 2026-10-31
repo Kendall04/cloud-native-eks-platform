@@ -1,0 +1,115 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ec2messages:AcknowledgeMessage",
+        "ec2messages:DeleteMessage",
+        "ec2messages:FailMessage",
+        "ec2messages:GetEndpoint",
+        "ec2messages:GetMessages",
+        "ec2messages:SendReply",
+        "ssm:DescribeAssociation",
+        "ssm:DescribeDocument",
+        "ssm:GetDeployablePatchSnapshotForInstance",
+        "ssm:GetDocument",
+        "ssm:GetManifest",
+        "ssm:GetParameter",
+        "ssm:GetParameters",
+        "ssm:ListAssociations",
+        "ssm:ListInstanceAssociations",
+        "ssm:PutComplianceItems",
+        "ssm:PutConfigurePackageResult",
+        "ssm:PutInventory",
+        "ssm:UpdateAssociationStatus",
+        "ssm:UpdateInstanceAssociationStatus",
+        "ssm:UpdateInstanceInformation",
+        "ssmmessages:CreateControlChannel",
+        "ssmmessages:CreateDataChannel",
+        "ssmmessages:OpenControlChannel",
+        "ssmmessages:OpenDataChannel"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ],
+      "Resource": "arn:aws:logs:us-east-1:341936017254:log-group:/aws/lambda/cloud-native-platform-dev-api-jwt-authorizer:*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "secretsmanager:GetSecretValue",
+      "Resource": [
+        "arn:aws:secretsmanager:us-east-1:341936017254:secret:cloud-native-platform/dev/api-gateway-authorizer/auth-service-jwt-secret-*",
+        "arn:aws:secretsmanager:us-east-1:341936017254:secret:cloud-native-platform/dev/api-gateway-authorizer/platform-trusted-proxy-secret-*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": "eks:DescribeCluster",
+      "Resource": "arn:aws:eks:us-east-1:341936017254:cluster/logistics-platform-dev"
+    },
+    {
+      "Effect": "Allow",
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-artifacts",
+      "Condition": {
+        "StringLike": {
+          "s3:prefix": [
+            "cluster-addons/dev",
+            "cluster-addons/dev/*"
+          ]
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Action": "s3:GetObject",
+      "Resource": "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-artifacts/cluster-addons/dev/*"
+    },
+    {
+      "Sid": "PrivateCdArtifactVersion",
+      "Effect": "Allow",
+      "Action": "s3:GetObjectVersion",
+      "Resource": "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-artifacts/deploy-artifacts/dev/*",
+      "Condition": {
+        "StringEquals": {
+          "aws:PrincipalArn": "arn:aws:iam::341936017254:role/cloud-native-platform-dev-management-role"
+        }
+      }
+    },
+    {
+      "Sid": "PrivateCdReceiptList",
+      "Effect": "Allow",
+      "Action": "s3:ListBucket",
+      "Resource": "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-artifacts",
+      "Condition": {
+        "StringLike": {
+          "s3:prefix": "deployment-receipts/dev/*"
+        },
+        "StringEquals": {
+          "aws:PrincipalArn": "arn:aws:iam::341936017254:role/cloud-native-platform-dev-management-role"
+        }
+      }
+    },
+    {
+      "Sid": "PrivateCdReceipts",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:PutObject"
+      ],
+      "Resource": "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-artifacts/deployment-receipts/dev/*",
+      "Condition": {
+        "StringEquals": {
+          "aws:PrincipalArn": "arn:aws:iam::341936017254:role/cloud-native-platform-dev-management-role"
+        }
+      }
+    }
+  ]
+}

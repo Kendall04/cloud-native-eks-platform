@@ -1,0 +1,715 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Security & Trust Boundaries",
+    "locale": "en",
+    "output": "docs/interactive/security.html",
+    "quality_profile": "showcase",
+    "animation": "none",
+    "repository": {
+      "url": "https://github.com/Kendall04/cloud-native-platform-eks.git",
+      "revision": "63ef56f6fe60c3f14ba26200b18fcd85d1b63bae",
+      "link_mode": "local-only"
+    },
+    "views": [
+      {
+        "id": "view-1",
+        "label": "01 / User identity",
+        "focus": [
+          "browser",
+          "edge",
+          "static",
+          "api",
+          "public_auth",
+          "authorizer",
+          "integration",
+          "service",
+          "auth"
+        ],
+        "note": "API forwarding is now removed. Public Auth bypasses the authorizer; protected routes require JWT and current-profile authorization."
+      },
+      {
+        "id": "view-2",
+        "label": "02 / Workload identity",
+        "focus": [
+          "sa",
+          "sts",
+          "aws",
+          "eso",
+          "secrets",
+          "ksecret",
+          "database",
+          "db_client"
+        ],
+        "note": "IRSA scopes AWS access; secrets and schema credentials have distinct consumers."
+      },
+      {
+        "id": "view-3",
+        "label": "03 / Delivery authority",
+        "focus": [
+          "github",
+          "publisher",
+          "artifact",
+          "orchestrator",
+          "ssm",
+          "management"
+        ],
+        "note": "Publishing data does not grant deployment authority or direct Kubernetes access."
+      }
+    ]
+  },
+  "components": [
+    {
+      "id": "browser",
+      "type": "external",
+      "label": "Browser",
+      "sublabel": "Bearer JWT in memory only",
+      "pos": [
+        40,
+        40
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "frontend/src/api.ts"
+        }
+      ]
+    },
+    {
+      "id": "edge",
+      "type": "cloud",
+      "label": "CloudFront",
+      "sublabel": "HTTPS / edition selection",
+      "pos": [
+        400,
+        40
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/portfolio/frontend-static/main.tf"
+        }
+      ]
+    },
+    {
+      "id": "authorizer",
+      "type": "security",
+      "label": "Lambda authorizer",
+      "sublabel": "REQUEST / JWT verification",
+      "pos": [
+        1120,
+        40
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "lambdas/api-gateway-jwt-authorizer/src/index.mjs"
+        }
+      ]
+    },
+    {
+      "id": "integration",
+      "type": "security",
+      "label": "API integration",
+      "sublabel": "Protected / overwrite identity",
+      "pos": [
+        1480,
+        40
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/apigateway-integration/main.tf"
+        }
+      ]
+    },
+    {
+      "id": "service",
+      "type": "backend",
+      "label": "Shipment / Tracking",
+      "sublabel": "Proxy trust + subject binding",
+      "pos": [
+        1480,
+        220
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "microservices/shipment-service/src/ShipmentService.Api/Infrastructure/GatewayJwtAuthenticationHandler.cs"
+        }
+      ]
+    },
+    {
+      "id": "auth",
+      "type": "security",
+      "label": "Auth current profile",
+      "sublabel": "Active user / current roles",
+      "pos": [
+        1120,
+        220
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "microservices/shipment-service/src/ShipmentService.Api/Infrastructure/CurrentProfileClient.cs"
+        }
+      ]
+    },
+    {
+      "id": "sa",
+      "type": "security",
+      "label": "Kubernetes SA",
+      "sublabel": "Per-service OIDC identity",
+      "pos": [
+        40,
+        400
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "k8s/charts/platform-bootstrap/templates/platform.yaml"
+        }
+      ]
+    },
+    {
+      "id": "sts",
+      "type": "security",
+      "label": "STS / IRSA",
+      "sublabel": "Exact sub + audience trust",
+      "pos": [
+        400,
+        400
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/iam/main.tf"
+        }
+      ]
+    },
+    {
+      "id": "aws",
+      "type": "cloud",
+      "label": "Scoped AWS APIs",
+      "sublabel": "Tracking publish / Shipment SQS",
+      "pos": [
+        760,
+        400
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/iam/main.tf"
+        }
+      ]
+    },
+    {
+      "id": "eso",
+      "type": "security",
+      "label": "ESO service account",
+      "sublabel": "Separate scoped IRSA role",
+      "pos": [
+        1120,
+        400
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "k8s/charts/platform-bootstrap/templates/platform.yaml"
+        }
+      ]
+    },
+    {
+      "id": "secrets",
+      "type": "security",
+      "label": "Secrets Manager",
+      "sublabel": "Authoritative secret values",
+      "pos": [
+        1480,
+        400
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/runtime-secrets/main.tf"
+        }
+      ]
+    },
+    {
+      "id": "ksecret",
+      "type": "security",
+      "label": "Kubernetes Secrets",
+      "sublabel": "Workload / migration credentials",
+      "pos": [
+        1120,
+        580
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "k8s/charts/platform-secret-sync/templates/secrets.yaml"
+        }
+      ]
+    },
+    {
+      "id": "database",
+      "type": "database",
+      "label": "PostgreSQL identities",
+      "sublabel": "Three schemas / six app roles",
+      "pos": [
+        400,
+        580
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "scripts/bootstrap/database.py"
+        }
+      ]
+    },
+    {
+      "id": "github",
+      "type": "external",
+      "label": "GitHub Actions OIDC",
+      "sublabel": "Repo / ref or environment trust",
+      "pos": [
+        40,
+        760
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/private-cd/main.tf"
+        }
+      ]
+    },
+    {
+      "id": "publisher",
+      "type": "security",
+      "label": "Publisher role",
+      "sublabel": "Build + immutable publication",
+      "pos": [
+        400,
+        760
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/private-cd/main.tf"
+        }
+      ]
+    },
+    {
+      "id": "artifact",
+      "type": "database",
+      "label": "ECR / versioned S3",
+      "sublabel": "Digests / bundle hash / VersionId",
+      "pos": [
+        760,
+        760
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "scripts/cd/publish.py"
+        }
+      ]
+    },
+    {
+      "id": "orchestrator",
+      "type": "security",
+      "label": "Orchestrator role",
+      "sublabel": "Fixed target + document only",
+      "pos": [
+        40,
+        940
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/private-cd/main.tf"
+        }
+      ]
+    },
+    {
+      "id": "ssm",
+      "type": "cloud",
+      "label": "SSM",
+      "sublabel": "Approved document invocation",
+      "pos": [
+        400,
+        940
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "scripts/cd/orchestrate.py"
+        }
+      ]
+    },
+    {
+      "id": "management",
+      "type": "backend",
+      "label": "Management identity",
+      "sublabel": "Scoped EKS access / Helm",
+      "pos": [
+        760,
+        940
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/management-host/main.tf"
+        }
+      ]
+    },
+    {
+      "id": "db_client",
+      "type": "backend",
+      "label": "Pod / migration Job",
+      "sublabel": "Separate runtime / owner roles",
+      "pos": [
+        760,
+        580
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "k8s/charts/platform-services/templates/migration-job.yaml"
+        },
+        {
+          "path": "k8s/charts/platform-services/templates/deployment.yaml"
+        }
+      ]
+    },
+    {
+      "id": "static",
+      "type": "database",
+      "label": "Private S3 origin",
+      "sublabel": "Static assets only / OAC",
+      "pos": [
+        400,
+        220
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/portfolio/frontend-static/main.tf"
+        }
+      ]
+    },
+    {
+      "id": "api",
+      "type": "cloud",
+      "label": "API Gateway",
+      "sublabel": "3 public / 9 protected routes",
+      "pos": [
+        760,
+        40
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/modules/apigateway-integration/main.tf"
+        }
+      ]
+    },
+    {
+      "id": "public_auth",
+      "type": "backend",
+      "label": "Auth public endpoints",
+      "sublabel": "Register / login / refresh",
+      "pos": [
+        760,
+        220
+      ],
+      "size": [
+        210,
+        72
+      ],
+      "sources": [
+        {
+          "path": "infra/live/dev/apigateway-integration/terragrunt.hcl"
+        }
+      ]
+    }
+  ],
+  "connections": [
+    {
+      "id": "browser-edge",
+      "from": "browser",
+      "to": "edge",
+      "label": "HTTPS",
+      "variant": "emphasis"
+    },
+    {
+      "id": "authorizer-integration",
+      "from": "authorizer",
+      "to": "integration",
+      "label": "Allow + context",
+      "variant": "security"
+    },
+    {
+      "id": "integration-service",
+      "from": "integration",
+      "to": "service",
+      "label": "Via VPC Link / ALB",
+      "variant": "security"
+    },
+    {
+      "id": "service-auth",
+      "from": "service",
+      "to": "auth",
+      "label": "Original bearer",
+      "variant": "security"
+    },
+    {
+      "id": "sa-sts",
+      "from": "sa",
+      "to": "sts",
+      "label": "Web identity",
+      "variant": "security"
+    },
+    {
+      "id": "sts-aws",
+      "from": "sts",
+      "to": "aws",
+      "label": "Scoped role",
+      "variant": "security"
+    },
+    {
+      "id": "eso-secrets",
+      "from": "eso",
+      "to": "secrets",
+      "label": "Read via IRSA",
+      "variant": "security"
+    },
+    {
+      "id": "eso-ksecret",
+      "from": "eso",
+      "to": "ksecret",
+      "label": "Reconcile values",
+      "variant": "security"
+    },
+    {
+      "id": "ksecret-db_client",
+      "from": "ksecret",
+      "to": "db_client",
+      "label": "secretKeyRef",
+      "variant": "security"
+    },
+    {
+      "id": "github-publisher",
+      "from": "github",
+      "to": "publisher",
+      "label": "OIDC",
+      "variant": "security"
+    },
+    {
+      "id": "publisher-artifact",
+      "from": "publisher",
+      "to": "artifact",
+      "label": "Publish immutable",
+      "variant": "default"
+    },
+    {
+      "id": "github-orchestrator",
+      "from": "github",
+      "to": "orchestrator",
+      "label": "Separate OIDC",
+      "variant": "security"
+    },
+    {
+      "id": "orchestrator-ssm",
+      "from": "orchestrator",
+      "to": "ssm",
+      "label": "SendCommand",
+      "variant": "security"
+    },
+    {
+      "id": "ssm-management",
+      "from": "ssm",
+      "to": "management",
+      "label": "Fixed contract",
+      "variant": "security"
+    },
+    {
+      "id": "management-artifact",
+      "from": "management",
+      "to": "artifact",
+      "label": "Verify exact bytes",
+      "variant": "default"
+    },
+    {
+      "id": "db_client-database",
+      "from": "db_client",
+      "to": "database",
+      "label": "TLS / schema role",
+      "variant": "security"
+    },
+    {
+      "id": "edge-static",
+      "from": "edge",
+      "to": "static",
+      "label": "OAC / assets",
+      "variant": "default"
+    },
+    {
+      "id": "edge-api",
+      "from": "edge",
+      "to": "api",
+      "label": "AWS /api (removed)",
+      "variant": "dashed"
+    },
+    {
+      "id": "api-authorizer",
+      "from": "api",
+      "to": "authorizer",
+      "label": "9 protected routes",
+      "variant": "security"
+    },
+    {
+      "id": "api-public_auth",
+      "from": "api",
+      "to": "public_auth",
+      "label": "3 public / VPC + ALB",
+      "variant": "default"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "User trust: authentication then authorization",
+      "items": [
+        "DECLARED: protected requests are authenticated by the API Gateway Lambda REQUEST authorizer. Three public Auth routes bypass it; nine routes require it.",
+        "CloudFront reads static assets from its private S3 origin via OAC. Only the authorized AWS edition forwarded /api to API Gateway; that forwarding is now removed. S3 never forwards API requests.",
+        "API Gateway sends three public Auth routes through its public integration and VPC Link / ALB, without the Lambda authorizer or injected identity. Nine protected routes require the REQUEST authorizer; only their integration overwrites identity headers. The drawing abstracts these internal HTTP transport hops, not their trust gates.",
+        "Shipment/Tracking require gateway trust, revalidate the original bearer with Auth and bind the returned user ID. Active-user, role and resource-owner checks remain authoritative.",
+        "PROVEN on 29 October: real login/profile, anonymous and invalid-token rejection, cross-user denial and forged-header rejection. Internal HTTP hops are not mTLS."
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Workload trust: credentials are not interchangeable",
+      "items": [
+        "Service-account sub and sts.amazonaws.com audience restrict IRSA federation. Tracking publishes events; Shipment consumes SQS; ESO reads approved Secrets Manager values.",
+        "ESO writes Kubernetes Secrets. Deployments and migration Jobs consume different secretKeyRef credentials; they do not call ESO as a service.",
+        "The credentials-to-database edge represents a consuming pod/Job using TLS and its own schema role. Runtime roles are not migration owners; no browser receives database credentials."
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Delivery trust: data, authority and execution",
+      "items": [
+        "Publisher writes immutable images/build records and release data. Orchestrator dispatches a pinned SSM contract; management separately verifies bytes and expected Helm revision.",
+        "GitHub does not directly contact Kubernetes. Management uses its own EKS access/RBAC boundary, not a blanket cluster-admin assignment.",
+        "PROVEN: private delivery and automatic recovery. UNVERIFIED: broad production security certification, continuous availability and database migration rollback."
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Evidence and current state",
+      "items": [
+        "DECLARED: arrows describe source-backed design; the reading guide gives the source for each relationship.",
+        "OBSERVED: topology captured on 28–29 October 2026. Runtime retired on 29 October; RDS retained stopped.",
+        "PROVEN applies only to named experiments. These diagrams are not live telemetry or a production certification."
+      ]
+    }
+  ],
+  "boundaries": [
+    {
+      "kind": "region",
+      "label": "Private EKS / application authorization",
+      "wraps": [
+        "public_auth",
+        "auth",
+        "service"
+      ],
+      "pad": 22
+    },
+    {
+      "kind": "region",
+      "label": "Private data plane / distinct DB credentials",
+      "wraps": [
+        "db_client",
+        "database"
+      ],
+      "pad": 22
+    },
+    {
+      "kind": "region",
+      "label": "Private management / constrained executor",
+      "wraps": [
+        "management"
+      ],
+      "pad": 22
+    }
+  ]
+}

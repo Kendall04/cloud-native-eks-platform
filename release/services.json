@@ -1,0 +1,31 @@
+{
+  "services": [
+    {
+      "id": "auth",
+      "name": "auth-service",
+      "context": "microservices/auth-service",
+      "dockerfile": "microservices/auth-service/Dockerfile",
+      "solution": "microservices/auth-service/AuthService.sln",
+      "ecrRepository": "auth-service",
+      "helmServiceKey": "auth"
+    },
+    {
+      "id": "shipment",
+      "name": "shipment-service",
+      "context": "microservices/shipment-service",
+      "dockerfile": "microservices/shipment-service/Dockerfile",
+      "solution": "microservices/shipment-service/ShipmentService.sln",
+      "ecrRepository": "shipment-service",
+      "helmServiceKey": "shipment"
+    },
+    {
+      "id": "tracking",
+      "name": "tracking-service",
+      "context": "microservices/tracking-service",
+      "dockerfile": "microservices/tracking-service/Dockerfile",
+      "solution": "microservices/tracking-service/TrackingService.sln",
+      "ecrRepository": "tracking-service",
+      "helmServiceKey": "tracking"
+    }
+  ]
+}

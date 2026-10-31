@@ -1,0 +1,142 @@
+{
+  "classification": "LOCAL_SPLIT_PUBLISHER_PASS_NO_BUILD_NO_AWS_NO_DEPLOYMENT",
+  "recordedUtc": "2026-10-22T04:40:48.471136+00:00",
+  "implementationBaseCommit": "70813f85a470394eab523114a9569ffb929aac01",
+  "sourceSha256LfNormalized": {
+    "scripts/cd/image_oci.py": "f95f8c3c04a51539119c6ede6d74d98164b58c523df9be32bf3756474dff1cdd",
+    "scripts/cd/publish.py": "0d0fdcf4ac7403346dee6cdddbcfe643050ef182cf94f0fb0877dcd85930dd27",
+    "scripts/cd/orchestrate.py": "572acfb600f69f29af1b8ed01c6d15bbc774c8dd13be7ff9b1634e78b6a45663",
+    "scripts/validation/test_image_oci.py": "6072987a9a2eac9a3be237f72657721a246964fc50dd6a6e4364a042a75f7d2c",
+    "scripts/validation/test_cd_import.py": "fdc709f9119d0b130a895184dca477098e504d7a88e5f184dde47c03d3e6260b",
+    "scripts/operations/teardown_readonly/safety.py": "a93a40645147881b70a9ec898a7e3c63ab04a9f1806a0b5203aec1e9cdc5a366"
+  },
+  "changes": [
+    "Reviewed tracked source manifest; Linux credential-free OCI export through existing running local builder only",
+    "Windows validates all three complete OCI graphs before profile access; no Docker invocation or configuration access",
+    "Fixed existing cnp-cert-dev identity then approved temporary delivery role with fresh RoleId; STS credentials in Windows memory only",
+    "Direct ECR layer/manifest upload with digest, response identity, returned part-size and single-attempt checks; unchanged ECR scan gate before three conditional operator records",
+    "Existing package/SSM path accepts the same in-memory session; missing imported images/records have no Docker fallback; GitHub namespace and verification unchanged",
+    "Exact construction source pins updated for the owner-requested local adaptation, not an action/plan approval"
+  ],
+  "checks": {
+    "windowsPrivateCdRegression": {
+      "command": "python -B -m unittest test_r4 test_cd_operator test_cd_import test_image_oci -q",
+      "run": 87,
+      "passed": 85,
+      "skipped": 2,
+      "failed": 0,
+      "seconds": 13.619,
+      "skipReason": "Two real Linux/tmpfs harness methods run separately over SSH"
+    },
+    "linuxSshPureOci": {
+      "path": "/tmp/cnp-oci-offline-20261022",
+      "python": "3.13.5",
+      "run": 15,
+      "passed": 15,
+      "skipped": 0,
+      "failed": 0,
+      "seconds": 0.062,
+      "docker": "simulated subprocess only; real Linux filesystem/tmpfs and OCI bytes",
+      "transferredOnly": [
+        "image_oci.py",
+        "test_image_oci.py"
+      ],
+      "rawFileSha256": {
+        "image_oci.py": "f95f8c3c04a51539119c6ede6d74d98164b58c523df9be32bf3756474dff1cdd",
+        "test_image_oci.py": "6072987a9a2eac9a3be237f72657721a246964fc50dd6a6e4364a042a75f7d2c"
+      }
+    },
+    "r4Static": "PASS",
+    "retainedSecretsAndGuardRegression": {
+      "command": "python -B -m unittest test_retained_secrets test_teardown.GuardTests -q",
+      "passed": 26,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 0.364
+    },
+    "documentation": {
+      "status": "PASS",
+      "markdownFiles": 46,
+      "localLinksAndAnchors": 361,
+      "mermaidBlocks": 5,
+      "rendered": false
+    },
+    "secrets": {
+      "status": "PASS",
+      "currentTreeTextFiles": 740,
+      "historyScanned": false
+    },
+    "diff": "PASS",
+    "originalChangedFileHashesPreserved": 77,
+    "actualBaselineGuard": {
+      "baselineVerified": true,
+      "baselineCommit": "8a66a1a42a6e0754b07cb215147f0c3a377b155d",
+      "checkedConstructionPins": "PASS staged working tree; no live action/plan approval"
+    }
+  },
+  "negativeCoverage": [
+    "Archive SHA/blob digest/rootfs diff mismatch even after archive rehash",
+    "Missing/unreferenced/duplicate blobs; duplicate JSON; external URL; multiarch/platform/source mismatch",
+    "Unsafe paths, links, hidden tar tail, bounded members/decompression and changed open archive",
+    "Non-Linux build, remote/stopped/insecure/wrong-driver builder, changed source and unlisted source exclusion",
+    "Credential-free allowlisted build environment with empty config; no AWS/GitHub env or Docker login/push",
+    "Missing/wrong/foreign/recreated delivery identity before ECR; wrong base identity before AssumeRole",
+    "Availability gaps/duplicates, unexpected part-size/upload identity, partial part/digest response, ECR denial and UNKNOWN transport stop with no automatic replay",
+    "Immutable tag collision; matching-tag reuse; available layers skip upload; 5/20 MiB contiguous multipart cases",
+    "All three image graphs pass before identity; HIGH scan failure prevents S3 records/SSM; missing imported records prevent Docker fallback"
+  ],
+  "futureEffects": {
+    "identityReads": [
+      "sts:GetCallerIdentity existing profile",
+      "sts:AssumeRole exact cnp-cert-private-cd-executor for 3600s",
+      "sts:GetCallerIdentity exact fresh RoleId/session"
+    ],
+    "ecrRepositories": [
+      "auth-service",
+      "shipment-service",
+      "tracking-service"
+    ],
+    "ecrReads": [
+      "DescribeImages",
+      "BatchCheckLayerAvailability",
+      "DescribeImageScanFindings"
+    ],
+    "ecrWrites": [
+      "InitiateLayerUpload",
+      "UploadLayerPart",
+      "CompleteLayerUpload",
+      "PutImage"
+    ],
+    "ecrTag": "operator-sha-<clean-source-commit>",
+    "s3Bucket": "cloud-native-platform-341936017254-dev-us-east-1-artifacts",
+    "s3Writes": "Exactly three conditional versioned operator-image-records/dev/<commit>/<service>.json; collision reconciliation reads exact existing object",
+    "importDoesNot": "Create IAM/repositories/buckets/tokens, touch secrets/hosting, export credentials or call SSM/deploy",
+    "failureDisposition": "Stop for target reconciliation; already uploaded blobs/images or an uncertain write may remain. No automatic cleanup or replay. Receipt logs intent/result metadata only."
+  },
+  "remainingPrerequisites": [
+    "Clean final source revision and three real source-bound OCI archives; no actual build/image volume or .NET image runtime verified",
+    "Existing already-running local docker-container Buildx builder with separate metadata, local Unix endpoint and sufficient disk/cache/transfer space, without denied config access; unavailable builder blocks, no install/create authorized here",
+    "Approved delivery role/boundary and management target still need normal staged creation/binding under cycle approval, actual RoleId/effective AssumeRole and exact delivery rights; no role was installed by this increment",
+    "Fresh cycle identity/state/capacity/cost/retirement gates and genuine ECR scans remain; offline fake transports do not prove AWS acceptance",
+    "Report these exact effects/access requirements before real use as parent requested; no deployment in this increment"
+  ],
+  "provenanceLimit": "Operator-controlled build/source labels and digest bindings, not cryptographic build attestation or deterministic rebuild proof. Archive-derived numeric buildRunId is an operator evidence ID, never a GitHub run. Records remain in operator namespace with githubActionsVerified=false receipt.",
+  "preservation": {
+    "baseAuthorizationLfSha256": "71918531a73bf9d7a44bf599832b99e62bdd94d0b41376d0f8ec6b843d744caf",
+    "esoAddendumLfSha256": "1de4333d5c565356f483bfedf9c741bce8a3a9ac7253d159c730a255eb1799b0",
+    "historicalTenSecretsAndOriginalEso": "KEEP unchanged; no values read",
+    "dockerConfigDenial": "Not retried or read/copied; Windows Docker not invoked",
+    "iamPrivacyDenial": "No IAM policies/configuration sent to VM; pure OCI helper and synthetic tests only",
+    "newEksResources": 0,
+    "newIamEffects": 0,
+    "newEksCostClockStarted": false,
+    "proposedCycleBudgetUsd": 25,
+    "protectedReserveUsd": 15,
+    "maxHoursFromFirstCost": 8,
+    "teardownBeforeHour": 4,
+    "maxNodes": 4,
+    "hostingExpiryUtc": "2026-11-21T01:04:48.982Z",
+    "otherProjects": "ECS/RDS/original/frontend checkout untouched"
+  },
+  "fullLifecycleSuite": "Not rerun for publisher split; earlier lifecycle receipts remain historical, not a current live/full-suite PASS"
+}

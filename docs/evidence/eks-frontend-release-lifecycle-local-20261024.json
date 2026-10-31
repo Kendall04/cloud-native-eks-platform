@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "classification": "LOCAL_SIMULATED",
+  "finishedUtc": "2026-10-24T08:11:19.456Z",
+  "casesPassed": 2,
+  "casesFailed": 0,
+  "chromeVersion": "155.0.8059.86",
+  "actualCloudFrontOrBackendAuthentication": false,
+  "immutableFixtureIdentities": {
+    "a": {
+      "version": "0.0.0-local.a",
+      "sourceAppSha256": "0fb15bffcfac18188a20d750267e795a250fbef336fdaaa729e6a15b1ee9f52f",
+      "isolatedSourceOverlay": false,
+      "artifactSha256": "401f450c1bd5c996ff0c063f41153b750448a06a61cd398b6ea28d9e78d20ee9"
+    },
+    "b": {
+      "version": "0.0.0-local.b",
+      "sourceAppSha256": "5f449376988f4f3816b7cde908e97dffc275bd8b18c6724e4745134ef760728f",
+      "isolatedSourceOverlay": true,
+      "artifactSha256": "2b4b47ad7ef04d237ed1f09985f34c5fcd85fe7222db507b551f6791e3b10569"
+    },
+    "demo": {
+      "version": "0.0.0-local.demo",
+      "sourceAppSha256": "0fb15bffcfac18188a20d750267e795a250fbef336fdaaa729e6a15b1ee9f52f",
+      "isolatedSourceOverlay": false,
+      "artifactSha256": "853f1363b410a370713c139316ed703ad086f7d6b5dbc4640a23b75b653935b9"
+    }
+  },
+  "trackedAppSourceUnchanged": true,
+  "sourceBaseCommit": "498fb4cd56eaefa97af2c5fbec00749c2e5de444",
+  "bIsIsolatedSourceOverlayNotCommittedProductRelease": true,
+  "oldAwsDocumentErrorWithoutDemoFallback": true,
+  "explicitReloadToDemoRequired": true,
+  "demoApiCalls": 0,
+  "tokenClearingEvidence": "Document replacement, empty cookies/localStorage/sessionStorage and subsequent login without prior bearer; not heap forensics",
+  "distinctSourcePromotionAndRollback": "A-B-A with actual JS bytes and artifact identities; synthetic Auth/API only",
+  "syntheticCreationResetOnReload": true,
+  "ownedContextsClosed": 2,
+  "ownedServerClosed": true,
+  "ownedChromeGracefulExitCode": 0,
+  "forcedNumericPidCleanup": false,
+  "personalChromeSessionsUsed": false,
+  "receiptSha256": "79643fae737eb570a139e4304429aac52b70ee3b66f3907256f2bdb621ae9af9",
+  "runnerLogSha256": "1f0ef54159f426c564398c7d4bc79d18eb2b84dc2a6fc7f09a574c1c656af43b",
+  "fixtureIndexSha256": "0660ed0ff012f716cce37b6ea3c9e8f3165451c3af36497868d5012504c2c9f9",
+  "initialFailedAttempt": {
+    "retained": true,
+    "receiptSha256": "7241924c66c8d99244700d50dabf69315e253dc64cb546077f96f88faa404981",
+    "reason": "Test selector ASCII plus mismatched fullwidth UI plus; not application regression",
+    "initialContextCloseReceiptWasUnconfirmed": true
+  },
+  "intermediateSuccessfulAttemptRetained": true,
+  "limitations": [
+    "B is a documented isolated App.tsx source overlay, not a committed/deployed product release; baseCommit is provenance base only.",
+    "Old loaded AWS page keeps its mode until explicit full navigation; no hot-switch or heap-forensics claim.",
+    "No CDN propagation, real credentials, production data or remote promotion was exercised."
+  ],
+  "awsCalls": 0,
+  "newSoftwareInstalled": false,
+  "pushMergeOrPublication": false
+}

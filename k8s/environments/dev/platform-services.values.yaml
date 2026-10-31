@@ -1,0 +1,174 @@
+namespace:
+  create: false
+  name: apps
+
+# Populate release metadata and image digests before using the manual deploy workflow.
+release:
+  version: ""
+  gitTag: ""
+  commitSha: ""
+
+global:
+  ingress:
+    enabled: true
+    annotations:
+      alb.ingress.kubernetes.io/scheme: internal
+      alb.ingress.kubernetes.io/target-type: ip
+      alb.ingress.kubernetes.io/backend-protocol: HTTP
+      alb.ingress.kubernetes.io/listen-ports: '[{"HTTP":80}]'
+      alb.ingress.kubernetes.io/healthcheck-path: /health/ready
+      alb.ingress.kubernetes.io/healthcheck-protocol: HTTP
+      alb.ingress.kubernetes.io/healthcheck-port: traffic-port
+      alb.ingress.kubernetes.io/success-codes: "200"
+
+services:
+  auth:
+    serviceAccount:
+      automountServiceAccountToken: false
+    image:
+      repository: "" # generated from ECR outputs
+      tag: ""
+      digest: "" # supply a newly built image digest
+    env:
+      Database__Name: platform
+      Database__SslMode: VerifyFull
+      Database__RootCertificate: /etc/platform-ca/rds-global-bundle.pem
+      ASPNETCORE_ENVIRONMENT: Production
+      Telemetry__Environment: dev
+      Swagger__Enabled: "false"
+      Database__Schema: auth
+      Jwt__Issuer: logistics-platform
+      Jwt__Audience: logistics-platform-clients
+      Jwt__ExpirationMinutes: "60"
+      Auth__RefreshTokenExpirationDays: "30"
+      BootstrapAdmin__FirstName: Platform
+      BootstrapAdmin__LastName: Admin
+    secretEnv:
+    - name: Database__Username
+      secretName: auth-runtime-db
+      secretKey: username
+    - name: Database__Password
+      secretName: auth-runtime-db
+      secretKey: password
+    - name: Jwt__Secret
+      secretName: auth-jwt
+      secretKey: value
+    migrationJob:
+      secretEnv:
+      - name: Database__Username
+        secretName: auth-migration-db
+        secretKey: username
+      - name: Database__Password
+        secretName: auth-migration-db
+        secretKey: password
+      - name: Jwt__Secret
+        secretName: auth-jwt
+        secretKey: value
+      - name: BootstrapAdmin__Email
+        secretName: bootstrap-admin
+        secretKey: email
+      - name: BootstrapAdmin__Password
+        secretName: bootstrap-admin
+        secretKey: password
+  shipment:
+    image:
+      repository: "" # generated from ECR outputs
+      tag: ""
+      digest: "" # supply a newly built image digest
+    serviceAccount:
+      automountServiceAccountToken: true
+      annotations:
+        {} # generated from IAM outputs
+    env:
+      Database__Name: platform
+      Database__SslMode: VerifyFull
+      Database__RootCertificate: /etc/platform-ca/rds-global-bundle.pem
+      ASPNETCORE_ENVIRONMENT: Production
+      Telemetry__Environment: dev
+      Swagger__Enabled: "false"
+      Database__Schema: shipment
+      AWS__Region: us-east-1
+      AWS__ShipmentEventsQueueUrl: "" # generated from SQS outputs
+      ShipmentConsumer__MaxMessagesPerPoll: "5"
+      ShipmentConsumer__WaitTimeSeconds: "20"
+      ShipmentConsumer__FailureBackoffSeconds: "5"
+    secretEnv:
+    - name: Database__Username
+      secretName: shipment-runtime-db
+      secretKey: username
+    - name: Database__Password
+      secretName: shipment-runtime-db
+      secretKey: password
+    - name: PlatformAuth__TrustedProxySecret
+      secretName: gateway-trust
+      secretKey: value
+    - name: PlatformAuth__InternalServiceSecret
+      secretName: internal-trust
+      secretKey: value
+    migrationJob:
+      secretEnv:
+      - name: Database__Username
+        secretName: shipment-migration-db
+        secretKey: username
+      - name: Database__Password
+        secretName: shipment-migration-db
+        secretKey: password
+      - name: PlatformAuth__TrustedProxySecret
+        secretName: gateway-trust
+        secretKey: value
+      - name: PlatformAuth__InternalServiceSecret
+        secretName: internal-trust
+        secretKey: value
+    keda:
+      enabled: true
+      queueURL: "" # generated from SQS outputs
+      awsRegion: us-east-1
+      queueLength: "10"
+
+  tracking:
+    image:
+      repository: "" # generated from ECR outputs
+      tag: ""
+      digest: "" # supply a newly built image digest
+    serviceAccount:
+      automountServiceAccountToken: true
+      annotations:
+        {} # generated from IAM outputs
+    env:
+      Database__Name: platform
+      Database__SslMode: VerifyFull
+      Database__RootCertificate: /etc/platform-ca/rds-global-bundle.pem
+      ASPNETCORE_ENVIRONMENT: Production
+      Telemetry__Environment: dev
+      Swagger__Enabled: "false"
+      Database__Schema: tracking
+      AWS__Region: us-east-1
+      AWS__EventBusName: cloud-native-platform-dev-bus
+      ShipmentService__BaseUrl: "http://shipment-service.apps.svc.cluster.local:8080"
+    secretEnv:
+    - name: Database__Username
+      secretName: tracking-runtime-db
+      secretKey: username
+    - name: Database__Password
+      secretName: tracking-runtime-db
+      secretKey: password
+    - name: PlatformAuth__TrustedProxySecret
+      secretName: gateway-trust
+      secretKey: value
+    - name: PlatformAuth__InternalServiceSecret
+      secretName: internal-trust
+      secretKey: value
+    migrationJob:
+      secretEnv:
+      - name: Database__Username
+        secretName: tracking-migration-db
+        secretKey: username
+      - name: Database__Password
+        secretName: tracking-migration-db
+        secretKey: password
+      - name: PlatformAuth__TrustedProxySecret
+        secretName: gateway-trust
+        secretKey: value
+      - name: PlatformAuth__InternalServiceSecret
+        secretName: internal-trust
+        secretKey: value

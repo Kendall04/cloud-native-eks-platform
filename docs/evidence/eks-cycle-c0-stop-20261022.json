@@ -1,0 +1,79 @@
+{
+  "classification": "OWNER_APPROVED_EKS_CYCLE_STOPPED_AT_C0_BEFORE_FIRST_EFFECT",
+  "approvedCommit": "066048916e4672c0a8a0ec7296d757177870fd3f",
+  "approvedProposalSha256Lf": "71918531a73bf9d7a44bf599832b99e62bdd94d0b41376d0f8ec6b843d744caf",
+  "approvalMessageId": "Sentinel_8c2f60249660819199b2f186644610f9",
+  "observedUtc": "2026-10-22T02:29:25.602664+00:00",
+  "startedC0Utc": "2026-10-22T02:29:23.057153+00:00",
+  "principal": {
+    "Account": "341936017254",
+    "Arn": "arn:aws:iam::341936017254:user/cnp-cert-admin",
+    "UserId": "AIDAU7HHZR5TGLGKSTEKJ"
+  },
+  "profile": "cnp-cert-dev",
+  "region": "us-east-1",
+  "completed": [
+    "Clean reviewed0660489 checkout and approved proposal SHA256/LF matched",
+    "Local requested input bindingAPImax2/workermax2,total4 verified, not a live saved plan",
+    "Fresh STS matched account/user/UserId",
+    "Fresh ESO RoleId/ARN/boundary/original canonical trust hash matched unchanged",
+    "Exact original OIDC GetOpenIDConnectProvider returned NoSuchEntity once"
+  ],
+  "blockingGate": {
+    "name": "ESO_ORIGINAL_PROVIDER_VALID_RESTORATION",
+    "result": "FAIL",
+    "action": "iam:GetOpenIDConnectProvider",
+    "target": "arn:aws:iam::341936017254:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/B112E64D9986DA62A4898C06D6232ED8",
+    "response": "NoSuchEntity",
+    "reason": "Captured original ESO federated provider is absent. Required valid exact restoration is not established; no rebind, provider recreation or substituted trust is authorized",
+    "actionState": "READ_COMPLETED_ABSENT_NOT_ACCESS_DENIED"
+  },
+  "calls": [
+    {
+      "service": "sts",
+      "operation": "get_caller_identity",
+      "target": "caller",
+      "utc": "2026-10-22T02:29:23.057166+00:00"
+    },
+    {
+      "service": "iam",
+      "operation": "get_role",
+      "target": "cloud-native-platform-dev-external-secrets",
+      "utc": "2026-10-22T02:29:24.274056+00:00"
+    },
+    {
+      "service": "iam",
+      "operation": "get_open_id_connect_provider",
+      "target": "arn:aws:iam::341936017254:oidc-provider/oidc.eks.us-east-1.amazonaws.com/id/B112E64D9986DA62A4898C06D6232ED8",
+      "utc": "2026-10-22T02:29:24.953765+00:00"
+    }
+  ],
+  "mutations": 0,
+  "newResourcesCreated": 0,
+  "newResourcesRequiringTeardown": 0,
+  "secretValuesRead": 0,
+  "policiesTransmittedToVm": 0,
+  "firstCostBearingResourceUtc": null,
+  "testStopAndRetirementStartDeadlineUtc": null,
+  "totalWindowDeadlineUtc": null,
+  "maximumIncrementalUsd": 25,
+  "protectedCleanupReserveUsd": 15,
+  "windowOrBudgetReset": false,
+  "notStarted": [
+    "Further capacity/cost/absence admission checks",
+    "Saved create/apply/remote lock plans",
+    "IAM installation or ESO rebind",
+    "EKS/runtime/DB/PrivateCD/API authenticated publication",
+    "C1-C5 certification or teardown (no new owner resources created)"
+  ],
+  "preserved": [
+    "Approved proposal file/hash unchanged",
+    "Existing ESO trust/RoleId/boundary/read grant and ten historical secrets",
+    "Historical CMKs, shared GitHub OIDC, service-linked roles and unrelated/ECS/RDS resources",
+    "Published hosting original activation/expiry/configuration",
+    "Original77 changed file contents"
+  ],
+  "nextDecision": "The approved restoration-validity gate failed. Do not create/recreate original provider, change principal, probe IAM writes, substitute trust or continue paid runtime. A separately reviewed exact ESO disposition that can close the cycle is required before resuming; this receipt creates none",
+  "rawCheckpointSha256": "f8fd14333c0f6ce802300c9946749168245af5b56226307a50449341f3232dc5",
+  "status": "C0_FAIL_C1_C5_NOT_EXECUTED"
+}

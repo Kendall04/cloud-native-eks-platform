@@ -1,0 +1,129 @@
+{
+  "classification": "PASS_LOCAL_IMPLEMENTATION_NOT_AWS_CERTIFICATION_OR_AUTHORITY",
+  "observedUtc": "2026-10-22T00:35:30.675863+00:00",
+  "execution": "Native Linux SSH codex-vm; small ignored source projection, existing Terraform1.13.4/AWS5.100.0 provider symlinks, Python3.13.5/Node24.18.0/Chrome caches; no install/clone/build",
+  "credentials": "AWS profile/credential environment unset, config/shared files /dev/null, EC2 metadata disabled; no AWS API",
+  "sourceSha256LfNormalized": {
+    "frontend/scripts/hosting_plan.py": "1a8275d42fbe383ec62d99eeeaf668a80d9056626e2a2fc6d25a92b0e4b0d3c0",
+    "infra/portfolio/frontend-static/main.tf": "8097d0ecb5a065f83f705a063e2b8296a808735b6abfd6f1f87b32d77fb48a04",
+    "infra/portfolio/frontend-static/routes.js.tftpl": "9a354396c55d97a8e2da866d323d53bd54d159687a912db871d80af7d0ca4d49",
+    "infra/portfolio/frontend-static/api-routes.js": "c5c1e7aea163272edad5792d45d0813d82178e616de67fa47ff5cf6ad9c671b0",
+    "infra/portfolio/frontend-static/tests/static.tftest.hcl": "81e3062ff2fbac491ffbb557073045a127d495b234cb345ccb3f3a66a5d0d356",
+    "scripts/validation/test_frontend_hosting.py": "c2da1ffe9a0a6a7baf003deb58614c4f06e13a0c4f8ebdb40933029bdcea63f0",
+    "scripts/validation/test_frontend_hosting_routes.mjs": "a1b7af2103d214ac5bdc00a432c50569377c75a0ebebab8280c0267bcfb80164",
+    "scripts/validation/test_frontend_hosting_browser.mjs": "76086bb0b9370c040728c0978c57baaaaf46c45457081390d945ee5d48174bc1",
+    "scripts/bootstrap/environment.py": "f6c7ff1c48dc591fbcef6da5ff9aa90b239f5305ed28f4ca5dc12ed7eeeb3e6e",
+    "scripts/bootstrap/environment.schema.json": "24743bb1cbabb4167d776fbde85dd6bcdde0c7015fccf409e50937d52b22f636",
+    "infra/modules/rds/main.tf": "0beca7a424c5e9e7fd60ad43db52d83d25b00762c7d41920dbffb10e6288a4f3",
+    "infra/modules/rds/variables.tf": "7b14bb11584d262f669959a4b147a5460b79e5c3e716c4e524cf12752e1cb417",
+    "infra/modules/rds/tests/synthetic-retirement.tftest.hcl": "fc0bb5376b571631257c4e88d35db5c9f6dfc682df0ba41cc2871b2427ad81a2",
+    "docs/operations/eks-synthetic-retirement-proposal.json": "4b814d8042dcbda0c0de583c47ef7dc746132377a10da5accc16d5fb8ea6674b",
+    "docs/operations/eks-synthetic-retirement.tfvars.json": "e1729e674f481b947b3664e6eebb6de420131504c9d067e697fcc70df9d8c255"
+  },
+  "rawLogsSha256": {
+    "closing-python.log": "faa76344341d273a9729e84f74c6745e1671b07c9351b0218c457f62f0e99995",
+    "closing-routes.log": "a2eaedb08f7b4fc10254a0c9d485a0824abd0d5ceb67a699ad4b3cba1c340037",
+    "closing-packages.log": "5844b780c6dfe02878e954759aeded6ba65585c9417a15605125d59aee43fd6a",
+    "closing-terraform-validate.log": "2ff6f7b7b494d0f8d596def971d585d29ee3e06359aa4662e84c1988f7b74cbb",
+    "closing-terraform-test.log": "ea2769b089e6487daca55dae2eace8d553ab3649a4014f91e9c6d472eb14279f",
+    "closing-rds-init.log": "65ef998f52e2fcd72339ec96a8b65e9db074ce8d8705d12df53dc65256009997",
+    "closing-rds-test.log": "03710723e4fab854b88f58c16d4afea727b22b4c229eb168556b12ed0d6e58cd",
+    "closing-browser-demo-offline.log": "1ce77fff88b2d02dbada6543002d6ee00bb61b593018ff6fa63e11e2607b041d",
+    "closing-browser-aws-offline.log": "423f7759f0d4852bdc64430b9b97b906381cc9ac0a4de9c24a7e2e425866a3c1",
+    "closing-browser-aws-online.log": "36d71ece5cebd48fffdb840d540910220d3ffff6e025d9808a2d7625af529d94",
+    "closing-terraform-plan-unknown.log": "47d9d0a8609f454f53dcd02704e5410e6615a28aae133e65894667f07aa8ccb8",
+    "closing-terraform-generated-arn-failure.log": "14bc8840bc14d724d603391a7f32794173bf37330ad263598ee4169f3d52359f"
+  },
+  "cachedPackages": {
+    "demo": {
+      "sha256": "af77d432370bc6edd5ca1206016bf207724c7ef33e39cb2047d18392c1d3ba5e",
+      "bytes": 1185602,
+      "sourceBase": "a3e9a324e9cc06ffdcfea9849f16021dfa968a15",
+      "newBuild": false
+    },
+    "aws": {
+      "sha256": "57a045256e27fd1c6231431a31e2eec36745731f7f0558d289fc5cbadb3ddfd4",
+      "bytes": 1185404,
+      "sourceBase": "a3e9a324e9cc06ffdcfea9849f16021dfa968a15",
+      "newBuild": false
+    }
+  },
+  "checks": {
+    "python": {
+      "passed": 12,
+      "negativeCoverage": "mode/integrity/path/missing objects; invalid API host/mode; final existing environment contract readiness/account/region/cluster; exact distinct promotion/rollback and explicit API-control create/remove effects"
+    },
+    "edge": {
+      "staticCases": 40,
+      "apiCases": 38,
+      "source": "exact committed function text, Node VM"
+    },
+    "terraform": {
+      "fmtCheck": "PASS",
+      "validateHosting": "PASS",
+      "hostingMockRunsPassed": 7,
+      "rdsMockRunsPassed": 3,
+      "note": "Includes mocked apply to resolve IDs, same-generation RDS plan and invalid purge snapshot rejection; not real plan/apply"
+    },
+    "chrome": {
+      "demo-offline": {
+        "status": "PASS",
+        "scope": "LOCAL_CHROME_CACHED_ARTIFACT_NO_CLOUD",
+        "syntheticDemoFlow": true,
+        "interactiveDiagrams": 5,
+        "apiRequests": 0,
+        "externalRequests": 0,
+        "pageErrors": 0,
+        "originMissingAsset403Preserved": true,
+        "apiUnavailable503": true,
+        "headersFromTerraform": true
+      },
+      "aws-offline": {
+        "status": "PASS",
+        "scope": "LOCAL_CACHED_AWS_PACKAGE_EDGE_MODEL_NO_CLOUD",
+        "mode": "aws",
+        "apiMode": "offline",
+        "upstreamCalls": 0,
+        "externalRequests": 0,
+        "pageErrors": 0,
+        "noDemoFallback": true,
+        "apiSameOrigin": true
+      },
+      "aws-online": {
+        "status": "PASS",
+        "scope": "LOCAL_CACHED_AWS_PACKAGE_EDGE_MODEL_NO_CLOUD",
+        "mode": "aws",
+        "apiMode": "online",
+        "upstreamCalls": 3,
+        "externalRequests": 0,
+        "pageErrors": 0,
+        "noDemoFallback": true,
+        "apiSameOrigin": true
+      }
+    }
+  },
+  "harnessCorrections": [
+    "Initial two-origin plan assertion had computed-set unknown values; switched that test to mocked apply",
+    "Mock generator emitted invalid function ARN; supplied explicit synthetic ARN, reran all seven mocks and successful mock cleanup; no production guard relaxed"
+  ],
+  "limits": [
+    "No AWS/Kubernetes account call, publication, IAM/DNS/certificate/key/credential creation, spend, push/merge or ECS/RDS-pilot modification",
+    "API environment contract is validated locally; actual new IDs, owner generation, permission effectiveness, live gateway/authorizer/CNI/TTL/cache/rollback/retirement remain unproved",
+    "CLI/source/JSON are proposals, not approval or checkpoint attestations; USD25/8h and USD1/30d remain unapproved",
+    "Default viewer TLS policy accepts old and modern protocols; CSP inline/same-origin limits remain for explicit consent, particularly authenticated AWS mode",
+    "RDS production main/defaults unchanged; standalone tfvars is retirement-only and not auto-loaded; historical retained resources remain preserved",
+    "No IAM proposal transmission or reattempt of the denied transfer"
+  ],
+  "sourceSha256LfNormalizedWindowsOnly": {
+    "scripts/validation/test_teardown_rds.py": "833be00fe2e077efcf09408a6687cb6a83a920a055c4d99870791e7b0e4d953b",
+    "docs/operations/frontend-hosting-owner-proposal.json": "4018cf95adfa9c90e8ed907171c3450bbd0cf9dd81edc290428abfc4c5d8b04d"
+  },
+  "windowsRdsGuards": {
+    "passed": 61,
+    "failed": 0,
+    "log": ".validation-results/admission/frontend-hosting/closing-rds-guards-windows.log",
+    "rawSha256": "73b820ddde074b9970199c073634b15b12e39172acdb4fe186510665eaaa0516",
+    "python": "3.13.5",
+    "scope": "Existing full CNP RDS fake-adapter suite plus proposal/default contract assertion; no AWS/SQL"
+  }
+}

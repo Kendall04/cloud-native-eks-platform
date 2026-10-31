@@ -1,0 +1,317 @@
+{
+  "schema_version": 1,
+  "diagram_type": "sequence",
+  "meta": {
+    "title": "Reliable Event Processing",
+    "locale": "en",
+    "output": "docs/interactive/event-processing.html",
+    "quality_profile": "showcase",
+    "animation": "none",
+    "repository": {
+      "url": "https://github.com/Kendall04/cloud-native-platform-eks.git",
+      "revision": "63ef56f6fe60c3f14ba26200b18fcd85d1b63bae",
+      "link_mode": "local-only"
+    },
+    "views": [
+      {
+        "id": "view-1",
+        "label": "01 / Durable publication",
+        "focus": [
+          "tracking",
+          "db",
+          "dispatcher",
+          "bus"
+        ],
+        "note": "Tracking commits event + outbox; publication acknowledgement precedes the published marker."
+      },
+      {
+        "id": "view-2",
+        "label": "02 / Idempotent effects",
+        "focus": [
+          "queue",
+          "shipment",
+          "db"
+        ],
+        "note": "Commit inbox and state before DeleteMessage. Missing predecessors retry."
+      },
+      {
+        "id": "view-3",
+        "label": "03 / Failure destinations",
+        "focus": [
+          "delivery_dlq",
+          "consumer_dlq",
+          "db"
+        ],
+        "note": "Delivery DLQ, consumer DLQ and PostgreSQL outbox quarantine have distinct owners."
+      }
+    ]
+  },
+  "participants": [
+    {
+      "id": "tracking",
+      "type": "backend",
+      "label": "Tracking API",
+      "sublabel": "Admin authorized",
+      "sources": [
+        {
+          "path": "microservices/tracking-service/src/TrackingService.Infrastructure/Services/TrackingEventsService.cs"
+        },
+        {
+          "path": "microservices/tracking-service/src/TrackingService.Infrastructure/Services/TrackingEventsService.cs"
+        }
+      ]
+    },
+    {
+      "id": "db",
+      "type": "database",
+      "label": "PostgreSQL",
+      "sublabel": "One RDS / 3 schemas",
+      "sources": [
+        {
+          "path": "infra/live/dev/rds/terragrunt.hcl"
+        },
+        {
+          "path": "microservices/tracking-service/src/TrackingService.Infrastructure/Messaging/OutboxStore.cs"
+        }
+      ]
+    },
+    {
+      "id": "dispatcher",
+      "type": "backend",
+      "label": "Dispatcher",
+      "sublabel": "Tracking worker",
+      "sources": [
+        {
+          "path": "microservices/tracking-service/src/TrackingService.Infrastructure/Messaging/OutboxDispatcher.cs"
+        },
+        {
+          "path": "microservices/tracking-service/src/TrackingService.Infrastructure/Messaging/EventBridgeTrackingEventPublisher.cs"
+        }
+      ]
+    },
+    {
+      "id": "bus",
+      "type": "messagebus",
+      "label": "EventBridge",
+      "sublabel": "StatusUpdated v2.0",
+      "sources": [
+        {
+          "path": "infra/live/dev/eventbridge/terragrunt.hcl"
+        },
+        {
+          "path": "infra/modules/eventbridge/main.tf"
+        }
+      ]
+    },
+    {
+      "id": "queue",
+      "type": "messagebus",
+      "label": "Standard SQS",
+      "sublabel": "KMS / long polling",
+      "sources": [
+        {
+          "path": "infra/live/dev/sqs/terragrunt.hcl"
+        },
+        {
+          "path": "infra/modules/sqs/main.tf"
+        }
+      ]
+    },
+    {
+      "id": "shipment",
+      "type": "backend",
+      "label": "Shipment",
+      "sublabel": "Inbox consumer",
+      "sources": [
+        {
+          "path": "microservices/shipment-service/src/ShipmentService.Infrastructure/Messaging/SqsTrackingEventsConsumer.cs"
+        },
+        {
+          "path": "microservices/shipment-service/src/ShipmentService.Infrastructure/Services/TrackingEventProcessor.cs"
+        }
+      ]
+    },
+    {
+      "id": "delivery_dlq",
+      "type": "messagebus",
+      "label": "Delivery DLQ",
+      "sublabel": "Target failure",
+      "sources": [
+        {
+          "path": "infra/modules/eventbridge/main.tf"
+        },
+        {
+          "path": "infra/modules/sqs/main.tf"
+        }
+      ]
+    },
+    {
+      "id": "consumer_dlq",
+      "type": "messagebus",
+      "label": "Consumer DLQ",
+      "sublabel": "SQS redrive",
+      "sources": [
+        {
+          "path": "infra/modules/sqs/main.tf"
+        }
+      ]
+    }
+  ],
+  "messages": [
+    {
+      "id": "tracking-db",
+      "from": "tracking",
+      "to": "db",
+      "label": "Commit event + outbox",
+      "variant": "emphasis",
+      "y": 160,
+      "note": "One transaction; stable domain EventId and per-shipment sequence."
+    },
+    {
+      "id": "dispatcher-db",
+      "from": "dispatcher",
+      "to": "db",
+      "label": "Claim leased outbox rows",
+      "variant": "default",
+      "y": 270,
+      "note": "SKIP LOCKED; bounded attempts; exhausted rows are quarantined."
+    },
+    {
+      "id": "db-dispatcher",
+      "from": "db",
+      "to": "dispatcher",
+      "label": "Claimed batch",
+      "variant": "return",
+      "y": 360
+    },
+    {
+      "id": "dispatcher-bus",
+      "from": "dispatcher",
+      "to": "bus",
+      "label": "PutEvents / v2.0",
+      "variant": "dashed",
+      "y": 400
+    },
+    {
+      "id": "bus-dispatcher",
+      "from": "bus",
+      "to": "dispatcher",
+      "label": "Publication result",
+      "variant": "return",
+      "y": 440
+    },
+    {
+      "id": "mark-published",
+      "from": "dispatcher",
+      "to": "db",
+      "label": "Mark published after success",
+      "variant": "default",
+      "y": 480,
+      "note": "A crash before this marker can cause duplicate publication."
+    },
+    {
+      "id": "bus-queue",
+      "from": "bus",
+      "to": "queue",
+      "label": "Rule sends $.detail",
+      "variant": "dashed",
+      "y": 550
+    },
+    {
+      "id": "shipment-queue",
+      "from": "shipment",
+      "to": "queue",
+      "label": "ReceiveMessage / long poll",
+      "variant": "default",
+      "y": 590
+    },
+    {
+      "id": "queue-shipment",
+      "from": "queue",
+      "to": "shipment",
+      "label": "Event batch / at least once",
+      "variant": "return",
+      "y": 630
+    },
+    {
+      "id": "shipment-db",
+      "from": "shipment",
+      "to": "db",
+      "label": "Lock shipment; commit state + inbox",
+      "variant": "emphasis",
+      "y": 670,
+      "note": "EventId deduplication; N+2 waits for N+1 without advancing the checkpoint."
+    },
+    {
+      "id": "delete-acknowledged",
+      "from": "shipment",
+      "to": "queue",
+      "label": "Delete only after durable ACK",
+      "variant": "default",
+      "y": 750
+    },
+    {
+      "id": "bus-dlq",
+      "from": "bus",
+      "to": "delivery_dlq",
+      "label": "Delivery exhausted → DLQ",
+      "variant": "dashed",
+      "y": 790
+    },
+    {
+      "id": "queue-dlq",
+      "from": "queue",
+      "to": "consumer_dlq",
+      "label": "5 receives → consumer DLQ",
+      "variant": "dashed",
+      "y": 830
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "Transaction and publication",
+      "items": [
+        "DECLARED: the admin operation first checks Shipment ownership/existence through internal HTTP, then atomically commits tracking + outbox.",
+        "EventId is the stable logical identity; EventBridge and SQS transport IDs are not deduplication keys.",
+        "Publication and downstream processing are independent. A crash after PutEvents success but before marking published can deliver duplicates."
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Commit before ACK",
+      "items": [
+        "Duplicate EventId: durable inbox prevents a second effect. Delayed/stale sequence is classified without regressing state.",
+        "Missing predecessor: retry without advancing the checkpoint. Invalid transitions have a durable rejected outcome.",
+        "Only a durable acknowledged outcome permits DeleteMessage; a transient failure remains retryable."
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Three distinct failure stores",
+      "items": [
+        "EventBridge delivery DLQ: target-delivery retries exhausted (10 retries / one hour).",
+        "Consumer DLQ: source queue redrive after maxReceiveCount 5. It does not repair ordering.",
+        "Outbox quarantine: exhausted publication attempts remain in PostgreSQL for explicit operator disposition."
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "What was demonstrated",
+      "items": [
+        "PROVEN on 29 October: two event sequences reached persisted Shipment effects through EventBridge/SQS.",
+        "HISTORICAL: the broader 24 October retry, deduplication and failure tests were not all repeated.",
+        "At-least-once transport, idempotent effects; no exactly-once delivery claim."
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Evidence and current state",
+      "items": [
+        "DECLARED: arrows describe source-backed design; the reading guide gives the source for each relationship.",
+        "OBSERVED: topology captured on 28–29 October 2026. Runtime retired on 29 October; RDS retained stopped.",
+        "PROVEN applies only to named experiments. These diagrams are not live telemetry or a production certification."
+      ]
+    }
+  ]
+}

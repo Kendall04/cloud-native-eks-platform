@@ -1,0 +1,38 @@
+{{- range $key, $service := .Values.services }}
+{{- if and $service.enabled (dig "hpa" "enabled" false $service) }}
+{{- if eq $key "shipment" }}{{ fail "Shipment has one autoscaling owner: KEDA" }}{{ end }}
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: {{ $service.name }}-hpa
+  namespace: {{ $.Values.namespace.name }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ $service.name }}
+  minReplicas: {{ $service.hpa.minReplicas }}
+  maxReplicas: {{ $service.hpa.maxReplicas }}
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: {{ $service.hpa.cpuUtilization }}
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 30
+      policies:
+        - type: Pods
+          value: 2
+          periodSeconds: 60
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+        - type: Pods
+          value: 1
+          periodSeconds: 60
+{{- end }}
+{{- end }}

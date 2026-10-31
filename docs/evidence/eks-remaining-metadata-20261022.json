@@ -1,0 +1,188 @@
+{
+  "classification": "OWNER_AUTHORIZED_READONLY_METADATA_CLOSURE_NOT_CYCLE_APPROVAL",
+  "sourceProposalCommit": "69e2c73cf055f9a13a19b7f1f9d1b902f511bb8c",
+  "startedUtc": "2026-10-22T02:05:56.174891+00:00",
+  "finishedUtc": "2026-10-22T02:06:10.388018+00:00",
+  "principal": {
+    "Account": "341936017254",
+    "Arn": "arn:aws:iam::341936017254:user/cnp-cert-admin",
+    "UserId": "AIDAU7HHZR5TGLGKSTEKJ"
+  },
+  "profile": "cnp-cert-dev",
+  "region": "us-east-1",
+  "calls": 23,
+  "denials": 0,
+  "mutations": 0,
+  "logEventOrSecretOrStatePayloadReads": 0,
+  "rawReceiptSha256": "4d6c545d053347705ff004bb5b068c499a49c670e6a73fec0eb4c951609af92c",
+  "rdsLogGroups": {
+    "/aws/rds/instance/cloud-native-platform-dev-postgres/postgresql": {
+      "status": "ABSENT",
+      "matchingPrefixCount": 0
+    },
+    "/aws/rds/instance/cloud-native-platform-dev-postgres/upgrade": {
+      "status": "ABSENT",
+      "matchingPrefixCount": 0
+    }
+  },
+  "rdsLogDisposition": "No historical group at either exact name was observed. Absence is time-bound, not future-generation proof. Re-read immediately before new DB admission; any pre-existing group stops to preserve historical data. A later new group requires exact ARN/creationTime/owner/run binding and export/writer/DB closure before separately confirmed DeleteLogGroup; RDS adapter reporting is not deletion. Never purge an old group by name/prefix",
+  "buckets": {
+    "status": "COMPLETE_ACCOUNT_OWNED_LIST",
+    "buckets": [
+      {
+        "Name": "cloud-native-platform-341936017254-dev-us-east-1-tfstate",
+        "CreationDate": "2026-10-11 19:34:39+00:00"
+      }
+    ],
+    "notOwnedNames": [
+      "cloud-native-platform-341936017254-dev-us-east-1-artifacts",
+      "cloud-native-platform-341936017254-dev-us-east-1-logs"
+    ],
+    "globalNameAvailabilityNotAsserted": true
+  },
+  "backendMetadata": {
+    "get_bucket_location": {
+      "LocationConstraint": null
+    },
+    "get_bucket_tagging": {
+      "_absent": "NoSuchTagSet"
+    },
+    "get_bucket_versioning": {
+      "Status": "Enabled"
+    },
+    "get_bucket_encryption": {
+      "ServerSideEncryptionConfiguration": {
+        "Rules": [
+          {
+            "ApplyServerSideEncryptionByDefault": {
+              "SSEAlgorithm": "AES256"
+            },
+            "BucketKeyEnabled": false
+          }
+        ]
+      }
+    },
+    "get_public_access_block": {
+      "PublicAccessBlockConfiguration": {
+        "BlockPublicAcls": true,
+        "IgnorePublicAcls": true,
+        "BlockPublicPolicy": true,
+        "RestrictPublicBuckets": true
+      }
+    }
+  },
+  "githubOidc": {
+    "arn": "arn:aws:iam::341936017254:oidc-provider/token.actions.githubusercontent.com",
+    "status": "EXISTS_REFERENCE_ONLY",
+    "metadata": {
+      "Url": "token.actions.githubusercontent.com",
+      "ClientIDList": [
+        "sts.amazonaws.com"
+      ],
+      "ThumbprintList": [
+        "ab9d0263244dd0326eb67015705a667e79cfe998"
+      ],
+      "CreateDate": "2026-10-15 02:04:49.164000+00:00",
+      "Tags": [
+        {
+          "Key": "E1Stage",
+          "Value": "E1_WP2D_PROTECTED_OWNERSHIP_PUBLICATION_CLOSURE"
+        },
+        {
+          "Key": "E1Owner",
+          "Value": "SECURITY_ROOT_OWNED"
+        }
+      ]
+    }
+  },
+  "githubConsumers": {
+    "coverage": "COMPLETE_ROLE_TRUST_SCAN",
+    "roles": [
+      {
+        "Arn": "arn:aws:iam::341936017254:role/e1-request-deploy-dev",
+        "RoleId": "AROAU7HHZR5TPKSY7XBUB",
+        "CreateDate": "2026-10-15 04:20:43+00:00"
+      },
+      {
+        "Arn": "arn:aws:iam::341936017254:role/e1-request-release",
+        "RoleId": "AROAU7HHZR5TG5Q5J62P4",
+        "CreateDate": "2026-10-15 04:20:43+00:00"
+      }
+    ]
+  },
+  "sharedServiceLinkedRoles": {
+    "AWSServiceRoleForAmazonEKS": {
+      "Arn": "arn:aws:iam::341936017254:role/aws-service-role/eks.amazonaws.com/AWSServiceRoleForAmazonEKS",
+      "RoleId": "AROAU7HHZR5TDHIMFEOB6",
+      "CreateDate": "2026-10-13 02:02:51+00:00",
+      "attachedPolicies": [
+        {
+          "PolicyName": "AmazonEKSServiceRolePolicy",
+          "PolicyArn": "arn:aws:iam::aws:policy/aws-service-role/AmazonEKSServiceRolePolicy"
+        }
+      ]
+    },
+    "AWSServiceRoleForAmazonEKSNodegroup": {
+      "Arn": "arn:aws:iam::341936017254:role/aws-service-role/eks-nodegroup.amazonaws.com/AWSServiceRoleForAmazonEKSNodegroup",
+      "RoleId": "AROAU7HHZR5TLADO54T7V",
+      "CreateDate": "2026-10-13 02:22:43+00:00",
+      "attachedPolicies": [
+        {
+          "PolicyName": "AWSServiceRoleForAmazonEKSNodegroup",
+          "PolicyArn": "arn:aws:iam::aws:policy/aws-service-role/AWSServiceRoleForAmazonEKSNodegroup"
+        }
+      ]
+    },
+    "AWSServiceRoleForAutoScaling": {
+      "Arn": "arn:aws:iam::341936017254:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling",
+      "RoleId": "AROAU7HHZR5TEED3DP7JB",
+      "CreateDate": "2026-10-13 02:22:58+00:00",
+      "attachedPolicies": [
+        {
+          "PolicyName": "AutoScalingServiceRolePolicy",
+          "PolicyArn": "arn:aws:iam::aws:policy/aws-service-role/AutoScalingServiceRolePolicy"
+        }
+      ]
+    },
+    "AWSServiceRoleForElasticLoadBalancing": {
+      "Arn": "arn:aws:iam::341936017254:role/aws-service-role/elasticloadbalancing.amazonaws.com/AWSServiceRoleForElasticLoadBalancing",
+      "RoleId": "AROAU7HHZR5TJF7QY24QO",
+      "CreateDate": "2026-10-13 17:02:29+00:00",
+      "attachedPolicies": [
+        {
+          "PolicyName": "AWSElasticLoadBalancingServiceRolePolicy",
+          "PolicyArn": "arn:aws:iam::aws:policy/aws-service-role/AWSElasticLoadBalancingServiceRolePolicy"
+        }
+      ]
+    },
+    "AWSServiceRoleForRDS": {
+      "Arn": "arn:aws:iam::341936017254:role/aws-service-role/rds.amazonaws.com/AWSServiceRoleForRDS",
+      "RoleId": "AROAU7HHZR5TLKELNMSXB",
+      "CreateDate": "2026-10-13 15:55:20+00:00",
+      "attachedPolicies": [
+        {
+          "PolicyName": "AmazonRDSServiceRolePolicy",
+          "PolicyArn": "arn:aws:iam::aws:policy/aws-service-role/AmazonRDSServiceRolePolicy"
+        }
+      ]
+    },
+    "AWSServiceRoleForEC2Spot": {
+      "Arn": "arn:aws:iam::341936017254:role/aws-service-role/spot.amazonaws.com/AWSServiceRoleForEC2Spot",
+      "RoleId": "AROAU7HHZR5TB3OBBNLID",
+      "CreateDate": "2026-10-13 02:23:39+00:00",
+      "attachedPolicies": [
+        {
+          "PolicyName": "AWSEC2SpotServiceRolePolicy",
+          "PolicyArn": "arn:aws:iam::aws:policy/aws-service-role/AWSEC2SpotServiceRolePolicy"
+        }
+      ]
+    }
+  },
+  "decision": "Reference/preserve the existing GitHub provider and all six service-linked roles. Do not create/import/tag/update/delete those shared references or touch their other consumers. Pass github_oidc_provider_arn through existing module input before any private-cd plan",
+  "limitations": [
+    "No deployment, IAM write, permission simulation, state payload, log events or secret value read. Historical preflight permissions are not re-certified here",
+    "Account-owned bucket list proves no owned artifact/log bucket at observation; global S3 name availability is not asserted. Name conflict blocks create; never adopt",
+    "No final saved plan or future cloud/provider generation exists yet. Runtime C0-C5 and concrete protected effect confirmations remain mandatory",
+    "Hosting activation/expiry/configuration unchanged; ECS state/policies not accessed"
+  ]
+}

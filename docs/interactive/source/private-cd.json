@@ -1,0 +1,520 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "Private CI/CD",
+    "locale": "en",
+    "output": "docs/interactive/private-cd.html",
+    "quality_profile": "showcase",
+    "animation": "none",
+    "repository": {
+      "url": "https://github.com/Kendall04/cloud-native-platform-eks.git",
+      "revision": "63ef56f6fe60c3f14ba26200b18fcd85d1b63bae",
+      "link_mode": "local-only"
+    },
+    "views": [
+      {
+        "id": "view-1",
+        "label": "01 / Validate and build",
+        "focus": [
+          "validate",
+          "build",
+          "publisher",
+          "scan",
+          "ecr",
+          "scan_gate"
+        ],
+        "note": "PR/push Validate is automatic. AWS Build is a separate manual dispatch."
+      },
+      {
+        "id": "view-2",
+        "label": "02 / Immutable release",
+        "focus": [
+          "release",
+          "ecr",
+          "bundle"
+        ],
+        "note": "Release verifies build digests, scan policy and the versioned environment contract."
+      },
+      {
+        "id": "view-3",
+        "label": "03 / Private deployment",
+        "focus": [
+          "deploy",
+          "orchestrate",
+          "ssm",
+          "management",
+          "helm"
+        ],
+        "note": "DeploymentId + expected Helm revision bind the single private execution."
+      },
+      {
+        "id": "view-4",
+        "label": "04 / Convergence and recovery",
+        "focus": [
+          "gates",
+          "smoke",
+          "rollback",
+          "receipt"
+        ],
+        "note": "ALB target gates precede readiness; strict smoke controls success or guarded rollback."
+      }
+    ]
+  },
+  "lanes": [
+    {
+      "id": "ci",
+      "label": "Automatic validation"
+    },
+    {
+      "id": "build",
+      "label": "Manual Build / publisher"
+    },
+    {
+      "id": "release",
+      "label": "Manual Create Release"
+    },
+    {
+      "id": "deploy",
+      "label": "Manual Deploy / orchestrator"
+    },
+    {
+      "id": "private",
+      "label": "Private VPC / management"
+    },
+    {
+      "id": "verify",
+      "label": "Convergence / evidence"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "validate",
+      "type": "backend",
+      "label": "Validate",
+      "sublabel": "PR / push + reusable gate",
+      "sources": [
+        {
+          "path": ".github/workflows/build-sha-images.yml"
+        },
+        {
+          "path": ".github/workflows/validate.yml"
+        }
+      ],
+      "lane": "ci",
+      "col": 0
+    },
+    {
+      "id": "publisher",
+      "type": "security",
+      "label": "OIDC publisher",
+      "sublabel": "Temporary AWS role",
+      "sources": [
+        {
+          "path": ".github/workflows/build-sha-images.yml"
+        },
+        {
+          "path": "infra/modules/private-cd/main.tf"
+        }
+      ],
+      "lane": "build",
+      "col": 1
+    },
+    {
+      "id": "ecr",
+      "type": "cloud",
+      "label": "ECR + records",
+      "sublabel": "SHA tags / digests",
+      "sources": [
+        {
+          "path": "scripts/cd/publish.py"
+        }
+      ],
+      "lane": "build",
+      "col": 4
+    },
+    {
+      "id": "release",
+      "type": "external",
+      "label": "Dispatch release",
+      "sublabel": "main / reviewed version",
+      "sources": [
+        {
+          "path": ".github/workflows/create-release.yml"
+        }
+      ],
+      "lane": "release",
+      "col": 1
+    },
+    {
+      "id": "bundle",
+      "type": "database",
+      "label": "Versioned S3",
+      "sublabel": "Verified release bundle",
+      "sources": [
+        {
+          "path": "scripts/cd/publish.py"
+        },
+        {
+          "path": "scripts/cd/package.py"
+        }
+      ],
+      "lane": "release",
+      "col": 4
+    },
+    {
+      "id": "deploy",
+      "type": "external",
+      "label": "Dispatch deploy",
+      "sublabel": "Exact artifact identity",
+      "sources": [
+        {
+          "path": ".github/workflows/deploy-platform.yml"
+        }
+      ],
+      "lane": "deploy",
+      "col": 0
+    },
+    {
+      "id": "orchestrate",
+      "type": "security",
+      "label": "OIDC orchestrator",
+      "sublabel": "dev environment",
+      "sources": [
+        {
+          "path": ".github/workflows/deploy-platform.yml"
+        },
+        {
+          "path": "scripts/cd/orchestrate.py"
+        }
+      ],
+      "lane": "deploy",
+      "col": 2
+    },
+    {
+      "id": "ssm",
+      "type": "cloud",
+      "label": "SSM document",
+      "sublabel": "Pinned version + hash",
+      "sources": [
+        {
+          "path": "scripts/cd/orchestrate.py"
+        },
+        {
+          "path": "infra/modules/private-cd/main.tf"
+        }
+      ],
+      "lane": "deploy",
+      "col": 4
+    },
+    {
+      "id": "management",
+      "type": "backend",
+      "label": "Management host",
+      "sublabel": "Exact bundle + revision",
+      "sources": [
+        {
+          "path": "infra/modules/management-host/deployer/executor.py"
+        },
+        {
+          "path": "infra/modules/management-host/deployer/engine.py"
+        }
+      ],
+      "lane": "private",
+      "col": 4
+    },
+    {
+      "id": "helm",
+      "type": "backend",
+      "label": "Private EKS / Helm",
+      "sublabel": "Migrations + rollout",
+      "sources": [
+        {
+          "path": "infra/modules/management-host/deployer/executor.py"
+        },
+        {
+          "path": "infra/modules/eks/main.tf"
+        }
+      ],
+      "lane": "private",
+      "col": 2
+    },
+    {
+      "id": "smoke",
+      "type": "backend",
+      "label": "Smoke tests",
+      "sublabel": "K8s + API Gateway",
+      "sources": [
+        {
+          "path": "infra/modules/management-host/deployer/executor.py"
+        }
+      ],
+      "lane": "verify",
+      "col": 2
+    },
+    {
+      "id": "rollback",
+      "type": "backend",
+      "label": "Rollback + verify",
+      "sublabel": "On mutated failure",
+      "sources": [
+        {
+          "path": "infra/modules/management-host/deployer/engine.py"
+        }
+      ],
+      "lane": "verify",
+      "col": 3
+    },
+    {
+      "id": "receipt",
+      "type": "database",
+      "label": "Durable receipt",
+      "sublabel": "S3 operation result",
+      "sources": [
+        {
+          "path": "infra/modules/management-host/deployer/executor.py"
+        },
+        {
+          "path": "scripts/cd/orchestrate.py"
+        }
+      ],
+      "lane": "verify",
+      "col": 5
+    },
+    {
+      "id": "build",
+      "label": "Dispatch Build",
+      "sublabel": "Validate must pass",
+      "lane": "build",
+      "col": 0,
+      "type": "external",
+      "sources": [
+        {
+          "path": ".github/workflows/build-sha-images.yml"
+        }
+      ]
+    },
+    {
+      "id": "scan",
+      "label": "Build / push",
+      "sublabel": "Commit-pinned images",
+      "lane": "build",
+      "col": 3,
+      "type": "backend",
+      "sources": [
+        {
+          "path": ".github/workflows/build-sha-images.yml"
+        }
+      ]
+    },
+    {
+      "id": "gates",
+      "label": "ALB readiness",
+      "sublabel": "New IP target healthy",
+      "lane": "verify",
+      "col": 0,
+      "type": "cloud",
+      "sources": [
+        {
+          "path": "k8s/charts/platform-services/templates/ingress.yaml"
+        }
+      ]
+    },
+    {
+      "id": "scan_gate",
+      "label": "Scan gate",
+      "sublabel": "No HIGH / CRITICAL",
+      "type": "security",
+      "lane": "build",
+      "col": 5,
+      "sources": [
+        {
+          "path": ".github/workflows/build-sha-images.yml"
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "build-validate",
+      "from": "build",
+      "to": "validate",
+      "label": "Reuse gate",
+      "variant": "default"
+    },
+    {
+      "id": "build-publisher",
+      "from": "build",
+      "to": "publisher",
+      "label": "After PASS",
+      "variant": "security"
+    },
+    {
+      "id": "publisher-scan",
+      "from": "publisher",
+      "to": "scan",
+      "label": "OIDC",
+      "variant": "default"
+    },
+    {
+      "id": "scan-ecr",
+      "from": "scan",
+      "to": "ecr",
+      "label": "Digest record",
+      "variant": "default"
+    },
+    {
+      "id": "ecr-bundle",
+      "from": "ecr",
+      "to": "bundle",
+      "label": "Verify records",
+      "variant": "default"
+    },
+    {
+      "id": "release-bundle",
+      "from": "release",
+      "to": "bundle",
+      "label": "Manual publish",
+      "variant": "default"
+    },
+    {
+      "id": "deploy-orchestrate",
+      "from": "deploy",
+      "to": "orchestrate",
+      "label": "Manual / OIDC",
+      "variant": "security"
+    },
+    {
+      "id": "bundle-orchestrate",
+      "from": "bundle",
+      "to": "orchestrate",
+      "label": "Version + hash",
+      "variant": "default"
+    },
+    {
+      "id": "orchestrate-ssm",
+      "from": "orchestrate",
+      "to": "ssm",
+      "label": "SendCommand",
+      "variant": "default"
+    },
+    {
+      "id": "ssm-management",
+      "from": "ssm",
+      "to": "management",
+      "label": "Fixed document",
+      "variant": "security"
+    },
+    {
+      "id": "management-bundle",
+      "from": "management",
+      "to": "bundle",
+      "label": "Read exact version",
+      "variant": "default"
+    },
+    {
+      "id": "management-helm",
+      "from": "management",
+      "to": "helm",
+      "label": "Private API",
+      "variant": "emphasis"
+    },
+    {
+      "id": "helm-gates",
+      "from": "helm",
+      "to": "gates",
+      "label": "Rollout",
+      "variant": "default"
+    },
+    {
+      "id": "gates-smoke",
+      "from": "gates",
+      "to": "smoke",
+      "label": "Ready",
+      "variant": "default"
+    },
+    {
+      "id": "smoke-receipt",
+      "from": "smoke",
+      "to": "receipt",
+      "label": "PASS",
+      "variant": "emphasis"
+    },
+    {
+      "id": "smoke-rollback",
+      "from": "smoke",
+      "to": "rollback",
+      "label": "Failure",
+      "variant": "security",
+      "role": "error"
+    },
+    {
+      "id": "rollback-receipt",
+      "from": "rollback",
+      "to": "receipt",
+      "label": "Verify recovery",
+      "variant": "default"
+    },
+    {
+      "id": "ecr-scan_gate",
+      "from": "ecr",
+      "to": "scan_gate",
+      "label": "Scan digest",
+      "variant": "security"
+    },
+    {
+      "id": "scan_gate-bundle",
+      "from": "scan_gate",
+      "to": "bundle",
+      "label": "PASS required",
+      "variant": "security"
+    }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "No automatic AWS delivery on push",
+      "items": [
+        "Validate runs on PR/push; Manual Build also invokes that gate before publisher OIDC credentials.",
+        "Build publishes the commit-pinned image once and records its digest. The published digest is scanned; a failed scan blocks Release. Create Release rechecks successful Build evidence, ECR scans and the environment contract.",
+        "The release is a data-only S3 bundle identified by key, VersionId and SHA256. It is not code fetched ad hoc by management."
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "A narrow trust handoff",
+      "items": [
+        "Publisher and orchestrator are separate OIDC roles. The orchestrator can invoke the fixed document on the approved management host.",
+        "A new DeploymentId and actual ExpectedPreviousRevision prevent ambiguous/replayed operations. Management reads the exact artifact version.",
+        "GitHub has no direct network path to the Kubernetes API. Management executes pinned Helm and records the operation receipt."
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "Strict convergence and smoke",
+      "items": [
+        "LBC injects target-health readiness gates on new pods in the labelled namespace. Healthy ALB targets allow pod readiness and replacement of old pods.",
+        "Smoke requires KUBERNETES_READY, AUTH_BACKEND_REACHABLE and EDGE_ANONYMOUS_REJECTED. Auth refresh must return HTTP 400 with valid ProblemDetails and X-Request-Id.",
+        "5xx never passes. A mutated failure invokes bounded Helm rollback and verification; PostgreSQL migrations are not reverted."
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "PROVEN · 29 October 2026",
+      "items": [
+        "First delivery: revisions 1 → 2 → 3; Auth smoke received ALB 504 and automatic rollback was VERIFIED.",
+        "After readiness-gate injection was demonstrated: v2.0.8 delivery 3 → 4 succeeded with six Ready pods and new healthy target IPs.",
+        "The executor diagnostic patch remains local and is not presented as installed runtime behavior."
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Evidence and current state",
+      "items": [
+        "DECLARED: arrows describe source-backed design; the reading guide gives the source for each relationship.",
+        "OBSERVED: topology captured on 28–29 October 2026. Runtime retired on 29 October; RDS retained stopped.",
+        "PROVEN applies only to named experiments. These diagrams are not live telemetry or a production certification."
+      ]
+    }
+  ]
+}

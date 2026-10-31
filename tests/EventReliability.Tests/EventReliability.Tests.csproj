@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <RestoreLockedMode>true</RestoreLockedMode>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsTestProject>true</IsTestProject>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../microservices/auth-service/src/AuthService.Infrastructure/AuthService.Infrastructure.csproj" />
+    <ProjectReference Include="../../microservices/tracking-service/src/TrackingService.Infrastructure/TrackingService.Infrastructure.csproj" />
+    <ProjectReference Include="../../microservices/shipment-service/src/ShipmentService.Infrastructure/ShipmentService.Infrastructure.csproj" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
+    <PackageReference Include="xunit" Version="2.7.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.5.7" PrivateAssets="all" />
+  </ItemGroup>
+</Project>

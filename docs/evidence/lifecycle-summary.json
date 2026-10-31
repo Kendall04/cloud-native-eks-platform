@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "classification": "SANITIZED_HISTORICAL_SUMMARY",
+  "result": "FULL_TEARDOWN_REDEPLOY_FINAL_TEARDOWN_PASS",
+  "finishedUtc": "2026-10-14T17:28:21.123477+00:00",
+  "implementationBaseline": "65e62dd73084943b16e46ff02a33afcdaed4c3f0",
+  "applicationSourceCommit": "7768fcea12731da63e4fc83542c8b7c0771c7247",
+  "sources": [
+    {
+      "file": "final-lifecycle-20261013-report.json",
+      "sha256": "e2f8af9c51fdc5960eb4340eb6ab6bd5bb178b8725118423e5831a75553748db",
+      "use": "Final lifecycle, redeploy functional checks, delivery and cleanup"
+    },
+    {
+      "file": "resilience-security-ebs-20261013-final.json",
+      "sha256": "2ec97413dd8565078bcaff48ef4c9aeee9cafddfa0d4f48758a7a46677d504ba",
+      "use": "Earlier resilience/storage and local PostgreSQL test boundary"
+    },
+    {
+      "file": "applications-20261013-final.json",
+      "sha256": "6f08f015bd8c60d9e3debd8886690b45b8999dcad6df210acf2889d30c7b5982",
+      "use": "Earlier application deployment and functional evidence"
+    }
+  ],
+  "firstTeardown": {"retiredTerraformResources": 190, "emptyStates": 18},
+  "redeploy": {
+    "stacks": 18,
+    "recreatedTerraformResources": 190,
+    "readyNodes": 3,
+    "totalNodes": 3,
+    "eksVersion": "1.35",
+    "encryptedRootVolumes": 3,
+    "rootVolumeGiB": 50,
+    "rootVolumeType": "gp3"
+  },
+  "functionalIntegration": {
+    "database": "RDS PostgreSQL 15.18",
+    "registrationLoginRefresh": "PASS",
+    "authorizationRejection": "PASS",
+    "shipmentsTracking": "PASS",
+    "eventBridgeSqsShipment": "PASS"
+  },
+  "authPodReplacementSeconds": 26.1,
+  "podEgress": {"us-east-1a": "NOT_TESTED", "us-east-1b": "PASS", "us-east-1c": "PASS"},
+  "privateCd": {
+    "release": "v2.0.7",
+    "helmRevision": 2,
+    "runningDigestsVerified": true,
+    "buildTrigger": "push",
+    "releaseTrigger": "workflow_dispatch",
+    "deployTrigger": "workflow_dispatch",
+    "buildRunId": 38595681871,
+    "releaseRunId": 38597648582,
+    "deployRunId": 38598641855,
+    "smoke": {"KUBERNETES_READY": "PASS", "AUTH_BACKEND_REACHABLE": "PASS", "EDGE_ANONYMOUS_REJECTED": "PASS"}
+  },
+  "finalTeardown": {
+    "retiredTerraformResources": 190,
+    "emptyStates": 18,
+    "runtimeAbsentAtObservation": true,
+    "backendLocksAbsent": true,
+    "backendChecksumsConsistent": true,
+    "backendRetained": ["S3", "DynamoDB"],
+    "kmsPendingDeletionKeys": 2,
+    "awsDeliveryWorkflowsDisabled": true
+  },
+  "exactProjectSpend": "NOT_DETERMINABLE",
+  "limitations": ["Private originals are not included", "No new AWS verification during documentation review", "Bounded observations; no SLA or compliance certification"]
+}

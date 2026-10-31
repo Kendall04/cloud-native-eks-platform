@@ -1,0 +1,135 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-21",
+  "gitBase": "f87b844a681007801cc399460096a1317760cf95",
+  "executedTeardownSourceIncludesUncommittedRepairs": true,
+  "scope": "Documentation reconciliation; historical sources plus focused read-only AWS metadata. No application tests rerun.",
+  "sources": [
+    {
+      "id": "teardown-audit",
+      "filename": "auditoria-teardown-dev-dot-20261020.md",
+      "sha256": "27c1c7b685a897462c045e1f20ec0d7cdbe4603a69e45b188c44ed417e3a8c54",
+      "bytes": 140128,
+      "storage": "private original outside Git; inspected, not copied"
+    },
+    {
+      "id": "teardown-closure",
+      "filename": "teardown-closure-20261020.md",
+      "sha256": "8df9a81326cea5c9dacac608e547f2c5e6fe4dd745c13dd43b82f8f8a1c1069e",
+      "bytes": 6876,
+      "storage": "private original outside Git; inspected, not copied"
+    },
+    {
+      "id": "recent-residual-audit",
+      "filename": "auditoria-aws-residuos-20261021.txt",
+      "sha256": "e4fd2fb0921e912768a2c1361ddf3cd76acb0ff22403e172c6d140a6911dda6f",
+      "bytes": 28811,
+      "storage": "private original outside Git; inspected, not copied"
+    },
+    {
+      "id": "focused-aws-refresh",
+      "filename": "eks-focused-readonly-20261021.json",
+      "sha256": "6e64b1a2de3f7cfd0a242e030ce7d2fa3a69ce4628902bce62026431d6c373f2",
+      "bytes": 3589,
+      "storage": "private original outside Git; inspected, not copied"
+    },
+    {
+      "id": "dotnet-local-build",
+      "filename": "apps-final.log",
+      "sha256": "3cb26a01fd6d90ef821ca7a021e3b1108d5d272c5cc171240116d258888fb3cd",
+      "bytes": 11988,
+      "storage": "private original outside Git; inspected, not copied"
+    },
+    {
+      "id": "dotnet-local-runtime",
+      "filename": "runtime-results.json",
+      "sha256": "dd68128adaec43e699e5f057ac06830e29870a5b0797ee5ed71c7e5630e929fc",
+      "bytes": 1629,
+      "storage": "private original outside Git; inspected, not copied"
+    },
+    {
+      "id": "frontend-main-receipt",
+      "filename": "main-run.json",
+      "sha256": "3cb947da01dfe1b66754357e958cc1849f706bf3b709c1cf3594531a88b0fef9",
+      "bytes": 75668,
+      "storage": "private original outside Git; inspected, not copied"
+    },
+    {
+      "id": "frontend-main-log",
+      "filename": "main-frontend.log",
+      "sha256": "8e6b1a943fcecb1e383e5d3290b18af4c4e2b67e5e622ad763600d7fcae5675a",
+      "bytes": 48540,
+      "storage": "private original outside Git; inspected, not copied"
+    },
+    {
+      "id": "current-profile-shipment",
+      "filename": "shipment.log",
+      "sha256": "e5b671369b3d7db761bc419926fbc1db3ca4a465e5aea3b00bc2777bd2701b97",
+      "bytes": 528,
+      "storage": "private original outside Git; inspected, not copied"
+    },
+    {
+      "id": "current-profile-tracking",
+      "filename": "tracking.log",
+      "sha256": "87e98aedc1bf64e76b16e575991af7b4d29d7efa5657a82ffd4424c3b35d741c",
+      "bytes": 528,
+      "storage": "private original outside Git; inspected, not copied"
+    }
+  ],
+  "freshAws": {
+    "profile": "cnp-cert-dev",
+    "accountId": "341936017254",
+    "region": "us-east-1",
+    "stsVerifiedBeforeResourceReads": true,
+    "startedUtc": "2026-10-21T01:37:27.1569175+00:00",
+    "completedUtc": "2026-10-21T01:37:41.4522499+00:00",
+    "eksClusters": 0,
+    "ec2InstancesInPendingRunningStoppingStoppedShuttingDown": 0,
+    "rdsDbInstances": 0,
+    "cnpSecretsWithoutDeletedDate": 10,
+    "kmsPreviouslyAuditedKeys": [
+      {
+        "state": "PendingDeletion",
+        "scheduledDeletionObservedOffset": "2026-11-19T11:47:21.003-06:00"
+      },
+      {
+        "state": "PendingDeletion",
+        "scheduledDeletionObservedOffset": "2026-11-12T18:35:34.974-06:00"
+      },
+      {
+        "state": "PendingDeletion",
+        "scheduledDeletionObservedOffset": "2026-11-13T10:52:54.734-06:00"
+      }
+    ],
+    "backendVersioning": "Enabled",
+    "secretValuesRead": false,
+    "stateBodiesRead": false,
+    "cloudMutations": false,
+    "notRefreshed": [
+      "other regions",
+      "ASG/EBS/snapshots/NAT/endpoints/backups from recent residual audit",
+      "all IAM resources",
+      "backend state/version payloads",
+      "current GitHub remote state"
+    ]
+  },
+  "historicalClosure": {
+    "verifiedUtc": "2026-10-20T18:11:26.060471Z",
+    "targets": 326,
+    "absentOrRetired": 325,
+    "pendingInPlanScope": 1,
+    "stagesComplete": 39,
+    "statesReadable": 18,
+    "statesWithoutManagedObjects": 16,
+    "retainedStates": 2,
+    "retainedManagedObjects": 12,
+    "retainedCnpSecretIdentities": 10,
+    "stateCountsRefreshedHere": false
+  },
+  "evidenceLimits": [
+    "Hashes permit comparison, not signatures or independent public verification.",
+    "293 historical regressions reported; full raw logs unavailable to completed audit.",
+    "No current cloud certification inferred from old tests or source.",
+    "Fresh remote GitHub metadata returned HTTP 404."
+  ]
+}

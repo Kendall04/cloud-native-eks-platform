@@ -1,0 +1,41 @@
+{{- $root := . -}}
+{{- $shipment := index .Values.services "shipment" -}}
+{{- if and $shipment.enabled $shipment.keda.enabled }}
+---
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: {{ printf "%s-sqs" $shipment.name }}
+  namespace: {{ $root.Values.namespace.name }}
+  labels:
+{{ include "platform-services.labels" (dict "root" $root "service" $shipment) | indent 4 }}
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: {{ $shipment.name }}
+  pollingInterval: {{ $shipment.keda.pollingInterval }}
+  cooldownPeriod: {{ $shipment.keda.cooldownPeriod }}
+  minReplicaCount: {{ $shipment.keda.minReplicaCount }}
+  maxReplicaCount: {{ $shipment.keda.maxReplicaCount }}
+  advanced:
+    horizontalPodAutoscalerConfig:
+      behavior:
+        scaleUp:
+          stabilizationWindowSeconds: 30
+          policies: [{type: Pods, value: 2, periodSeconds: 60}]
+        scaleDown:
+          stabilizationWindowSeconds: 300
+          policies: [{type: Pods, value: 1, periodSeconds: 60}]
+  triggers:
+    - type: aws-sqs-queue
+      metadata:
+        queueURL: {{ $shipment.keda.queueURL | quote }}
+        awsRegion: {{ $shipment.keda.awsRegion | quote }}
+        queueLength: {{ $shipment.keda.queueLength | quote }}
+        activationQueueLength: "0"
+        scaleOnInFlight: "true"
+        scaleOnDelayed: "false"
+      authenticationRef:
+        name: shipment-sqs-metrics
+{{- end }}

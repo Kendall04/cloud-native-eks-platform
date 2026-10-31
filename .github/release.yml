@@ -1,0 +1,32 @@
+changelog:
+  exclude:
+    labels:
+      - skip-changelog
+  categories:
+    - title: Auth Service
+      labels:
+        - service:auth
+    - title: Shipment Service
+      labels:
+        - service:shipment
+    - title: Tracking Service
+      labels:
+        - service:tracking
+    - title: Infrastructure
+      labels:
+        - infra
+        - eks
+        - terraform
+        - terragrunt
+    - title: Kubernetes And Runtime Packaging
+      labels:
+        - k8s
+        - helm
+    - title: Release Tooling
+      labels:
+        - release
+        - ci
+        - repo
+    - title: Documentation
+      labels:
+        - docs

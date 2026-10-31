@@ -1,0 +1,2 @@
+# SBOM validation only; runtime/bootstrap dependencies remain in their own file.
+jsonschema==4.26.0

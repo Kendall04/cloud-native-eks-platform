@@ -1,0 +1,162 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "artifactSchemaVersion",
+    "releaseVersion",
+    "applicationSourceCommit",
+    "deploymentConfigCommit",
+    "environment",
+    "accountId",
+    "region",
+    "clusterName",
+    "namespace",
+    "helmRelease",
+    "chartSha256",
+    "valuesSha256",
+    "environmentContractSha256",
+    "requiredDeployerVersion",
+    "requiredHelmVersion",
+    "services",
+    "migrationCompatibility",
+    "dataScope"
+  ],
+  "properties": {
+    "artifactSchemaVersion": {
+      "type": "integer",
+      "const": 2
+    },
+    "releaseVersion": {
+      "type": "string",
+      "pattern": "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "applicationSourceCommit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "deploymentConfigCommit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "environment": {
+      "type": "string",
+      "pattern": "^trial-[0-9a-f]{32}$"
+    },
+    "accountId": {
+      "type": "string",
+      "pattern": "^[0-9]{12}$"
+    },
+    "region": {
+      "type": "string"
+    },
+    "clusterName": {
+      "type": "string"
+    },
+    "namespace": {
+      "type": "string",
+      "const": "apps"
+    },
+    "helmRelease": {
+      "type": "string",
+      "const": "platform-services"
+    },
+    "chartSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "valuesSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "environmentContractSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "requiredDeployerVersion": {
+      "type": "string",
+      "const": "1.5.0"
+    },
+    "requiredHelmVersion": {
+      "type": "string",
+      "const": "v4.2.2"
+    },
+    "services": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "sourceCommit",
+          "imageRepository",
+          "imageDigest",
+          "buildRunId"
+        ],
+        "properties": {
+          "name": {
+            "enum": [
+              "auth",
+              "shipment",
+              "tracking"
+            ]
+          },
+          "sourceCommit": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{40}$"
+          },
+          "imageRepository": {
+            "type": "string"
+          },
+          "imageDigest": {
+            "type": "string",
+            "pattern": "^sha256:[0-9a-f]{64}$"
+          },
+          "buildRunId": {
+            "type": "string",
+            "pattern": "^[1-9][0-9]*$"
+          }
+        }
+      }
+    },
+    "migrationCompatibility": {
+      "type": "string",
+      "const": "previous-release-compatible"
+    },
+    "dataScope": {
+      "type": "object",
+      "properties": {
+        "mode": {
+          "type": "string",
+          "const": "SYNTHETIC_ONLY"
+        },
+        "trialId": {
+          "type": "string",
+          "pattern": "[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}"
+        },
+        "environment": {
+          "type": "string",
+          "pattern": "trial-[0-9a-f]{32}"
+        },
+        "namespace": {
+          "type": "string",
+          "pattern": "cnp-trial-[0-9a-f]{32}"
+        },
+        "bindingSha256": {
+          "type": "string",
+          "pattern": "[0-9a-f]{64}"
+        }
+      },
+      "required": [
+        "mode",
+        "trialId",
+        "environment",
+        "namespace",
+        "bindingSha256"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

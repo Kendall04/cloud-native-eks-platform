@@ -1,0 +1,456 @@
+{
+  "classification": "OWNER_APPROVED_LIVE_STATIC_DEMO_VERIFIED_NOT_EKS_RUNTIME_CERTIFICATION",
+  "observedUtc": "2026-10-22T01:19:32.869487+00:00",
+  "owner": "Kendall",
+  "accountId": "341936017254",
+  "region": "us-east-1",
+  "principalArn": "arn:aws:iam::341936017254:user/cnp-cert-admin",
+  "authorization": {
+    "parentThread": "01a15cbc-f3eb-7612-8846-dce59fafb0c2",
+    "parentVerifiedOwnerReactionUtc": "2026-10-22T00:43:44Z",
+    "scope": "Publish/verify ten static resources and twelve exact DEMO objects, default TLS/CSP limits accepted, existing billing USD1/30d; no EKS/PrivateCD IAM or USD25 cycle approval"
+  },
+  "url": "https://d3ujivegzs1gn7.cloudfront.net",
+  "sourceCommit": "65794ee1eaf9ca699795a9a5d391a1da2cc65078",
+  "artifact": {
+    "sha256": "af77d432370bc6edd5ca1206016bf207724c7ef33e39cb2047d18392c1d3ba5e",
+    "sourceBaseCommit": "a3e9a324e9cc06ffdcfea9849f16021dfa968a15",
+    "reusedWithoutBuild": true
+  },
+  "infrastructure": {
+    "managedCount": 10,
+    "resources": {
+      "aws_cloudfront_distribution.site": {
+        "id": "EI4F4TSZJ135X",
+        "arn": "arn:aws:cloudfront::341936017254:distribution/EI4F4TSZJ135X"
+      },
+      "aws_cloudfront_function.routes": {
+        "id": "cnp-portfolio-demo-routes",
+        "arn": "arn:aws:cloudfront::341936017254:function/cnp-portfolio-demo-routes"
+      },
+      "aws_cloudfront_origin_access_control.site": {
+        "id": "E5582BXM1XTKI",
+        "arn": "arn:aws:cloudfront::341936017254:origin-access-control/E5582BXM1XTKI"
+      },
+      "aws_cloudfront_response_headers_policy.site": {
+        "id": "4088c3d6-b3b7-489d-9d65-9119a41c4b34",
+        "arn": "arn:aws:cloudfront::341936017254:response-headers-policy/4088c3d6-b3b7-489d-9d65-9119a41c4b34"
+      },
+      "aws_s3_bucket.site": {
+        "id": "cloud-native-platform-341936017254-portfolio-demo",
+        "arn": "arn:aws:s3:::cloud-native-platform-341936017254-portfolio-demo"
+      },
+      "aws_s3_bucket_ownership_controls.site": {
+        "id": "cloud-native-platform-341936017254-portfolio-demo",
+        "arn": null
+      },
+      "aws_s3_bucket_policy.site": {
+        "id": "cloud-native-platform-341936017254-portfolio-demo",
+        "arn": null
+      },
+      "aws_s3_bucket_public_access_block.site": {
+        "id": "cloud-native-platform-341936017254-portfolio-demo",
+        "arn": null
+      },
+      "aws_s3_bucket_server_side_encryption_configuration.site": {
+        "id": "cloud-native-platform-341936017254-portfolio-demo",
+        "arn": null
+      },
+      "aws_s3_bucket_versioning.site": {
+        "id": "cloud-native-platform-341936017254-portfolio-demo",
+        "arn": null
+      }
+    },
+    "distributionId": "EI4F4TSZJ135X",
+    "distributionArn": "arn:aws:cloudfront::341936017254:distribution/EI4F4TSZJ135X",
+    "enabled": true,
+    "privateS3Oac": true,
+    "apiOrigins": 0,
+    "newIamRolesPoliciesCredentialsOrCustomKeys": 0,
+    "bucket": "cloud-native-platform-341936017254-portfolio-demo",
+    "bucketPolicyBinding": "Only cloudfront.amazonaws.com GetObject on approved three namespaces with exact new distribution SourceArn; deny non-TLS"
+  },
+  "timing": {
+    "createStartedUtc": "2026-10-22T00:53:55.705952+00:00",
+    "createFinishedUtc": "2026-10-22T00:56:43.081625+00:00",
+    "publicationStartedUtc": "2026-10-22T00:59:54.901352+00:00",
+    "publicationFinishedUtc": "2026-10-22T01:00:01.943051+00:00",
+    "activationApplyStartedUtc": "2026-10-22T01:04:45.817591+00:00",
+    "activationApplyFinishedUtc": "2026-10-22T01:07:40.296962+00:00",
+    "firstActivationUtc": "2026-10-22T01:04:48.982000+00:00",
+    "activationBasis": "AWS LastModifiedTime of first accepted Enabled=true configuration, conservative earliest activation; distinct from first HTTPS observation",
+    "firstVerifiedHttps200Utc": "2026-10-22T01:08:14.035522+00:00",
+    "browserVerifiedUtc": "2026-10-22T01:09:45.903Z",
+    "expiryUtc": "2026-11-21T01:04:48.982000+00:00",
+    "renewalAutomatic": false
+  },
+  "objects": {
+    "count": 12,
+    "totalBytes": 4723431,
+    "versionCount": 12,
+    "deleteMarkers": 0,
+    "multipartUploads": 0,
+    "postPromotionBytesAndVersionIdsReverified": true,
+    "publication": [
+      {
+        "key": "architecture-assets/0b3242e676ae4755726d8b49ee163157f6518150bdcbe53876d9c49708a10b60/platform.json",
+        "sha256": "0b3242e676ae4755726d8b49ee163157f6518150bdcbe53876d9c49708a10b60",
+        "bytes": 870570,
+        "mediaType": "application/json",
+        "cacheControl": "public, max-age=31536000, immutable",
+        "versionId": ".lbL5PKkyFpB_5daZzUGykYpKqzM3cT_"
+      },
+      {
+        "key": "architecture-assets/18d32beeb761c1969412f626f154572ff1dbe786ebb63a60ebfd775f334c7be7/networking.json",
+        "sha256": "18d32beeb761c1969412f626f154572ff1dbe786ebb63a60ebfd775f334c7be7",
+        "bytes": 862610,
+        "mediaType": "application/json",
+        "cacheControl": "public, max-age=31536000, immutable",
+        "versionId": "R1Yvr0NycCgFCoomjNjaYP_9RGoFy6si"
+      },
+      {
+        "key": "architecture-assets/6a983a7f406eba2a94c92ea553fcad07300dc29ead077446891d85add875ec51/event-processing.json",
+        "sha256": "6a983a7f406eba2a94c92ea553fcad07300dc29ead077446891d85add875ec51",
+        "bytes": 844980,
+        "mediaType": "application/json",
+        "cacheControl": "public, max-age=31536000, immutable",
+        "versionId": "8JAhu4QbWfzUMdFp9bRaSlaMpdvcrDWo"
+      },
+      {
+        "key": "architecture-assets/8a14b2e62c89243158d21ddbccabe7869995319cbe2dda902e50a0315b9126ea/private-cd.json",
+        "sha256": "8a14b2e62c89243158d21ddbccabe7869995319cbe2dda902e50a0315b9126ea",
+        "bytes": 858088,
+        "mediaType": "application/json",
+        "cacheControl": "public, max-age=31536000, immutable",
+        "versionId": "eCQXfcIthEXdCNm1.z0yuWuRCuiOg35D"
+      },
+      {
+        "key": "architecture-assets/982bc928b3a3977829c288eaa37c3880b31c0bebc27498edec1cfc9357f5e892/evidence.json",
+        "sha256": "982bc928b3a3977829c288eaa37c3880b31c0bebc27498edec1cfc9357f5e892",
+        "bytes": 1654,
+        "mediaType": "application/json",
+        "cacheControl": "public, max-age=31536000, immutable",
+        "versionId": "8ItzIZCLVaeN8kyEHp0xNKk8aaRd_bkX"
+      },
+      {
+        "key": "architecture-assets/b799ab081703e7821ae5096d2c1abdf14bbdc75e8ea1c4045998c36ed6db9706/ARCHIFY-LICENSE.txt",
+        "sha256": "b799ab081703e7821ae5096d2c1abdf14bbdc75e8ea1c4045998c36ed6db9706",
+        "bytes": 1102,
+        "mediaType": "text/plain",
+        "cacheControl": "public, max-age=31536000, immutable",
+        "versionId": "NkpTGeun7I5WLC_sneRQuqwX8_714Drt"
+      },
+      {
+        "key": "architecture-assets/db860572481ca883baa56134a12a6893ec2bf7292eaef0b28a7d88c9bb4a1806/lifecycle.json",
+        "sha256": "db860572481ca883baa56134a12a6893ec2bf7292eaef0b28a7d88c9bb4a1806",
+        "bytes": 856680,
+        "mediaType": "application/json",
+        "cacheControl": "public, max-age=31536000, immutable",
+        "versionId": "5LxFUAY4_NQnVCH4eVESTp_Fsp6Jgf3A"
+      },
+      {
+        "key": "assets/index-DJWn2gOc.css",
+        "sha256": "fd37292d770ca31aca07dc8ff98988dde95403d3995dd46d59a55b42bf5b32c9",
+        "bytes": 21736,
+        "mediaType": "text/css",
+        "cacheControl": "public, max-age=31536000, immutable",
+        "versionId": "HbRzKYhHhEcqs3p17iU2lxBZrAhWuG5R"
+      },
+      {
+        "key": "assets/index-DdHApjmC.js",
+        "sha256": "02dc21415ea32f4c8977e2882f75347bcf98645a3eff931272b556b34d47cc77",
+        "bytes": 399658,
+        "mediaType": "text/javascript",
+        "cacheControl": "public, max-age=31536000, immutable",
+        "versionId": "TtdQlG4gMVae2PTqSHooL3ntKDxUll19"
+      },
+      {
+        "key": "releases/af77d432370bc6edd5ca1206016bf207724c7ef33e39cb2047d18392c1d3ba5e/frontend-build.json",
+        "sha256": "2f4dcd5aaf5d6a45d22ab3b62dc75d1e62b5f12fb9db31279643cb68c164b84c",
+        "bytes": 2140,
+        "mediaType": "application/json",
+        "cacheControl": "no-cache",
+        "versionId": "_JyNQpschFlZpN1UzmB86Y3OhaKyULnY"
+      },
+      {
+        "key": "releases/af77d432370bc6edd5ca1206016bf207724c7ef33e39cb2047d18392c1d3ba5e/index.html",
+        "sha256": "e0562946cf2c9938f15d0517892eec2af9d8983e32b55ee9810bb743e088862b",
+        "bytes": 678,
+        "mediaType": "text/html",
+        "cacheControl": "no-cache",
+        "versionId": ".Sg_P1Mx7oLOePFkvYIqaiDxRU2zV2P8"
+      },
+      {
+        "key": "releases/af77d432370bc6edd5ca1206016bf207724c7ef33e39cb2047d18392c1d3ba5e/manifest.json",
+        "sha256": "7668c7054576931136f418c18a28d460f42982bd887e5140982d3db7c0a408f5",
+        "bytes": 3535,
+        "mediaType": "application/json",
+        "cacheControl": "no-cache",
+        "versionId": "OQqi7gzvUUOUQAJHRkRUNSZ83SvSLEuV"
+      }
+    ]
+  },
+  "checks": {
+    "protocol": {
+      "scope": "REAL_APPROVED_STATIC_HOST_PROTOCOL_CHECKS",
+      "status": "PASS",
+      "url": "https://d3ujivegzs1gn7.cloudfront.net",
+      "observedUtc": "2026-10-22T01:08:13.397195+00:00",
+      "tlsObserved": "TLSv1.3",
+      "certificateVerified": true,
+      "finishedUtc": "2026-10-22T01:08:17.563656+00:00",
+      "firstVerifiedHttps200Utc": "2026-10-22T01:08:14.035522+00:00",
+      "anonymousS3DeniedExpected": true,
+      "apiDiagnostic503": true,
+      "missingAssetNotSpa": true,
+      "htmlAndAssetIntegrity": true,
+      "viewerTlsPolicy": "TLSv1",
+      "originReadTimeoutUnchanged": 30,
+      "distributionStatus": "Deployed"
+    },
+    "httpObservations": [
+      {
+        "url": "https://d3ujivegzs1gn7.cloudfront.net/demo",
+        "status": 200,
+        "headers": {
+          "content-type": "text/html",
+          "cache-control": "no-cache",
+          "content-security-policy": "default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; frame-src 'self' about: blob:; frame-ancestors 'self'; object-src 'none'; base-uri 'self'; form-action 'none'",
+          "x-content-type-options": "nosniff",
+          "strict-transport-security": "max-age=31536000",
+          "x-frame-options": "SAMEORIGIN",
+          "referrer-policy": "no-referrer",
+          "x-cache": "Miss from cloudfront"
+        },
+        "bytes": 678,
+        "sha256": "e0562946cf2c9938f15d0517892eec2af9d8983e32b55ee9810bb743e088862b"
+      },
+      {
+        "url": "https://d3ujivegzs1gn7.cloudfront.net/frontend-build.json",
+        "status": 200,
+        "headers": {
+          "content-type": "application/json",
+          "cache-control": "no-cache",
+          "content-security-policy": "default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; frame-src 'self' about: blob:; frame-ancestors 'self'; object-src 'none'; base-uri 'self'; form-action 'none'",
+          "x-content-type-options": "nosniff",
+          "strict-transport-security": "max-age=31536000",
+          "x-frame-options": "SAMEORIGIN",
+          "referrer-policy": "no-referrer",
+          "x-cache": "Miss from cloudfront"
+        },
+        "bytes": 2140,
+        "sha256": "2f4dcd5aaf5d6a45d22ab3b62dc75d1e62b5f12fb9db31279643cb68c164b84c"
+      },
+      {
+        "url": "https://d3ujivegzs1gn7.cloudfront.net/assets/index-DdHApjmC.js",
+        "status": 200,
+        "headers": {
+          "content-type": "text/javascript",
+          "cache-control": "public, max-age=31536000, immutable",
+          "content-security-policy": "default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; frame-src 'self' about: blob:; frame-ancestors 'self'; object-src 'none'; base-uri 'self'; form-action 'none'",
+          "x-content-type-options": "nosniff",
+          "strict-transport-security": "max-age=31536000",
+          "x-frame-options": "SAMEORIGIN",
+          "referrer-policy": "no-referrer",
+          "x-cache": "Miss from cloudfront"
+        },
+        "bytes": 399658,
+        "sha256": "02dc21415ea32f4c8977e2882f75347bcf98645a3eff931272b556b34d47cc77"
+      },
+      {
+        "url": "https://d3ujivegzs1gn7.cloudfront.net/assets/index-DdHApjmC.js",
+        "status": 200,
+        "headers": {
+          "content-type": "text/javascript",
+          "cache-control": "public, max-age=31536000, immutable",
+          "content-security-policy": "default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; frame-src 'self' about: blob:; frame-ancestors 'self'; object-src 'none'; base-uri 'self'; form-action 'none'",
+          "x-content-type-options": "nosniff",
+          "strict-transport-security": "max-age=31536000",
+          "x-frame-options": "SAMEORIGIN",
+          "referrer-policy": "no-referrer",
+          "x-cache": "Miss from cloudfront"
+        },
+        "bytes": 399658,
+        "sha256": "02dc21415ea32f4c8977e2882f75347bcf98645a3eff931272b556b34d47cc77"
+      },
+      {
+        "url": "https://d3ujivegzs1gn7.cloudfront.net/api",
+        "status": 503,
+        "headers": {
+          "content-type": "application/json; charset=utf-8",
+          "cache-control": "no-store",
+          "content-security-policy": "default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; frame-src 'self' about: blob:; frame-ancestors 'self'; object-src 'none'; base-uri 'self'; form-action 'none'",
+          "x-content-type-options": "nosniff",
+          "strict-transport-security": "max-age=31536000",
+          "x-frame-options": "SAMEORIGIN",
+          "referrer-policy": "no-referrer",
+          "x-cache": "FunctionGeneratedResponse from cloudfront"
+        },
+        "bytes": 56,
+        "sha256": "c68d4f2f40b3cc1f8cc6f109d1c9605921c7e990f795917b7f7eb2ab5c0b8c15"
+      },
+      {
+        "url": "https://d3ujivegzs1gn7.cloudfront.net/api/shipments",
+        "status": 503,
+        "headers": {
+          "content-type": "application/json; charset=utf-8",
+          "cache-control": "no-store",
+          "content-security-policy": "default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; frame-src 'self' about: blob:; frame-ancestors 'self'; object-src 'none'; base-uri 'self'; form-action 'none'",
+          "x-content-type-options": "nosniff",
+          "strict-transport-security": "max-age=31536000",
+          "x-frame-options": "SAMEORIGIN",
+          "referrer-policy": "no-referrer",
+          "x-cache": "FunctionGeneratedResponse from cloudfront"
+        },
+        "bytes": 56,
+        "sha256": "c68d4f2f40b3cc1f8cc6f109d1c9605921c7e990f795917b7f7eb2ab5c0b8c15"
+      },
+      {
+        "url": "https://d3ujivegzs1gn7.cloudfront.net/__hosting_probe_missing",
+        "status": 404,
+        "headers": {
+          "content-type": "application/json; charset=utf-8",
+          "cache-control": "no-store",
+          "content-security-policy": "default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; frame-src 'self' about: blob:; frame-ancestors 'self'; object-src 'none'; base-uri 'self'; form-action 'none'",
+          "x-content-type-options": "nosniff",
+          "strict-transport-security": "max-age=31536000",
+          "x-frame-options": "SAMEORIGIN",
+          "referrer-policy": "no-referrer",
+          "x-cache": "FunctionGeneratedResponse from cloudfront"
+        },
+        "bytes": 34,
+        "sha256": "d96c0c6959b6c295f1b0073bc66b89ffa65166c5245d54c8c9b904e38d198549"
+      },
+      {
+        "url": "https://d3ujivegzs1gn7.cloudfront.net/assets/missing.js",
+        "status": 403,
+        "headers": {
+          "content-type": "application/xml",
+          "content-security-policy": "default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; frame-src 'self' about: blob:; frame-ancestors 'self'; object-src 'none'; base-uri 'self'; form-action 'none'",
+          "x-content-type-options": "nosniff",
+          "strict-transport-security": "max-age=31536000",
+          "x-frame-options": "SAMEORIGIN",
+          "referrer-policy": "no-referrer",
+          "x-cache": "Error from cloudfront"
+        },
+        "bytes": 111,
+        "sha256": "a824bc7739e226e1b40ea0f8c4e4f4c6f796fc3b4abfa6e9abe3bd119a30d938"
+      },
+      {
+        "url": "http://d3ujivegzs1gn7.cloudfront.net/demo",
+        "status": 301,
+        "headers": {
+          "content-type": "text/html",
+          "content-security-policy": "default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; connect-src 'self'; frame-src 'self' about: blob:; frame-ancestors 'self'; object-src 'none'; base-uri 'self'; form-action 'none'",
+          "x-content-type-options": "nosniff",
+          "x-frame-options": "SAMEORIGIN",
+          "referrer-policy": "no-referrer",
+          "x-cache": "Redirect from cloudfront",
+          "location": "https://d3ujivegzs1gn7.cloudfront.net/demo"
+        },
+        "bytes": 167,
+        "sha256": "7f5007068d2b56ea9735e2490d60cff2e72cae312024ac1f6c91158eba47d05d"
+      },
+      {
+        "url": "https://cloud-native-platform-341936017254-portfolio-demo.s3.us-east-1.amazonaws.com/assets/index-DdHApjmC.js",
+        "status": 403,
+        "headers": {
+          "content-type": "application/xml"
+        },
+        "bytes": 263,
+        "sha256": "06fb99d2b4f73ce9e7a44d7bab5923c44e4930ce2a219352919187414e474e8a"
+      }
+    ],
+    "chrome": {
+      "status": "PASS",
+      "scope": "REAL_APPROVED_CLOUDFRONT_HTTPS_DEMO",
+      "url": "https://d3ujivegzs1gn7.cloudfront.net",
+      "observedUtc": "2026-10-22T01:09:45.903Z",
+      "syntheticDemoAndTimeline": true,
+      "interactiveDiagrams": 5,
+      "apiRequests": 0,
+      "externalRequests": 0,
+      "pageErrors": 0,
+      "cspViolations": 0,
+      "tlsObserved": "TLS 1.3",
+      "certificateIssuer": "Amazon RSA 2048 M04"
+    }
+  },
+  "rollback": {
+    "classification": "REVERSIBLE_CONFIGURATION_ROLLBACK_PROPOSAL_NOT_EXECUTED",
+    "distributionId": "EI4F4TSZJ135X",
+    "packageSha256": "af77d432370bc6edd5ca1206016bf207724c7ef33e39cb2047d18392c1d3ba5e",
+    "reason": "One distinct authorized release exists; the two reproducible archives share one SHA. No prior different content release exists, so content rollback cannot be claimed.",
+    "proposedTest": [
+      "Freshly confirm current identity/ETag/state and normal concrete effect authorization",
+      "Apply reviewed Enabled true->false update only, observe deployed-disabled",
+      "Review fresh restore plan Enabled false->true with identical 12 objects/configuration; observe deployed and verify HTTPS",
+      "Recheck exact original VersionIds and preserve original activation/expiry/budget"
+    ],
+    "preparedDisablePlanSha256": "737f5a8c95f9fac89a21e0cac50ad15af98cb75b92b316eebe78b2dea6bea2bf",
+    "disablePlanChanges": [
+      {
+        "address": "aws_cloudfront_distribution.site",
+        "actions": [
+          "update"
+        ]
+      }
+    ],
+    "emptyS3BlockNormalization": "Same previously verified private endpoint/OAC; no origin or permission change",
+    "newContentOrVersionsRequired": false,
+    "deletionsRequired": false,
+    "executed": false,
+    "firstActivationUtc": "2026-10-22T01:04:48.982000+00:00",
+    "expiryUtc": "2026-11-21T01:04:48.982000+00:00",
+    "savedPlanIsNotFutureAuthority": "Capture fresh bindings/plan before later execution; do not reuse a stale plan at expiry"
+  },
+  "retirement": {
+    "prepared": true,
+    "recipeLocation": "Private sibling execution directory, retirement-prepared.json",
+    "permanentVersionDeletionExecuted": false,
+    "freshNormalConfirmationsRequired": true
+  },
+  "cost": {
+    "allowanceUsd": 1,
+    "retentionDays": 30,
+    "hardBillingCap": false,
+    "actualChargedUsd": null,
+    "billingNotQueried": true,
+    "firstResourceCostExposureUtc": "2026-10-22T00:53:55.705644+00:00",
+    "firstConfirmedObjectStorageUtc": "2026-10-22T00:59:56.407447+00:00",
+    "firstExposureBasis": "Conservative start of first infrastructure apply; actual invoice charge instant/amount not asserted",
+    "priceSource": "docs/evidence/eks-readonly-preflight-20261021.json",
+    "existingAccountRetentionsAndEcsRuntimeExcluded": true
+  },
+  "privateState": {
+    "keptOutsideGit": true,
+    "executionDirectory": "C:/Users/PC/Documents/Codex/2026-10-21/task-2/eks-hosting-live-20261022",
+    "lineage": "b6f5e1ce-16e4-40ab-e604-2a3c30d7ce11",
+    "serial": 13,
+    "sha256": "1e9444ade4c0e99dca47a3efe9eebb8c4a9bda7308e05aefd4820d52662a6613"
+  },
+  "rawReceiptSha256": {
+    "preflight.json": "93348e49c0c907197b4777fe50b75412c0e5020d9cdc888113f71c33e806b721",
+    "create-plan-review.json": "0b973fe78c8973dc9738f33d6413c70e75ece7d1a28f9a94448aa8f4675c7f38",
+    "apply-create-result.json": "9f325b2c04fc609e07791810c998ba5c111e92dd8959b93a7174c2efee75701b",
+    "inventory-disabled.json": "68ff603f45532a7d066d1bde06168b9db7ae0dc6ced499a7f53a509d0b78146e",
+    "publication.json": "741ba251746744f7226234285643d3ab0e9b13328e9d22ec82a95ece60bf3488",
+    "objects-verified.json": "53809e244a7e3530e8686892d7c4136f4a2313d960561fbade41babb2fb2268e",
+    "enable-plan-review.json": "8bb1262d24efa4d3128668d20851bf1bc26e83f898bc3e224478ac1e852edb7f",
+    "apply-enable-result.json": "01adcca7ac2d2b165d6bba81af8a4d245db07034668e9ef1df67e849086662a1",
+    "activation-observation.json": "6b2aad3138d08dd7efc31cc6293a13b91fab97b6a154cf8a27109b1b93df8a23",
+    "public-protocol.json": "45e2bee097f8c06ae0964abcf88fcc4e033647b76a3443fd09ce63ceb039fbab",
+    "public-browser.json": "6f01abd9d7c900f71b3471520f88aa40f11aa0b818e5e3dd4460a37bd16550e2",
+    "rollback-proposal.json": "6b3c385ad998fdfc94d62ce2747a607924ae90eac74bf6645e8419e9a8aa384e",
+    "retirement-prepared.json": "ca38b7cfe3624010b7ee1028a7027d92a3dc424edf040be7123ba7321c17e085",
+    "checkpoint.json": "e2941eecfa2422a95076b50e1db7066de2867472e779e5dbff220cb7089f4586"
+  },
+  "limitations": [
+    "Only one distinct authorized content release; no different-artifact rollback executed. Configuration off/on test proposed with one-update disable plan, not applied; site remains enabled",
+    "Default viewer policy accepts old and modern TLS, actual clients observed TLS1.3; not a TLS1.2 minimum guarantee. CSP inline/same-origin limits remain as accepted for synthetic content",
+    "Provider5.100 serializes an empty legacy S3 OAI block differently after read; local literal review stopped twice, metadata inspection confirmed same private endpoint/OAC and default OriginReadTimeout30; actual timeout reverified unchanged after activation",
+    "No AWS operator permission denial or uncertain mutation replay. Anonymous S3 403 and missing-object/API errors were intentional negative probes",
+    "No EKS/ECS/RDS/backend/secret/CMK or IAM/workflow mutation, provider copy/install, new credential, build, push or merge in this publication",
+    "Retirement is prepared, not automatically executed or pre-authorized for permanent object deletion; no future cleanup or hard spend cap guarantee"
+  ]
+}

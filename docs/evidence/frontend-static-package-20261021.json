@@ -1,0 +1,151 @@
+{
+  "schemaVersion": 1,
+  "observedUtc": "2026-10-21T07:59:23.355435+00:00",
+  "sourceBaseCommit": "a3e9a324e9cc06ffdcfea9849f16021dfa968a15",
+  "branch": "feat/local-aws-api-mode-20261021",
+  "scope": "LOCAL_STATIC_PACKAGE_NO_PUBLICATION",
+  "environment": {
+    "observedUtc": "2026-10-21T07:57:23.162735+00:00",
+    "platform": "Linux-7.0.0-38-generic-x86_64-with-glibc2.43",
+    "python": "3.14.4",
+    "node": "v24.18.0",
+    "npm": "11.18.0",
+    "chrome": "Google Chrome 151.0.7922.173",
+    "existingVmCheckoutHead": "8b4429e41f5c5877735832f1b3607c5638896bc1",
+    "existingVmCheckoutStatus": "",
+    "lockSha256": "a8bfe25bd60205ffcd4659e16ddf1951fc7dc9c6360a2db276b4d351fb258a86"
+  },
+  "sourceSha256": {
+    "frontend/browser/architecture.spec.ts": "9bd1ddef283e2043d2c2cab4106b5895653cf635e11a26e7b2186cfac8387262",
+    "frontend/scripts/architecture-assets.mjs": "4732a1f4c5924a794a40c2deb85abd406b7c1c4a404aca5b59fdd4f19ec82b39",
+    "frontend/scripts/check-architecture.mjs": "7f765b536dbae0c8216a7a933e19c34d569b540fb2603c7f2863e52c007839f8",
+    "frontend/scripts/package_static.py": "cb184aa4e2f5ca2a0e509ac2c70ebd8eb02517b8f583f2ea69f3657ff3d81aad",
+    "frontend/scripts/static-build-receipt.mjs": "35cecd5e87fc4f6cbdb32915d823ea4c627af5b3abcd8c48fc8bf06dd1324fcb",
+    "frontend/src/architecture/DiagramViewer.tsx": "59bd1cbe608b69d1fd5a1607d63c8deddb87afeaf4d4f8bae96f13c33e794732",
+    "frontend/src/architecture/Explorer.tsx": "e9d61b6338d1a25d5452988bfeb9511310e8072a84f16020e05cf72268de3a10",
+    "frontend/src/architecture/virtual.d.ts": "fdc7d7e1b18584594e18ac4bf3857d7970d97b790eb97e9379fccc5df549a24c",
+    "frontend/vite.config.ts": "6c85187a5ed2da4b5ed89b9b70131fe3c5532a17296f9557acafdb4d4c0ed11d",
+    "scripts/validation/test_frontend_package.py": "bda399679e12ee9f3d226d79f3d1e0e70a27bbfdcf1ce0b9baff1912c586c7f8"
+  },
+  "artifacts": {
+    "aws": {
+      "sha256": "57a045256e27fd1c6231431a31e2eec36745731f7f0558d289fc5cbadb3ddfd4",
+      "bytes": 1185404,
+      "siteFiles": 11,
+      "independentBuildsByteIdentical": true,
+      "manifestSha256": "afacab1bbddd07e46e8a8d4ea4474a88f84e65392b307c485b3c88c5a22e38ca",
+      "packagedChrome": "PASS"
+    },
+    "demo": {
+      "sha256": "af77d432370bc6edd5ca1206016bf207724c7ef33e39cb2047d18392c1d3ba5e",
+      "bytes": 1185602,
+      "siteFiles": 11,
+      "independentBuildsByteIdentical": true,
+      "manifestSha256": "7668c7054576931136f418c18a28d460f42982bd887e5140982d3db7c0a408f5",
+      "packagedChrome": "PASS"
+    }
+  },
+  "checks": {
+    "focusedPython": {
+      "status": "PASS",
+      "log": "python.log",
+      "passed": 12,
+      "skipped": 0
+    },
+    "frontendUnits": {
+      "status": "PASS",
+      "log": "unit.log",
+      "passed": 106,
+      "skipped": 0
+    },
+    "packagedAwsChrome": {
+      "status": "PASS",
+      "log": "browser-package-aws.log",
+      "passed": 5,
+      "skipped": 0
+    },
+    "packagedDemoExplorerChrome": {
+      "status": "PASS",
+      "log": "browser-package-demo.log",
+      "passed": 21,
+      "skipped": 0
+    },
+    "format": {
+      "status": "PASS",
+      "log": "format.log"
+    },
+    "architecture": {
+      "status": "PASS",
+      "log": "architecture.log"
+    },
+    "typescript": {
+      "status": "PASS",
+      "log": "typecheck.log"
+    },
+    "eslint": {
+      "status": "PASS",
+      "log": "lint.log"
+    },
+    "realArtifactNegativeMutations": {
+      "status": "PASS",
+      "rejected": 20,
+      "scope": "10 cases per mode; checksums recomputed except stale external digest case"
+    },
+    "documentation": {
+      "status": "PASS",
+      "log": "docs.log"
+    },
+    "currentTreeSecretScan": {
+      "status": "PASS",
+      "log": "secrets.log"
+    },
+    "mermaid": {
+      "status": "UNCHANGED",
+      "blocks": 5,
+      "renderingPerformed": false
+    }
+  },
+  "rawEvidenceDirectory": ".validation-results/frontend-static-package/packaging-final",
+  "rawLogSha256": {
+    "architecture.log": "4aa6b9293764d31a1fefd04b375aaa447097956ea58cf0a8572afd0d0c80cb3d",
+    "browser-package-aws.log": "173f13744b12781549c4767fffaf0217e385f5d1a396b2499da060bf9e32fa90",
+    "browser-package-demo.log": "1af3edf6ae2c018ff2e6933f622e5dabcf3faac1f6fe81e1c0a6e173edada96f",
+    "build-aws-a.log": "af0070347449a7a48350fb46cd334122b304ddec26b8dc06f8423c88d421f70b",
+    "build-aws-b.log": "39d6adc8c52ee2ee55f04f34b5ecb8810e66f759f3a03bc6421c21502a81ee48",
+    "build-demo-a.log": "1f2226c293f89a8dfb555e1f93c5ea2fec39610264b9e4281149255dda110842",
+    "build-demo-b.log": "1120f6fd135d385e45c3c2a569df384053eaae9efd0be70cd05450393a843972",
+    "format.log": "3ae88b2036826cb123bf81d13b265388f9ab5b0b24292af31e8dd8f960fd4633",
+    "lint.log": "e8e6e953304f599414d917b46dbb7407dcedc5dc2de218bf6309992bded70876",
+    "preview-aws.log": "81ebfd04907ccf6922c3c39cd973c565acf63eb75c34c3f67298553314dd78d3",
+    "preview-demo.log": "5e837be2482d627495a02f0a62f47dda19f3d14d36386d3d159e4aacb5d39f99",
+    "python.log": "7e38baedfb8e4b7e1b3288020bc1a19414488b8f3b5dad469c68836cedd2f9a0",
+    "real-gate.log": "5a37ff56c13b184c9f82a956540e0723923acd59e68ec2676ab9cc04659ad53f",
+    "typecheck.log": "b04ddae4002f0ce47daca3fada20fb4cabbaba42f100f658d44052007068551b",
+    "unit.log": "9a187ef6bfb38da8bc9cfbccb206fb45e4e356d23c7b2c1ac76bb9785283bac3",
+    "docs.log": "86a49cd4109ef14fc954eb6227ec83a30c3c7dc902cad9d492cd64c57e0e00a7",
+    "secrets.log": "420ef94681d72b782adf242ac182eef187ce041a6a8fffb44c69d93654f5d1a1"
+  },
+  "initialFailure": {
+    "passed": 18,
+    "failed": 3,
+    "suite": "packaged DEMO/Explorer Chrome",
+    "reason": "Windows default text decoding introduced mojibake; UTF-8 restored before final rebuild",
+    "logSha256": "424ea391534ba17acb348c5e0d3b121f6e677e8fb97d01a490c954161da18fb6"
+  },
+  "limits": [
+    "Node 24.18.0, npm 11.18.0, Python 3.14.4 exercised; declared npm 11.16.0 not installed/tested",
+    "Reproducibility established on this existing Linux toolchain, not across OS/tool versions",
+    "AWS API responses synthetic and served only on loopback",
+    "Source base is declared provenance; artifact is not a clean-source attestation or signature",
+    "Media/cache metadata does not configure actual HTTP hosting",
+    "No hosted old-tab retention, remote promotion/rollback, AWS or backend certification",
+    "Current-tree scanner detects defined credential patterns, not arbitrary secrets"
+  ],
+  "protectedCdAndInfrastructureChanged": false,
+  "securityExceptionsChanged": false,
+  "rdsCheckoutWritten": false,
+  "dependencyInstall": false,
+  "cloudCalls": false,
+  "pushOrMerge": false,
+  "workflowChanges": false
+}

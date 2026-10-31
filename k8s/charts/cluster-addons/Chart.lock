@@ -1,0 +1,18 @@
+dependencies:
+- name: metrics-server
+  repository: https://kubernetes-sigs.github.io/metrics-server/
+  version: 3.13.1
+- name: keda
+  repository: https://kedacore.github.io/charts
+  version: 2.20.2
+- name: aws-load-balancer-controller
+  repository: https://aws.github.io/eks-charts
+  version: 1.14.0
+- name: cluster-autoscaler
+  repository: https://kubernetes.github.io/autoscaler
+  version: 9.56.0
+- name: external-secrets
+  repository: https://charts.external-secrets.io
+  version: 2.10.0
+digest: sha256:315ce5b070036486c9b1a479beb878b4886ca96382ce7238ae2554ec06bdb13b
+generated: "2026-09-17T13:00:16.310112-06:00"

@@ -1,0 +1,289 @@
+{
+  "classification": "LOCAL_REVIEW_ONLY_NO_DEPLOYMENT_OR_SPENDING_AUTHORITY",
+  "operation": "prepare",
+  "mode": "demo",
+  "accountId": "341936017254",
+  "region": "us-east-1",
+  "owner": "Kendall",
+  "proposedExecutor": {
+    "arn": "arn:aws:iam::341936017254:user/cnp-cert-admin",
+    "profile": "cnp-cert-dev",
+    "status": "PROPOSED_EXISTING_PRINCIPAL_NOT_ASSUMED_OR_AUTHORIZED",
+    "limitation": "Observed AdministratorAccess is broader than these operations. No grant/role/key is installed; exact normal-tool payload approval remains required.",
+    "operationsReference": "docs/operations/frontend-hosting-owner-proposal.json"
+  },
+  "bucket": "cloud-native-platform-341936017254-portfolio-demo",
+  "ownership": "NEW_SEPARATE_PORTFOLIO_OWNER_NOT_EKS_OR_EXISTING_BUCKET_ADOPTION",
+  "artifact": {
+    "sha256": "af77d432370bc6edd5ca1206016bf207724c7ef33e39cb2047d18392c1d3ba5e",
+    "bytes": 1185602,
+    "sourceBaseCommit": "a3e9a324e9cc06ffdcfea9849f16021dfa968a15"
+  },
+  "expectedCurrentReleaseSha256": null,
+  "targetReleaseSha256": "af77d432370bc6edd5ca1206016bf207724c7ef33e39cb2047d18392c1d3ba5e",
+  "freshBindingsRequired": [
+    "Recheck the proposed existing caller ARN equals STS; Kendall must approve concrete effects. Required Terraform execution_principal_arn has no default; matching is not authority.",
+    "Bucket ownership/generation and dedicated-name availability; do not adopt an existing bucket",
+    "Actual distribution ARN/ID, function ARN and current ETag/state lineage/serial from this independent owner",
+    "Observed current release equals expectedCurrentReleaseSha256 before promotion/rollback",
+    "Every target object content/type/cache metadata and VersionId verified after immutable writes; byte conflict blocks",
+    "Exact reviewed source/plan hashes, responsible principal and concrete human/platform effect approvals",
+    "Existing retention owner/start/deadline must be bound unchanged on selection; promotion/rollback never renews retention or budget",
+    "When API is enabled, hostname must equal the captured account/region HTTP API owner output and $default stage; regex alone never establishes ownership"
+  ],
+  "orderedPersistentEffects": [
+    {
+      "step": "prepare_disabled_infrastructure",
+      "onlyForInitialCreate": true,
+      "resources": [
+        "aws_s3_bucket.site",
+        "aws_s3_bucket_public_access_block.site",
+        "aws_s3_bucket_ownership_controls.site",
+        "aws_s3_bucket_server_side_encryption_configuration.site",
+        "aws_s3_bucket_versioning.site",
+        "aws_s3_bucket_policy.site",
+        "aws_cloudfront_origin_access_control.site",
+        "aws_cloudfront_function.routes",
+        "aws_cloudfront_response_headers_policy.site",
+        "aws_cloudfront_distribution.site"
+      ],
+      "terraformInputs": {
+        "release_sha256": "af77d432370bc6edd5ca1206016bf207724c7ef33e39cb2047d18392c1d3ba5e",
+        "site_mode": "demo",
+        "api_enabled": false,
+        "api_domain_name": null,
+        "execution_principal_arn": "arn:aws:iam::341936017254:user/cnp-cert-admin",
+        "distribution_enabled": false
+      },
+      "note": "Create only these controls/functions/policies/disabled distribution; optional origin references existing HTTP API, never creates it. No IAM, domain, ACM, KMS or AWS backend"
+    },
+    {
+      "step": "immutable_object_publication",
+      "objects": [
+        {
+          "key": "architecture-assets/0b3242e676ae4755726d8b49ee163157f6518150bdcbe53876d9c49708a10b60/platform.json",
+          "sha256": "0b3242e676ae4755726d8b49ee163157f6518150bdcbe53876d9c49708a10b60",
+          "bytes": 870570,
+          "mediaType": "application/json",
+          "cacheControl": "public, max-age=31536000, immutable",
+          "ifNoneMatch": "*"
+        },
+        {
+          "key": "architecture-assets/18d32beeb761c1969412f626f154572ff1dbe786ebb63a60ebfd775f334c7be7/networking.json",
+          "sha256": "18d32beeb761c1969412f626f154572ff1dbe786ebb63a60ebfd775f334c7be7",
+          "bytes": 862610,
+          "mediaType": "application/json",
+          "cacheControl": "public, max-age=31536000, immutable",
+          "ifNoneMatch": "*"
+        },
+        {
+          "key": "architecture-assets/6a983a7f406eba2a94c92ea553fcad07300dc29ead077446891d85add875ec51/event-processing.json",
+          "sha256": "6a983a7f406eba2a94c92ea553fcad07300dc29ead077446891d85add875ec51",
+          "bytes": 844980,
+          "mediaType": "application/json",
+          "cacheControl": "public, max-age=31536000, immutable",
+          "ifNoneMatch": "*"
+        },
+        {
+          "key": "architecture-assets/8a14b2e62c89243158d21ddbccabe7869995319cbe2dda902e50a0315b9126ea/private-cd.json",
+          "sha256": "8a14b2e62c89243158d21ddbccabe7869995319cbe2dda902e50a0315b9126ea",
+          "bytes": 858088,
+          "mediaType": "application/json",
+          "cacheControl": "public, max-age=31536000, immutable",
+          "ifNoneMatch": "*"
+        },
+        {
+          "key": "architecture-assets/982bc928b3a3977829c288eaa37c3880b31c0bebc27498edec1cfc9357f5e892/evidence.json",
+          "sha256": "982bc928b3a3977829c288eaa37c3880b31c0bebc27498edec1cfc9357f5e892",
+          "bytes": 1654,
+          "mediaType": "application/json",
+          "cacheControl": "public, max-age=31536000, immutable",
+          "ifNoneMatch": "*"
+        },
+        {
+          "key": "architecture-assets/b799ab081703e7821ae5096d2c1abdf14bbdc75e8ea1c4045998c36ed6db9706/ARCHIFY-LICENSE.txt",
+          "sha256": "b799ab081703e7821ae5096d2c1abdf14bbdc75e8ea1c4045998c36ed6db9706",
+          "bytes": 1102,
+          "mediaType": "text/plain",
+          "cacheControl": "public, max-age=31536000, immutable",
+          "ifNoneMatch": "*"
+        },
+        {
+          "key": "architecture-assets/db860572481ca883baa56134a12a6893ec2bf7292eaef0b28a7d88c9bb4a1806/lifecycle.json",
+          "sha256": "db860572481ca883baa56134a12a6893ec2bf7292eaef0b28a7d88c9bb4a1806",
+          "bytes": 856680,
+          "mediaType": "application/json",
+          "cacheControl": "public, max-age=31536000, immutable",
+          "ifNoneMatch": "*"
+        },
+        {
+          "key": "assets/index-DJWn2gOc.css",
+          "sha256": "fd37292d770ca31aca07dc8ff98988dde95403d3995dd46d59a55b42bf5b32c9",
+          "bytes": 21736,
+          "mediaType": "text/css",
+          "cacheControl": "public, max-age=31536000, immutable",
+          "ifNoneMatch": "*"
+        },
+        {
+          "key": "assets/index-DdHApjmC.js",
+          "sha256": "02dc21415ea32f4c8977e2882f75347bcf98645a3eff931272b556b34d47cc77",
+          "bytes": 399658,
+          "mediaType": "text/javascript",
+          "cacheControl": "public, max-age=31536000, immutable",
+          "ifNoneMatch": "*"
+        },
+        {
+          "key": "releases/af77d432370bc6edd5ca1206016bf207724c7ef33e39cb2047d18392c1d3ba5e/frontend-build.json",
+          "sha256": "2f4dcd5aaf5d6a45d22ab3b62dc75d1e62b5f12fb9db31279643cb68c164b84c",
+          "bytes": 2140,
+          "mediaType": "application/json",
+          "cacheControl": "no-cache",
+          "ifNoneMatch": "*"
+        },
+        {
+          "key": "releases/af77d432370bc6edd5ca1206016bf207724c7ef33e39cb2047d18392c1d3ba5e/index.html",
+          "sha256": "e0562946cf2c9938f15d0517892eec2af9d8983e32b55ee9810bb743e088862b",
+          "bytes": 678,
+          "mediaType": "text/html",
+          "cacheControl": "no-cache",
+          "ifNoneMatch": "*"
+        },
+        {
+          "key": "releases/af77d432370bc6edd5ca1206016bf207724c7ef33e39cb2047d18392c1d3ba5e/manifest.json",
+          "sha256": "7668c7054576931136f418c18a28d460f42982bd887e5140982d3db7c0a408f5",
+          "bytes": 3535,
+          "mediaType": "application/json",
+          "cacheControl": "no-cache",
+          "ifNoneMatch": "*"
+        }
+      ],
+      "precondition": "Put with If-None-Match=*; on existing key verify bytes AND content/cache metadata, never overwrite or replace metadata silently. Retain old immutable keys/release entries."
+    },
+    {
+      "step": "verify_before_selection",
+      "precondition": "Complete target inventory/hash/mode verification; local validation is not evidence of cloud upload"
+    },
+    {
+      "step": "select_verified_release",
+      "terraformInputs": {
+        "release_sha256": "af77d432370bc6edd5ca1206016bf207724c7ef33e39cb2047d18392c1d3ba5e",
+        "site_mode": "demo",
+        "api_enabled": false,
+        "api_domain_name": null,
+        "execution_principal_arn": "arn:aws:iam::341936017254:user/cnp-cert-admin",
+        "distribution_enabled": true
+      },
+      "conditionalCreationsWhenApiWasDisabled": [],
+      "conditionalRemovalsWhenPreviousApiWasEnabled": [],
+      "precondition": "Fresh expected-current release, prior API configuration, CloudFront ETag/state binding; update+publish selecting this SHA. Observe deployed configuration/health before success; edge propagation is not atomic. Before backend retirement select verified DEMO, remove API origin/behaviors and confirm deployed 503; old AWS tabs never become DEMO data."
+    }
+  ],
+  "persistentConfiguration": {
+    "terraformRoot": "infra/portfolio/frontend-static",
+    "resourceAddresses": [
+      "aws_s3_bucket.site",
+      "aws_s3_bucket_public_access_block.site",
+      "aws_s3_bucket_ownership_controls.site",
+      "aws_s3_bucket_server_side_encryption_configuration.site",
+      "aws_s3_bucket_versioning.site",
+      "aws_s3_bucket_policy.site",
+      "aws_cloudfront_origin_access_control.site",
+      "aws_cloudfront_function.routes",
+      "aws_cloudfront_response_headers_policy.site",
+      "aws_cloudfront_distribution.site"
+    ],
+    "executionPrincipalArn": "arn:aws:iam::341936017254:user/cnp-cert-admin",
+    "bucket": {
+      "name": "cloud-native-platform-341936017254-portfolio-demo",
+      "newDedicatedOwner": true,
+      "versioning": "Enabled",
+      "ownership": "BucketOwnerEnforced",
+      "publicAccessBlockAll": true,
+      "encryption": "AES256_SSE_S3",
+      "websiteEndpoint": false,
+      "forceDestroy": false
+    },
+    "origin": {
+      "type": "privateS3RegionalREST",
+      "oac": "always_SigV4_HTTPS",
+      "principal": "cloudfront.amazonaws.com",
+      "grant": "s3:GetObject",
+      "sourceArn": "MUST_BE_FRESH_EXACT_DISTRIBUTION_ARN",
+      "objectNamespaces": [
+        "releases/*",
+        "assets/*",
+        "architecture-assets/*"
+      ]
+    },
+    "edge": {
+      "oneDistribution": true,
+      "priceClass": "PriceClass_100",
+      "customDomainOrACM": false,
+      "defaultCertificate": "cloudfront.net",
+      "viewerPolicy": "redirect-to-https",
+      "apiOrigin": null,
+      "cookieForwarding": false,
+      "queryForwarding": false,
+      "minTTL": 0,
+      "function": "viewer-request selects exactSHA and denies API/origin writes",
+      "functionCodeSha256": "9a354396c55d97a8e2da866d323d53bd54d159687a912db871d80af7d0ca4d49",
+      "responseHeaders": "Exact CSP/HSTS/nosniff/SAMEORIGIN/no-referrer settings in the hash-bound main.tf",
+      "missingOrigin403": "Preserve origin status/body; zero configured error TTL, no custom page or SPA HTML"
+    },
+    "api": null,
+    "iamRolesOrCredentialsOrCustomKeys": []
+  },
+  "behavior": {
+    "site": "Explicit demo package; DEMO is synthetic, AWS never falls back to synthetic data",
+    "routing": "Known SPA routes -> releases/<selectedSHA>/index.html; versioned assets remain global immutable keys for old tabs; unknown paths/assets never become index HTML",
+    "api": "No API origin/behaviors; default function returns 503, including old AWS tabs. DEMO client never requests API.",
+    "cache": "Static origin forwards no cookies/query; API forwards query/bearer, no cookies, caching disabled. HTML/build/manifest no-cache; fingerprinted assets one-year immutable. No invalidation or automatic pruning required.",
+    "headers": "HTTPS redirect/private S3 OAC; optional existing API HTTPS origin. CSP permits same-origin JSON/API; credentials remain runtime memory, never package/config",
+    "viewerCertificateLimitation": "Default cloudfront.net certificate requires AWS TLSv1 security policy despite modern browser TLS negotiation. No false TLS1.2 floor; DEMO and especially authenticated AWS mode require explicit TLS/CSP review before publication. A custom TLS floor needs a separately reviewed owned hostname/certificate."
+  },
+  "retentionProposal": {
+    "days": 30,
+    "startAt": null,
+    "reviewOrRetireAt": null,
+    "owner": "Kendall",
+    "clock": "Starts only at observed activation in UTC; review/retire at activation+30 days, never at preparation or promotion",
+    "scope": "This host and all approved DEMO versions, independent of EKS; preserve old assets during the trial; no automatic lifecycle purge, deployment cleanup or renewal",
+    "allowanceUsd": 1,
+    "approved": false,
+    "priceSource": "docs/evidence/eks-readonly-preflight-20261021.json",
+    "usageAssumptions": "At most100MiB stored,1GB US-edge delivery,10000 HTTPS requests;aboutUSD0.10 before origin operations/other regions/tax; edge-function invocation charge still needs pricing review; no free-tier assumption or enforced cap"
+  },
+  "retirementPreparation": {
+    "owner": "Same separate hosting owner; existing EKS18-state executor does not own this root",
+    "steps": [
+      "Export exact identities/release manifests/object VersionIds and independent state/evidence outside the host",
+      "Freshly review retirement inputs, disable distribution and verify deployed-disabled state; do not infer completion from timeout",
+      "List all dedicated-bucket versions/delete markers/multipart uploads completely; any foreign/unexpected object blocks. Approve exact observed VersionIds/upload IDs; no blind prefix purge",
+      "Remove only those reviewed owned versions/markers/uploads; force_destroy remains false",
+      "Review/apply normal owner destroy for the ten captured resources; verify CloudFront/OAC/function/header-policy and bucket absence; AccessDenied remains UNKNOWN",
+      "Preserve independent local state/receipts until owner-approved evidence expiry; no EKS/RDS/ECS/backend/old-secret/key deletion"
+    ],
+    "freshIdsBeforeDelete": true,
+    "automaticDeletion": false
+  },
+  "effectPermissionsNotGranted": {
+    "infrastructureOwner": "Exact reviewed S3 bucket creation/configuration/policy and CloudFront distribution/OAC/function/headers lifecycle actions; new ARNs must be captured after create, creation APIs may need unscoped resources. Do not attach the Private CD delivery role or treat preflight AdministratorAccess as this design.",
+    "publicationOwner": "s3:PutObject/GetObject/GetObjectVersion on only the exact planned keys; condition immutable Put with If-None-Match=*; no bucket-wide delete for publication",
+    "removalOwner": "Exact fresh dedicated bucket/version/upload and CloudFront resource cleanup only after complete identity/consumer review; policy JSON/saved plan and normal tool approvals required"
+  },
+  "sourceSha256": {
+    "infra/portfolio/frontend-static/main.tf": "8097d0ecb5a065f83f705a063e2b8296a808735b6abfd6f1f87b32d77fb48a04",
+    "infra/portfolio/frontend-static/routes.js.tftpl": "9a354396c55d97a8e2da866d323d53bd54d159687a912db871d80af7d0ca4d49",
+    "infra/portfolio/frontend-static/api-routes.js": "c5c1e7aea163272edad5792d45d0813d82178e616de67fa47ff5cf6ad9c671b0",
+    "infra/portfolio/frontend-static/.terraform.lock.hcl": "1deb0c8ea09180c98ae04381dbaeaa2f5607ce67812977a81b0170e763aeda13",
+    "frontend/scripts/package_static.py": "cb184aa4e2f5ca2a0e509ac2c70ebd8eb02517b8f583f2ea69f3657ff3d81aad",
+    "scripts/bootstrap/environment.py": "f6c7ff1c48dc591fbcef6da5ff9aa90b239f5305ed28f4ca5dc12ed7eeeb3e6e",
+    "scripts/bootstrap/environment.schema.json": "24743bb1cbabb4167d776fbde85dd6bcdde0c7015fccf409e50937d52b22f636",
+    "frontend/scripts/hosting_plan.py": "1a8275d42fbe383ec62d99eeeaf668a80d9056626e2a2fc6d25a92b0e4b0d3c0"
+  },
+  "limits": [
+    "No AWS read/write/client, upload, plan-apply, provider installation or credentials in this command",
+    "No automatic release controller, hosting retention scheduler, live API proof, remote rollback guarantee or budget enforcement",
+    "ModeB preference is not IAM, security-exception, publication or USD approval"
+  ]
+}

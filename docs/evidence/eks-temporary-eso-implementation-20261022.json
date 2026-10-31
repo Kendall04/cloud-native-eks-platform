@@ -1,0 +1,145 @@
+{
+  "classification": "APPROVED_TEMPORARY_ESO_LOCAL_IMPLEMENTATION_VALIDATED_CYCLE_NOT_ADMITTED",
+  "implementationCommit": "04072f967c1d225d9df7cd542f8a74e828b47868",
+  "recordedUtc": "2026-10-22T03:43:44.906401+00:00",
+  "approvedBaseCommit": "066048916e4672c0a8a0ec7296d757177870fd3f",
+  "approvedAddendumCommit": "a6992b497e2bd667acb72823e911cd4fc0fdbbab",
+  "approvalMessageIds": [
+    "Sentinel_8c2f60249660819199b2f186644610f9",
+    "Sentinel_b1ead96ff6748191949a10467f8addd6"
+  ],
+  "sourceSha256LfNormalized": {
+    "infra/live/dev/eks/terragrunt.hcl": "2a43ff2d2ae9f1fa518c9bb2d16f29dcc8deaecf7faab61861b685fc0f7abfc8",
+    "infra/live/dev/iam/terragrunt.hcl": "6eedb06389587f9e6339c9b79698ecf41f3a1640525369e911c86c3df6d2b2ce",
+    "infra/live/dev/private-cd/terragrunt.hcl": "733c00270a20b042444abfa6792808af462fd6f6251072d50a4772be58751871",
+    "infra/modules/iam/main.tf": "026b413a6de0bd617ec1c4d1539a8f07bf4110eea3332d8983360c26da8d4bda",
+    "infra/modules/iam/variables.tf": "b785aa30fc049fa007ba0c3217b782293c876bdf0b691a118b480f49299c6ab5",
+    "scripts/bootstrap/bootstrap.py": "81cc5c7ab43966756fbef8fb6fb7b57e769245dc568cbbacf87ce207c1a75f5e",
+    "scripts/bootstrap/environment.py": "a5121f15d3ebc51d4d464b423dc7f7517130b4fa1378cdc4556f8023d2e47317",
+    "scripts/operations/teardown_readonly/plan_graph.py": "6faf2665ba3fe42242dc874894b0151b2f28a7c83c96cdcad72db45b4f487ff6",
+    "scripts/operations/teardown_readonly/safety.py": "34b80444554657271d8e1f29b320bb2ca9c8cba375ce8a59a305cc63c6d745e1",
+    "scripts/validation/test_r2.py": "1b1ba506a53297f890d8ca3017bd057f3f593e14ad7e59af8a3d3e9e7fcf2447",
+    "scripts/validation/test_temporary_eso.py": "d713403639ef1688ea2d5a890f22a2dbe28aa2a6c7a52250e1ff9ae644087ded"
+  },
+  "changes": [
+    "Existing iam owner gains only one temporary ESO role/inline reader using exact10 retained output keys, fresh EKS OIDC aud/sub and existing app boundary; per-role tags preserve existing defaults",
+    "Bootstrap reads and validates retained ten-secret output before core apply; runtime-secrets removed from apply list, original role is never fallback",
+    "Generated contract requires temporary normal iam output/exact ARN; missing or mismatched account/role/coverage rejects",
+    "Effective APImax2/workermax2 plus exact shared GitHub provider reference now explicit in live inputs",
+    "DAG iam->runtime-secrets added to preserve real Terragrunt dependency and keep temp-role removal after consumers/before EKS issuer",
+    "Eight exact source pins for owner-approved construction updated, including previously unpinned synthetic-retirement mock test; untracked/drift rejection remains, no saved plan/journal/action approval/hash is rewritten"
+  ],
+  "tests": {
+    "windowsTemporaryEsoAndR2": {
+      "passed": 46,
+      "failed": 0,
+      "skipped": 0,
+      "command": "python -B -m unittest test_temporary_eso test_r2 -q"
+    },
+    "windowsRetirementGraphAndConstructionFocused": {
+      "passed": 38,
+      "failed": 0,
+      "note": "Overlaps other suites; do not sum as unique tests"
+    },
+    "windowsFullLifecycle": {
+      "passed": 614,
+      "failed": 0,
+      "skipped": 0,
+      "seconds": 323.45,
+      "command": "python -B -m unittest discover -s scripts/validation -p test_teardown*.py -q"
+    },
+    "linuxPureBootstrapOverSsh": {
+      "passed": 8,
+      "failed": 0,
+      "seconds": 0.011,
+      "host": "codex-vm",
+      "python": "3.13.5",
+      "path": "/tmp/cnp-eso-pure-20261022",
+      "credentialSourcesDisabled": true,
+      "rawTransferredSourceHashes": {
+        "environment.py": "a561235ce5f1f5701a15f41c0c8a0be1941a251bf3a00721ee0fa167b44f3699",
+        "bootstrap.py": "b6acb98ee9b1900eceb4f48b7902a1a1acd8d66919b978afb15a41be825a1c06"
+      },
+      "noIamPolicyOrHclOrAccountEvidenceTransferred": true
+    },
+    "windowsTerraformMock": {
+      "runsPassed": 1,
+      "assertions": 7,
+      "validate": "PASS",
+      "provider": "aws5.100.0 existing junction; no install/copy",
+      "realAwsPlanOrApply": false
+    },
+    "r4Static": "PASS",
+    "terraformIamFmt": "PASS"
+  },
+  "initialFailuresAndRepairs": [
+    "First local test reader lost HCL interpolated-key quotes; corrected test representation, not production guard",
+    "First614-run had2failures/1error: missing IAM->runtime-secrets edge and construction pins; corrected explicit approved source/DAG, then full614 passed",
+    "Optional Windows process diagnostic Get-CimInstance was denied byOS; not retried/escalated. It was not an AWS action or admission proof"
+  ],
+  "freshC0": {
+    "observedUtc": "2026-10-22T03:34:43.102997+00:00",
+    "principal": {
+      "Account": "341936017254",
+      "Arn": "arn:aws:iam::341936017254:user/cnp-cert-admin",
+      "UserId": "AIDAU7HHZR5TGLGKSTEKJ"
+    },
+    "calls": [
+      "sts:GetCallerIdentity",
+      "iam:GetRole:cloud-native-platform-dev-external-secrets",
+      "iam:GetRole:cloud-native-platform-dev-external-secrets-cert-irsa"
+    ],
+    "retainedEso": {
+      "roleId": "AROAU7HHZR5TB553LJERK",
+      "trustCanonicalJsonLfSha256": "41334598ffd164b4136d33cfc39e99900a5e2b7fe3d9b949d52fc26380d2b781",
+      "boundaryArn": "arn:aws:iam::341936017254:policy/cnp-cert-app-workload-boundary",
+      "unchanged": true
+    },
+    "temporaryRole": "ABSENT",
+    "rawCheckpointSha256": "4d44a9336e6becb8464a25cf66dde8b7b93f30157241b26f33d4e36d0cc11ea8",
+    "status": "IDENTITY_TRUST_BOUNDARY_AND_NAME_ABSENCE_PASS_OTHER_GATES_PENDING",
+    "inlineReadPolicyAndTagsNotReattestedByTheseGetRoleProjectionChecks": true
+  },
+  "blockers": [
+    {
+      "action": "Existing scripts/cd/publish.py build/operator-deliver",
+      "target": "Windows Docker daemon / Linux codex-vm authorized profile cnp-cert-dev",
+      "state": "LOCAL_ENVIRONMENT_PREREQUISITE_MISSING",
+      "evidence": "Windows docker image ls could not connect to npipe docker_engine; alsoOS denied reading C:/Users/PC/.docker/config.json. Linux Docker image inventory query succeeded with no matching cached service images; aws --profile cnp-cert-dev sts get-caller-identity stopped because profile does not exist",
+      "requiredConstraint": "Publisher requires Linux /dev/shm and dedicated operator-role identity/source/artifact/scan contracts. No credentials transferred, other profile/principal, fabricated build record, workflow or substitute publisher used"
+    },
+    {
+      "scope": "OFFLINE_REQUESTED_PRESERVE_INPUT_REPRODUCER",
+      "status": "BLOCKED_CURRENT_RETENTION_SCHEMA",
+      "code": "INVALID_RETENTION_DECISION",
+      "secretCount": 10,
+      "reason": "Current secrets category admits only RECOVERY_WINDOW/FORCE_DELETE; it cannot express KEEP for the ten approved historical secrets. No execution plan permitting their deletion is accepted; original policy/planner unchanged in this increment",
+      "awsCalls": 0,
+      "mutations": 0
+    }
+  ],
+  "admission": "NO_GO before first paid effect; no live create/destroy plan or lock captured. Source tests do not prove current pipeline can preserve historical secrets, run authenticated publisher or complete C1-C5",
+  "mutations": 0,
+  "newResourcesCreated": 0,
+  "newResourcesRequiringTeardown": 0,
+  "firstCostBearingResourceUtc": null,
+  "retirementDeadlineUtc": null,
+  "totalDeadlineUtc": null,
+  "maximumIncrementalUsd": 25,
+  "protectedCleanupReserveUsd": 15,
+  "budgetOrClockReset": false,
+  "secretsRead": 0,
+  "iamPoliciesOrCredentialsTransferredToVm": 0,
+  "preserved": [
+    "Original77 file hashes",
+    "Runtime-secrets module/live source and original retained managed resources; no original IAM write",
+    "Approved base/addendum JSON byte hashes",
+    "Published hosting configuration/activation/expiry; ECS/RDS pilot resources/states/policies",
+    "Historical secrets/keys/shared GitHub and service-linked roles"
+  ],
+  "limits": [
+    "No live role created/deleted, secret read, EKS/backend runtime, API switch, deployment/rollback/scaling or retirement certified",
+    "Historical-secret preservation contract gap requires bounded review/repair before generic teardown admission; no RECOVERY_WINDOW/FORCE_DELETE policy may substitute for required KEEP",
+    "No installation, clone, large build, image copy, push/merge or workflow change"
+  ]
+}

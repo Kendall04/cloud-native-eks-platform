@@ -1,0 +1,284 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": "kms:CreateKey",
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "aws:RequestedRegion": "us-east-1",
+          "aws:RequestTag/Project": "cloud-native-platform",
+          "aws:RequestTag/Environment": "dev",
+          "aws:RequestTag/Module": "event-encryption"
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "kms:DescribeKey",
+        "kms:GetKeyPolicy",
+        "kms:GetKeyRotationStatus",
+        "kms:ListResourceTags",
+        "kms:PutKeyPolicy",
+        "kms:EnableKeyRotation",
+        "kms:TagResource"
+      ],
+      "Resource": "arn:aws:kms:us-east-1:341936017254:key/*",
+      "Condition": {
+        "StringEquals": {
+          "aws:RequestedRegion": "us-east-1",
+          "aws:ResourceTag/Module": "event-encryption"
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Action": "kms:CreateAlias",
+      "Resource": [
+        "arn:aws:kms:us-east-1:341936017254:alias/cloud-native-platform-dev-events",
+        "arn:aws:kms:us-east-1:341936017254:key/*"
+      ],
+      "Condition": {
+        "StringEquals": {
+          "aws:RequestedRegion": "us-east-1"
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Action": "kms:ListAliases",
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "aws:RequestedRegion": "us-east-1"
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "sqs:CreateQueue",
+        "sqs:GetQueueUrl",
+        "sqs:GetQueueAttributes",
+        "sqs:SetQueueAttributes",
+        "sqs:ListQueueTags",
+        "sqs:TagQueue"
+      ],
+      "Resource": [
+        "arn:aws:sqs:us-east-1:341936017254:cloud-native-platform-dev-shipment-events-queue",
+        "arn:aws:sqs:us-east-1:341936017254:cloud-native-platform-dev-shipment-events-dlq",
+        "arn:aws:sqs:us-east-1:341936017254:cloud-native-platform-dev-shipment-delivery-dlq"
+      ],
+      "Condition": {
+        "StringEquals": {
+          "aws:RequestedRegion": "us-east-1"
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "events:CreateEventBus",
+        "events:DescribeEventBus",
+        "events:PutRule",
+        "events:DescribeRule",
+        "events:PutTargets",
+        "events:ListTargetsByRule",
+        "events:ListTagsForResource",
+        "events:TagResource"
+      ],
+      "Resource": [
+        "arn:aws:events:us-east-1:341936017254:event-bus/cloud-native-platform-dev-bus",
+        "arn:aws:events:us-east-1:341936017254:rule/cloud-native-platform-dev-bus/cloud-native-platform-dev-bus-*"
+      ],
+      "Condition": {
+        "StringEquals": {
+          "aws:RequestedRegion": "us-east-1"
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "rds:CreateDBInstance",
+        "rds:CreateDBSubnetGroup",
+        "rds:CreateDBParameterGroup",
+        "rds:ModifyDBParameterGroup",
+        "rds:AddTagsToResource",
+        "rds:ListTagsForResource"
+      ],
+      "Resource": [
+        "arn:aws:rds:us-east-1:341936017254:db:cloud-native-platform-dev-postgres",
+        "arn:aws:rds:us-east-1:341936017254:subgrp:cloud-native-platform-dev-postgres-subnets",
+        "arn:aws:rds:us-east-1:341936017254:pg:cloud-native-platform-dev-postgres-tls-*"
+      ],
+      "Condition": {
+        "StringEquals": {
+          "aws:RequestedRegion": "us-east-1"
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "rds:DescribeDBInstances",
+        "rds:DescribeDBSubnetGroups",
+        "rds:DescribeDBParameterGroups",
+        "rds:DescribeDBParameters",
+        "rds:DescribeDBEngineVersions",
+        "rds:DescribeOrderableDBInstanceOptions"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "aws:RequestedRegion": "us-east-1"
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DescribeVpcs",
+        "ec2:DescribeSubnets",
+        "ec2:DescribeSecurityGroups",
+        "ec2:DescribeSecurityGroupRules"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "StringEquals": {
+          "aws:RequestedRegion": "us-east-1"
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Action": "ec2:CreateSecurityGroup",
+      "Resource": "arn:aws:ec2:us-east-1:341936017254:vpc/vpc-0c620d031ae159bb6",
+      "Condition": {
+        "StringEquals": {
+          "aws:RequestedRegion": "us-east-1"
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Action": "ec2:CreateSecurityGroup",
+      "Resource": "arn:aws:ec2:us-east-1:341936017254:security-group/*",
+      "Condition": {
+        "StringEquals": {
+          "aws:RequestedRegion": "us-east-1",
+          "aws:RequestTag/Project": "cloud-native-platform",
+          "aws:RequestTag/Module": "rds"
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "ec2:AuthorizeSecurityGroupIngress",
+        "ec2:AuthorizeSecurityGroupEgress",
+        "ec2:RevokeSecurityGroupEgress"
+      ],
+      "Resource": "arn:aws:ec2:us-east-1:341936017254:security-group/*",
+      "Condition": {
+        "StringEquals": {
+          "aws:RequestedRegion": "us-east-1",
+          "ec2:ResourceTag/Module": "rds",
+          "ec2:ResourceTag/Project": "cloud-native-platform"
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Action": "ec2:CreateTags",
+      "Resource": [
+        "arn:aws:ec2:us-east-1:341936017254:security-group/*",
+        "arn:aws:ec2:us-east-1:341936017254:security-group-rule/*"
+      ],
+      "Condition": {
+        "StringEquals": {
+          "aws:RequestedRegion": "us-east-1",
+          "aws:RequestTag/Project": "cloud-native-platform",
+          "ec2:CreateAction": [
+            "CreateSecurityGroup",
+            "AuthorizeSecurityGroupIngress",
+            "AuthorizeSecurityGroupEgress"
+          ]
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Action": "secretsmanager:CreateSecret",
+      "Resource": [
+        "arn:aws:secretsmanager:us-east-1:341936017254:secret:cloud-native-platform/dev/runtime/*",
+        "arn:aws:secretsmanager:us-east-1:341936017254:secret:cloud-native-platform/dev/api-gateway-authorizer/auth-service-jwt-secret-*",
+        "arn:aws:secretsmanager:us-east-1:341936017254:secret:cloud-native-platform/dev/api-gateway-authorizer/platform-trusted-proxy-secret-*",
+        "arn:aws:secretsmanager:us-east-1:341936017254:secret:rds!db-*"
+      ],
+      "Condition": {
+        "StringEquals": {
+          "aws:RequestedRegion": "us-east-1"
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "secretsmanager:DescribeSecret",
+        "secretsmanager:GetResourcePolicy",
+        "secretsmanager:ListSecretVersionIds",
+        "secretsmanager:TagResource",
+        "secretsmanager:PutSecretValue",
+        "secretsmanager:GetSecretValue"
+      ],
+      "Resource": [
+        "arn:aws:secretsmanager:us-east-1:341936017254:secret:cloud-native-platform/dev/runtime/*",
+        "arn:aws:secretsmanager:us-east-1:341936017254:secret:cloud-native-platform/dev/api-gateway-authorizer/auth-service-jwt-secret-*",
+        "arn:aws:secretsmanager:us-east-1:341936017254:secret:cloud-native-platform/dev/api-gateway-authorizer/platform-trusted-proxy-secret-*"
+      ],
+      "Condition": {
+        "StringEquals": {
+          "aws:RequestedRegion": "us-east-1"
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "secretsmanager:DescribeSecret",
+        "secretsmanager:GetSecretValue"
+      ],
+      "Resource": [
+        "arn:aws:secretsmanager:us-east-1:341936017254:secret:rds!db-*"
+      ],
+      "Condition": {
+        "StringEquals": {
+          "aws:RequestedRegion": "us-east-1"
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Action": "kms:DescribeKey",
+      "Resource": "arn:aws:kms:us-east-1:341936017254:key/*",
+      "Condition": {
+        "StringEquals": {
+          "aws:RequestedRegion": "us-east-1"
+        }
+      }
+    },
+    {
+      "Effect": "Allow",
+      "Action": "secretsmanager:TagResource",
+      "Resource": "arn:aws:secretsmanager:us-east-1:341936017254:secret:rds!db-*",
+      "Condition": {
+        "StringEquals": {
+          "aws:RequestedRegion": "us-east-1"
+        }
+      }
+    }
+  ]
+}

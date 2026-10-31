@@ -1,0 +1,41 @@
+#!/bin/bash
+set -euo pipefail
+umask 022
+# OS packages come from signed AL2023 repositories. Patch versions follow the
+# selected AMI/repository snapshot; downloaded deployer libraries/tools are pinned.
+dnf install -y awscli curl-minimal python3 python3-pip jq tar util-linux
+work=$(mktemp -d)
+trap 'rm -rf "$work"' EXIT
+curl -fsSL -o "$work/kubectl" "https://dl.k8s.io/release/${kubectl_version}/bin/linux/amd64/kubectl"
+echo "a2e984a18a0c063279d692533031c1eff93a262afcc0afdc517375432d060989  $work/kubectl" | sha256sum --check --status
+install -o root -g root -m 0755 "$work/kubectl" /usr/local/bin/kubectl
+curl -fsSL -o "$work/helm.tar.gz" "https://get.helm.sh/helm-${helm_version}-linux-amd64.tar.gz"
+echo "9adafecab4d406853bba163a70e9f104f47dbbf65ce24b7653bae7e36150bcb6  $work/helm.tar.gz" | sha256sum --check --status
+tar -xzf "$work/helm.tar.gz" -C "$work"
+install -o root -g root -m 0755 "$work/linux-amd64/helm" /usr/local/bin/helm
+id platform-deploy >/dev/null 2>&1 || useradd --system --create-home --shell /sbin/nologin platform-deploy
+install -d -o root -g root -m 0755 /opt/platform-deployer
+python3 -m venv /opt/platform-deployer/venv
+wheel=PyYAML-6.0.2-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+curl -fsSL -o "$work/$wheel" "https://files.pythonhosted.org/packages/3d/32/e7bd8535d22ea2874cef6a81021ba019474ace0d13a4819c2a4bce79bd6a/$wheel"
+echo "3b1fdb9dc17f5a7677423d508ab4f243a726dea51fa5e70992e59a7411c89d19  $work/$wheel" | sha256sum --check --status
+/opt/platform-deployer/venv/bin/pip install --no-index --no-deps "$work/$wheel"
+printf '%s' '${deployer_bundle}' | base64 -d | gzip -d > "$work/deployer-files.json"
+python3 - "$work/deployer-files.json" /opt/platform-deployer <<'PY'
+import json, pathlib, re, sys
+for name, content in json.loads(pathlib.Path(sys.argv[1]).read_text(encoding='utf-8')).items():
+    if not re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._-]*\.(py|json)', name) or not isinstance(content, str):
+        raise ValueError('Invalid deployer source member')
+    path = pathlib.Path(sys.argv[2]) / name
+    path.write_bytes(content.encode('utf-8'))
+    path.chmod(0o644)
+PY
+printf '%s' '${deployer_config}' | base64 -d > /opt/platform-deployer/config.json
+chmod 0644 /opt/platform-deployer/config.json
+chown -R root:root /opt/platform-deployer
+install -d -o platform-deploy -g platform-deploy -m 0700 /var/lib/platform-deployer
+systemctl enable --now amazon-ssm-agent
+# Fail closed rather than falling back to direct parameter interpolation on old agents.
+amazon-ssm-agent -version | /usr/bin/python3 -c 'import re,sys; v=tuple(map(int,re.search(r"[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+",sys.stdin.read())[0].split("."))); assert v >= (3,3,2746,0)'
+touch /opt/platform-deployer/READY
+chmod 0644 /opt/platform-deployer/READY

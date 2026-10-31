@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "kind": "OFFLINE_LOCAL_HANDOFF_WITH_EXPLICIT_PLATFORM_GATE",
+  "recordedUtc": "2026-10-24T07:51:35.871822+00:00",
+  "retirementSourceCommit": "98c0cbe34d8b3a951f8e79a2544012996d2cfd31",
+  "cycleReceiptUnchangedSha256": "0c1e6ad73e4f6f070b8e0579bc8b16a59124dbb692baba58c71510e11fad12ef",
+  "sourceBindings": {
+    "frontend/package.json": "49da529e865d9b3bf83fd3bc714fd1d703ed2305c0c32ba084e78e12c72c613a",
+    "frontend/package-lock.json": "a8bfe25bd60205ffcd4659e16ddf1951fc7dc9c6360a2db276b4d351fb258a86",
+    "frontend/.node-version": "55075b5ec4e8b31936cbbc282b8829116d1fd48f2f2f1856dee592a6650700ce",
+    "global.json": "70e7217bac916d6ff183ea5ac20ae1155fd8fe0b64debcf940605d5cd44af037",
+    "scripts/ci/security-baseline.json": "e7abe072f45fc7155751380eb4eb5a51a78026e2d9574d3b3e579367cf003a52",
+    "docs/evidence/eks-acceptance-20261024.json": "4dfbe484ad4e87eea95840b8ddf5c5931ab92fad560f03e6b01169e6a60b297a"
+  },
+  "reproducibility": {
+    "status": "TWO_MODES_TWO_BUILDS_BYTE_IDENTICAL",
+    "node": "24.18.0",
+    "npm": "11.16.0",
+    "existingDependenciesReused": true,
+    "freshRegistryInstallClaimed": false,
+    "crossPlatformProofClaimed": false,
+    "cloudRequests": 0,
+    "fourBuildOutputBytes": 18887862,
+    "results": {
+      "demo": {
+        "identicalFiles": 11,
+        "bytes": 4721967,
+        "inventorySha256": "574f52649809a0ec99abf3d6827c7ae4db3ae80638defbfd248ac05b0a56282e",
+        "buildReceiptSha256": "c91a30e43f91f02ecdb89ade04d177c874461aa44abf94be64beb28f0e02d4bb"
+      },
+      "aws": {
+        "identicalFiles": 11,
+        "bytes": 4721964,
+        "inventorySha256": "8bfc5cdef793f7160bf84f46790f1e1625d9c23f464cd80edf83c3d61e02b7be",
+        "buildReceiptSha256": "929feb58d39259bad405254134274315d9cd80d93269ee376e4e5ec0f948af05"
+      }
+    }
+  },
+  "tests": {
+    "architecture": {
+      "passed": 28,
+      "skipped": 0
+    },
+    "ciSecurityPolicy": {
+      "passed": 22,
+      "skipped": 3,
+      "skipReason": "Three Bash behavior cases are Linux-only"
+    },
+    "frontendCiContracts": {
+      "passed": 5,
+      "skipped": 0
+    },
+    "staticPackaging": {
+      "passed": 11,
+      "errors": 1,
+      "case": "test_symlinks_are_not_read",
+      "reason": "Windows fixture symlink creation denied by OS WinError1314; privilege absent, assertions not reached",
+      "privilegedOrAlternateRouteRetry": false,
+      "testsWeakened": false
+    },
+    "priorRetirement144": {
+      "reusedRecordedReceipt": true,
+      "rerun": false
+    }
+  },
+  "staticChecks": {
+    "typescript": "PASS",
+    "eslint": "PASS",
+    "prettier": "PASS",
+    "offlineInconsistentLockRejection": "PASS",
+    "documentationLinksAnchors": "PASS",
+    "r7Integration": "PASS",
+    "currentTreeSecretScan": "PASS",
+    "fiveArchifyIntegrityCspSyntaxAndBuildPrivacy": "PASS",
+    "mermaidSourceChanged": false,
+    "mermaidRerendered": false
+  },
+  "securityBaseline": {
+    "uniqueExceptions": 9,
+    "high": 6,
+    "critical": 3,
+    "highCriticalOccurrences": 10,
+    "expiry": "2027-01-12",
+    "expiredOnReviewDate": 0,
+    "changed": false,
+    "newVulnerabilityDatabaseOrScan": false
+  },
+  "notExecuted": [
+    "Fresh registry install",
+    "New browser visual checks",
+    "Linux Bash behavior cases",
+    "Git history privacy audit",
+    "Remote CI or Dependabot actions",
+    "AWS calls or deployments",
+    "Push, merge or publication"
+  ],
+  "noCloudRequests": true,
+  "noCredentialRead": true,
+  "originalEvidenceUnchanged": true
+}

@@ -1,0 +1,116 @@
+{
+  "classification": "LOCAL_WINDOWS_LAYER_TAR_FIX_PASS_NO_VM_BUILD",
+  "recordedUtc": "2026-10-22T04:57:08.218038+00:00",
+  "baseCommit": "315fe84b40ccee1a3b2e4522906067b248143ef9",
+  "finding": "P2: a gzip containing non-TAR bytes passed when source labels and compressed/uncompressed digests were internally consistent",
+  "redEvidence": {
+    "test": "test_gzip_non_tar_rejected_despite_consistent_hashes_and_labels",
+    "baseImplementation": "315fe84b",
+    "result": "FAIL expected: ValueError not raised",
+    "fixture": "gzip(b'not a tar archive') with recomputed manifest/config/archive SHA and matching source labels; no AWS",
+    "resourceWarning": "Initial failing harness did not close unexpectedly accepted Image; regression now uses context manager"
+  },
+  "fix": {
+    "digestChecks": "Unchanged existing compressed hash/rootfs diff verification before layer structure acceptance",
+    "structure": "Second bounded streaming gzip pass parses TAR; validates headers, declared member bodies, two zero terminator blocks and absence of hidden nonzero content after end",
+    "limits": {
+      "layerMembers": 100000,
+      "declaredAndExpandedBytes": 2147483648,
+      "outerArchiveMemberAndSizeLimits": "Unchanged",
+      "metadataPayloadBytes": 1048576,
+      "metadataHeaderNesting": 16
+    },
+    "pathsAndLinks": "Reject absolute/traversing/drive/backslash member paths, sparse/unsupported members and syntactic link escape above image root; accept standard in-image absolute/relative symlinks and hardlinks without following",
+    "filesystemEffects": "No extraction, decompressed temporary file, link/device creation or host target access",
+    "constructionPin": "Exact helper source pin updated only; no plan/checkpoint/approval hash changed",
+    "cost": "An additional streaming gzip pass consumes CPU/read time; no second large image copy"
+  },
+  "sourceSha256LfNormalized": {
+    "scripts/cd/image_oci.py": "e15f6014e8834460d60b2bfbacfe52356cb16e4283dc05791eb302ade38c184f",
+    "scripts/validation/test_image_oci.py": "961861a7a0e0b620c48d7a14d7c1c61d370e56287df066637369499a51a00d6e",
+    "scripts/operations/teardown_readonly/safety.py": "07884fad00a7c64c10de43ba9218c5cd8dd6df1c2010f0dfc62a7b07b6a56fa2"
+  },
+  "checks": {
+    "combinedWindowsRegression": {
+      "command": "python -B -m unittest test_r4 test_cd_operator test_cd_import test_image_oci test_retained_secrets test_teardown.GuardTests -q",
+      "run": 119,
+      "passed": 117,
+      "failed": 0,
+      "skipped": 2,
+      "seconds": 13.707,
+      "skipReason": "Real Linux/tmpfs builder harness methods deliberately not rerun on nearly-full VM"
+    },
+    "r4Static": "PASS",
+    "documentation": {
+      "status": "PASS",
+      "markdownFiles": 46,
+      "localLinksAndAnchors": 362,
+      "mermaidBlocks": 5,
+      "rendered": false
+    },
+    "currentTreeSecrets": {
+      "status": "PASS",
+      "textFiles": 741,
+      "historyScanned": false
+    },
+    "diff": "PASS",
+    "actualBaselineGuard": {
+      "baselineVerified": true,
+      "baselineCommit": "8a66a1a42a6e0754b07cb215147f0c3a377b155d",
+      "parentRevision": "315fe84b40ccee1a3b2e4522906067b248143ef9",
+      "freshPlansStillRequired": true
+    }
+  },
+  "positiveFixtures": [
+    "Real USTAR regular file layer",
+    "Image root directory plus absolute/relative in-image symlinks and rooted hardlink without extraction",
+    "Long-name PAX and GNU TAR formats",
+    "Multipart import fixtures now contain real TAR layers rather than arbitrary compressed bytes",
+    "Long PAX/GNU metadata guarded before parser allocation; ordinary formats retained"
+  ],
+  "negativeFixtures": [
+    "Consistent gzip(non-TAR), corrupt header checksum, truncated member body, missing/short terminator and hidden content",
+    "Absolute/traversing/drive member paths, syntactic symlink/hardlink escape and member count bound",
+    "Existing layer SHA/rootfs diff/source/platform/size and outer path/member rejection tests unchanged",
+    "Oversized metadata payload, nested metadata-header limit and GNU PAX sparse1.0 rejected before sparse processing"
+  ],
+  "executionLimit": "Windows only for this correction; Docker/AWS calls mocked and AWS provider files disabled. Prior15 Linux tests belong to315fe84b and are historical, not a Linux PASS of this corrected source. No real .NET images built or validated.",
+  "capacityBlock": {
+    "status": "VM Docker build/test writes stopped; no separate Docker/containerd mount",
+    "rootSource": "/dev/mapper/ubuntu--vg-ubuntu--lv",
+    "rootType": "ext4",
+    "dockerRootDir": "/var/lib/docker",
+    "availableBytes": 55033856,
+    "dfCapacity": "100%",
+    "privateInventoryFile": "eks-docker-capacity-readonly-20261022.json",
+    "privateInventorySha256": "538fb9b156c46fe620a3a9051ecfd246b73855bdf6966d361fcdabbaa6bc9d9c",
+    "builder": "Only default/docker; no registered OCI-capable docker-container builder",
+    "proposedFreeSpaceTargetGiB": 10,
+    "targetQualifier": "Conservative planning target, not measured minimum. Provisioning/storage change or selected deletion needs separate owner authorization; no prune/builder/resize performed.",
+    "latestStatvfs": {
+      "freeIncludingReservedBytes": 4364255232,
+      "availableUnprivilegedBytes": 54444032,
+      "reservedDifferenceBytes": 4309811200
+    },
+    "reservedSpaceLimit": "Not a claim that root daemon cannot write; it may consume reserved blocks. No reserve consumption is treated as safe capacity or authorized workaround."
+  },
+  "preservation": {
+    "baseAndOldReceipt": "Historical315fe84b/source receipt retained unchanged",
+    "original77Hashes": true,
+    "newEksResources": 0,
+    "awsCalls": 0,
+    "realBuilds": 0,
+    "publications": 0,
+    "dockerConfigReadOrRetry": false,
+    "credentialTransfer": false,
+    "iamDocumentTransfer": false,
+    "writesOnVmDuringCapacityCheckOrFix": 0,
+    "eksCostClockStarted": false,
+    "cycleLimitUsd": 25,
+    "protectedReserveUsd": 15,
+    "hostingUnchanged": true,
+    "pushOrMerge": false,
+    "previousReceiptSha256": "58d0e88ef5c341ee2f4c3a2794ac6370f54c4c6ab746b8873349e1e656d51d0f"
+  },
+  "harnessCorrection": "One focused run expected the later member/size error; adjusted assertion to accept earlier metadata/member rejection. No production restriction relaxed."
+}

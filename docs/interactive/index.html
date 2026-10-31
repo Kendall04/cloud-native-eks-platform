@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Cloud Native Platform EKS · Interactive Architecture</title>
+  <style>
+    :root { color-scheme: light dark; font-family: system-ui, sans-serif; --bg:#f3f6fa; --card:#fff; --ink:#17263d; --muted:#506078; --line:#ccd7e5; --accent:#175caa; }
+    @media (prefers-color-scheme: dark) { :root { --bg:#101824; --card:#182436; --ink:#e4edf8; --muted:#a7b9d0; --line:#32445c; --accent:#89bdff; } }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:var(--ink); line-height:1.6; }
+    main { max-width:1060px; margin:auto; padding:48px 28px; }
+    .eyebrow { color:var(--accent); font-size:.78rem; font-weight:700; letter-spacing:.13em; text-transform:uppercase; }
+    h1 { max-width:780px; font-size:clamp(2rem,4vw,3rem); line-height:1.15; margin:14px 0 20px; letter-spacing:-.03em; }
+    .intro { max-width:790px; color:var(--muted); font-size:1.08rem; }
+    .status { border-left:3px solid var(--accent); padding:8px 16px; margin:28px 0; background:var(--card); }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,285px),1fr)); gap:18px; margin:28px 0; }
+    article { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:24px; }
+    article p { color:var(--muted); margin:12px 0 20px; }
+    article .guided { font-size:.85rem; margin-bottom:0; }
+    h2 { font-size:1.1rem; line-height:1.35; margin:8px 0; }
+    a { color:var(--accent); text-underline-offset:3px; }
+    a:focus-visible { outline:3px solid var(--accent); outline-offset:5px; }
+    .number { color:var(--muted); font-size:.8rem; font-variant-numeric:tabular-nums; }
+    footer { margin-top:32px; border-top:1px solid var(--line); padding-top:20px; font-size:.9rem; color:var(--muted); }
+    code { overflow-wrap:anywhere; font-size:.9em; }
+    details { margin-top:18px; }
+    pre { white-space:pre-wrap; overflow-wrap:anywhere; font-size:.8rem; }
+  </style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Cloud Native Platform EKS / Engineering portfolio</div>
+  <h1>Explore the architecture.<br>Follow the decisions.</h1>
+  <p class="intro">Five views of a private AWS EKS lab: authenticated ingress, private networking, reliable event effects, private delivery and security/trust boundaries. Each diagram carries references to the implementation.</p>
+  <p class="status"><strong>Completed lab · offline.</strong> The October 28–29, 2026 runtime was retired on October 29; RDS was retained stopped and the independent portfolio hosting remains DEMO. These views explain the preserved design and historical observations.</p>
+  <div class="grid">
+    <article><span class="number">01 / SYSTEM</span><h2>Platform Architecture</h2><p>Follow a client request through API Gateway and the internal ALB to Auth, Shipment and Tracking. Explore persistence, messaging and secrets.</p><a href="platform.html">Explore platform</a><p class="guided">Trace secret delivery: <a href="platform.html#route=eso~auth">Auth</a> · <a href="platform.html#route=eso~shipment">Shipment</a> · <a href="platform.html#route=eso~tracking">Tracking</a></p></article>
+    <article><span class="number">02 / TRUST BOUNDARIES</span><h2>Private Networking &amp; Security</h2><p>Separate application ingress, SSM administration and per-AZ egress. Distinguish declared subnet eligibility from observed node placement.</p><a href="networking.html">Explore networking</a></article>
+    <article><span class="number">03 / DURABLE EFFECTS</span><h2>Reliable Event Processing</h2><p>Trace the transactional outbox, EventBridge, standard SQS and Shipment inbox. See where deduplication, sequence checks and failure queues apply.</p><a href="event-processing.html">Follow an event</a></article>
+    <article><span class="number">04 / DELIVERY</span><h2>Private CI/CD</h2><p>Manual image builds and scans feed separately dispatched releases and deployments. SSM moves execution onto management inside the private network.</p><a href="private-cd.html">Explore delivery</a></article>
+    <article><span class="number">05 / TRUST</span><h2>Security &amp; Trust Boundaries</h2><p>Follow user identity, current-profile authorization, workload IRSA, secret consumers and separate delivery principals.</p><a href="security.html">Explore trust</a></article>
+  </div>
+  <p><a href="lifecycle.html">Historical Infrastructure Lifecycle</a> remains available for provenance. Its old counts and legacy teardown are not the current operating procedure.</p>
+  <h2>Read, inspect, follow</h2>
+  <p>Open any diagram in Chrome. Use its search or click a node to inspect sources and upstream/downstream relationships. Route exploration follows authored directed edges; Journey steps through the resolved route. The Guide explains shortcuts; light/dark themes and image/SVG exports are built in. Still is the default; enable Live when tracing a flow helps.</p>
+  <footer>
+    <p>Share the index and five active HTML files together: <code>index.html</code>, <code>platform.html</code>, <code>networking.html</code>, <code>event-processing.html</code>, <code>private-cd.html</code> and <code>security.html</code>. Open the index directly in Chrome; no repository, server or AWS access is required. Use the browser Back button to return from a diagram to this index. GitHub displays HTML source rather than running this collection.</p>
+    <p>Generated with <a href="https://github.com/tt-a1i/archify">Archify 3.1.0</a> (MIT license below). Code evidence is pinned to <code>9d9957c9dbd2b5d35ecafc73090649d2a2f16d38</code> in local-only mode. Sources identify repository files and lines; they do not embed the private source files. Motion and geometry are explanatory, not measured latency or availability.</p>
+    <p>The original repository contains the complete technical documentation, results, regeneration notes and editable JSON sources. Those files are not included in the standalone HTML collection.</p>
+    <details><summary>Archify viewer · MIT license</summary><pre>MIT License
+
+Copyright (c) 2026 tt-a1i (Archify)
+Copyright (c) 2025 Cocoon AI
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the &quot;Software&quot;), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED &quot;AS IS&quot;, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</pre></details>
+  </footer>
+</main>
+</body>
+</html>

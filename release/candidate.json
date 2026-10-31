@@ -1,0 +1,17 @@
+{
+  "candidate": "portfolio-v2-rc1",
+  "artifactVersionFormat": "vMAJOR.MINOR.PATCH",
+  "constructionReleases": [
+    "R1",
+    "R2",
+    "R3",
+    "R4",
+    "R5",
+    "R6",
+    "R7"
+  ],
+  "runtimeCertified": false,
+  "tagCreated": true,
+  "constructionFrozen": true,
+  "auditedImplementationCommit": "cc4d298e4557a6741d0732e978df28d40e2a7af6"
+}

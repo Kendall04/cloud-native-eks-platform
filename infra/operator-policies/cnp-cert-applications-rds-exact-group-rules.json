@@ -1,0 +1,100 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "OnlyProjectRdsGroup",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:AuthorizeSecurityGroupEgress",
+        "ec2:AuthorizeSecurityGroupIngress",
+        "ec2:RevokeSecurityGroupIngress"
+      ],
+      "Resource": "arn:aws:ec2:us-east-1:341936017254:security-group/*",
+      "Condition": {
+        "StringEquals": {
+          "ec2:Region": "us-east-1",
+          "ec2:ResourceTag/Project": "cloud-native-platform",
+          "ec2:ResourceTag/Environment": "dev",
+          "ec2:ResourceTag/Module": "rds",
+          "ec2:ResourceTag/Name": "cloud-native-platform-dev-postgres-sg"
+        }
+      }
+    },
+    {
+      "Sid": "TaggedRulesRequireSeparateGroupAuthorization",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:AuthorizeSecurityGroupEgress",
+        "ec2:AuthorizeSecurityGroupIngress"
+      ],
+      "Resource": "arn:aws:ec2:us-east-1:341936017254:security-group-rule/*",
+      "Condition": {
+        "StringEquals": {
+          "ec2:Region": "us-east-1",
+          "aws:RequestTag/Project": "cloud-native-platform",
+          "aws:RequestTag/Environment": "dev"
+        }
+      }
+    },
+    {
+      "Sid": "DenyOtherProject",
+      "Effect": "Deny",
+      "Action": [
+        "ec2:AuthorizeSecurityGroupEgress",
+        "ec2:AuthorizeSecurityGroupIngress",
+        "ec2:RevokeSecurityGroupIngress"
+      ],
+      "Resource": "arn:aws:ec2:us-east-1:341936017254:security-group/*",
+      "Condition": {
+        "StringNotEquals": {
+          "ec2:ResourceTag/Project": "cloud-native-platform"
+        }
+      }
+    },
+    {
+      "Sid": "DenyOtherEnvironment",
+      "Effect": "Deny",
+      "Action": [
+        "ec2:AuthorizeSecurityGroupEgress",
+        "ec2:AuthorizeSecurityGroupIngress",
+        "ec2:RevokeSecurityGroupIngress"
+      ],
+      "Resource": "arn:aws:ec2:us-east-1:341936017254:security-group/*",
+      "Condition": {
+        "StringNotEquals": {
+          "ec2:ResourceTag/Environment": "dev"
+        }
+      }
+    },
+    {
+      "Sid": "DenyOtherModule",
+      "Effect": "Deny",
+      "Action": [
+        "ec2:AuthorizeSecurityGroupEgress",
+        "ec2:AuthorizeSecurityGroupIngress",
+        "ec2:RevokeSecurityGroupIngress"
+      ],
+      "Resource": "arn:aws:ec2:us-east-1:341936017254:security-group/*",
+      "Condition": {
+        "StringNotEquals": {
+          "ec2:ResourceTag/Module": "rds"
+        }
+      }
+    },
+    {
+      "Sid": "DenyOtherName",
+      "Effect": "Deny",
+      "Action": [
+        "ec2:AuthorizeSecurityGroupEgress",
+        "ec2:AuthorizeSecurityGroupIngress",
+        "ec2:RevokeSecurityGroupIngress"
+      ],
+      "Resource": "arn:aws:ec2:us-east-1:341936017254:security-group/*",
+      "Condition": {
+        "StringNotEquals": {
+          "ec2:ResourceTag/Name": "cloud-native-platform-dev-postgres-sg"
+        }
+      }
+    }
+  ]
+}

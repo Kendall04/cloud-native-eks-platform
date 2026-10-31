@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "kind": "OFFLINE_LINUX_AND_PRIVACY_FOLLOWUP",
+  "recordedUtc": "2026-10-24T07:58:59.284890+00:00",
+  "reviewedHead": "1a1537ba1bc9b7b060394a19139b76a7c0404ac3",
+  "originalWindowsReceiptPreserved": true,
+  "linuxExecution": {
+    "distribution": "Ubuntu-24.04",
+    "python": "3.13.17",
+    "passed": 4,
+    "skipped": 0,
+    "errors": 0,
+    "cases": [
+      "WorkflowTests.test_branch_policy_accepts_dependabot_to_develop",
+      "WorkflowTests.test_conventional_commits_allow_optional_scope_but_pr_title_requires_it",
+      "WorkflowTests.test_merge_generated_by_update_branch_preserves_commit_gate",
+      "FrontendPackageTests.test_symlinks_are_not_read"
+    ],
+    "existingToolsOnly": true,
+    "temporaryFixtures": "Linux /tmp",
+    "credentialsIsolated": true,
+    "windowsPrivilegeOrTestChanges": false
+  },
+  "combinedSelectedTestIdentities": {
+    "windowsPassed": 66,
+    "laterDistinctLinuxCasesPassed": 4,
+    "uniqueSelectedCasesWithPassingExecution": 70,
+    "fullProjectSuiteClaimed": false
+  },
+  "privacy": {
+    "reviewReceiptSha256": "ede1edc52e6fc6f4c2fd5493d02fe2e7852591da77fe264a4318c7747166a120",
+    "supplementSha256": "e4c7d567fd0ff2e492471028b87e201a914cf972d22928325fb2129c3e38a596",
+    "locallyReachableCommits": 227,
+    "localCommitsSinceImportedRef": 55,
+    "uniqueBlobsScanned": 1957,
+    "bytesInspected": 24377315,
+    "archivesScanned": 3,
+    "archiveMembersScanned": 3,
+    "commitMessagesScanned": 227,
+    "legacyTextBlobsAdditionallyChecked": 1,
+    "potentialKnownSecretFindings": 0,
+    "addedDiffPatternFindings": 0,
+    "operationalContextPathCounts": {
+      "awsArn": 138,
+      "awsAccountIdentifier": 160,
+      "awsEndpointOrIpContext": 134,
+      "privateRepositoryContext": 21
+    },
+    "contextCountsOverlapAndIncludeTechnicalFixtures": true,
+    "authorMetadata": {
+      "distinctNames": 3,
+      "distinctEmails": 3,
+      "valuesSuppressed": true
+    },
+    "rawSecretsOrAuthorValuesExported": false,
+    "historyRewritten": false,
+    "limits": [
+      "Local refs only, no current GitHub verification",
+      "Representative Git path per deduplicated blob",
+      "Known formats/structured appsettings only; no arbitrary secret guarantee",
+      "No hosted logs or unreachable/reflog objects"
+    ]
+  },
+  "webUnobserved": [
+    "Continuous authenticated old tab across actual hosting AWS-to-DEMO/API withdrawal",
+    "Two distinct authenticated application-source releases in a hosting promote/rollback"
+  ],
+  "localWebFeasibility": "Loopback static packages plus synthetic intercepted Auth/API responses can prove client/selector contracts without backend; not real CloudFront propagation or real authentication",
+  "newWebTestsExecuted": false,
+  "cloudCalls": 0,
+  "softwareInstalled": false,
+  "pushMergeOrPublication": false
+}

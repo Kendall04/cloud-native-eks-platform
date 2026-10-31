@@ -1,0 +1,245 @@
+{
+  "schemaVersion": 1,
+  "recordedAtUtc": "2026-10-27T06:32:48.002295+00:00",
+  "status": "NO_GO_SOURCE_ISOLATION_AND_RETIREMENT_COMPATIBILITY",
+  "source": {
+    "commit": "09a1dc08140b1a14f7b2a662609b7ed96fff538b",
+    "tree": "ec989a7220ffd7ed99700642a9b1f1b8a8ceec5b",
+    "remoteMainVerified": true,
+    "separateClone": true,
+    "originalCheckoutUnchanged": true
+  },
+  "contractFileVerification": [
+    {
+      "name": "DECISION.md",
+      "sha256": "ae73b48bd293c9e20ca1c39f0f1831d0c497e93f5bebccd50b4af5114bea9f86",
+      "match": true
+    },
+    {
+      "name": "CONTRATO.md",
+      "sha256": "28b112fbde3d4b1da887cdbe08018de277dc452b8186bc75c7654cb2e405b9cf",
+      "match": true
+    },
+    {
+      "name": "contract.json",
+      "sha256": "5a36df1003559541bd501154eea6c06c31e39564156a8f41072dcc4e2dad3513",
+      "match": true
+    },
+    {
+      "name": "approval-20261027.json",
+      "sha256": "5da9f5d443c1daaad414ca59c570fb91b441112d6fb02fca1f5aadf736406bf0",
+      "match": true
+    }
+  ],
+  "contractEvidenceVerification": [
+    {
+      "name": "aws-scoped-tags-20261027.json",
+      "sha256": "88806865b481a28736cc911e3226febb741bbb3059240e486c33b3442c564216",
+      "match": true
+    },
+    {
+      "name": "aws-runtime-readonly-20261027.json",
+      "sha256": "01564cc540b4777cfef35862c52b2caff985541c0e5fdc0fcd203c35390d1984",
+      "match": true
+    },
+    {
+      "name": "aws-network-services-readonly-20261027.json",
+      "sha256": "f24686446430c0762c101b3b491656aa314c823618140fdd370bcb54b0e7cdfd",
+      "match": true
+    },
+    {
+      "name": "aws-retention-metadata-20261027.json",
+      "sha256": "84c1fb1c8176c687e557de1b1a05a42e3374ee6ad133a96ee41bdd4dc41b8759",
+      "match": true
+    },
+    {
+      "name": "aws-cost-proposal-20261027.json",
+      "sha256": "729c52df50206f89072c4831c8c43a79c4e8ec689f732503a03983e02365e4d1",
+      "match": true
+    },
+    {
+      "name": "pr98-main-closure-20261027.json",
+      "sha256": "7d6b9d5578e304e1f801a8d1816277073a518abd03146065c061db0e7946b90d",
+      "match": true
+    },
+    {
+      "name": "frontend-static-live-20261022.json",
+      "sha256": "bae064cb8ec9d1c9ff32da74d35bc776ccb3f5dba5a489d6726cd456ebe0cff2",
+      "match": true
+    },
+    {
+      "name": "eks-frontend-release-lifecycle-local-20261024.json",
+      "sha256": "1671cb8a3e71947e1c8541a8ce248aa15510cf64d26fc741f86b0b9271f270af",
+      "match": true
+    },
+    {
+      "name": "eks-retained-secret-policy.json",
+      "sha256": "37964dc474f36f3226803cdd02a87ba12bead5cc11d9d40533ae23733f3d1f1a",
+      "match": true
+    }
+  ],
+  "aws": {
+    "identityMatched": true,
+    "metadataChecksPassed": 15,
+    "firstObservedAtUtc": "2026-10-27T06:23:20.7131838Z",
+    "lastObservedAtUtc": "2026-10-27T06:23:44.6873716Z",
+    "regionalEksClusters": 0,
+    "scopedVpcInstances": 0,
+    "projectTaggedEbsVolumes": 0,
+    "namedPlatformAsgGroups": 0,
+    "protectedDb": "STOPPED_ENCRYPTED_PRIVATE_DELETION_PROTECTED_20GIB",
+    "protectedDbStateGenerationMatched": true,
+    "automatedSnapshot": "AVAILABLE_NOT_RESTORE_VERIFIED",
+    "rdsKmsKey": "AWS_MANAGED_ENABLED",
+    "secretsReturnedByTagQuery": 11,
+    "queuesReturnedByTagQuery": 3,
+    "existingCdRolesAndBoundary": "PRESENT_NOT_EFFECTIVE_AUTHORIZATION_TESTED",
+    "originalRoutes": "THREE_PRIVATE_DEFAULT_BLACKHOLES_UNCHANGED",
+    "allAccountRuntimeAbsentClaimed": false,
+    "mutations": 0,
+    "newRuntimeResources": 0,
+    "t0": null,
+    "twoRecoveryCopiesRestoreVerified": false
+  },
+  "stateBindings": [
+    {
+      "stack": "rds",
+      "serial": 30,
+      "recordedManagedInstances": 6,
+      "sha256": "977124ad9e31b8aab7802420a5c62311d040fd9ffa625547f880e69f3434086c"
+    },
+    {
+      "stack": "nat",
+      "serial": 38,
+      "recordedManagedInstances": 21,
+      "sha256": "38e0dcc037810606575e9fb095aec30fb87bf4e0b1a14d78c8716c7e137180df"
+    },
+    {
+      "stack": "runtime-secrets",
+      "serial": 5,
+      "recordedManagedInstances": 10,
+      "sha256": "fb71bb881208a63f1ae54af326acc2638efd97f9e4d6441cbd10d7ee57dfdc3f"
+    },
+    {
+      "stack": "private-cd",
+      "serial": 14,
+      "recordedManagedInstances": 6,
+      "sha256": "95aa7f4cd9563681cca223587db9892d5b2094a169d42df7c9b160f0afb248e9"
+    },
+    {
+      "stack": "sqs",
+      "serial": 27,
+      "recordedManagedInstances": 4,
+      "sha256": "e50c32dffa5deaee91522c75ed330030f6dc463d32fae4edc5c816762662888b"
+    },
+    {
+      "stack": "event-encryption",
+      "serial": 11,
+      "recordedManagedInstances": 2,
+      "sha256": "8585d03c2c5aaccc55bc68141983ced32fbd4b56894b296bcb0962f32e7df153"
+    }
+  ],
+  "plans": {
+    "realSavedPlansValidated": 0,
+    "mockedPlansAccepted": 0,
+    "terraformInitOrRefreshRun": false,
+    "stateMutations": 0
+  },
+  "acceptance": {
+    "inventory": "PARTIAL_READ_ONLY_PASS",
+    "sourceIdentity": "PASS",
+    "isolatedDataBindings": "NOT_IMPLEMENTED_IN_DEV",
+    "recoveryCopies": "NOT_PROVEN",
+    "infra": "NOT_RUN",
+    "oidcBuildReleaseDeploy": "NOT_RUN",
+    "authBackendEvents": "NOT_RUN",
+    "natObservability": "NOT_RUN",
+    "realWebAtoBtoA": "NOT_RUN",
+    "openSessionDuringApiWithdrawal": "NOT_RUN",
+    "newRuntimeRetirement": "NOT_APPLICABLE_NO_CREATION",
+    "finalPrivateDelivery": "INCOMPLETE"
+  },
+  "priorRejection": {
+    "recordedAtUtc": "2026-10-25T01:43:56.594915Z",
+    "replayed": false,
+    "newAutomaticReviewRejectionThisAudit": false,
+    "notUniversalAwsDeletionBan": true
+  },
+  "accessReview": "GROUPED_REVIEW_IN_DOCUMENT_UNBOUND_NOT_EXECUTION_APPROVAL",
+  "budget": {
+    "awsCapUsd": 30,
+    "acceptedContractModelUsd": 24.864707,
+    "contingencyUsd": 5.135293,
+    "freshRuntimePriced": false,
+    "actualBillQueried": false,
+    "newRuntimeCreated": false,
+    "readRequestCostNotMeasured": true,
+    "actionsTotalCapUsd": 8,
+    "actionsPriorModelUsd": 1.034,
+    "actionsRemainingModelUsd": 6.966,
+    "newActionsRuns": 0,
+    "retainedMonthlyReferenceUsd": 11.5,
+    "retainedMonthlyReferenceExcludesUnmeasuredCosts": true,
+    "maximumCycleHoursFromFirstBillableResource": 12,
+    "closureStartsBeforeHour": 6
+  },
+  "privateEvidence": [
+    {
+      "file": "aws-admission-readonly.json",
+      "sha256": "71ef433649edec001f14a94920cb81e5ea34118b4ae9e27d82a7f2651ca4a6f4"
+    },
+    {
+      "file": "event-encryption.private.tfstate",
+      "sha256": "8585d03c2c5aaccc55bc68141983ced32fbd4b56894b296bcb0962f32e7df153"
+    },
+    {
+      "file": "nat.private.tfstate",
+      "sha256": "38e0dcc037810606575e9fb095aec30fb87bf4e0b1a14d78c8716c7e137180df"
+    },
+    {
+      "file": "private-cd.private.tfstate",
+      "sha256": "95aa7f4cd9563681cca223587db9892d5b2094a169d42df7c9b160f0afb248e9"
+    },
+    {
+      "file": "protected-rds-kms.json",
+      "sha256": "21b8c8478c612e40e0e6496715268bfaeec28df471939c06acbd88e90df3a3c5"
+    },
+    {
+      "file": "rds.private.tfstate",
+      "sha256": "977124ad9e31b8aab7802420a5c62311d040fd9ffa625547f880e69f3434086c"
+    },
+    {
+      "file": "runtime-secrets.private.tfstate",
+      "sha256": "fb71bb881208a63f1ae54af326acc2638efd97f9e4d6441cbd10d7ee57dfdc3f"
+    },
+    {
+      "file": "sqs.private.tfstate",
+      "sha256": "e50c32dffa5deaee91522c75ed330030f6dc463d32fae4edc5c816762662888b"
+    },
+    {
+      "file": "state-bindings-summary.json",
+      "sha256": "4176bff3f3c07cffed543171fd47754fc99ea74f9c679f327752440bbda18602"
+    }
+  ],
+  "evidenceRetention": {
+    "minimumDays": 30,
+    "retainAtLeastThroughUtc": "2026-11-26T06:32:48.002295+00:00",
+    "automaticPurge": false
+  },
+  "validation": {
+    "documentation": "PASS_52_MARKDOWN_398_LINKS_5_EXISTING_MERMAID_FENCES",
+    "currentTreeSecrets": "PASS_791_TEXT_FILES_BOUNDED_CURRENT_TREE_ONLY",
+    "gitDiffCheck": "PASS",
+    "mermaidSources": "UNCHANGED_FENCES_CHECKED_RENDERING_NOT_RERUN",
+    "documentationValidatorPython": "3.12.14_BUNDLED_NOT_PINNED_CODE_TOOLCHAIN",
+    "codeTests": "NOT_RERUN_DOCUMENTATION_ONLY",
+    "ciAndGitGuardian": "NOT_REOPENED"
+  },
+  "pages": {
+    "project": "page_4268688838e48191bd1560eac7201008",
+    "projectSequence": 78,
+    "log": "page_73c44d390edc8191b6fb31ac097ffc61",
+    "logSequence": 74,
+    "status": "BLOCKED_STATUS_WRITTEN"
+  }
+}

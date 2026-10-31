@@ -1,0 +1,373 @@
+{
+  "classification": "UNBOUND_LOCAL_REVIEW_ONLY_NOT_AN_IAM_POLICY_OR_AUTHORIZATION",
+  "accountId": "341936017254",
+  "region": "us-east-1",
+  "observedPreflightIssuer": "arn:aws:iam::341936017254:user/cnp-cert-admin",
+  "operatorRoleArn": "arn:aws:iam::341936017254:role/cnp-cert-private-cd-executor",
+  "operatorRoleSessionName": "cnp-private-cd-operator",
+  "proposedMaxSessionDurationSeconds": 3600,
+  "boundaryArn": "arn:aws:iam::341936017254:policy/cnp-cert-private-cd-workload-boundary",
+  "operatorInlinePolicyName": "cnp-private-cd-operator-delivery",
+  "creationTags": {
+    "Project": "cloud-native-platform",
+    "Environment": "dev",
+    "Owner": "platform-team",
+    "Purpose": "private-cd-operator"
+  },
+  "trustDocumentReference": "../../infra/operator-policies/cnp-cert-private-cd-executor-trust.json",
+  "bindingStatus": "PENDING_FRESH_MANAGEMENT_AND_OPERATOR_OWNER_REVIEW",
+  "unresolvedBinding": "${MANAGEMENT_INSTANCE_ID}",
+  "bindingRequirements": [
+    "Exactly one fresh normal-management owner output matched to current DescribeInstances instance ID and LaunchTime, expected account/region/instance-profile/management-role generation; no historical target reuse",
+    "SSM fixed document current body/version/hash matched to reviewed module and installed host executor policy1.4.0; reviewed source/artifact/config digests and expected Helm revision",
+    "Fresh human approval of exact bound policy/trust bytes and identities before IAM installation/AssumeRole; no principal, credentials or role is created here"
+  ],
+  "boundaryTemplate": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "RegistryAuth",
+        "Effect": "Allow",
+        "Action": "ecr:GetAuthorizationToken",
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "aws:RequestedRegion": "us-east-1"
+          }
+        }
+      },
+      {
+        "Sid": "ProjectImages",
+        "Effect": "Allow",
+        "Action": [
+          "ecr:BatchCheckLayerAvailability",
+          "ecr:InitiateLayerUpload",
+          "ecr:UploadLayerPart",
+          "ecr:CompleteLayerUpload",
+          "ecr:PutImage",
+          "ecr:BatchGetImage",
+          "ecr:GetDownloadUrlForLayer",
+          "ecr:DescribeImages",
+          "ecr:DescribeImageScanFindings"
+        ],
+        "Resource": [
+          "arn:aws:ecr:us-east-1:341936017254:repository/auth-service",
+          "arn:aws:ecr:us-east-1:341936017254:repository/shipment-service",
+          "arn:aws:ecr:us-east-1:341936017254:repository/tracking-service"
+        ]
+      },
+      {
+        "Sid": "ImmutablePublication",
+        "Effect": "Allow",
+        "Action": "s3:PutObject",
+        "Resource": [
+          "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-artifacts/deploy-artifacts/dev/*",
+          "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-artifacts/image-records/dev/*",
+          "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-artifacts/operator-image-records/dev/*"
+        ],
+        "Condition": {
+          "StringEquals": {
+            "s3:if-none-match": "*"
+          }
+        }
+      },
+      {
+        "Sid": "ArtifactRead",
+        "Effect": "Allow",
+        "Action": [
+          "s3:GetObject",
+          "s3:GetObjectVersion"
+        ],
+        "Resource": [
+          "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-artifacts/deploy-artifacts/dev/*",
+          "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-artifacts/image-records/dev/*",
+          "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-artifacts/environment-contracts/dev/*",
+          "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-artifacts/deployment-receipts/dev/*",
+          "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-artifacts/operator-image-records/dev/*"
+        ]
+      },
+      {
+        "Sid": "FixedDeployment",
+        "Effect": "Allow",
+        "Action": "ssm:SendCommand",
+        "Resource": [
+          "arn:aws:ssm:us-east-1:341936017254:document/cloud-native-platform-dev-deploy-apps",
+          "arn:aws:ec2:us-east-1:341936017254:instance/${MANAGEMENT_INSTANCE_ID}"
+        ]
+      },
+      {
+        "Sid": "ObserveDeployment",
+        "Effect": "Allow",
+        "Action": "ssm:GetCommandInvocation",
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "aws:RequestedRegion": "us-east-1"
+          }
+        }
+      },
+      {
+        "Sid": "Identity",
+        "Effect": "Allow",
+        "Action": "sts:GetCallerIdentity",
+        "Resource": "*"
+      }
+    ]
+  },
+  "operatorIdentityTemplate": {
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Sid": "RegistryAuth",
+        "Effect": "Allow",
+        "Action": "ecr:GetAuthorizationToken",
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "aws:RequestedRegion": "us-east-1"
+          }
+        }
+      },
+      {
+        "Sid": "ProjectImages",
+        "Effect": "Allow",
+        "Action": [
+          "ecr:BatchCheckLayerAvailability",
+          "ecr:InitiateLayerUpload",
+          "ecr:UploadLayerPart",
+          "ecr:CompleteLayerUpload",
+          "ecr:PutImage",
+          "ecr:BatchGetImage",
+          "ecr:GetDownloadUrlForLayer",
+          "ecr:DescribeImages",
+          "ecr:DescribeImageScanFindings"
+        ],
+        "Resource": [
+          "arn:aws:ecr:us-east-1:341936017254:repository/auth-service",
+          "arn:aws:ecr:us-east-1:341936017254:repository/shipment-service",
+          "arn:aws:ecr:us-east-1:341936017254:repository/tracking-service"
+        ]
+      },
+      {
+        "Sid": "ImmutablePublication",
+        "Effect": "Allow",
+        "Action": "s3:PutObject",
+        "Resource": [
+          "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-artifacts/deploy-artifacts/dev/*",
+          "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-artifacts/operator-image-records/dev/*"
+        ],
+        "Condition": {
+          "StringEquals": {
+            "s3:if-none-match": "*"
+          }
+        }
+      },
+      {
+        "Sid": "ArtifactRead",
+        "Effect": "Allow",
+        "Action": [
+          "s3:GetObject",
+          "s3:GetObjectVersion"
+        ],
+        "Resource": [
+          "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-artifacts/deploy-artifacts/dev/*",
+          "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-artifacts/operator-image-records/dev/*",
+          "arn:aws:s3:::cloud-native-platform-341936017254-dev-us-east-1-artifacts/deployment-receipts/dev/*"
+        ]
+      },
+      {
+        "Sid": "FixedDeployment",
+        "Effect": "Allow",
+        "Action": "ssm:SendCommand",
+        "Resource": [
+          "arn:aws:ssm:us-east-1:341936017254:document/cloud-native-platform-dev-deploy-apps",
+          "arn:aws:ec2:us-east-1:341936017254:instance/${MANAGEMENT_INSTANCE_ID}"
+        ]
+      },
+      {
+        "Sid": "ObserveDeployment",
+        "Effect": "Allow",
+        "Action": "ssm:GetCommandInvocation",
+        "Resource": "*",
+        "Condition": {
+          "StringEquals": {
+            "aws:RequestedRegion": "us-east-1"
+          }
+        }
+      },
+      {
+        "Sid": "Identity",
+        "Effect": "Allow",
+        "Action": "sts:GetCallerIdentity",
+        "Resource": "*"
+      }
+    ]
+  },
+  "wildcardRationale": {
+    "RegistryAuth": "ecr:GetAuthorizationToken has no repository-level Resource scope. Explicit us-east-1 condition; image mutations still limited to three exact repositories.",
+    "ObserveDeployment": "ssm:GetCommandInvocation has no resource-level permission scope. Explicit us-east-1 condition; retains broad invocation-output read exposure in that region. It does not grant SendCommand on other documents/instances.",
+    "Identity": "Existing explicit sts:GetCallerIdentity statement has no resource ARN and grants identity observation only; it is not AssumeRole or authority.",
+    "ObjectSuffixes": "Retained standing-contract choice, not an IAM service requirement: one exact artifact bucket and five dev read namespaces in the shared ceiling; operator uses only three namespaces. Commit/digest/operation keys are unknown until build/publication. Exact keys could be enumerated in a separately reviewed per-operation grant once known; this proposal does not add an IAM updater or approve arbitrary artifacts. The if-none-match star is a literal HTTP precondition, not an Action/Resource wildcard.",
+    "OptionalProviderEnumeration": "Optional installation/retirement owner reads iam:ListOpenIDConnectProviders and iam:ListRoles enumerate account metadata and cannot be scoped to the provider resource ARN. Complete trust-consumer coverage is required before deleting a new provider; delivery operator never receives these rights."
+  },
+  "excludedFromOperator": [
+    "All IAM, Terraform state/locks, iam:PassRole, EKS/Kubernetes bootstrap, Secrets Manager, KMS, S3 deletion/listing, arbitrary SSM documents/sessions/update/cancel, environment-contract publication and infrastructure teardown",
+    "The historical private-cd-apply policy; it mixes construction and delivery, has retired target IDs and does not provide complete removal rights"
+  ],
+  "ownerActionsBeforeRuntime": {
+    "boundaryOwner": {
+      "actions": [
+        "iam:GetPolicy",
+        "iam:GetPolicyVersion",
+        "iam:CreatePolicy",
+        "iam:TagPolicy"
+      ],
+      "resource": "arn:aws:iam::341936017254:policy/cnp-cert-private-cd-workload-boundary",
+      "rule": "Create exact reviewed v1 only if the name remains absent; capture new PolicyId. No auto overwrite/version update."
+    },
+    "operatorRoleOwner": {
+      "actions": [
+        "iam:CreateRole",
+        "iam:TagRole",
+        "iam:GetRole",
+        "iam:ListRolePolicies",
+        "iam:GetRolePolicy",
+        "iam:ListAttachedRolePolicies",
+        "iam:PutRolePolicy"
+      ],
+      "resource": "arn:aws:iam::341936017254:role/cnp-cert-private-cd-executor",
+      "createConditions": {
+        "iam:PermissionsBoundary": "arn:aws:iam::341936017254:policy/cnp-cert-private-cd-workload-boundary",
+        "aws:RequestTag/Project": "cloud-native-platform",
+        "aws:RequestTag/Environment": "dev"
+      },
+      "rule": "Owner uses the referenced exact trust, maximum3600s, tags and only the proposed delivery inline grant; capture RoleId. No AdministratorAccess attachment, user key, self-IAM or broker."
+    }
+  },
+  "retirement": {
+    "runtimeOperator": "Delivery only; stop new delivery, observe existing SSM command/receipt and Linux host job completion; session expiry/cancellation is not proof execution stopped. Operator receives no destroy permission.",
+    "terraformPrivateCdOwner": "After applications and completed deployment observations, existing private-cd owner removes its exact SSM document, two federated roles/inline policies and its exact management inline artifact policy before management/S3/ECR retire. Retain journals/receipts externally first. No deletion of a shared GitHub OIDC provider; source supports explicit existing-provider reference.",
+    "externalIamOwner": "The new operator role/boundary are outside that Terraform module and the KEEP-only three-policy retention contract. Approve their normal IAM owner cleanup separately before creation; do not add them to the three-policy KEEP parser or claim the existing Engine deletes them.",
+    "operatorRoleCleanup": {
+      "actions": [
+        "iam:GetRole",
+        "iam:ListRolePolicies",
+        "iam:GetRolePolicy",
+        "iam:ListAttachedRolePolicies",
+        "iam:ListInstanceProfilesForRole",
+        "iam:DeleteRolePolicy",
+        "iam:DeleteRole"
+      ],
+      "resource": "arn:aws:iam::341936017254:role/cnp-cert-private-cd-executor",
+      "preconditions": "Exact captured RoleId/trust/inline digest; all runtime activity reconciled; only expected inline policy; no managed attachments/instance profiles/foreign consumers. Unexpected attachments block rather than granting generic detach."
+    },
+    "boundaryCleanup": {
+      "actions": [
+        "iam:GetPolicy",
+        "iam:GetPolicyVersion",
+        "iam:ListPolicyVersions",
+        "iam:ListEntitiesForPolicy",
+        "iam:DeletePolicy"
+      ],
+      "resource": "arn:aws:iam::341936017254:policy/cnp-cert-private-cd-workload-boundary",
+      "preconditions": "Exact captured PolicyId and approved v1 only; all three boundary-consuming roles removed; attachment/boundary-usage counts zero; no other policy versions. Extra version requires fresh review, not default DeletePolicyVersion."
+    },
+    "providerDecision": "If GitHub OIDC provider is already shared, reference/preserve it without import/deletion. If new provider creation is selected by the existing module, approve and capture it and verify no foreign trust consumers before normal owner deletion. Existing apply reference lacks the complete delete rights; never hand it to delivery as a teardown grant.",
+    "privateCdOwnerActionGroups": [
+      {
+        "actions": [
+          "iam:GetRole",
+          "iam:ListRolePolicies",
+          "iam:GetRolePolicy",
+          "iam:ListAttachedRolePolicies",
+          "iam:ListInstanceProfilesForRole",
+          "iam:DeleteRolePolicy",
+          "iam:DeleteRole"
+        ],
+        "resources": [
+          "arn:aws:iam::341936017254:role/cloud-native-platform-dev-artifact-publisher",
+          "arn:aws:iam::341936017254:role/cloud-native-platform-dev-deployment-orchestrator-dev"
+        ],
+        "precondition": "Exact state-owned roles/RoleIds and inline names; no unexpected managed attachments/instance profiles; no foreign policy removal."
+      },
+      {
+        "actions": [
+          "iam:GetRole",
+          "iam:ListRolePolicies",
+          "iam:GetRolePolicy",
+          "iam:DeleteRolePolicy"
+        ],
+        "resources": [
+          "arn:aws:iam::341936017254:role/cloud-native-platform-dev-management-role"
+        ],
+        "precondition": "Only the state-captured aws_iam_role_policy.management_artifacts name/digest; no management-role deletion in this phase. IAM scopes inline policy operations to the role, so the exact policy-name limit is an owner-plan invariant, not an IAM guarantee."
+      },
+      {
+        "actions": [
+          "ssm:DescribeDocument",
+          "ssm:GetDocument",
+          "ssm:DescribeDocumentPermission",
+          "ssm:ListTagsForResource",
+          "ssm:DeleteDocument"
+        ],
+        "resources": [
+          "arn:aws:ssm:us-east-1:341936017254:document/cloud-native-platform-dev-deploy-apps"
+        ],
+        "precondition": "Expected document body/version/hash and no in-flight/unknown command or foreign sharing."
+      },
+      {
+        "actions": [
+          "iam:GetOpenIDConnectProvider",
+          "iam:ListOpenIDConnectProviderTags",
+          "iam:DeleteOpenIDConnectProvider"
+        ],
+        "resources": [
+          "arn:aws:iam::341936017254:oidc-provider/token.actions.githubusercontent.com"
+        ],
+        "precondition": "Optional only if positively created by this normal owner, captured creation generation, and complete fresh trust-consumer review proves no foreign/shared dependency. Existing shared provider is referenced/preserved instead."
+      },
+      {
+        "actions": [
+          "iam:ListOpenIDConnectProviders",
+          "iam:ListRoles"
+        ],
+        "resources": [
+          "*"
+        ],
+        "precondition": "Optional bootstrap/retirement metadata enumeration only when resolving provider existence/complete trust consumers; no resource-level ARN scope for these list APIs, no foreign-role mutations. Not granted to delivery operator."
+      }
+    ]
+  },
+  "sourceSha256Lf": {
+    "infra/operator-policies/cnp-cert-private-cd-workload-boundary.json": "c9d5a66ee51a37de8dbb8385ae849e07167afe0a3be1bd1e302849fa14ee9f21",
+    "infra/operator-policies/cnp-cert-private-cd-apply.json": "b7ffc174eab6f3eea795dfc0357f34db95f4616c29521acc8e9d8f660509144f",
+    "infra/operator-policies/cnp-cert-private-cd-executor-trust.json": "242dc87e1db8c136853a790850af1547e27af08937ab6d3d3c078c97ff89b1e0",
+    "infra/modules/private-cd/main.tf": "f9bd8451210d2a744bd17d4ca36da0cb2f3c7b9b0ebcdb3bdda6d2d020ab58cc",
+    "infra/modules/management-host/main.tf": "27d7642467c08c3b84bad06a290296a75dbb73838250dd90944a321c45821055",
+    "scripts/cd/publish.py": "943c72f9c66f5464281f48842023161dc97414d22dd3e49ec744c559f2afa50e",
+    "scripts/cd/orchestrate.py": "a5f83872db4caa33dce98e578125154fa9f202c425a08f3989e3df4d767ab23b",
+    "scripts/operations/teardown_readonly/plan_graph.py": "bc3c67e3b9e7f609555cbee9107b7148bd98c0dadf7800f8b9607a3aeda66693"
+  },
+  "nonActions": [
+    "No AWS reads or effects in this increment",
+    "No installed IAM, credential, host or workflow changes",
+    "No hosting implementation in this IAM increment; owner selected B for separate local preparation only",
+    "USD25/8h and USD1/30d remain unapproved proposals",
+    "Existing retentions preserved; no new default deletion/expiry"
+  ],
+  "templateCanonicalSha256": {
+    "boundaryTemplate": "7322d29352ddc251577c1806662d9b4f4bee47ea89c34fcb0b4a0ad4ec742039",
+    "operatorIdentityTemplate": "a4ec3a1f77e35d8ed0e11dbf9aceeb5c584bc771bb0fd8d3e7fb47b620e53301"
+  },
+  "offlineValidation": {
+    "classification": "OFFLINE_GRAMMAR_SOURCE_AND_FIXTURE_MATCHING_NOT_IAM_SIMULATION_OR_AUTHORITY",
+    "localWindows": "7 checks PASS,32 negative operator requests;no SDK/network clients",
+    "linux": "7 checks PASS,32 negative operator requests;Python3.13.5 via existing codex-vm interpreter;AWS credential variables removed,files=/dev/null,metadata disabled",
+    "sourceHandling": "Existing Linux checkout contract sources matched except its older management-host main.tf; one current source file was staged in the ignored validation folder for exact hash checking. No tracked checkout change,clone,provider copy,install or build.",
+    "helperFile": "validate-private-cd-iam-review.py outside repository;no installer/binder/runtime permission engine",
+    "helperSha256Lf": "6f47f3baa8b4a089f2c9e8b04efb352eca0a33d5ff7cfb9493d917eb38835016",
+    "logFile": ".validation-results/admission/private-cd-iam-review.log",
+    "logSha256": "9d6b503c896490778062f8e15acd171dda8f93963e6e592264a665718ba7ad8f",
+    "scopeLimit": "Template fixtures use an explicitly synthetic management ID. Actual binding/installation/effective access/cleanup remain untested and unauthorized."
+  }
+}

@@ -1,0 +1,1086 @@
+{
+  "schemaVersion": 1,
+  "status": "LOCAL_VALIDATED_DRAFT_PR_VALIDATION_AUTHORIZED_PENDING",
+  "recordedAtUtc": "2026-10-27T00:21:19.3715764Z",
+  "repository": "Kendall04/cloud-native-platform-eks",
+  "scope": "EKS_ONLY_NO_ECS_NO_AWS_EFFECTS",
+  "source": {
+    "baseCommit": "bacc91e633d2edf9736cbfe93ee26fd99442463f",
+    "baseTree": "fe3c8176aa5190cf2aade57c928b8003e953b639",
+    "baseBranch": "develop (fresh GitHub ref)",
+    "recordedRemoteDevelop": "bacc91e633d2edf9736cbfe93ee26fd99442463f",
+    "recordedRemoteMain": "7879d5eb4b9212344c9634f88918b146bfd8140c",
+    "remoteDevelopTreeEquality": "Fresh gh API and local fetch both confirm fe3c8176aa5190cf2aade57c928b8003e953b639, identical to the previously tested base",
+    "workingTreeStatus": "Four-file local feature diff ported onto fresh develop in a separate worktree; originals/WIP preserved",
+    "implementation": "Branch fix/ci-pre-oidc-gates-20261027 from bacc91e633d2edf9736cbfe93ee26fd99442463f; no new Git repository"
+  },
+  "currentAccess": {
+    "status": "GH_READ_VERIFIED_APP_CONNECTION_VISIBILITY_SEPARATE",
+    "action": "Existing gh session verified as Kendall04 (ID66651825); fresh repo/main/develop/workflow metadata read",
+    "target": "Kendall04/cloud-native-platform-eks",
+    "responseCode": 200,
+    "reason": "Supported read succeeded with the already existing authorized gh session; separate app connection404 is preserved historical evidence",
+    "freshRefsWorkflowStatesArtifactAvailability": "Refs and workflow states VERIFIED; artifact availability not refreshed",
+    "endpoint": "GET /user, /repos/Kendall04/cloud-native-platform-eks, /branches/main, /branches/develop, /actions/workflows",
+    "responseClassification": "Existing gh API reads succeeded; no new authentication, principal or scopes",
+    "unapprovedAlternateClientOrPrincipalAttempted": false
+  },
+  "policy": {
+    "branchProtection": "OWNER_DECLINED_NOT_ENFORCED",
+    "planPurchase": "OWNER_DECLINED",
+    "integration": "develop-to-main PR/manual discipline, not server enforcement",
+    "routineDependabotUpdates": "PAUSED: open-pull-requests-limit 0 in all six ecosystems on both configured scopes",
+    "securityUpdates": "Preserve existing default-branch customization and alerts; current remote setting not reverified",
+    "automaticAwsDeployment": false,
+    "freshBudgetApproved": true,
+    "historicalAmountsAreAuthorization": false
+  },
+  "pr96": {
+    "number": 96,
+    "url": "https://github.com/Kendall04/cloud-native-platform-eks/pull/96",
+    "recordedMerged": true,
+    "recordedMergedAtUtc": "2026-10-26T02:04:58Z",
+    "squashSha": "bacc91e633d2edf9736cbfe93ee26fd99442463f",
+    "candidateSha": "8dc48393b2163573aeb47de0da722cf0cb971eed",
+    "runs": [
+      {
+        "workflowPath": ".github/workflows/validate.yml",
+        "runId": 40254797754,
+        "url": "https://github.com/Kendall04/cloud-native-platform-eks/actions/runs/40254797754",
+        "ref": "PR96",
+        "event": "pull_request",
+        "headSha": "e29c19e65f3a9d5bd75c00d4b2d7e7da2b0d8504",
+        "testedCheckoutSha": null,
+        "workflowFileCommit": null,
+        "actor": null,
+        "runAttempt": null,
+        "conclusion": "failure",
+        "observationKind": "PRESERVED_HISTORICAL_RECEIPT_NOT_FRESH_REMOTE_READ",
+        "jobCount": 35,
+        "jobConclusions": [
+          {
+            "id": 121354238890,
+            "name": "source-security",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:33:33Z",
+            "completedAt": "2026-10-26T01:34:17Z"
+          },
+          {
+            "id": 121354239066,
+            "name": "helm-and-release-metadata",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:33:33Z",
+            "completedAt": "2026-10-26T01:34:07Z"
+          },
+          {
+            "id": 121354239110,
+            "name": "format-and-workflow-lint",
+            "conclusion": "failure",
+            "startedAt": "2026-10-26T01:33:33Z",
+            "completedAt": "2026-10-26T01:33:43Z"
+          },
+          {
+            "id": 121354239113,
+            "name": "dotnet-tests (microservices/shipment-service/ShipmentService.sln)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:33:33Z",
+            "completedAt": "2026-10-26T01:34:27Z"
+          },
+          {
+            "id": 121354239117,
+            "name": "frontend",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:33:33Z",
+            "completedAt": "2026-10-26T01:35:57Z"
+          },
+          {
+            "id": 121354239118,
+            "name": "postgres-r3-permissions",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:33:34Z",
+            "completedAt": "2026-10-26T01:34:17Z"
+          },
+          {
+            "id": 121354239121,
+            "name": "pull-request-policy",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:33:33Z",
+            "completedAt": "2026-10-26T01:33:38Z"
+          },
+          {
+            "id": 121354239125,
+            "name": "containers (tracking)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:33:33Z",
+            "completedAt": "2026-10-26T01:34:47Z"
+          },
+          {
+            "id": 121354239137,
+            "name": "dotnet-tests (microservices/auth-service/AuthService.sln)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:33:33Z",
+            "completedAt": "2026-10-26T01:34:21Z"
+          },
+          {
+            "id": 121354239157,
+            "name": "containers (shipment)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:33:33Z",
+            "completedAt": "2026-10-26T01:34:35Z"
+          },
+          {
+            "id": 121354239179,
+            "name": "postgres-r5-reliability",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:33:33Z",
+            "completedAt": "2026-10-26T01:35:50Z"
+          },
+          {
+            "id": 121354239202,
+            "name": "regression-tests (lifecycle)",
+            "conclusion": "failure",
+            "startedAt": "2026-10-26T01:33:33Z",
+            "completedAt": "2026-10-26T01:37:06Z"
+          },
+          {
+            "id": 121354239205,
+            "name": "regression-tests (platform)",
+            "conclusion": "failure",
+            "startedAt": "2026-10-26T01:33:33Z",
+            "completedAt": "2026-10-26T01:34:14Z"
+          },
+          {
+            "id": 121354239225,
+            "name": "containers (auth)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:33:33Z",
+            "completedAt": "2026-10-26T01:34:33Z"
+          },
+          {
+            "id": 121354239233,
+            "name": "r2-terraform-contracts (ecr)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:33:45Z",
+            "completedAt": "2026-10-26T01:34:04Z"
+          },
+          {
+            "id": 121354239236,
+            "name": "dotnet-tests (tests/EventReliability.Tests/EventReliability.Tests.csproj)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:33:33Z",
+            "completedAt": "2026-10-26T01:34:18Z"
+          },
+          {
+            "id": 121354239272,
+            "name": "r2-terraform-contracts (authorizer-secrets)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:33:33Z",
+            "completedAt": "2026-10-26T01:33:50Z"
+          },
+          {
+            "id": 121354239277,
+            "name": "dotnet-tests (microservices/tracking-service/TrackingService.sln)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:34:09Z",
+            "completedAt": "2026-10-26T01:35:08Z"
+          },
+          {
+            "id": 121354239285,
+            "name": "r2-terraform-contracts (apigateway-integration)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:33:49Z",
+            "completedAt": "2026-10-26T01:34:05Z"
+          },
+          {
+            "id": 121354239320,
+            "name": "r2-terraform-contracts (vpc)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:33:33Z",
+            "completedAt": "2026-10-26T01:33:48Z"
+          },
+          {
+            "id": 121354239324,
+            "name": "r2-terraform-contracts (eks)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:33:54Z",
+            "completedAt": "2026-10-26T01:34:15Z"
+          },
+          {
+            "id": 121354239345,
+            "name": "r2-terraform-contracts (rds)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:33:40Z",
+            "completedAt": "2026-10-26T01:33:54Z"
+          },
+          {
+            "id": 121354239348,
+            "name": "r2-terraform-contracts (sqs)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:33:33Z",
+            "completedAt": "2026-10-26T01:33:53Z"
+          },
+          {
+            "id": 121354239350,
+            "name": "r2-terraform-contracts (management-host)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:33:33Z",
+            "completedAt": "2026-10-26T01:33:52Z"
+          },
+          {
+            "id": 121354239357,
+            "name": "r2-terraform-contracts (iam)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:34:05Z",
+            "completedAt": "2026-10-26T01:34:22Z"
+          },
+          {
+            "id": 121354239363,
+            "name": "r2-terraform-contracts (private-cd)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:33:33Z",
+            "completedAt": "2026-10-26T01:33:52Z"
+          },
+          {
+            "id": 121354239368,
+            "name": "r2-terraform-contracts (apigateway-core)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:34:12Z",
+            "completedAt": "2026-10-26T01:34:25Z"
+          },
+          {
+            "id": 121354239397,
+            "name": "r2-terraform-contracts (observability)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:33:52Z",
+            "completedAt": "2026-10-26T01:34:11Z"
+          },
+          {
+            "id": 121354239402,
+            "name": "r2-terraform-contracts (runtime-secrets)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:34:06Z",
+            "completedAt": "2026-10-26T01:34:24Z"
+          },
+          {
+            "id": 121354239404,
+            "name": "r2-terraform-contracts (lambda)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:33:54Z",
+            "completedAt": "2026-10-26T01:34:27Z"
+          },
+          {
+            "id": 121354239410,
+            "name": "r2-terraform-contracts (s3)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:33:54Z",
+            "completedAt": "2026-10-26T01:34:13Z"
+          },
+          {
+            "id": 121354239436,
+            "name": "r2-terraform-contracts (nat-egress)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:33:55Z",
+            "completedAt": "2026-10-26T01:34:14Z"
+          },
+          {
+            "id": 121354239438,
+            "name": "r2-terraform-contracts (eventbridge)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:34:15Z",
+            "completedAt": "2026-10-26T01:34:33Z"
+          },
+          {
+            "id": 121354239444,
+            "name": "r2-terraform-contracts (nat)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:34:15Z",
+            "completedAt": "2026-10-26T01:34:32Z"
+          },
+          {
+            "id": 121354239567,
+            "name": "r2-terraform-contracts (event-encryption)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:34:16Z",
+            "completedAt": "2026-10-26T01:34:34Z"
+          }
+        ],
+        "missingMetadata": "Null fields were not captured in the selected receipts; do not infer PR test-merge/checkout SHA from head or squash SHA"
+      },
+      {
+        "workflowPath": ".github/workflows/validate.yml",
+        "runId": 40256441414,
+        "url": "https://github.com/Kendall04/cloud-native-platform-eks/actions/runs/40256441414",
+        "ref": "PR96",
+        "event": null,
+        "headSha": null,
+        "testedCheckoutSha": null,
+        "workflowFileCommit": null,
+        "actor": null,
+        "runAttempt": null,
+        "conclusion": "success",
+        "observationKind": "PRESERVED_HISTORICAL_RECEIPT_NOT_FRESH_REMOTE_READ",
+        "jobCount": 35,
+        "jobConclusions": [
+          {
+            "id": 121359207758,
+            "name": "helm-and-release-metadata",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:07Z",
+            "completedAt": "2026-10-26T01:54:42Z"
+          },
+          {
+            "id": 121359207848,
+            "name": "dotnet-tests (microservices/shipment-service/ShipmentService.sln)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:07Z",
+            "completedAt": "2026-10-26T01:55:04Z"
+          },
+          {
+            "id": 121359207873,
+            "name": "postgres-r3-permissions",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:07Z",
+            "completedAt": "2026-10-26T01:54:36Z"
+          },
+          {
+            "id": 121359207875,
+            "name": "r2-terraform-contracts (event-encryption)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:07Z",
+            "completedAt": "2026-10-26T01:54:21Z"
+          },
+          {
+            "id": 121359207879,
+            "name": "containers (auth)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:07Z",
+            "completedAt": "2026-10-26T01:55:02Z"
+          },
+          {
+            "id": 121359207894,
+            "name": "postgres-r5-reliability",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:07Z",
+            "completedAt": "2026-10-26T01:56:17Z"
+          },
+          {
+            "id": 121359207896,
+            "name": "pull-request-policy",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:07Z",
+            "completedAt": "2026-10-26T01:54:15Z"
+          },
+          {
+            "id": 121359207897,
+            "name": "regression-tests (lifecycle)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:07Z",
+            "completedAt": "2026-10-26T01:59:00Z"
+          },
+          {
+            "id": 121359207899,
+            "name": "source-security",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:07Z",
+            "completedAt": "2026-10-26T01:54:52Z"
+          },
+          {
+            "id": 121359207936,
+            "name": "frontend",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:07Z",
+            "completedAt": "2026-10-26T01:56:26Z"
+          },
+          {
+            "id": 121359207946,
+            "name": "format-and-workflow-lint",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:07Z",
+            "completedAt": "2026-10-26T01:54:18Z"
+          },
+          {
+            "id": 121359207958,
+            "name": "containers (tracking)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:07Z",
+            "completedAt": "2026-10-26T01:55:24Z"
+          },
+          {
+            "id": 121359207978,
+            "name": "dotnet-tests (tests/EventReliability.Tests/EventReliability.Tests.csproj)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:07Z",
+            "completedAt": "2026-10-26T01:54:53Z"
+          },
+          {
+            "id": 121359208006,
+            "name": "regression-tests (platform)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:43Z",
+            "completedAt": "2026-10-26T01:55:31Z"
+          },
+          {
+            "id": 121359208015,
+            "name": "containers (shipment)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:07Z",
+            "completedAt": "2026-10-26T01:55:10Z"
+          },
+          {
+            "id": 121359208051,
+            "name": "dotnet-tests (microservices/auth-service/AuthService.sln)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:07Z",
+            "completedAt": "2026-10-26T01:55:02Z"
+          },
+          {
+            "id": 121359208057,
+            "name": "dotnet-tests (microservices/tracking-service/TrackingService.sln)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:07Z",
+            "completedAt": "2026-10-26T01:55:08Z"
+          },
+          {
+            "id": 121359208067,
+            "name": "r2-terraform-contracts (management-host)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:07Z",
+            "completedAt": "2026-10-26T01:54:29Z"
+          },
+          {
+            "id": 121359208084,
+            "name": "r2-terraform-contracts (apigateway-integration)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:32Z",
+            "completedAt": "2026-10-26T01:54:54Z"
+          },
+          {
+            "id": 121359208098,
+            "name": "r2-terraform-contracts (authorizer-secrets)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:38Z",
+            "completedAt": "2026-10-26T01:54:55Z"
+          },
+          {
+            "id": 121359208125,
+            "name": "r2-terraform-contracts (nat)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:16Z",
+            "completedAt": "2026-10-26T01:54:30Z"
+          },
+          {
+            "id": 121359208133,
+            "name": "r2-terraform-contracts (lambda)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:25Z",
+            "completedAt": "2026-10-26T01:54:55Z"
+          },
+          {
+            "id": 121359208146,
+            "name": "r2-terraform-contracts (private-cd)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:41Z",
+            "completedAt": "2026-10-26T01:55:01Z"
+          },
+          {
+            "id": 121359208151,
+            "name": "r2-terraform-contracts (nat-egress)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:25Z",
+            "completedAt": "2026-10-26T01:54:42Z"
+          },
+          {
+            "id": 121359208161,
+            "name": "r2-terraform-contracts (eks)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:31Z",
+            "completedAt": "2026-10-26T01:54:48Z"
+          },
+          {
+            "id": 121359208165,
+            "name": "r2-terraform-contracts (s3)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:07Z",
+            "completedAt": "2026-10-26T01:54:24Z"
+          },
+          {
+            "id": 121359208166,
+            "name": "r2-terraform-contracts (eventbridge)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:25Z",
+            "completedAt": "2026-10-26T01:54:41Z"
+          },
+          {
+            "id": 121359208169,
+            "name": "r2-terraform-contracts (vpc)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:07Z",
+            "completedAt": "2026-10-26T01:54:23Z"
+          },
+          {
+            "id": 121359208184,
+            "name": "r2-terraform-contracts (ecr)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:41Z",
+            "completedAt": "2026-10-26T01:54:57Z"
+          },
+          {
+            "id": 121359208194,
+            "name": "r2-terraform-contracts (apigateway-core)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:43Z",
+            "completedAt": "2026-10-26T01:54:59Z"
+          },
+          {
+            "id": 121359208196,
+            "name": "r2-terraform-contracts (iam)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:23Z",
+            "completedAt": "2026-10-26T01:54:39Z"
+          },
+          {
+            "id": 121359208197,
+            "name": "r2-terraform-contracts (observability)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:19Z",
+            "completedAt": "2026-10-26T01:54:40Z"
+          },
+          {
+            "id": 121359208223,
+            "name": "r2-terraform-contracts (runtime-secrets)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:50Z",
+            "completedAt": "2026-10-26T01:55:08Z"
+          },
+          {
+            "id": 121359208240,
+            "name": "r2-terraform-contracts (rds)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:43Z",
+            "completedAt": "2026-10-26T01:54:59Z"
+          },
+          {
+            "id": 121359208246,
+            "name": "r2-terraform-contracts (sqs)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T01:54:07Z",
+            "completedAt": "2026-10-26T01:54:24Z"
+          }
+        ],
+        "missingMetadata": "Null fields were not captured in the selected receipts; do not infer PR test-merge/checkout SHA from head or squash SHA"
+      },
+      {
+        "workflowPath": ".github/workflows/validate.yml",
+        "runId": 40257327026,
+        "url": "https://github.com/Kendall04/cloud-native-platform-eks/actions/runs/40257327026",
+        "ref": "refs/heads/develop",
+        "event": "push",
+        "headSha": "bacc91e633d2edf9736cbfe93ee26fd99442463f",
+        "testedCheckoutSha": null,
+        "workflowFileCommit": null,
+        "actor": null,
+        "runAttempt": null,
+        "conclusion": "success",
+        "observationKind": "PRESERVED_HISTORICAL_RECEIPT_NOT_FRESH_REMOTE_READ",
+        "jobCount": 35,
+        "jobConclusions": [
+          {
+            "id": 121361876749,
+            "name": "frontend",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T02:05:03Z",
+            "completedAt": "2026-10-26T02:08:12Z"
+          },
+          {
+            "id": 121361876817,
+            "name": "dotnet-tests (microservices/tracking-service/TrackingService.sln)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T02:05:03Z",
+            "completedAt": "2026-10-26T02:06:01Z"
+          },
+          {
+            "id": 121361876877,
+            "name": "containers (shipment)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T02:05:03Z",
+            "completedAt": "2026-10-26T02:06:24Z"
+          },
+          {
+            "id": 121361876890,
+            "name": "dotnet-tests (microservices/shipment-service/ShipmentService.sln)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T02:05:03Z",
+            "completedAt": "2026-10-26T02:06:00Z"
+          },
+          {
+            "id": 121361876901,
+            "name": "dotnet-tests (tests/EventReliability.Tests/EventReliability.Tests.csproj)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T02:05:03Z",
+            "completedAt": "2026-10-26T02:05:52Z"
+          },
+          {
+            "id": 121361876917,
+            "name": "containers (auth)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T02:05:03Z",
+            "completedAt": "2026-10-26T02:06:02Z"
+          },
+          {
+            "id": 121361876919,
+            "name": "containers (tracking)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T02:05:03Z",
+            "completedAt": "2026-10-26T02:06:21Z"
+          },
+          {
+            "id": 121361876932,
+            "name": "source-security",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T02:05:03Z",
+            "completedAt": "2026-10-26T02:05:43Z"
+          },
+          {
+            "id": 121361876936,
+            "name": "format-and-workflow-lint",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T02:05:03Z",
+            "completedAt": "2026-10-26T02:05:14Z"
+          },
+          {
+            "id": 121361876942,
+            "name": "r2-terraform-contracts (iam)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T02:05:03Z",
+            "completedAt": "2026-10-26T02:05:19Z"
+          },
+          {
+            "id": 121361876947,
+            "name": "regression-tests (lifecycle)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T02:05:18Z",
+            "completedAt": "2026-10-26T02:10:18Z"
+          },
+          {
+            "id": 121361876949,
+            "name": "helm-and-release-metadata",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T02:05:19Z",
+            "completedAt": "2026-10-26T02:05:50Z"
+          },
+          {
+            "id": 121361876965,
+            "name": "postgres-r5-reliability",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T02:05:22Z",
+            "completedAt": "2026-10-26T02:07:21Z"
+          },
+          {
+            "id": 121361876967,
+            "name": "r2-terraform-contracts (authorizer-secrets)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T02:05:03Z",
+            "completedAt": "2026-10-26T02:05:18Z"
+          },
+          {
+            "id": 121361876970,
+            "name": "postgres-r3-permissions",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T02:05:16Z",
+            "completedAt": "2026-10-26T02:05:47Z"
+          },
+          {
+            "id": 121361876988,
+            "name": "r2-terraform-contracts (event-encryption)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T02:05:03Z",
+            "completedAt": "2026-10-26T02:05:20Z"
+          },
+          {
+            "id": 121361876997,
+            "name": "r2-terraform-contracts (management-host)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T02:05:03Z",
+            "completedAt": "2026-10-26T02:05:20Z"
+          },
+          {
+            "id": 121361877006,
+            "name": "r2-terraform-contracts (eventbridge)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T02:05:03Z",
+            "completedAt": "2026-10-26T02:05:20Z"
+          },
+          {
+            "id": 121361877034,
+            "name": "r2-terraform-contracts (apigateway-integration)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T02:05:03Z",
+            "completedAt": "2026-10-26T02:05:19Z"
+          },
+          {
+            "id": 121361877035,
+            "name": "r2-terraform-contracts (s3)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T02:05:03Z",
+            "completedAt": "2026-10-26T02:05:21Z"
+          },
+          {
+            "id": 121361877040,
+            "name": "r2-terraform-contracts (vpc)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T02:05:22Z",
+            "completedAt": "2026-10-26T02:05:38Z"
+          },
+          {
+            "id": 121361877042,
+            "name": "r2-terraform-contracts (observability)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T02:05:03Z",
+            "completedAt": "2026-10-26T02:05:22Z"
+          },
+          {
+            "id": 121361877043,
+            "name": "r2-terraform-contracts (nat-egress)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T02:05:03Z",
+            "completedAt": "2026-10-26T02:05:22Z"
+          },
+          {
+            "id": 121361877044,
+            "name": "r2-terraform-contracts (private-cd)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T02:05:21Z",
+            "completedAt": "2026-10-26T02:05:39Z"
+          },
+          {
+            "id": 121361877049,
+            "name": "r2-terraform-contracts (runtime-secrets)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T02:05:22Z",
+            "completedAt": "2026-10-26T02:05:36Z"
+          },
+          {
+            "id": 121361877050,
+            "name": "r2-terraform-contracts (apigateway-core)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T02:05:40Z",
+            "completedAt": "2026-10-26T02:05:56Z"
+          },
+          {
+            "id": 121361877055,
+            "name": "r2-terraform-contracts (lambda)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T02:05:21Z",
+            "completedAt": "2026-10-26T02:05:53Z"
+          },
+          {
+            "id": 121361877057,
+            "name": "dotnet-tests (microservices/auth-service/AuthService.sln)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T02:05:23Z",
+            "completedAt": "2026-10-26T02:06:15Z"
+          },
+          {
+            "id": 121361877071,
+            "name": "r2-terraform-contracts (rds)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T02:05:24Z",
+            "completedAt": "2026-10-26T02:05:40Z"
+          },
+          {
+            "id": 121361877082,
+            "name": "regression-tests (platform)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T02:05:03Z",
+            "completedAt": "2026-10-26T02:05:41Z"
+          },
+          {
+            "id": 121361877089,
+            "name": "r2-terraform-contracts (nat)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T02:05:22Z",
+            "completedAt": "2026-10-26T02:05:38Z"
+          },
+          {
+            "id": 121361877094,
+            "name": "r2-terraform-contracts (ecr)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T02:05:37Z",
+            "completedAt": "2026-10-26T02:05:54Z"
+          },
+          {
+            "id": 121361877097,
+            "name": "r2-terraform-contracts (sqs)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T02:05:03Z",
+            "completedAt": "2026-10-26T02:05:17Z"
+          },
+          {
+            "id": 121361877600,
+            "name": "r2-terraform-contracts (eks)",
+            "conclusion": "success",
+            "startedAt": "2026-10-26T02:05:39Z",
+            "completedAt": "2026-10-26T02:05:58Z"
+          },
+          {
+            "id": 121361877993,
+            "name": "pull-request-policy",
+            "conclusion": "skipped",
+            "startedAt": "2026-10-26T02:05:01Z",
+            "completedAt": "2026-10-26T02:05:01Z"
+          }
+        ],
+        "missingMetadata": "Null fields were not captured in the selected receipts; do not infer PR test-merge/checkout SHA from head or squash SHA"
+      }
+    ],
+    "externalGitGuardianCheck": "PR96 final receipt records a successful extra check; per-check raw metadata not in selected JSON"
+  },
+  "build18": {
+    "observedAtUtc": "2026-10-26T00:54:45.972Z",
+    "run": {
+      "conclusion": "success",
+      "created_at": "2026-10-25T01:07:22Z",
+      "event": "workflow_dispatch",
+      "head_branch": "main",
+      "head_repository": "Kendall04/cloud-native-platform-eks",
+      "head_sha": "7879d5eb4b9212344c9634f88918b146bfd8140c",
+      "html_url": "https://github.com/Kendall04/cloud-native-platform-eks/actions/runs/40149377641",
+      "id": 40149377641,
+      "name": "Build SHA Images",
+      "path": ".github/workflows/build-sha-images.yml",
+      "repository": "Kendall04/cloud-native-platform-eks",
+      "run_attempt": 1,
+      "run_number": 18,
+      "run_started_at": "2026-10-25T01:07:22Z",
+      "status": "completed",
+      "updated_at": "2026-10-25T01:14:12Z",
+      "workflow_id": 306417399
+    },
+    "workflowFileCommit": null,
+    "testedCheckoutSha": null,
+    "actor": null,
+    "imageArtifactMetadata": [
+      {
+        "id": 12582402653,
+        "name": "image-tracking-7879d5eb4b9212344c9634f88918b146bfd8140c",
+        "sha256Digest": "sha256:fafedae520b3639d57cc4ed083677cd4f33f775da7a4f1cb7283861235582ec8",
+        "expiresAt": "2027-01-23T01:07:23Z",
+        "expiredAtObservation": false,
+        "headSha": "7879d5eb4b9212344c9634f88918b146bfd8140c",
+        "runId": 40149377641
+      },
+      {
+        "id": 12581772100,
+        "name": "image-auth-7879d5eb4b9212344c9634f88918b146bfd8140c",
+        "sha256Digest": "sha256:5f865b2bc0f575e4f56052dfda234a8b5ead834d6ac65f8102f5595fd9c86031",
+        "expiresAt": "2027-01-23T01:07:23Z",
+        "expiredAtObservation": false,
+        "headSha": "7879d5eb4b9212344c9634f88918b146bfd8140c",
+        "runId": 40149377641
+      },
+      {
+        "id": 12581412273,
+        "name": "image-shipment-7879d5eb4b9212344c9634f88918b146bfd8140c",
+        "sha256Digest": "sha256:32374512d4084e4ea0098bf4a6755390bc8f3f3184e05b39ca84261fe145fa25",
+        "expiresAt": "2027-01-23T01:07:23Z",
+        "expiredAtObservation": false,
+        "headSha": "7879d5eb4b9212344c9634f88918b146bfd8140c",
+        "runId": 40149377641
+      }
+    ],
+    "limit": "Success on main7879 is not proof for a new SHA; current expiry/download availability not verified"
+  },
+  "workflowStates": {
+    "observedAtUtc": "2026-10-27T00:18:16.1806784Z",
+    "states": [
+      {
+        "name": "Build SHA Images",
+        "path": ".github/workflows/build-sha-images.yml",
+        "state": "disabled_manually"
+      },
+      {
+        "name": "Create Release",
+        "path": ".github/workflows/create-release.yml",
+        "state": "disabled_manually"
+      },
+      {
+        "name": "Deploy Platform",
+        "path": ".github/workflows/deploy-platform.yml",
+        "state": "disabled_manually"
+      },
+      {
+        "name": "Validate",
+        "path": ".github/workflows/validate.yml",
+        "state": "active"
+      }
+    ],
+    "freshness": "FRESH_GH_READ_20261027"
+  },
+  "localChange": {
+    "validator": "scripts/validation/validate_r4.py",
+    "tests": "scripts/validation/test_r4.py",
+    "newTestMethods": 4,
+    "newGuards": [
+      "manual-only AWS workflow triggers",
+      "exact pre-OIDC source ref gates",
+      "closed workflow/job token permissions",
+      "closed AWS job inventory",
+      "Build uses existing local reusable Validate"
+    ],
+    "workflowOrIamMutation": false,
+    "liveIamOrOidcAcceptance": false
+  },
+  "localQualification": {
+    "testsRun": 87,
+    "passed": 84,
+    "skipped": 3,
+    "failures": 0,
+    "errors": 0,
+    "skips": "Existing Windows-only skips for three Bash branch/commit policy behavioral cases; no new skips",
+    "groups": [
+      "test_ci_v2",
+      "test_frontend_ci",
+      "test_r4"
+    ],
+    "execution": "Existing cached Python dependencies and Helm templates; clients/network blocked; no installation or TEMP/ACL changes",
+    "logSha256": "81dc08c84df83aca99316a1db533131bf55c2c8ee263bb91c4066d993274c679"
+  },
+  "unchangedSources": [
+    {
+      "path": ".github/workflows/validate.yml",
+      "sha256": "bbaa3e00818263cfa74f32e4d8f8b1f001e3366dae69b12e7018126d351e4925",
+      "changed": false
+    },
+    {
+      "path": ".github/workflows/build-sha-images.yml",
+      "sha256": "2364ec565ff5f751c8a192d70de074c8da664d7f2104eb13f22a4fbca8b4c065",
+      "changed": false
+    },
+    {
+      "path": ".github/workflows/create-release.yml",
+      "sha256": "a37fd06fe4828b80eba896e0244c68de53d8f873ac74cb3854143dd4d8711276",
+      "changed": false
+    },
+    {
+      "path": ".github/workflows/deploy-platform.yml",
+      "sha256": "d479ddece830f2a1c9456e7f7a4011be3387925a90f9db8b75d4df245bf4c745",
+      "changed": false
+    },
+    {
+      "path": ".github/dependabot.yml",
+      "sha256": "edb57545f19beb66671f308a50b419e8935e023dc116800a9ead1111902356dc",
+      "changed": false
+    },
+    {
+      "path": "infra/modules/private-cd/main.tf",
+      "sha256": "a8b42f92f519b4d08946106e63fc599b5b3aec0daf857cf3d1c9ef651491f965",
+      "changed": false
+    },
+    {
+      "path": "infra/modules/management-host/deployer/engine.py",
+      "sha256": "3ebe9efda84accb77adbc5cd4ea8ec8604d8599eff03e256eee6981f37989485",
+      "changed": false
+    },
+    {
+      "path": "infra/modules/management-host/deployer/executor.py",
+      "sha256": "c451099ecc069ea4a22a45a7ebc2b6ae33eb7b08f5baf9a6e47bbcde6e376508",
+      "changed": false
+    }
+  ],
+  "evidenceSources": [
+    {
+      "name": "PR96-FINAL-20261026.txt",
+      "sha256": "a8078448dadd117df73081648ae644958b46b4b1c80547d3d32f8fa474fd6769"
+    },
+    {
+      "name": "github-authenticated-readonly-20261026.json",
+      "sha256": "63ca9dd9057ac2080350ae333c53d5bfd7704de6ce2d149c79512de78f8eb0f3"
+    },
+    {
+      "name": "pr96-cumulative-budget-3runs.json",
+      "sha256": "8d23a7e5c57bf479f2693d77f10ed6d54c23ad355bad324db82455177f86bf3e"
+    }
+  ],
+  "remaining": [
+    "Publish only this four-file feature branch as a DRAFT PR to develop and observe exact-SHA checks within the fresh maximum-three-Validate/USD1.25 grant",
+    "Store actual new run/checkout/job/cost observations outside the committed source ledger to avoid a self-referential evidence commit loop",
+    "Do not merge or mark ready automatically; user review and any later publication/merge decision remain separate",
+    "Real CD remains open: no AWS/deploy/IAM/OIDC/security settings or teardown authorization is granted"
+  ],
+  "cloudCalls": 0,
+  "githubMutations": 0,
+  "paidActionsStarted": 0,
+  "teardownCodeModified": false,
+  "localIntegration": {
+    "baseSha": "bacc91e633d2edf9736cbfe93ee26fd99442463f",
+    "baseTree": "fe3c8176aa5190cf2aade57c928b8003e953b639",
+    "headMode": "FEATURE_BRANCH",
+    "originalPatchSha256": "8603c6cc0fcafe65c2fdc047c2ef1026e98b00da3c96e1662bc2ea549eb6a1e3",
+    "patchCheck": "PASS",
+    "patchApplied": true,
+    "gitDiffCheck": "PASS for tracked diff; new JSON normalized to LF",
+    "newGitRepositoryCreated": false,
+    "mainRelationship": {
+      "recordedMain": "7879d5eb4b9212344c9634f88918b146bfd8140c",
+      "mergeBase": "ef0061fe5d7b5939d5e7df48ca81f997bd9b8efe",
+      "localHistoryCommitsAfterMain": 55,
+      "changedFilesAtBaseVersusMain": 29,
+      "limit": "Local object comparison only; not a fresh remote observation"
+    },
+    "recordedPr96Squash": "bacc91e633d2edf9736cbfe93ee26fd99442463f",
+    "pr96Relationship": "Fresh base is the actual PR96 squash SHA; source tree equals the prior tested candidate"
+  },
+  "proposedCiOnlyBudget": {
+    "approved": true,
+    "actionsTriggered": 0,
+    "scope": "One DRAFT feature PR to develop and validation only; NO merge, Build/Release/Deploy, AWS, settings or new repository",
+    "maximumValidateRuns": 3,
+    "normalRuns": 1,
+    "oneCorrectionRunIncluded": false,
+    "observedRoundedRunnerMinutesPerRun": [
+      44,
+      46,
+      44
+    ],
+    "linuxX64RateUsdPerMinute": 0.006,
+    "estimatedRunnerUsdPerRunRange": [
+      0.264,
+      0.276
+    ],
+    "normalTwoRunUpperEstimateUsd": 0.552,
+    "threeRunUpperEstimateUsd": 0.828,
+    "proposedCeilingUsd": 1.25,
+    "includes": "Duration margin and small artifact-storage reserve; no reset/increase to account billing settings",
+    "currentAccountBalance": "UNKNOWN",
+    "limit": "Fresh USD1.25 incremental phase grant; estimates are not invoices or a guaranteed hard stop. Shared balance cannot be read without an additional user scope, which was not requested.",
+    "pricingSource": "https://docs.github.com/en/billing/reference/actions-runner-pricing",
+    "storageSource": "https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions",
+    "maximumCorrectionRunsWithinCap": 2,
+    "approvalVerifiedAtUtc": "2026-10-27T00:11:37Z",
+    "mergeAuthorized": false
+  },
+  "integratedQualification": {
+    "testsRun": 87,
+    "passed": 84,
+    "skipped": 3,
+    "failures": 0,
+    "errors": 0,
+    "uniqueTestIdentities": 87,
+    "exportAndWorktreeRunsNotAddedTogether": true,
+    "projectModuleRootsVerified": true,
+    "logSha256": "ef73006425c17f83762b3fa72e275ff2444d430f521dae467ae47f50ef20621c",
+    "documentation": {
+      "markdownFiles": 51,
+      "linksAndAnchors": 392,
+      "mermaidBlocks": 5,
+      "status": "PASS"
+    },
+    "currentTreeSecretScan": {
+      "textFiles": 789,
+      "findings": 0,
+      "historyScanned": false
+    },
+    "gitDiffCheck": "PASS",
+    "execution": "After patch application in the detached linked worktree"
+  }
+}

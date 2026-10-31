@@ -1,0 +1,133 @@
+metrics-server:
+  enabled: true
+  fullnameOverride: metrics-server
+  replicas: 2
+  resources:
+    requests: {cpu: 100m, memory: 200Mi}
+    limits: {cpu: 500m, memory: 400Mi}
+  args: [] # Keep verified kubelet TLS; chart supplies secure default arguments.
+  podSecurityContext:
+    runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
+
+keda:
+  enabled: true
+  fullnameOverride: keda
+  watchNamespace: apps
+  rbac:
+    # Built-in Deployment/StatefulSet scale permissions remain in chart 2.20.2.
+    enabledCustomScaledRefKinds: false
+    scaledRefKinds: []
+  permissions:
+    operator:
+      restrict:
+        # IRSA SQS authentication does not reference application Secrets.
+        # Keep the chart's separate kube-system certificate Role intact.
+        secret: true
+  serviceAccount:
+    operator:
+      name: keda-operator
+  podIdentity:
+    aws:
+      irsa:
+        enabled: true
+        roleArn: "" # generated from Terraform IAM output, never workload role reuse
+  resources:
+    operator:
+      requests: {cpu: 100m, memory: 100Mi}
+      limits: {cpu: "1", memory: 512Mi}
+    metricServer:
+      requests: {cpu: 100m, memory: 100Mi}
+      limits: {cpu: "1", memory: 512Mi}
+    webhooks:
+      requests: {cpu: 100m, memory: 100Mi}
+      limits: {cpu: "1", memory: 512Mi}
+
+aws-load-balancer-controller:
+  enabled: true
+  fullnameOverride: aws-load-balancer-controller
+  # Static preflight placeholders. scripts/deploy-cluster-addons.sh overrides
+  # these values from Terragrunt outputs before any real cluster deployment.
+  clusterName: static-preflight-cluster
+  region: us-east-1
+  vpcId: vpc-00000000000000000
+  replicaCount: 2
+  serviceAccount:
+    create: true
+    name: aws-load-balancer-controller
+    annotations: {}
+
+cluster-autoscaler:
+  enabled: true
+  fullnameOverride: cluster-autoscaler
+  cloudProvider: aws
+  # Static preflight placeholder. scripts/deploy-cluster-addons.sh overrides
+  # this value from Terragrunt outputs before any real cluster deployment.
+  awsRegion: us-east-1
+  replicaCount: 2
+  autoDiscovery:
+    clusterName: static-preflight-cluster
+  image:
+    tag: v1.35.0
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 65534
+    runAsGroup: 65534
+    seccompProfile:
+      type: RuntimeDefault
+  containerSecurityContext:
+    allowPrivilegeEscalation: false
+    readOnlyRootFilesystem: true
+    capabilities:
+      drop: [ALL]
+  rbac:
+    create: true
+    clusterScoped: true
+    serviceAccount:
+      create: true
+      name: cluster-autoscaler
+      annotations: {}
+  extraArgs:
+    balance-similar-node-groups: "true"
+    expander: least-waste
+    skip-nodes-with-system-pods: "false"
+
+external-secrets:
+  enabled: true
+  fullnameOverride: external-secrets
+  installCRDs: true
+  podSecurityContext:
+    enabled: true
+    runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
+  webhook:
+    podSecurityContext:
+      enabled: true
+      runAsNonRoot: true
+      seccompProfile:
+        type: RuntimeDefault
+  certController:
+    podSecurityContext:
+      enabled: true
+      runAsNonRoot: true
+      seccompProfile:
+        type: RuntimeDefault
+    rbac:
+      create: false # parent chart supplies narrowly scoped certificate RBAC
+  scopedNamespace: apps
+  scopedRBAC: true
+  processClusterGenerator: false
+  processClusterPushSecret: false
+  rbac:
+    serviceAccountTokenCreate: false
+    servicebindings:
+      create: false
+  processClusterStore: false
+  processClusterExternalSecret: false
+  processPushSecret: false
+  serviceAccount:
+    create: true
+    name: external-secrets
+    annotations: {} # populated exclusively from Terraform outputs
