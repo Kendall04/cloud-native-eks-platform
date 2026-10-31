@@ -1,5 +1,7 @@
 # Cloud Native Platform EKS
 
+[![Validate](https://github.com/Kendall04/cloud-native-eks-platform/actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/Kendall04/cloud-native-eks-platform/actions/workflows/validate.yml)
+
 A production-like engineering portfolio demonstrating a private AWS platform for three .NET 10 logistics microservices. **Logistics Platform Demo** makes the application explorable; **Architecture Explorer** explains the design and its tradeoffs.
 
 [Open Logistics Demo](https://d3ujivegzs1gn7.cloudfront.net/demo) · [Open Architecture Explorer](https://d3ujivegzs1gn7.cloudfront.net/architecture) · [Documentation](docs/README.md)
