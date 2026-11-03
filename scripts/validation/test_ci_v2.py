@@ -186,7 +186,7 @@ class WorkflowTests(unittest.TestCase):
             folder = ROOT / 'microservices' / (service + '-service')
             source = (folder / 'Dockerfile').read_text()
             self.assertIn('sdk:' + sdk + '-noble@sha256:', source)
-            self.assertRegex(source, r'aspnet:10\.0\.13-noble-chiseled-extra@sha256:[0-9a-f]{64}')
+            self.assertRegex(source, r'aspnet:10\.0\.14-noble-chiseled-extra@sha256:[0-9a-f]{64}')
             self.assertIn('restore --locked-mode', source)
             self.assertIn('--no-restore', source)
             for project in folder.rglob('*.csproj'):

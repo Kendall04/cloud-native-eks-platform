@@ -49,7 +49,7 @@ Bootstrap applies 15 core stacks interactively, installs platform resources, dep
 
 Generated `.generated/dev/environment.json` is a closed, non-secret contract derived from real Terraform outputs and account identity. Its schema checks region/account/ARN consistency; generated Helm overlays are disposable. IDs must be regenerated after replacement. Secret values remain in Secrets Manager and application releases use immutable ECR digests/S3 VersionIds.
 
-Pinned versions include Terraform 1.13.4, Terragrunt 0.93.3, .NET SDK 10.0.402, EKS 1.35, RDS PostgreSQL 15.18, Helm 4.2.2 and kubectl 1.35.0. The EKS AMI/addon versions are explicit in the live EKS stack. Chart dependencies are pinned in Chart.yaml/Chart.lock. GitHub Actions use commit SHAs. CI uses PostgreSQL 15.18; the earlier resilience/concurrency report separately records disposable local PostgreSQL 17.
+Pinned versions include Terraform 1.13.4, Terragrunt 0.93.3, .NET SDK 10.0.403, EKS 1.35, RDS PostgreSQL 15.18, Helm 4.2.2 and kubectl 1.35.0. The EKS AMI/addon versions are explicit in the live EKS stack. Chart dependencies are pinned in Chart.yaml/Chart.lock. GitHub Actions use commit SHAs. CI uses PostgreSQL 15.18; the earlier resilience/concurrency report separately records disposable local PostgreSQL 17.
 
 SDK/runtime images are digest-pinned. Some inputs remain dynamic: hosted runner/tool patch versions, Lambda's runtime-provided AWS SDK and AWS-controlled platform patches. The NAT AMI is region-specific. Check pin availability before a future deployment. Identical source does not promise byte-identical rebuilt container layers or identical AWS-generated IDs.
 

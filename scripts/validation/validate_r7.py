@@ -30,7 +30,7 @@ def validate(data):
     for path in ('docs/results.md', 'docs/evidence/lifecycle-summary.json', 'docs/architecture/current-platform.md', 'docs/architecture/infrastructure.md', 'docs/operations/deployment.md', 'docs/operations/private-cd.md', 'docs/operations/lab-cleanup.md', 'docs/operations/teardown.md', 'docs/development.md'):
         require((ROOT/path).exists(),'Missing closure documentation '+path)
     for i in range(1,5):require(any((ROOT/'docs/adr').glob(f'{i:03d}-*.md')),'Missing ADR')
-    require(json.loads((ROOT/'global.json').read_text())['sdk']=={'version':'10.0.402','rollForward':'disable','allowPrerelease':False},'SDK must match reviewed .NET10 pin')
+    require(json.loads((ROOT/'global.json').read_text())['sdk']=={'version':'10.0.403','rollForward':'disable','allowPrerelease':False},'SDK must match reviewed .NET10 pin')
     ci=yaml.safe_load(data['ci'])['jobs']
     for job in ('postgres-r3-permissions','postgres-r5-reliability'):
         require(ci[job]['services']['postgres']['image']=='postgres:15.18','Real PostgreSQL service required')

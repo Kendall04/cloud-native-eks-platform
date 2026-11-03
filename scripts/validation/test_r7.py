@@ -19,6 +19,19 @@ class ClosureTests(unittest.TestCase):
             with self.subTest(field=field), self.assertRaises(ValueError): validate(data)
 
     def test_valid(self):validate(snapshot())
+    def test_unreviewed_sdk_and_roll_forward_are_rejected(self):
+        original = Path.read_text
+        reviewed = {'version': '10.0.403', 'rollForward': 'disable', 'allowPrerelease': False}
+        for change in ({'version': '10.0.402'}, {'version': '10.0.404'},
+                       {'rollForward': 'latestPatch'}, {'allowPrerelease': True}):
+            def changed_sdk(path, *args, **kwargs):
+                if path == ROOT / 'global.json':
+                    return json.dumps({'sdk': {**reviewed, **change}})
+                return original(path, *args, **kwargs)
+            with self.subTest(change=change), patch.object(Path, 'read_text', changed_sdk):
+                with self.assertRaisesRegex(ValueError, 'SDK must match reviewed'):
+                    validate(snapshot())
+
     def test_isolated_dependabot_module_lock_update_remains_blocked(self):
         module_lock = ROOT / 'infra/modules/vpc/.terraform.lock.hcl'
         read_bytes = Path.read_bytes

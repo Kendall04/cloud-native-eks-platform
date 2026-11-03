@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:10.0.402-noble@sha256:3a48280a9a7c6276c3eeaba1efa6a08820f18c84fb9e6274c187719ecfaf9fbc AS build
+FROM mcr.microsoft.com/dotnet/sdk:10.0.403-noble@sha256:9c7b6b263d9d4c2e4718e16dae6d75cd8f4b5ccf206f1e7d48a98eb429981b03 AS build
 WORKDIR /src
 
 COPY ["Directory.Build.props", "."]
@@ -26,7 +26,7 @@ RUN dotnet publish "src/ShipmentService.Api/ShipmentService.Api.csproj" \
     /p:UseAppHost=false \
     /p:SourceRevisionId=${SOURCE_COMMIT}
 
-FROM mcr.microsoft.com/dotnet/aspnet:10.0.13-noble-chiseled-extra@sha256:6ed4a30314e8aefd56b7e7f41d2bfdefc1a7c0f967a7543ae58ac6f389fa1a40 AS final
+FROM mcr.microsoft.com/dotnet/aspnet:10.0.14-noble-chiseled-extra@sha256:1b996b356531e88e7731ba694bc0ec13e2f05d25cf833e772363db84e75e467f AS final
 WORKDIR /app
 
 ENV ASPNETCORE_URLS=http://+:8080
