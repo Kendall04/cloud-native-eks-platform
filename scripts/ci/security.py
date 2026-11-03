@@ -150,7 +150,7 @@ def main():
     parser.add_argument('--image')
     parser.add_argument('--registry-digest', help='Only a digest actually resolved after registry publication')
     parser.add_argument('--report', type=Path)
-    parser.add_argument('--output', type=Path, default=ROOT / '.validation-results/security')
+    parser.add_argument('--output', type=Path, default=ROOT / '.validation-results/security-private')
     args = parser.parse_args()
     args.output = args.output.resolve()
     if args.mode == 'validate-sbom':

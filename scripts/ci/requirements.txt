@@ -1,2 +1,3 @@
-# SBOM validation only; runtime/bootstrap dependencies remain in their own file.
+# Offline evidence/SBOM validation; runtime dependencies remain separate.
 jsonschema==4.26.0
+PyYAML==6.0.2
