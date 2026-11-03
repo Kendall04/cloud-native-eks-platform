@@ -1,32 +1,37 @@
-# Cloud Native Platform EKS
+# Cloud Native EKS Platform
 
 [![Validate](https://github.com/Kendall04/cloud-native-eks-platform/actions/workflows/validate.yml/badge.svg?branch=main)](https://github.com/Kendall04/cloud-native-eks-platform/actions/workflows/validate.yml)
 
-A production-like engineering portfolio demonstrating a private AWS platform for three .NET 10 logistics microservices. **Logistics Platform Demo** makes the application explorable; **Architecture Explorer** explains the design and its tradeoffs.
+A logistics application built to demonstrate a practical engineering problem: **how to run private services, deliver changes without exposing Kubernetes, and process asynchronous events without duplicating business effects**.
 
-[Open Logistics Demo](https://d3ujivegzs1gn7.cloudfront.net/demo) · [Open Architecture Explorer](https://d3ujivegzs1gn7.cloudfront.net/architecture) · [Documentation](docs/README.md)
+I built three .NET 10 microservices and their AWS platform, infrastructure code, delivery pipeline and interactive architecture documentation. This is a production-like portfolio lab with tested boundaries, not a production service or SLA.
 
-## What this project demonstrates
+**[Explore Logistics Demo](https://d3ujivegzs1gn7.cloudfront.net/demo) · [Architecture Explorer](https://d3ujivegzs1gn7.cloudfront.net/architecture) · [Results and evidence](docs/results.md)**
 
-- **Private workloads:** EKS, Auth/Shipment/Tracking, PostgreSQL 15.18 and scoped secret delivery through External Secrets.
-- **Public ingress:** API Gateway with a Lambda REQUEST JWT authorizer, VPC Link and an internal ALB. Services verify current identity, roles and resource ownership.
-- **Reliable events:** Tracking's transactional outbox → EventBridge → standard SQS → Shipment's durable inbox, with deduplication and sequence handling.
-- **Private delivery:** manual Build, Release and Deploy through GitHub OIDC, immutable artifacts, SSM and Helm; GitHub does not connect directly to Kubernetes.
-- **Reproducible infrastructure:** Terraform/Terragrunt, pinned dependencies, contract tests and separate ownership for runtime and static hosting.
+The public demo uses **synthetic data only**. The lab is offline after the 29 October 2026 cost-down; delivery workflows are disabled. The static frontend published on 30 October is a separately versioned release, not an automatic deployment of this repository's latest commit.
 
-## Lifecycle completed
+## What I built
 
-Real AWS trials on **28–29 October 2026** demonstrated authentication and persisted business operations, asynchronous events, private deployment, automatic rollback after a failed smoke, and ALB Pod Readiness Gates. One NAT replacement restored its EIP and route in **178 seconds**.
+| Area | Design |
+| --- | --- |
+| Application | Auth, Shipment and Tracking: .NET 10, EF Core and PostgreSQL 15.18 with separate schemas and runtime/migration users |
+| Private platform | EKS, Terraform/Terragrunt, API Gateway with Lambda REQUEST JWT authorizer, VPC Link and internal ALB |
+| Reliable events | Transactional outbox → EventBridge → standard SQS → durable inbox; stable event IDs, deduplication and sequence handling |
+| Private delivery | GitHub Actions/OIDC, immutable ECR digests and versioned S3 bundles, SSM management host and Helm; no direct GitHub-to-Kubernetes access |
+| Operations | ALB Pod Readiness Gates, ESO/Secrets Manager, scoped IRSA, KEDA/HPA and per-AZ EC2 NAT recovery |
+| Presentation | React/Vite Logistics Demo and five Archify 3.1.0 diagrams, including Security & Trust Boundaries, guided reading and a textual alternative |
 
-The lab is offline after the 29 October cost-down; AWS delivery workflows are disabled. Unlike an earlier final teardown, this cycle intentionally retained protected RDS, data, network dependencies, identities, artifacts and state. RDS was last observed stopped; automatic restart and residual storage charges require separate operational attention.
+## Lifecycle completed: demonstrated in AWS
 
-The public **DEMO — Synthetic Data** edition was published on 30 October. It uses no backend; CloudFront has no API forwarding. The AWS edition was exercised separately and explicitly returned to DEMO. These are dated observations, not live telemetry or an indefinite hosting commitment.
+The **28–29 October cycle** exercised real authentication and persisted shipments/tracking, two event sequences through outbox/inbox, private delivery of v2.0.8, and automatic Helm rollback after a failed smoke. A subsequent deployment used Readiness Gates verified against replacement pod IPs and healthy ALB targets.
 
-[Results, evidence and limits](docs/results.md) · [Architecture and service ownership](docs/architecture/current-platform.md)
+One NAT instance replacement restored its EIP and route in **178 seconds** on the controller revision installed for that trial. That result does not certify later source changes or prove uninterrupted/post-replacement private egress. The public frontend was tested through AWS and explicitly returned to DEMO without silent synthetic fallback.
+
+[Public CI evidence](docs/results.md#public-ci-3-november-2026) · [Dated AWS summary](docs/operations/eks-cycle-2026-10-29.md) · [Architecture and ownership](docs/architecture/current-platform.md) · [Design decisions](docs/adr/README.md)
 
 ## Try it locally
 
-Use Node **24.18.0** and npm **11.16.0**, from the repository root:
+Use Node **24.18.0** and npm **11.16.0**:
 
 ```sh
 cd frontend
@@ -34,10 +39,13 @@ npm ci
 npm run dev:demo
 ```
 
-Open `http://127.0.0.1:5173/demo`. No AWS credentials or database are required. The Explorer includes five Archify 3.1.0 diagrams, guided reading and a textual alternative, including **Security & Trust Boundaries**.
+Open `http://127.0.0.1:5173/demo`. No AWS credentials or database are needed.
 
-[Frontend setup](frontend/README.md) · [Development and tests](docs/development.md) · [Security](docs/security.md) · [Architecture decisions](docs/adr/README.md)
+## Limits worth knowing
 
-## Important limits
+- PostgreSQL is Single-AZ. Observed node placement A/A/C is a snapshot, not guaranteed multi-AZ availability.
+- NAT recovery does not provide demonstrated cross-AZ failover. Helm rollback does not undo database migrations.
+- CI retains documented security exceptions; green checks do not mean zero vulnerabilities. Accessibility checks do not establish full WCAG conformance.
+- Unlike an earlier final teardown, this cost-down retained protected RDS and other resources. Stopped RDS can restart automatically and retained resources still incur costs; public hosting has a finite retention window.
 
-RDS is Single-AZ. NAT recovery did not prove continuous or post-replacement private egress, nor cross-AZ failover. Helm rollback does not reverse database migrations. Automated accessibility checks do not establish complete WCAG conformance. This is a tested demonstration, not a production certification or SLA.
+[Documentation map](docs/README.md) · [Development and tests](docs/development.md) · [Security boundaries](docs/security.md) · [Report a vulnerability](SECURITY.md) · [License status](docs/README.md#license-and-third-party-attribution)

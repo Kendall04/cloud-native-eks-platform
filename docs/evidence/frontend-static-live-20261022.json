@@ -1,12 +1,10 @@
 {
+  "publicRedaction": "Editorial redaction on 2026-11-03: operator/session identifiers, private paths and state lineage omitted; dated observations and retained-resource contracts unchanged. Original record preserved privately. Git history is not erased.",
   "classification": "OWNER_APPROVED_LIVE_STATIC_DEMO_VERIFIED_NOT_EKS_RUNTIME_CERTIFICATION",
   "observedUtc": "2026-10-22T01:19:32.869487+00:00",
-  "owner": "Kendall",
   "accountId": "341936017254",
   "region": "us-east-1",
-  "principalArn": "arn:aws:iam::341936017254:user/cnp-cert-admin",
   "authorization": {
-    "parentThread": "01a15cbc-f3eb-7612-8846-dce59fafb0c2",
     "parentVerifiedOwnerReactionUtc": "2026-10-22T00:43:44Z",
     "scope": "Publish/verify ten static resources and twelve exact DEMO objects, default TLS/CSP limits accepted, existing billing USD1/30d; no EKS/PrivateCD IAM or USD25 cycle approval"
   },
@@ -424,8 +422,6 @@
   },
   "privateState": {
     "keptOutsideGit": true,
-    "executionDirectory": "C:/Users/PC/Documents/Codex/2026-10-21/task-2/eks-hosting-live-20261022",
-    "lineage": "b6f5e1ce-16e4-40ab-e604-2a3c30d7ce11",
     "serial": 13,
     "sha256": "1e9444ade4c0e99dca47a3efe9eebb8c4a9bda7308e05aefd4820d52662a6613"
   },

@@ -16,15 +16,21 @@
 | Kubernetes workload | Non-root containers, dropped capabilities, seccomp, no privilege escalation; proposed read-only roots with bounded scratch | Hardening requires a reviewed Private CD contract update before integration; namespace deployer can access Helm release Secrets |
 | NetworkPolicy | VPC CNI policies select runtime pods, limit DB/DNS/internal HTTP and public HTTPS | Standard startup window; broad HTTPS egress; unselected/host-network pods not universally isolated |
 | Delivery | OIDC, versioned hashed artifacts, fixed SSM executor, allowlisted Kubernetes kinds | Executor is privileged within apps; not an untrusted tenant sandbox |
-| Cleanup | Exact inventory/plan/approval, persisted intent, dependency/residual barriers | Helm has no release-wide UID CAS; external actors still require an exclusive operator window |
+| Cleanup | Reviewed native plans, verified ownership, controller-aware ordering and explicit retentions | The manual runbook requires an exclusive operator window and independent absence checks; it is not an autonomous teardown guarantee |
 
 The event CMK is shared by source and both failure queues. EventBridge has a service key-policy grant; queue policies independently restrict SendMessage to the intended rule. The service grant is broader than one rule. Tracking only publishes to the bus; Shipment gets queue/decrypt access; KEDA reads metrics without message decryption. See [ADR-001](adr/001-event-encryption.md).
+
+## Public CI security evidence: 3 November 2026
+
+The [public CI runs and security PRs](results.md#public-ci-3-november-2026) passed source, final-image and regression gates. Raw Helm renders can contain generated TLS private keys, so they remain in the private analysis workspace. Only a closed-schema, allowlisted `security-evidence.json` passes to Actions artifacts, after inspection for private or encoded material. Scanner failures still fail CI; safe diagnostics do not convert a failed scan into PASS.
+
+Four earlier public `source-security` artifacts containing ephemeral Helm-generated TLS keys were removed. Their runs remain as history; deletion cannot invalidate copies already downloaded. There is no evidence that those keys were installed in AWS. Current summaries retain nine scoped exceptions and advisory findings rather than claiming zero vulnerabilities. See [artifact publication controls](development.md#public-security-artifacts) and the [vulnerability reporting policy](../SECURITY.md).
 
 ## Reliability mechanisms
 
 Tracking atomically commits events/outbox. Dispatcher leases, retry state and stable IDs survive restarts; Shipment row locking, inbox and per-aggregate sequences protect effects under duplicates/reordering. This is at-least-once delivery with idempotent processing, not exactly-once transport. Separate delivery/processing DLQs and retained outbox rows support reviewed recovery.
 
-Auth/Tracking CPU HPAs (2–4), Shipment KEDA (2–6), Cluster Autoscaler, startup/readiness/liveness probes, PDB maxUnavailable 1 and soft topology spread address selected load/disruption conditions. PDBs govern voluntary eviction; they do not stop every crash or AZ failure. Soft spread does not force replicas into all AZs. A single NAT ASG replacement restored its EIP and route in 178 seconds; this is not a failover SLA or proof of post-replacement private egress. Single-AZ RDS remains a central availability limit.
+Auth/Tracking CPU HPAs (2–4), Shipment KEDA (2–6), Cluster Autoscaler, startup/readiness/liveness probes, PDB maxUnavailable 1 and soft topology spread address selected load/disruption conditions. PDBs govern voluntary eviction; they do not stop every crash or AZ failure. Soft spread does not force replicas into all AZs. The NAT revision installed for the 28–29 October cycle restored an EIP and route in 178 seconds; this is not validation of later controller code, a failover SLA or proof of post-replacement private egress. Single-AZ RDS remains a central availability limit.
 
 CloudWatch includes structured JSON logs, EMF application/outbox metrics, managed observability, a dashboard and alarms. Alarm actions/human delivery are configuration-dependent. There is no demonstrated complete distributed tracing/SLO platform or production on-call service.
 
@@ -62,7 +68,7 @@ The 16 remaining HIGH occurrences are reported without filtering in the evidence
 
 These SDK results are outside the original 83-exception adoption scope and the source/final-image CI gate. No SDK exceptions were introduced and no scanner finding was converted into an accepted baseline entry. The existing CI must not be described as scanning every build-stage tool. Ephemeral PR runners have read-only repository permissions and no AWS identity; that limits exposure without eliminating the underlying tooling issue.
 
-Raw reports, policy decisions, CycloneDX 1.7 SBOM and tool/image metadata are retained as local validation output and PR Actions artifacts. Local builds explicitly record dirty-tree status; GitHub artifacts identify the committed PR revision. SBOM image IDs identify local builds, not unpublished ECR digests.
+At that historical checkpoint, raw reports, policy decisions, CycloneDX 1.7 SBOM and tool/image metadata were retained as local validation output and PR Actions artifacts. Current public uploads instead follow the restricted publication boundary above. Local builds explicitly record dirty-tree status; GitHub artifacts identify the committed PR revision. SBOM image IDs identify local builds, not unpublished ECR digests.
 
 ## Residual hardening proposal and integration boundary
 
@@ -89,18 +95,17 @@ The HIGH exceptions retain EKS default-encryption applicability, Auth's numeric 
 
 The executor policy and manifest requirement advance from 1.3.0 to 1.4.0 because the scratch/read-only policy changes the installed contract. A future rebuilt host must install the matching policy; old bundles/hosts are not silently interchangeable. The bootstrap retains the 16 KiB EC2 user-data limit. Exact archive membership rejects unpinned CRDs or other chart files even when outer checksums are recomputed. Exact Pod/container contexts also prevent values from dropping `drop: ALL`, disabling seccomp or changing scratch mounts. Tests preserve the prior rejection of arbitrary templates, wrong pins, unknown construction, stale plans/approvals and manipulated journals. No live AWS behavior or general absence of bypasses is claimed.
 
-
 | Verification boundary | Evidence / next checks |
 | --- | --- |
 | VERIFIED LOCALLY | 801 Python cases (one declared PostgreSQL skip covered separately), 158 .NET tests with PostgreSQL 15.18, 10 authorizer tests, 64 focused contracts including 46 R4 tests; prior disposable kind and read-only-container checks described above. |
-| VERIFIED IN GITHUB ACTIONS | [PR #56](https://github.com/Kendall04/cloud-native-platform-eks/pull/56) and its recorded [34-job validated revision](https://github.com/Kendall04/cloud-native-platform-eks/actions/runs/38699102731). Integration requires fresh Validate on develop, its promotion PR and the resulting main. Inspect each exact run; local tests do not substitute for hosted checks. |
+| VERIFIED IN GITHUB ACTIONS (historical private repository) | [PR #56](https://github.com/Kendall04/cloud-native-platform-eks/pull/56) and its recorded [34-job validated revision](https://github.com/Kendall04/cloud-native-platform-eks/actions/runs/38699102731). Integration requires fresh Validate on develop, its promotion PR and the resulting main. Inspect each exact run; local tests do not substitute for hosted checks. |
 | REQUIRES LIVE AWS | NAT bootstrap/replacement/EIP and egress in every AZ (including previously untested A); RDS TLS/migration/runtime access without general egress; Management bootstrap/SSM; Private CD 1.4.0 rollout/rollback; KEDA/SQS/IRSA and HPA; Autoscaler/LBC/metrics-server; ESO AWS sync/certificate rotation; application/addon contexts and migration Jobs; the full guarded lifecycle/teardown. |
 
 The final integration is tracked through PR #56 and the subsequent `develop` → `main` promotion. Historical pre-merge statuses in the evidence file describe their recorded revisions; they do not authorize future deployment or teardown. The lab remains offline.
 
 ## .NET maintenance boundary
 
-The security hardening was integrated on .NET 8 before the separate runtime migration. Microsoft's [.NET support policy](https://dotnet.microsoft.com/en-us/platform/support/policy/dotnet-core) places .NET 8 end of support on 10 November 2026 and .NET 10 LTS end of support on 14 November 2028. The local migration below addresses that boundary; the historical AWS lifecycle remains a .NET 8 result.
+The security hardening was integrated on .NET 8 before the separate runtime migration. Microsoft's [.NET support policy](https://dotnet.microsoft.com/en-us/platform/support/policy/dotnet-core) places .NET 8 end of support on 10 November 2026 and .NET 10 LTS end of support on 14 November 2028. The local migration below addresses that boundary; the 14 October AWS lifecycle remains a .NET 8 result. The separate 24 and 28–29 October results used .NET 10; the later trials must not be attributed to that older revision.
 
 The migration coordinates SDK, ASP.NET Core, EF Core and Npgsql without unrelated major upgrades to AWS SDK, Swashbuckle or xUnit. The Node.js authorizer and Python NAT handlers are unchanged. Local checks cover HTTP/event contracts, database compatibility, containers and security. Hosted Validate passed on the recorded PR revision; the later live deployment and rollback are recorded separately in the dated results.
 

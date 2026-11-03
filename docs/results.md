@@ -2,6 +2,21 @@
 
 [Overview](../README.md) · [Architecture](architecture/current-platform.md) · [Security](security.md)
 
+## Public CI: 3 November 2026
+
+These checks are publicly inspectable in **this repository**, independent of the private AWS development history:
+
+| Evidence | Event and exact result |
+| --- | --- |
+| [Security fix PR #1](https://github.com/Kendall04/cloud-native-eks-platform/pull/1) / [Validate](https://github.com/Kendall04/cloud-native-eks-platform/actions/runs/41690977879) | Automatic `pull_request`, 34/34 jobs successful |
+| [Develop validation](https://github.com/Kendall04/cloud-native-eks-platform/actions/runs/41697023941) | Automatic `push`, commit `4644b4c0eea52a06f0dbb8c98d00e5b44367efc2`; 33 technical jobs successful, only PR policy skipped by design |
+| [Promotion PR #2](https://github.com/Kendall04/cloud-native-eks-platform/pull/2) / [Validate](https://github.com/Kendall04/cloud-native-eks-platform/actions/runs/41697714920) | Automatic `pull_request`, 34/34 jobs successful; GitGuardian passed |
+| [Main validation](https://github.com/Kendall04/cloud-native-eks-platform/actions/runs/41698841467) | Automatic `push`, commit `d4d676e2812934033fab7a4515b480b8cbadfdf0`; 33 technical jobs successful, only PR policy skipped by design |
+
+The runs include .NET, real disposable PostgreSQL 15.18 permissions/reliability tests, Python, frontend/Playwright/accessibility, container scans, Helm/Private CD contracts and Terraform/Terragrunt checks. They do **not** deploy AWS. Build SHA Images, Create Release and Deploy Platform are manual delivery workflows and remain disabled after cost-down.
+
+The security correction keeps complete rendered Helm/scanner inputs private and publishes only validated `security-evidence.json` summaries. The four security artifacts from the main run were downloaded and inspected: findings and exceptions were preserved, with no rendered manifests. The source report retained 139 occurrences (10 accepted under nine existing exceptions, 129 advisory); each final-image report retained three advisories. This is not a zero-vulnerability claim. Actions artifacts have finite retention; run/job records and source tests remain the public references.
+
 ## Latest completed cycle: 28–30 October 2026
 
 | Capability | Demonstrated scope |
@@ -10,7 +25,7 @@
 | Events | Two sequences correlated through Tracking outbox, EventBridge, SQS and Shipment inbox with persisted effects |
 | Private CD | Manual Build → Release → Deploy; v2.0.8 reached Helm revision 4. A previous HTTP 504 smoke triggered verified automatic rollback |
 | ALB convergence | Readiness Gates verified against the actual replacement pod IPs and healthy ALB targets |
-| NAT replacement | Stable EIP and private route restored in 178 seconds; post-replacement private egress remained UNVERIFIED |
+| NAT replacement | Stable EIP and private route restored in 178 seconds on the installed cycle revision; later controller source is not certified by that drill. Post-replacement private egress remained UNVERIFIED |
 | Browser integration | Real CloudFront → API Gateway → EKS/PostgreSQL trial, followed by explicit AWS → DEMO return without silent data fallback |
 | Retirement | Runtime cost-down completed 29 October at 20:50 Costa Rica, retaining protected RDS, its network, historical identities, evidence and independent hosting |
 
@@ -18,7 +33,7 @@ See the [dated closure](operations/eks-cycle-2026-10-29.md) and [sanitized obser
 
 ## Static publication: 30 October 2026
 
-The final Logistics Platform Demo and five Archify diagrams were published as an explicit synthetic DEMO. Source: `fb8c0f36e07102d39562254c819b8c7d494dee70`; package SHA256: `e29381029c72eddcedec765deb61385f318d6a7d63af2697d0b78b318573818c`. Two independent builds produced identical packages. Publication verified twelve required S3 objects, with eleven conditionally created and one reused, before selecting the release through the existing routing function.
+The final Logistics Platform Demo and five Archify diagrams were published as an explicit synthetic DEMO. Source: `fb8c0f36e07102d39562254c819b8c7d494dee70`; package SHA256: `e29381029c72eddcedec765deb61385f318d6a7d63af2697d0b78b318573818c`. That source commit belongs to the original private development repository, not the current public HEAD. Subsequent documentation and CI changes do not change the hosted bytes. Two independent builds produced identical packages. Publication verified twelve required S3 objects, with eleven conditionally created and one reused, before selecting the release through the existing routing function.
 
 Public checks covered DEMO and Explorer, the selected build identity and JSON 503/no-store for `/api`, `/api/shipments` and `/api/auth/me`. The distribution retained one private S3 origin and no API forwarding. Original publication receipts, VersionIds and browser captures remain private; no fresh AWS observation is claimed by this documentation update. The earlier release remains retained for reviewed rollback.
 
@@ -99,7 +114,7 @@ The final redeploy delivery is recorded as `v2.0.7`, Helm revision 2, with actua
 | Create Release | `workflow_dispatch` | [Successful publication](https://github.com/Kendall04/cloud-native-platform-eks/actions/runs/38597648582) |
 | Deploy Platform | `workflow_dispatch` | [Successful private delivery](https://github.com/Kendall04/cloud-native-platform-eks/actions/runs/38598641855) |
 
-These links require repository access while GitHub remains private. The receipt records KUBERNETES_READY, AUTH_BACKEND_REACHABLE and EDGE_ANONYMOUS_REJECTED as PASS. Those smoke stages have a narrower scope than the functional business tests. Release/deploy were not automatically triggered by push.
+These historical links point to the original private repository and require access. They are provenance references, not the primary publicly verifiable CI evidence; use the public run table above for that. The receipt records KUBERNETES_READY, AUTH_BACKEND_REACHABLE and EDGE_ANONYMOUS_REJECTED as PASS. Those smoke stages have a narrower scope than the functional business tests. Release/deploy were not automatically triggered by push.
 
 Read-only GitHub inspection on 14 October 2026 confirmed all three delivery workflows `disabled_manually`, Validate active and repository visibility private. Definitions remain versioned for reconstruction; no workflow was reactivated during documentation work.
 
@@ -110,6 +125,8 @@ S3 state versions and the DynamoDB lock/checksum table were retained for evidenc
 The delayed Cost Explorer total was approximately USD 12.38 **for the whole account, including other labs**. Exact project spend was not determinable. The report's USD 7.43 scenario and tiny backend-storage estimate are omitted as portfolio cost claims because they depend on capacity/time/pricing assumptions and exclude charges. Retained storage/requests may still accrue costs. No zero-bill assertion is made.
 
 ## Limitations
+
+The observations in this final list belong to the **14 October historical lifecycle** above. For the 28–29 October A/A/C placement and NAT drill, use the latest-cycle section; B/C egress tests must not be transferred to the later replacement or source revision.
 
 - This is a lab, not production, a compliance assessment or an SLA. Single-AZ RDS, one management host and EC2 NAT create explicit failure/capacity limits.
 - NAT egress was tested with pods in B/C, not A. Subnets in three AZs do not prove workload placement or availability in all three.
