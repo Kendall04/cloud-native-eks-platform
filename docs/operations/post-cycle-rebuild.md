@@ -23,8 +23,8 @@ The cycle-specific local activation commit is preserved separately, not promoted
 
 ## Independent hosting and diagnostic patch
 
-The CloudFront source removes only the empty legacy `s3_origin_config.origin_access_identity`; the existing `origin_access_control_id` remains authoritative for private S3. The earlier provider/state normalization is not an origin migration. A later plan must preserve the distribution, bucket, OAC, API-disabled DEMO selection and all retained versions. No Terraform/state operation is performed by this PR.
+The CloudFront source removes only the empty legacy `s3_origin_config.origin_access_identity`; the existing `origin_access_control_id` remains authoritative for private S3. The earlier provider/state normalization is not an origin migration. A later plan must preserve the distribution, bucket, OAC, API-disabled DEMO selection and all retained versions. The source correction does not itself perform a Terraform/state operation.
 
-The local HTTP 504 diagnostic patch and its tests remain outside this PR. It preserves unexpected HTTP status without reading bodies, but changing the installed executor requires a separately reviewed bundle/hash/version and environment-contract plan. Do not update installed hashes or reuse old installation evidence automatically.
+The separate local HTTP 504 diagnostic patch and its tests were not integrated into the public source. It preserves unexpected HTTP status without reading bodies, but changing the installed executor requires a separately reviewed bundle/hash/version and environment-contract plan. Do not update installed hashes or reuse old installation evidence automatically.
 
 See [private delivery readiness](private-cd.md#alb-pod-readiness-gates), [manual cleanup](lab-cleanup.md), [NAT recovery guards](nat-recovery.md) and [independent hosting ownership](../../infra/portfolio/frontend-static/README.md). Historical absence statements in those documents are not a new inventory. Existing AWS delivery workflows must remain disabled until separately authorized.

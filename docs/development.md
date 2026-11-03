@@ -41,6 +41,8 @@ Generated output, source caches, private evidence and state stay ignored. Preser
 
 ## CI V2
 
+[Public CI evidence](results.md#public-ci-3-november-2026) records automatic PR and push runs in this repository. Links to the original repository below are explicitly historical/private provenance, not the primary public validation record.
+
 `Validate` runs on PRs targeting `develop`/`main`, pushes to those branches, and reusable calls. It has read-only repository permission and no AWS identity. PR validations superseded by a new commit can be cancelled. AWS image publication is now manual-only; Build, Release and Deploy remain disabled in GitHub after teardown. No source change enables those workflows remotely.
 
 The existing .NET, PostgreSQL, authorizer, Terraform and Helm gates remain required workflow jobs. Regression discovery is partitioned into two exhaustive, disjoint families (`platform` and `lifecycle`) instead of one serial step. Run both locally with `python3 scripts/ci/regressions.py all`. A PostgreSQL-dependent skip in ordinary Python discovery remains explicit; the separate required PostgreSQL jobs reject skipped integration tests. TRX and security artifacts are retained for 14 days in Actions.
