@@ -1,5 +1,7 @@
 # Human-started temporary Windows-to-Linux authentication
 
+Historical preparation record from October 2026; its authorization window has expired. Personal filesystem and SSH labels below were replaced with explicit placeholders during the 3 November editorial review. They are not claims of a new execution, and the source identity guards were not changed.
+
 Prepared only. **No session token has been generated or transferred during preparation.** This procedure resumes only the already approved EKS scope, account `341936017254`, profile `cnp-cert-dev`. It does not authorize ECS, another profile, a longer window or additional AWS resources. See [the execution checkpoint](current-profile-aws-validation.md).
 
 ## One human-started command
@@ -7,7 +9,8 @@ Prepared only. **No session token has been generated or transferred during prepa
 Kendall runs this in his normal Windows PowerShell terminal after inspecting the two source files:
 
 ```powershell
-& 'C:\proyectos\cloud-native-platform-eks\scripts\operations\Start-CnpEksTemporarySession.ps1'
+# From the reviewed repository root; this historical procedure is not authorization.
+& '.\scripts\operations\Start-CnpEksTemporarySession.ps1'
 ```
 
 Keep that terminal open until the authorized AWS runtime has been retired. No execution-policy bypass, administrator prompt, pasted access key or credential file copy is involved. The script outputs only verified account, caller ARN and credential expiration when ready.
@@ -18,7 +21,7 @@ This MFA prerequisite is essential: [GetSessionToken without MFA cannot perform 
 
 ## Preparation before the token request
 
-SSH uses the existing `C:\Users\PC\.ssh\config`, BatchMode and StrictHostKeyChecking=yes; no host-key changes. The Linux source must match the clean Windows commit and script hash. The user-started command performs the following local/tool preparation **before** requesting a token:
+SSH uses the existing `<WINDOWS_SSH_CONFIG>`, BatchMode and StrictHostKeyChecking=yes; no host-key changes. The Linux source must match the clean Windows commit and script hash. The user-started command performs the following local/tool preparation **before** requesting a token:
 
 - Install only source-pinned Terraform **1.13.4**, Terragrunt **0.93.3** and kubectl **1.35.0** into the EKS checkout's ignored private tools directory, verifying the exact SHA256 values recorded in source. No global installation is replaced. Reused binaries must match their verified receipt.
 - Require existing Helm **4.2.2**, Session Manager plugin and at least 3 GiB free. Preparation discovered global Linux defaults Terraform 1.15.7, Terragrunt 1.0.8 and kubectl 1.36.2; those defaults must not silently become the execution toolchain.
@@ -35,7 +38,7 @@ The tmpfs AWS config contains only `[profile cnp-cert-dev]`, region and a [crede
 The controller first verifies remote STS and publishes an ignored **non-secret** ACTIVE marker with owner, config/socket paths and expiration. The agent then resumes via the following wrapper; no credentials appear in its arguments:
 
 ```text
-ssh -F C:\Users\PC\.ssh\config -o BatchMode=yes -o StrictHostKeyChecking=yes codex-vm "cd /home/kendall/work/cloud-native-platform-eks && python3 scripts/operations/cnp_eks_temporary_session.py run -- aws --profile cnp-cert-dev --region us-east-1 sts get-caller-identity"
+ssh -F <WINDOWS_SSH_CONFIG> -o BatchMode=yes -o StrictHostKeyChecking=yes <REVIEWED_SSH_ALIAS> "cd <REVIEWED_LINUX_CHECKOUT> && python3 scripts/operations/cnp_eks_temporary_session.py run -- aws --profile cnp-cert-dev --region us-east-1 sts get-caller-identity"
 ```
 
 Use the same `run --` wrapper for Terragrunt, Terraform and their child processes, Helm/kubectl and approved repository operation scripts. It removes inherited AWS credentials/profiles/endpoints and debug settings, selects only the ephemeral profile/config, disables metadata fallback and prepends the verified private binaries. It rejects other profile/region arguments, other working directories, shell snippets, Private CD and common raw credential/Secret-output commands. The children inherit this context; their SDKs resolve credential_process normally. The source's `--profile cnp-cert-dev` remains usable; no persistent `~/.aws` profile is installed.

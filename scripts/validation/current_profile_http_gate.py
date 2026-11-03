@@ -74,7 +74,7 @@ def main():
             completed.check_returncode()
         return completed.stdout.strip()
     command('docker', 'image', 'inspect', 'postgres:15.18')
-    if command(args.dotnet, '--version') != '10.0.402': raise GateFailure('SDK does not match global.json')
+    if command(args.dotnet, '--version') != '10.0.403': raise GateFailure('SDK does not match global.json')
     password, signing, proxy_secret, internal_secret = (secrets.token_hex(32) for _ in range(4))
     sensitive.extend((password, signing, proxy_secret, internal_secret))
     processes, handles, service_envs, assemblies = {}, [], {}, {}

@@ -63,8 +63,17 @@ class CloudPreparationTests(unittest.TestCase):
             self.assertNotIn('app.kubernetes.io/instance', pod['metadata']['labels'])
             self.assertFalse(pod['spec']['automountServiceAccountToken'])
             self.assertIn('@sha256:', pod['spec']['containers'][0]['image'])
+            self.assertTrue(pod['spec']['containers'][0]['image'].startswith(
+                'mcr.microsoft.com/dotnet/sdk:10.0.403-noble@sha256:'))
             self.assertTrue(pod['spec']['containers'][0]['securityContext']['readOnlyRootFilesystem'])
         with self.assertRaises(ValueError): gate.manifests('../invalid')
+
+    def test_probe_rejects_the_previous_sdk_pin(self):
+        dockerfile = gate.ROOT / 'microservices/auth-service/Dockerfile'
+        previous = dockerfile.read_text().replace('sdk:10.0.403-noble', 'sdk:10.0.402-noble')
+        with patch.object(Path, 'read_text', return_value=previous):
+            with self.assertRaisesRegex(ValueError, 'Reviewed SDK image pin missing'):
+                gate.manifests('a' * 24)
 
     def network(self):
         return [{'runId': 'a'*24, 'source': source, 'samples': [

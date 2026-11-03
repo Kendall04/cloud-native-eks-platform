@@ -6,7 +6,7 @@
 
 ## Stack dependency reference
 
-The table includes output dependencies and ordering-only `dependencies` blocks. It is an apply DAG, not a list of simultaneously deployable units.
+The table includes output dependencies and ordering-only `dependencies` blocks. It reflects the checked-in post-cost-down configuration, not a list of simultaneously deployable units or a complete rebuild authorization.
 
 | Stack | Module | Prerequisite stacks |
 | --- | --- | --- |
@@ -24,10 +24,12 @@ The table includes output dependencies and ordering-only `dependencies` blocks. 
 | `iam` | `iam` | eks, sqs, eventbridge, event-encryption |
 | `apigateway-core` | `apigateway-core` | vpc, api-gateway-authorizer |
 | `management` | `management-host` | vpc, eks, s3, apigateway-core |
-| `rds` | `rds` | vpc, eks, management |
+| `rds` | `rds` | vpc; application ingress intentionally empty after cost-down |
 | `private-cd` | `private-cd` | management, s3, ecr |
 | `observability` | `observability` | eks, apigateway-core, rds |
 | `apigateway-integration` | `apigateway-integration` | apigateway-core, vpc; healthy LBC ALB outside Terraform |
+
+RDS currently sets `allowed_security_group_ids = []` and has no EKS/management output dependencies. Before an authorized rebuild, restore dependencies to the new owned SG outputs and review a native plan limited to TCP/5432 ingress. This is an explicit prerequisite to database bootstrap, not an implicit action of the current DAG. See [retained-state rebuild prerequisites](../operations/post-cycle-rebuild.md).
 
 The 19 module directories include the nested `nat` implementation; there are 18 live stacks. Module/provider locks are committed for Linux and Windows amd64. Mock dependency outputs support selected static commands; `output` is excluded so generated inventory cannot adopt fixtures as real resources.
 
@@ -35,11 +37,11 @@ The 19 module directories include the nested `nat` implementation; there are 18 
 
 [env.hcl](../../infra/live/dev/env.hcl) sets region/project/environment, cluster name, NAT mode, JWT issuer/audience and database name. Network CIDRs, EKS/addon pins and RDS sizing are in the corresponding live stacks. Helm defaults and the dev overlay supply application settings; generated output overlays supply environment-specific IDs. The prod Helm overlay is a validation template, not a provisioned environment.
 
-Some account dependencies are external: temporary operator roles, permissions-boundary policies and effective bootstrap/EKS access. Live EKS, management and private-CD inputs reference named `cnp-cert-*` boundary policies. [Operator policy documents](../../infra/operator-policies) are reference inputs, not automatic account bootstrap. Several bind specific retired resource IDs. Recreate authorized roles/boundaries and rebind exact new resources; copying those documents verbatim is not a portable installation procedure. The teardown guard pins reviewed construction changes, so functional reconfiguration also requires deliberate guard review.
+Some account dependencies are external: temporary operator roles, permissions-boundary policies and effective bootstrap/EKS access. Live EKS, management and private-CD inputs reference named `cnp-cert-*` boundary policies. [Operator policy documents](../../infra/operator-policies) are reference inputs, not automatic account bootstrap. Several bind specific retired resource IDs. Recreate authorized roles/boundaries and rebind exact new resources; copying those documents verbatim is not a portable installation procedure. Preserve exact ownership and permission boundaries during any separately reviewed reconstruction; the legacy teardown executor is not the current cleanup procedure.
 
 The backend naming convention includes the effective account ID. `scripts/bootstrap-terraform-backend.sh` creates/configures the backend and mutates AWS; it is not a validation script. Phase 0 only verifies it. Keep credentials, generated values, binary plans and state out of Git.
 
-Instance-mode NAT now exposes ASG slot names rather than static member IDs. The launch recovery controller owns EIP associations/private default targets; Terraform retains allocations, launch templates and ASGs. Admission defaults off, and the partially retired state requires a separately reviewed [migration](../operations/nat-recovery.md). No state reconciliation or live recovery occurred with this source change.
+Instance-mode NAT now exposes ASG slot names rather than static member IDs. The launch recovery controller owns EIP associations/private default targets; Terraform retains allocations, launch templates and ASGs. Admission defaults off, and the partially retired state requires a separately reviewed [migration](../operations/nat-recovery.md). The 28–29 October installed revision later demonstrated a single 178-second replacement. That dated result does not validate subsequent controller changes; current-source reconstruction still needs a fresh plan and explicitly authorized runtime verification.
 
 ## Reproducibility contract
 
@@ -47,7 +49,7 @@ Bootstrap applies 15 core stacks interactively, installs platform resources, dep
 
 Generated `.generated/dev/environment.json` is a closed, non-secret contract derived from real Terraform outputs and account identity. Its schema checks region/account/ARN consistency; generated Helm overlays are disposable. IDs must be regenerated after replacement. Secret values remain in Secrets Manager and application releases use immutable ECR digests/S3 VersionIds.
 
-Pinned versions include Terraform 1.13.4, Terragrunt 0.93.3, .NET SDK 10.0.402, EKS 1.35, RDS PostgreSQL 15.18, Helm 4.2.2 and kubectl 1.35.0. The EKS AMI/addon versions are explicit in the live EKS stack. Chart dependencies are pinned in Chart.yaml/Chart.lock. GitHub Actions use commit SHAs. CI uses PostgreSQL 15.18; the earlier resilience/concurrency report separately records disposable local PostgreSQL 17.
+Pinned versions include Terraform 1.13.4, Terragrunt 0.93.3, .NET SDK 10.0.403, EKS 1.35, RDS PostgreSQL 15.18, Helm 4.2.2 and kubectl 1.35.0. The EKS AMI/addon versions are explicit in the live EKS stack. Chart dependencies are pinned in Chart.yaml/Chart.lock. GitHub Actions use commit SHAs. CI uses PostgreSQL 15.18; the earlier resilience/concurrency report separately records disposable local PostgreSQL 17.
 
 SDK/runtime images are digest-pinned. Some inputs remain dynamic: hosted runner/tool patch versions, Lambda's runtime-provided AWS SDK and AWS-controlled platform patches. The NAT AMI is region-specific. Check pin availability before a future deployment. Identical source does not promise byte-identical rebuilt container layers or identical AWS-generated IDs.
 

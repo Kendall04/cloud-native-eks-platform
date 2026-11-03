@@ -2,9 +2,18 @@
 
 [Architecture](../architecture/current-platform.md) | [IaC](../architecture/infrastructure.md)
 
-This is locally tested source, not a deployed recovery or HA result. Dev admission
-defaults to **off**. No AWS changes or state reconciliation accompanied this
-implementation. The existing private CD and application pipelines are unchanged.
+## Evidence and revision boundary
+
+The [28–29 October cycle](eks-cycle-2026-10-29.md) demonstrated one replacement on
+its installed NAT revision: the stable EIP and default route recovered in
+**178 seconds**. Post-replacement private egress remained **UNVERIFIED**; neither
+continuous egress nor cross-AZ failover was demonstrated.
+
+This runbook describes the later checked-in controller implementation. Its local
+fake-SDK/configuration tests and public CI do not transfer the earlier AWS result
+to new bytes. A future rebuild requires new generation/ownership review and fresh
+runtime verification. Dev admission defaults to **off**. The runtime is retired;
+the following is a procedure, not evidence that NAT is currently deployed.
 The normal bootstrap's core-creation phase now rejects inhibited instance-mode
 NAT before AWS commands, output reads or Terragrunt execution. Read-only phase 0
 remains available. This local preflight is not cloud-side access enforcement.
@@ -113,7 +122,8 @@ The implementation borrows membership, readiness and conservative uncertainty
 handling from the ECS reference, but does not copy its two-slot constants or
 large protected security/lifecycle framework. Existing ECS evidence does not
 qualify this EKS code. Live private-subnet traffic, replacement timing and failure
-recovery remain **UNVERIFIED** after local tests.
+recovery for this source revision remain **UNVERIFIED** after local tests; the
+dated installed-revision drill above is a separate observation.
 
 ## Migration from partially retired state — plan only
 
@@ -196,4 +206,4 @@ generation inhibition, partial effects, ACK loss and safe refusal of uncertainty
 Parsed HCL tests reject capacity/IAM/ownership regressions. Terraform schema
 validation uses a disposable copy, backend disabled, readonly locks and the
 cached AWS 5.100.0 provider. No plan, apply, AWS call, Git or installation is part
-of these checks. Future GitHub CI/build evidence remains a separate task.
+of these checks. [Public Validate evidence](../results.md#public-ci-3-november-2026) covers offline tests; it does not constitute a new AWS recovery drill.

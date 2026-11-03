@@ -2,7 +2,7 @@
 
 [Documentation](README.md) · [Deployment](operations/deployment.md)
 
-Use .NET SDK 10.0.402 (`global.json` disables roll-forward), Python 3.13 and the pinned tools used in `.github/workflows/validate.yml`: Terraform 1.13.4, Terragrunt 0.93.3, Helm 4.2.2, Node 24.18.0 with npm 11.16.0 for the frontend, actionlint 1.7.12 and ShellCheck 0.11.0. The separate Lambda authorizer runtime is declared by its module; it is not the frontend build-tool version. Install Python dependencies from `scripts/bootstrap/requirements.txt` and `scripts/ci/requirements.txt`. Provider/chart/SDK downloads may need network access; local validation does not require AWS credentials.
+Use .NET SDK 10.0.403 (`global.json` disables roll-forward), Python 3.13 and the pinned tools used in `.github/workflows/validate.yml`: Terraform 1.13.4, Terragrunt 0.93.3, Helm 4.2.2, Node 24.18.0 with npm 11.16.0 for the frontend, actionlint 1.7.12 and ShellCheck 0.11.0. The separate Lambda authorizer runtime is declared by its module; it is not the frontend build-tool version. Install Python dependencies from `scripts/bootstrap/requirements.txt` and `scripts/ci/requirements.txt`. Provider/chart/SDK downloads may need network access; local validation does not require AWS credentials.
 
 ## NAT recovery checks
 
@@ -41,6 +41,8 @@ Generated output, source caches, private evidence and state stay ignored. Preser
 
 ## CI V2
 
+[Public CI evidence](results.md#public-ci-3-november-2026) records automatic PR and push runs in this repository. Links to the original repository below are explicitly historical/private provenance, not the primary public validation record.
+
 `Validate` runs on PRs targeting `develop`/`main`, pushes to those branches, and reusable calls. It has read-only repository permission and no AWS identity. PR validations superseded by a new commit can be cancelled. AWS image publication is now manual-only; Build, Release and Deploy remain disabled in GitHub after teardown. No source change enables those workflows remotely.
 
 The existing .NET, PostgreSQL, authorizer, Terraform and Helm gates remain required workflow jobs. Regression discovery is partitioned into two exhaustive, disjoint families (`platform` and `lifecycle`) instead of one serial step. Run both locally with `python3 scripts/ci/regressions.py all`. A PostgreSQL-dependent skip in ordinary Python discovery remains explicit; the separate required PostgreSQL jobs reject skipped integration tests. TRX and security artifacts are retained for 14 days in Actions.
@@ -53,7 +55,7 @@ A maintainer must inspect a security PR's actual GitHub author (`dependabot[bot]
 
 All 16 .NET projects have checked-in NuGet lockfiles. Restore defaults to locked mode in service props and the shared reliability project. CI caches NuGet by lockfiles and pip downloads by requirements. It tests already-built assemblies with `--no-build --no-restore`.
 
-The Docker SDK is 10.0.402 on Ubuntu Noble, matching `global.json`; SDK and ASP.NET Core 10.0.13 runtime images are pinned to verified linux/amd64 manifest digests. Each service context copies its project lockfiles before restore, preserving useful Docker layers. Runtime bases use Noble chiseled-extra, retaining ICU/time-zone data, CA certificates, UID 1654 and port 8080. Update SDK/tag/digest/global.json together after verifying the replacement; do not blindly accept a bot change that breaks the SDK contract.
+The Docker SDK is 10.0.403 on Ubuntu Noble, matching `global.json`; SDK and ASP.NET Core 10.0.14 runtime images are pinned to verified linux/amd64 manifest digests. Each service context copies its project lockfiles before restore, preserving useful Docker layers. Runtime bases use Noble chiseled-extra, retaining ICU/time-zone data, CA certificates, UID 1654 and port 8080. Update SDK/tag/digest/global.json together after verifying the replacement; do not blindly accept a bot change that breaks the SDK contract. The SDK 10.0.403/runtime 10.0.14 update addresses [CVE-2026-111497](https://github.com/dotnet/runtime/security/advisories/GHSA-p3jp-9v83-76w9). This is an offline build/CI remediation, not a new AWS deployment; historical October runtime evidence retains its observed versions. NuGet libraries are reviewed separately from the shared runtime and remain locked unless affected.
 
 For an intentional dependency update, regenerate locks with the reviewed SDK, then prove a locked restore:
 
@@ -69,7 +71,7 @@ Repeat for Shipment/Tracking and `tests/EventReliability.Tests/EventReliability.
 
 ### .NET 10 compatibility
 
-All 16 projects target `net10.0`: twelve production API/application/domain/infrastructure projects, three service test projects and the shared EventReliability test project. The SDK is 10.0.402; ASP.NET Core/EF Core packages use 10.0.13 and the PostgreSQL provider/driver use 10.0.3. C# remains explicitly at version 12 in service props; this migration does not adopt unrelated language features. The Node.js authorizer is unchanged.
+All 16 projects target `net10.0`: twelve production API/application/domain/infrastructure projects, three service test projects and the shared EventReliability test project. The SDK is 10.0.403; ASP.NET Core/EF Core packages use 10.0.13 and the PostgreSQL provider/driver use 10.0.3. C# remains explicitly at version 12 in service props; this migration does not adopt unrelated language features. The Node.js authorizer is unchanged.
 
 Existing EF migrations, snapshots and database contracts are unchanged. Tests compare all three provider models against their existing snapshots and prove that an incompatible model is rejected before changing migration history. ASP.NET forwarded-header configuration uses `KnownIPNetworks`, preserving the previous configured trust behavior. HTTP/event schemas, roles, JWT validation, outbox/inbox and delivery semantics remain unchanged.
 

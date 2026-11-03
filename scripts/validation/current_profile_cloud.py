@@ -83,7 +83,7 @@ def observe(reader=aws):
 def manifests(run_id):
     require(re.fullmatch('[a-f0-9]{24}', run_id), 'Run ID must be 24 lowercase hex characters')
     docker = (ROOT / 'microservices/auth-service/Dockerfile').read_text()
-    image = re.search(r'^FROM (mcr.microsoft.com/dotnet/sdk:10\.0\.402-noble@sha256:[a-f0-9]{64}) AS build$', docker, re.M)
+    image = re.search(r'^FROM (mcr.microsoft.com/dotnet/sdk:10\.0\.403-noble@sha256:[a-f0-9]{64}) AS build$', docker, re.M)
     require(image, 'Reviewed SDK image pin missing; do not choose latest')
     label = {'platform.cloud-native.io/validation-run': run_id}
     config = 'current-profile-probe-' + run_id

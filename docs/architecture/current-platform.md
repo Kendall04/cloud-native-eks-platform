@@ -4,7 +4,7 @@
 
 ## Request and data flow
 
-The only complete live environment definition is `dev` in `us-east-1`. The HTTP API is public; its backends and Kubernetes control-plane endpoint are private. API Gateway uses a Lambda REQUEST authorizer for protected routes and connects through a VPC Link to an internal HTTP ALB. The Load Balancer Controller registers pod IP targets on port 8080.
+The only complete environment definition is `dev` in `us-east-1`; its runtime was retired on 29 October. The following describes the declared system and explicitly dated observations, not an active cluster. The HTTP API is public; its backends and Kubernetes control-plane endpoint are private. API Gateway uses a Lambda REQUEST authorizer for protected routes and connects through a VPC Link to an internal HTTP ALB. The Load Balancer Controller registers pod IP targets on port 8080.
 
 | Service | Responsibility | Dependencies |
 | --- | --- | --- |
@@ -12,7 +12,7 @@ The only complete live environment definition is `dev` in `us-east-1`. The HTTP 
 | [Tracking](../../microservices/tracking-service) | Tracking timelines, admin event creation and transactional outbox dispatch | `tracking` schema, Shipment internal lookup, EventBridge |
 | [Shipment](../../microservices/shipment-service) | Customer shipment API and SQS event consumption in one Deployment | `shipment` schema, SQS and event KMS key |
 
-Auth uses ASP.NET Identity and HS256 JWTs. API Gateway replaces identity headers with authorizer context; Shipment/Tracking validate the proxy shared secret and enforce ownership/Admin policies. Current local source additionally requires Shipment/Tracking to send the original bearer to Auth's private `/auth/me` on each protected request and bind current identity/roles to the gateway attestation; see [ADR-005](../adr/005-current-profile-authorization.md). The [24 October matrix](../operations/eks-acceptance-2026-10-24.md) records scoped live enforcement of these checks, NetworkPolicy edges and TTL0; that runtime is now offline. Auth validates its JWTs itself. Internal Tracking→Shipment lookup uses a separate shared secret. These internal hops use HTTP, not mTLS.
+Auth uses ASP.NET Identity and HS256 JWTs. API Gateway replaces identity headers with authorizer context; Shipment/Tracking validate the proxy shared secret and enforce ownership/Admin policies. Source additionally requires Shipment/Tracking to send the original bearer to Auth's private `/auth/me` on each protected request and bind current identity/roles to the gateway attestation; see [ADR-005](../adr/005-current-profile-authorization.md). The [24 October matrix](../operations/eks-acceptance-2026-10-24.md) records scoped live enforcement of these checks, NetworkPolicy edges and TTL0; the [28–29 October cycle](../operations/eks-cycle-2026-10-29.md) separately records real authentication and resource authorization. Both are historical runtime evidence. Auth validates its JWTs itself. Internal Tracking→Shipment lookup uses a separate shared secret. These internal hops use HTTP, not mTLS.
 
 Public routes are explicitly listed in [integration inputs](../../infra/live/dev/apigateway-integration/terragrunt.hcl) and checked by [the HTTP contract validator](../../scripts/validation/validate_r1.py). Registration/login/refresh are public. Shipment and tracking reads/writes require authentication; `/admin/tracking-events` requires Admin. Application controllers contain additional operations; their existence does not automatically expose them at the gateway. `/internal/*`, health and Swagger are not public gateway routes.
 
@@ -50,6 +50,8 @@ There is no active analytics worker or notification target. The [notification La
 
 ## Network and Kubernetes placement
 
+This topology annotates the **28–29 October deployment**. Compute, NAT and ingress were subsequently retired; the retained RDS network has no application ingress until reviewed reconstruction. Independent CloudFront/S3 hosting serves synthetic DEMO and is not a live path into EKS.
+
 ```mermaid
 flowchart TB
   External[Internet and regional AWS APIs]
@@ -58,27 +60,27 @@ flowchart TB
     IGW[Internet gateway]
     subgraph A[us-east-1a]
       PA["Public 10.0.0.0/20<br/>NAT ASG A (0/1) + EIP"]
-      QA["Private 10.0.128.0/20<br/>Management; no observed EKS nodes"]
+      QA["Private 10.0.128.0/20<br/>Management; 2 observed EKS nodes"]
       QA -->|Default route| PA
     end
     subgraph B[us-east-1b]
       PB["Public 10.0.16.0/20<br/>NAT ASG B (0/1) + EIP"]
-      QB["Private 10.0.144.0/20<br/>Observed EKS capacity"]
+      QB["Private 10.0.144.0/20<br/>RDS placement; no observed EKS nodes"]
       QB -->|Default route| PB
     end
     subgraph C[us-east-1c]
       PC["Public 10.0.32.0/20<br/>NAT ASG C (0/1) + EIP"]
-      QC["Private 10.0.160.0/20<br/>Observed EKS capacity"]
+      QC["Private 10.0.160.0/20<br/>1 observed EKS node"]
       QC -->|Default route| PC
     end
     Endpoint[Private EKS endpoint]
     QA -->|Operator transit / CD| Endpoint
-    QB & QC --> Endpoint
-    Groups["API On-Demand + worker Spot groups"] -. observed capacity .-> QB & QC
+    QA & QC --> Endpoint
+    Groups["API On-Demand + worker Spot groups"] -. observed capacity .-> QA & QC
     Link[VPC Link ENIs] -->|HTTP 80| ALB[Internal ALB]
-    ALB -->|Pod targets 8080| QB & QC
-    DB["Single-AZ RDS<br/>Subnet group spans A/B/C"]
-    QB & QC -->|5432 TLS| DB
+    ALB -->|Pod targets 8080| QA & QC
+    DB["Single-AZ RDS in us-east-1b<br/>Subnet group spans A/B/C"]
+    QA & QC -->|Application 5432 TLS| DB
     QA -->|Operator DB transit 5432| DB
     PA & PB & PC --> IGW
   end
@@ -86,9 +88,9 @@ flowchart TB
   IGW --> External
 ```
 
-The diagram separates declared subnet eligibility from observed node placement. Both managed groups use private subnets across all three AZs, but the verified run placed nodes in B/C. Management uses the first private subnet (A). RDS is Single-AZ; its subnet group spanning AZs does not make the database Multi-AZ. The DB's physical AZ is intentionally unspecified.
+The diagram separates declared subnet eligibility from the final observed node placement **A/A/C**. Both managed groups allow all three private subnets; placement is not guaranteed. Earlier B/C observations in dated evidence describe a different run. Management used subnet A, and RDS was observed in B. A subnet group spanning three AZs does not make Single-AZ RDS Multi-AZ.
 
-The declared NAT stack uses three single-AZ ASGs, each with one NAT EC2 when enabled and zero capacity while paused. A fenced launch callback verifies bootstrap and restores SourceDestCheck, the slot EIP and its private default route. Dev activation defaults to off. Same-AZ replacement is locally tested source, not an AWS recovery result; continuous forwarding repair and cross-AZ failover are not configured. See [NAT recovery and migration](../operations/nat-recovery.md). This lowers lab cost while adding operational responsibility. The code defaults to `t3.micro`; historical operations included an OOM/resize incident. Review sizing before rebuilding; the default is not a demonstrated capacity guarantee.
+The declared NAT stack uses three single-AZ ASGs, each with one NAT EC2 when enabled and zero capacity while paused. A fenced launch callback verifies bootstrap and restores SourceDestCheck, the slot EIP and its private default route. Dev activation defaults to off. The installed cycle revision demonstrated one same-AZ replacement in 178 seconds. The later controller implementation has local validation; that earlier drill does not certify its current bytes. Continuous forwarding repair and cross-AZ failover are not configured. See [NAT recovery and migration](../operations/nat-recovery.md). This lowers lab cost while adding operational responsibility. The code defaults to `t3.micro`; historical operations included an OOM/resize incident. Review sizing before rebuilding; the default is not a demonstrated capacity guarantee.
 
 The API group defaults to two On-Demand `t3.large` nodes (range 2–6), and the worker group to one Spot `t3.large` (range 1–10). Workload labels do not imply hard service placement: chart node selectors are empty and spread is soft. Root launch templates specify encrypted 50 GiB gp3 disks with IMDSv2. See [EKS source](../../infra/modules/eks).
 
