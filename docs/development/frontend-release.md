@@ -96,7 +96,7 @@ Static hosting must serve actual files first, then fall back to `/index.html` fo
 
 - Port in use: stop the previous launcher/dev server or identify the owning process. Strict port handling prevents silent changes.
 - Backend unavailable: check all three `/health/ready` endpoints on 8080–8082 and the SSH tunnel, when used. Check ignored private launcher logs locally.
-- SDK mismatch: install/use 10.0.402; do not relax the SDK pin.
+- SDK mismatch: install/use 10.0.403; do not relax the SDK pin.
 - npm TLS interception: use your organization's trusted CA through `NODE_EXTRA_CA_CERTS`. Never disable strict TLS.
 - Registration rejected: check password complexity or use a different email. Existing accounts return conflict.
 - Empty tracking: expected for newly created shipments; local startup does not run AWS workers. DEMO history is visibly synthetic.

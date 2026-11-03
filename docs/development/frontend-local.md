@@ -6,7 +6,7 @@ Commands below start from the repository root in each terminal. This is a local 
 
 ## Local API with PostgreSQL
 
-Prerequisites: Docker Engine/Desktop with Linux containers, .NET SDK **10.0.402**, network access for the initial locked restore, and free localhost ports **5173, 8080–8082 and 55435**. No Kubernetes, AWS identity or cloud emulator is needed.
+Prerequisites: Docker Engine/Desktop with Linux containers, .NET SDK **10.0.403**, network access for the initial locked restore, and free localhost ports **5173, 8080–8082 and 55435**. No Kubernetes, AWS identity or cloud emulator is needed.
 
 In one terminal:
 
