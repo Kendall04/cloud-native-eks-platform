@@ -153,3 +153,38 @@ Validate requires no AWS credentials. Build SHA Images, Create Release and Deplo
 ### Frontend glob dependency override
 
 The frontend pins the development-only transitive `minimatch` dependency to 11.0.1 for [GHSA-g3hv-75wg-m249](https://github.com/advisories/GHSA-g3hv-75wg-m249). ESLint and TypeScript-ESLint still request the affected 10.x series, so this is an explicit compatibility override, not an ignored advisory or an automatic major upgrade of the lint stack. Keep locked installation, lint, type checks, application tests and browser checks as compatibility gates. Remove the override only when upstream ranges resolve to a patched version and the same gates pass. `npm audit` retains its full dependency scope and failure behavior.
+
+## Public security artifacts
+
+Validate scans complete source, Docker images and rendered Helm manifests in
+`.validation-results/security-private/`. This analysis workspace is never uploaded:
+Helm can generate real, disposable TLS private keys even during offline rendering.
+Scanner scope, blocking severities and expiring exceptions are unchanged.
+
+`scripts/ci/security_artifacts.py` projects the result into a separate, fresh
+`.validation-results/security-public/` directory. Its closed allowlist contains only
+`security-evidence.json`: finding identifiers, packages/versions, severities, policy
+classification, exception reasons/expiry and selected provenance. Resource excerpts
+are represented by hashes. Full Trivy reports, rendered manifests and CycloneDX
+properties remain private; the public image evidence retains the SBOM hash and
+component count. The full SBOM still undergoes its existing schema validation.
+
+The publication gate validates the actual bytes and schema, rejects unexpected
+files/directories, symlinks, archives, private keys, populated Kubernetes Secrets,
+embedded manifests and detectable Base64-encoded sensitive content. It fails closed;
+errors print only the expected filename and category. No finite scanner detects every
+possible secret, so the structural allowlist is the primary boundary.
+
+A failed scan remains a failed job. A separate `always()` step may prepare a bounded
+failure diagnostic, but upload requires that staging and its final verification both
+succeed. An incomplete scan cannot publish a success report. Regressions use invalid
+synthetic key markers, never usable private keys:
+
+```bash
+python -B -m unittest discover -s scripts/validation -p test_security_artifacts.py
+```
+
+Public Actions artifacts can be downloaded by users with repository read access.
+Never apply a manifest downloaded from a validation artifact. Deleting an exposed
+artifact does not invalidate previously downloaded copies. Real credential exposure
+requires revocation/rotation; disposable offline CI certificates must not be reused.
