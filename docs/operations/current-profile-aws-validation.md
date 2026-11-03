@@ -2,7 +2,7 @@
 
 Preparation only, 16 October 2026. Source prerequisite: `e7a7035fe17db55a6774a5cfc4704786f15880f3` and [ADR-005](../adr/005-current-profile-authorization.md). No deployment, image publication, fault injection or AWS mutation is authorized by this document. Hosting, domain decisions, frontend changes and Private CD certification are outside this block.
 
-> Historical package: the 16 October observations, USD 8 model and six-hour window below are preserved for provenance. They are expired and do not authorize the next cycle. Use the [21 October reconciliation](../results.md) and [fresh manifest/budget/TTL requirements](teardown.md#proposed-lifecycle-classification) before requesting any future mutation. Current cloud certification remains pending.
+> Historical package: the 16 October observations, USD 8 model and six-hour window below are preserved for provenance. They are expired and do not authorize the next cycle. For later results, use the [28–29 October closure](eks-cycle-2026-10-29.md); for any future operation, use [retained-state rebuild prerequisites](post-cycle-rebuild.md) and [manual cleanup](lab-cleanup.md). The pending certification below describes this expired preparation checkpoint.
 
 ## Observed starting point
 
@@ -18,9 +18,9 @@ Windows and Linux were clean at the prerequisite SHA. Cached `cnp-ci/{auth,shipm
 
 ## SSH diagnosis and minimal remedy
 
-The restricted shell runs as `codexsandboxoffline`. OpenSSH resolves its home as `C:\WINDOWS`, misses the user's SSH config/known_hosts and resolves `codex-vm` differently. It fails before authentication. This is an execution-identity/configuration problem, not evidence of a rotated host key.
+The historical restricted shell used a different execution identity from the operator. OpenSSH resolves its home as `C:\WINDOWS`, misses the user's SSH config/known_hosts and resolves `codex-vm` differently. It fails before authentication. This is an execution-identity/configuration problem, not evidence of a rotated host key.
 
-Run the existing SSH alias through the supported user-context sandbox escalation. It reads `C:\Users\PC\.ssh\config`, selects `kendall@192.168.92.128` and `id_ed25519_codex_vm`. With `StrictHostKeyChecking=yes`, the presented ED25519 key `SHA256:OU0g95u6sku0ROJv4ZJ5hIBZTjlm5thKXBGOk21bM0g` matches existing known_hosts line 34. No key was accepted, removed or rewritten. The same context resolves the existing AWS profile; the restricted context incorrectly reports it missing. Do not copy private keys/credentials or disable verification.
+The historical resolution used the reviewed SSH alias in the operator context and the operator's own SSH configuration. With `StrictHostKeyChecking=yes`, the presented ED25519 host key matched the existing known_hosts entry. Personal paths, SSH username/address, key filename and host-key fingerprint are omitted from this public copy; the original observation remains historical, not an executable handoff. No key was accepted, removed or rewritten. The same context resolves the existing AWS profile; the restricted context incorrectly reports it missing. Do not copy private keys/credentials or disable verification.
 
 ## Smallest supported reconstruction
 
